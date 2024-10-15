@@ -26,7 +26,7 @@ const Login = () => {
                 <label htmlFor="remember" className="ml-2 block text-sm text-gray-900 font-medium">Remember Password</label>
               </div>
               <div className="mb-4">
-                <a href="#forgot-password" className="text-sm text-[#13BEF0] hover:underline font-medium">Forgot Password?</a>
+                <a href="#forgot-password" className="text-sm text-[#004AAD] hover:underline font-medium">Forgot Password?</a>
               </div>
               <div>
                 <button type="submit" className="w-full py-2 px-4 bg-[#004AAD] text-white rounded-md hover:bg-[#0fa3d1] font-medium">Login</button>
