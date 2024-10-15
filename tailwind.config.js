@@ -12,11 +12,17 @@ export default {
       light: "#F8F9FA",
       dark: "#343A40",
       white: "#FFFFFF",
-      black: "#000000",
       transparent: "transparent",
       blue: {
         900: "#2A2F3E",
         300: "#928A8A",
+      },
+      black: {
+        900: "#000000",
+        500: "#6c757d",
+        300: "#a7a7a7",
+        200: "#d3d3d3",
+        100: "#f5f5f5",
       },
       textMainColor: {
         900: "#FFFFFF",
