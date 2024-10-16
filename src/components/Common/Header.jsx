@@ -10,10 +10,10 @@ const Header = () => {
         <img src={logo} alt="Logo" className="w-full h-full object-cover mt-10 ml-2" />
       </div>
       <div className="center flex-grow flex justify-center space-x-10">
-        <NavLink to="/home" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">Home</NavLink>
-        <NavLink to="/about" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">About Us</NavLink>
-        <NavLink to="/contact" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">Contact</NavLink>
         <NavLink to="/doctors" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">Our Doctors</NavLink>
+        <NavLink to="/home" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">Find A Clinic</NavLink>
+        <NavLink to="/about" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">Membership Plan</NavLink>
+        <NavLink to="/contact" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">Contact</NavLink>
         <NavLink to="/bookappointment" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">Book Appointment</NavLink>
       </div>
       <div className="right flex items-center">

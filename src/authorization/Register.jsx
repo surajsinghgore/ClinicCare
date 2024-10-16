@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import loginRegister from '../assets/loginRegister.png'
 import { Link } from 'react-router-dom'
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const Register = () => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  }
+
   return (
     <div className="flex justify-center items-center mt-16">
       <div className="w-1/2 flex justify-center items-center">
@@ -11,7 +22,7 @@ const Register = () => {
       <div className="w-1/2 flex justify-center items-center">
         <div className="border rounded-lg p-8 mr-56" style={{ borderColor: '#d3d3d3' }}>
           <h2 className="text-2xl font-bold mb-4">Register Form</h2>
-          <form className="w-[380px]">
+          <form className="w-[380px]" onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="fullName" className="block text-sm text-gray-700 font-medium">Full Name</label>
               <input type="text" id="fullName" className="mt-1 block w-full px-3 py-2 border border-[#004AAD] rounded-md focus:outline-none focus:ring-[#004AAD] focus:border-[#004AAD]" autoComplete='off' />
@@ -20,9 +31,20 @@ const Register = () => {
               <label htmlFor="mobileNumber" className="block text-sm text-gray-700 font-medium">Mobile Number</label>
               <input type="text" id="mobileNumber" className="mt-1 block w-full px-3 py-2 border border-[#004AAD] rounded-md focus:outline-none focus:ring-[#004AAD] focus:border-[#004AAD]" autoComplete='off' />
             </div>
-            <div className="mb-7">
+            <div className="mb-4">
               <label htmlFor="email" className="block text-sm text-gray-700 font-medium">Email</label>
               <input type="email" id="email" className="mt-1 block w-full px-3 py-2 border border-[#004AAD] rounded-md focus:outline-none focus:ring-[#004AAD] focus:border-[#004AAD]" autoComplete='off' />
+            </div>
+            <div className="mb-7 relative">
+              <label htmlFor="password" className="block text-sm text-gray-700 font-medium">Password</label>
+              <input type={passwordVisible ? "text" : "password"} id="password" className="mt-1 block w-full px-3 py-2 border border-[#004AAD] rounded-md focus:outline-none focus:ring-[#004AAD] focus:border-[#004AAD]" autoComplete='off' />
+              <div className="absolute inset-y-0 right-0 top-[35%] pr-3 flex items-center text-sm leading-5">
+                  {passwordVisible ? (
+                    <FaRegEyeSlash onClick={togglePasswordVisibility} className="cursor-pointer text-lg" />
+                  ) : (
+                    <FaRegEye onClick={togglePasswordVisibility} className="cursor-pointer text-lg" />
+                  )}
+                </div>
             </div>
             <div className="mb-4">
               <label className="block text-sm text-gray-700 font-medium mb-2">Permissions</label>
