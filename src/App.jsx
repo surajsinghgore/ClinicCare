@@ -1,12 +1,18 @@
 import React from 'react'
-import Header from './components/Header'
-import Login from './authorization/Login'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './authorization/Login';
+import Header from './components/Common/Header';
+import Register from './authorization/Register';
 
 const App = () => {
   return (
-    <>
-    <Login/>
-    </>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
   )
 }
 
