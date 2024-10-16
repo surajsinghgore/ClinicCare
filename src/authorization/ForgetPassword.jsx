@@ -10,7 +10,7 @@ const ForgetPassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(email)
-        // navigate('/otp', { state: {email} })
+        navigate('/otpverify', { state: {email} })
     }
 
   return (
