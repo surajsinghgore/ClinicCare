@@ -9,7 +9,7 @@ const ForgetPassword = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(email)
+        // console.log(email)
         navigate('/otpverify', { state: {email} })
     }
 
@@ -21,7 +21,7 @@ const ForgetPassword = () => {
       <div className="w-1/2 flex justify-center items-center">
         <div className="border rounded-lg p-8 mr-56" style={{ borderColor: '#d3d3d3' }}>
           <h2 className="text-2xl font-bold mb-6 text-black-700 border-b-2 border-black-200 pb-4">Forget Password</h2>
-          <p className="mb-4 text-black-400">Provide us the email id of your cliniccare account and we will send you an email/otp with instructions to reset your password.</p>
+          <p className="mb-4 text-black-400">Provide us the email id of your cliniccare account and we will send you an otp to reset your password.</p>
           <form className="w-[100%]" onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="email" className="block text-base text-black-700 font-medium">Email</label>

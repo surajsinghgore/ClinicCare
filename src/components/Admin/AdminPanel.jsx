@@ -1,116 +1,93 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { IoIosSearch } from "react-icons/io";
+import { IoMdLogOut } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
-import { FaUserDoctor } from "react-icons/fa6";
-import { AiOutlineTransaction } from "react-icons/ai";
-import { TbReportAnalytics } from "react-icons/tb";
-import { IoCalendarNumber } from "react-icons/io5";
+import { FaStethoscope } from "react-icons/fa";
 import { RiMoneyRupeeCircleLine } from "react-icons/ri";
-import { IoSearchSharp } from "react-icons/io5";
-import { FiLogOut } from "react-icons/fi";
+import { TbReportMedical } from "react-icons/tb";
+import { SlCalender } from "react-icons/sl";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
-import { IoIosArrowDown } from "react-icons/io";
-import { IoIosAddCircle } from "react-icons/io";
-import { GrUpdate } from "react-icons/gr";
-import { FaFileCircleCheck } from "react-icons/fa6";
-import logo from '../../assets/logo.png'
-import adminprofile from '../../assets/admin.png'
+// import { IoIosArrowDown } from "react-icons/io";
+import adminpanel from '../../assets/adminpanel.png'
+import admin from '../../assets/admin.jpeg'
 
 const AdminPanel = () => {
-  const [toggle, setToggle] = useState(false);
-
   return (
-    <div className="flex">
-      <div className="w-1/4 shadow">
-          <img src={logo} alt="Logo" className="w-56 ml-10"/>
-        <div>
-          <nav>
-            <ul className='pl-7 pr-7 pb-7 pt-0'>
-              <li className="mb-10 border-b border-black-300">
-                <a href="/user" className="flex items-center text-xl font-semibold text-[#004AAD] mb-4">
-                  <FaRegUserCircle className="mr-6 text-3xl" />
-                  User
-                </a>
-              </li>
-              <li className="mb-10 border-b border-black-300">
-                <a href="/" className="flex items-center text-xl font-semibold text-[#004AAD] mb-4" onClick={(e) => {e.preventDefault(); setToggle(!toggle)}}>
-                  <FaUserDoctor className="mr-6 text-3xl text-[#004AAD]" />
-                  Doctor
-                  {toggle ? <IoIosArrowDown className="ml-auto text-[#004AAD]" /> : <IoIosArrowForward className="ml-auto text-[#004AAD]" />}
-                </a>
-                {toggle && (
-                  <div className="pl-7">
-                    <ul>
-                      <li className="mb-9 mt-10 text-[#4BC6DC] font-semibold flex items-center">
-                        <a href="/" className="flex items-center text-[#4BC6DC] text-lg font-semibold mb-4">
-                          <IoIosAddCircle className=" text-3xl mr-3" />
-                          Add Doctor
-                        </a>
-                      </li>
-                      <li className="mb-9 text-[#4BC6DC] font-semibold flex items-center">
-                        <a href="/" className="flex items-center text-[#4BC6DC] text-lg font-semibold mb-4">
-                          <GrUpdate className=" text-3xl mr-3" />
-                          Update Doctor
-                        </a>
-                      </li>
-                      <li className="mb-9 text-[#4BC6DC] font-semibold flex items-center">
-                        <a href="/" className="flex items-center text-[#4BC6DC] text-lg font-semibold mb-4">
-                          <FaFileCircleCheck className=" text-3xl mr-3" />
-                          Verify Doctor
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </li>
-              <li className="mb-10 border-b border-black-300">
-                <a href="/transaction" className="flex items-center text-xl font-semibold text-[#004AAD] mb-4">
-                  <AiOutlineTransaction className="mr-6 text-3xl" />
-                  Transaction
-                </a>
-              </li>
-              <li className="mb-10 border-b border-black-300">
-                <a href="/report" className="flex items-center text-xl font-semibold text-[#004AAD] mb-4">
-                  <TbReportAnalytics className="mr-6 text-3xl" />
-                  Report
-                </a>
-              </li>
-              <li className="mb-10 border-b border-black-300">
-                <a href="/appointment" className="flex items-center text-xl font-semibold text-[#004AAD] mb-4">
-                  <IoCalendarNumber className="mr-6 text-3xl" />
-                  Appointment
-                </a>
-              </li>
-              <li className="mb-10 border-b border-black-300">
-                <a href="/platform-fees" className="flex items-center text-xl font-semibold text-[#004AAD] mb-4">
-                  <RiMoneyRupeeCircleLine className="mr-6 text-3xl" />
-                  Platform Fees
-                </a>
-              </li>
-              <li className="mb-10 border-b border-black-300">
-                <a href="/login" className="flex items-center text-xl font-semibold text-[#004AAD] mb-4">
-                  <FiLogOut className="mr-6 text-3xl" />
-                  Logout
-                </a>
-              </li>
-            </ul>
+    <>
+      <div className="h-[80px] fixed top-0 left-0 right-0 bg-gradient-to-r from-blue-500 to-blue-700 text-white py-4 px-10 flex justify-between items-center">
+        <div className="flex items-center">
+          <img src={adminpanel} alt="Logo" className="h-16 w-16 mr-4 rounded-full object-center" />
+          <h1 className="text-2xl font-bold">ClinicCare</h1>
+        </div>
+        <div className="flex items-center">
+          <div className="flex items-center bg-gray-700 px-4 py-2 rounded-md relative">
+            <input type="text" placeholder="Search" className="bg-white text-black-900 border-none text-black p-2 w-80 rounded-lg focus:outline-none pl-10" />
+            <IoIosSearch className="h-7 w-7 absolute left-6 top-1/2 transform -translate-y-1/2 text-[#116AEF]" />
+          </div>
+          <a href="/login" className="px-2 py-2 rounded-full border border-black shadow-md text-white relative">
+            <IoMdLogOut className='w-6 h-6' />
+          </a>
+        </div>
+      </div>
+      <div className="mt-16 flex flex-col w-[17%] shadow-lg">
+        <section className="bg-[#FFFFFF] py-3 px-2 border-b-[1px] border-black-200">
+          <div className="flex items-center ml-1 mt-10">
+            <img src={admin} alt="Admin" className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover object-top shadow-md" />
+            <div>
+              <h1 className="text-xl font-semibold">Nick Gonzalez</h1>
+              <p className='text-sm'>Dept Admin</p>
+            </div>
+          </div>
+        </section>
+        <section className="h-screen py-5 flex-grow bg-[#FFFFFF]">
+          <nav className="flex flex-col justify-between">
+            <a href="/users" className="text-black hover:bg-[#E9F2FF] transition-colors duration-300 px-6 py-3 flex items-center text-lg font-normal">
+              <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center mr-5">
+                <FaRegUserCircle className="text-2xl text-[#116AEF]" />
+              </div>
+              Users
+              <IoIosArrowForward className="ml-auto text-2xl text-black" />
+            </a>
+            <a href="/doctors" className="text-black hover:bg-[#E9F2FF] transition-colors duration-300 px-6 py-3 flex items-center text-lg font-normal">
+              <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center mr-5">
+                <FaStethoscope className="text-2xl text-[#116AEF]" />
+              </div>
+              Doctors
+              <IoIosArrowForward className="ml-auto text-2xl text-black" />
+            </a>
+            <a href="/transactions" className="text-black hover:bg-[#E9F2FF] transition-colors duration-300 px-6 py-3 flex items-center text-lg font-normal">
+              <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center mr-5">
+                <RiMoneyRupeeCircleLine className="text-2xl text-[#116AEF]" />
+              </div>
+              Transactions
+              <IoIosArrowForward className="ml-auto text-2xl text-black" />
+            </a>
+            <a href="/reports" className="text-black hover:bg-[#E9F2FF] transition-colors duration-300 px-6 py-3 flex items-center text-lg font-normal">
+              <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center mr-5">
+                <TbReportMedical className="text-2xl text-[#116AEF]" />
+              </div>
+              Reports
+              <IoIosArrowForward className="ml-auto text-2xl text-black" />
+            </a>
+            <a href="/appointments" className="text-black hover:bg-[#E9F2FF] transition-colors duration-300 px-6 py-3 flex items-center text-lg font-normal">
+              <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center mr-5">
+                <SlCalender className="text-2xl text-[#116AEF]" />
+              </div>
+              Appointments
+              <IoIosArrowForward className="ml-auto text-2xl text-black" />
+            </a>
+            <a href="/platform-fees" className="text-black hover:bg-[#E9F2FF] transition-colors duration-300 px-6 py-3 flex items-center text-lg font-normal">
+              <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center mr-5">
+                <FaMoneyCheckDollar className="text-2xl text-[#116AEF]" />
+              </div>
+              Platform Fees
+              <IoIosArrowForward className="ml-auto text-2xl text-black" />
+            </a>
           </nav>
-        </div>
+        </section>
       </div>
-      <div className="w-full h-screen bg-gray-100">
-        <div className="flex h-[100px] justify-between items-center p-4 bg-white shadow sticky top-0">
-          <div className="flex items-center">
-            <IoSearchSharp className="ml-2 mr-4 text-3xl text-black-400" />
-            <input type="text" placeholder="Find something..." className="p-2 border-2 border-blue-700 rounded-md w-[30rem]" />
-          </div>
-          <div className="flex items-center">
-            <span className='mr-2 text-lg font-semibold'>admin@gmail.com</span>
-            <img src={adminprofile} alt="Profile" className="w-24 rounded-full" />
-          </div>
-        </div>
-        <div className="p-4">
-        </div>
-      </div>
-    </div>
+    </>
   )
 }
 
