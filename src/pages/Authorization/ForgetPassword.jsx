@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import forgetPassword from '../assets/forgetpass.png'
+import  { useState } from 'react'
+import forgetPassword from '../../assets/forgetpass.png'
 import { useNavigate } from 'react-router-dom'
 
 const ForgetPassword = () => {
@@ -10,7 +10,7 @@ const ForgetPassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         // console.log(email)
-        navigate('/otpverify', { state: {email} })
+        navigate('/auth/otpverify', { state: {email} })
     }
 
   return (

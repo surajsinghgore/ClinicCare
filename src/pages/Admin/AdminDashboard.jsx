@@ -1,4 +1,3 @@
-import React from 'react'
 import { IoIosSearch } from "react-icons/io";
 import { IoMdLogOut } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -9,10 +8,10 @@ import { SlCalender } from "react-icons/sl";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
 // import { IoIosArrowDown } from "react-icons/io";
-import adminpanel from '../../assets/adminpanel.png'
-import admin from '../../assets/admin.jpeg'
+import adminpanel from "../../assets/adminpanel.png";
+import admin from "../../assets/admin.jpeg";
 
-const AdminPanel = () => {
+const AdminDashboard = () => {
   return (
     <>
       <div className="h-[80px] fixed top-0 left-0 right-0 bg-gradient-to-r from-blue-500 to-blue-700 text-white py-4 px-10 flex justify-between items-center">
@@ -26,7 +25,7 @@ const AdminPanel = () => {
             <IoIosSearch className="h-7 w-7 absolute left-6 top-1/2 transform -translate-y-1/2 text-[#116AEF]" />
           </div>
           <a href="/login" className="px-2 py-2 rounded-full border border-black shadow-md text-white relative">
-            <IoMdLogOut className='w-6 h-6' />
+            <IoMdLogOut className="w-6 h-6" />
           </a>
         </div>
       </div>
@@ -36,7 +35,7 @@ const AdminPanel = () => {
             <img src={admin} alt="Admin" className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover object-top shadow-md" />
             <div>
               <h1 className="text-xl font-semibold">Nick Gonzalez</h1>
-              <p className='text-sm'>Dept Admin</p>
+              <p className="text-sm">Dept Admin</p>
             </div>
           </div>
         </section>
@@ -88,7 +87,7 @@ const AdminPanel = () => {
         </section>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default AdminPanel
+export default AdminDashboard;
