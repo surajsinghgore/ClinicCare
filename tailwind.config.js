@@ -28,6 +28,9 @@ export default {
         200: "#d3d3d3",
         100: "#f5f5f5",
       },
+      loader: {
+        900: "#2A354D"
+      },
       textMainColor: {
         900: "#FFFFFF",
       },
