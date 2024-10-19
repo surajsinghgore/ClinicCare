@@ -1,32 +1,22 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import otpverify from "../../assets/otpverify.png";
-import { getSessionStorage, removeSessionStorage } from "../../Utils/SessionStorage";
+import { removeSessionStorage } from "../../Utils/SessionStorage";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { useDispatch } from "react-redux";
 import { showLoader, hideLoader } from "../../redux/Slices/LoaderState";
-import { otpAdminAccountVerifyApi, resendOtpAdminAccountApi } from "../../Utils/services/apis/AuthApis";
-import { Link, useNavigate } from "react-router-dom";
 
-const OtpVerify = () => {
+import { useNavigate } from "react-router-dom";
+import { getLocalStorage } from "../../Utils/LocalStorage";
+import { loginAdminOtpVerifyApi } from "../../Utils/services/apis/CommonApi";
+
+const LoginOtpVerify = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [otp, setOtp] = useState(new Array(6).fill(""));
-  const [cooldown, setCooldown] = useState(0); 
-  const email = getSessionStorage("email");
-  const inputRefs = useRef([]);
 
-  useEffect(() => {
-    let timer;
-    if (cooldown > 0) {
-      timer = setInterval(() => {
-        setCooldown((prev) => prev - 1);
-      }, 1000);
-    }
-    return () => {
-      clearInterval(timer);
-    };
-  }, [cooldown]);
+  const email = getLocalStorage("email");
+  const inputRefs = useRef([]);
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
@@ -55,7 +45,7 @@ const OtpVerify = () => {
       return;
     }
     if (!email) {
-      dispatch(showAlert({ message: "Please retry registration again", type: "warning" }));
+      dispatch(showAlert({ message: "Please retry login api", type: "warning" }));
       return;
     }
     dispatch(showLoader());
@@ -63,42 +53,16 @@ const OtpVerify = () => {
       const otpValue = otp.join("");
 
       let body = { email, otp: otpValue };
-      let res = await otpAdminAccountVerifyApi(body);
+      let res = await loginAdminOtpVerifyApi(body);
       dispatch(showAlert({ message: res.message, type: "success" }));
-      removeSessionStorage("email");
       setTimeout(() => {
-        navigate("/auth/login");
+        navigate("/admin/dashboard");
       }, 2000);
     } catch (error) {
       dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
     } finally {
       dispatch(hideLoader());
     }
-  };
-
-  const resendOtp = async () => {
-    if (!email) {
-      dispatch(showAlert({ message: "Please retry registration again", type: "warning" }));
-      return;
-    }
-    if (cooldown > 0) return; 
-    dispatch(showLoader());
-    try {
-      let body = { email };
-      let res = await resendOtpAdminAccountApi(body);
-      dispatch(showAlert({ message: res.message, type: "success" }));
-      setCooldown(15 * 60);
-    } catch (error) {
-      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
-    } finally {
-      dispatch(hideLoader());
-    }
-  };
-
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}:${secs < 10 ? `0${secs}` : secs}`;
   };
 
   return (
@@ -108,7 +72,7 @@ const OtpVerify = () => {
       </div>
       <div className="w-1/2 flex justify-center items-center">
         <div className="border rounded-lg p-8 mr-56" style={{ borderColor: "#d3d3d3" }}>
-          <h2 className="text-2xl font-bold mb-6 text-black-700 border-b-2 border-black-200 pb-4">OTP Verification</h2>
+          <h2 className="text-2xl font-bold mb-6 text-black-700 border-b-2 border-black-200 pb-4">Login OTP Verification</h2>
           <p className="mb-4">Please enter the 6-digit OTP sent to your registered email.</p>
           <div className="mb-4 flex space-x-2">
             {otp.map((digit, index) => (
@@ -124,15 +88,7 @@ const OtpVerify = () => {
               />
             ))}
           </div>
-          <div className="mb-10">
-            {cooldown === 0 ? (
-              <p onClick={resendOtp} className="text-sm cursor-pointer text-[#004AAD] hover:underline font-medium text-right">
-                Resend OTP?
-              </p>
-            ) : (
-              <p className="text-sm font-medium text-right text-gray-500">Resend OTP in {formatTime(cooldown)}</p>
-            )}
-          </div>
+
           <button type="button" onClick={submitOtp} className="w-full py-2 px-4 bg-[#004AAD] text-white rounded-md hover:bg-[#0fa3d1] font-medium">
             Verify OTP
           </button>
@@ -142,4 +98,4 @@ const OtpVerify = () => {
   );
 };
 
-export default OtpVerify;
+export default LoginOtpVerify;

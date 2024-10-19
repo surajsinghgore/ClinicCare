@@ -25,13 +25,4 @@ export const registerAdminValidation = yup.object({
 //     .required("Permission is required."),
 });
 
-export const loginValidation = yup.object({
-  usernameOrEmail: yup
-    .string()
-    .trim() // Trim whitespace
-    .required("Username or Email is required"), // Required field
-  password: yup
-    .string()
-    .trim() // Trim whitespace
-    .required("Password is required"), // Required field
-});
+

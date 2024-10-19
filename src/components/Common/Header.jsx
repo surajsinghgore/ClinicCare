@@ -26,7 +26,7 @@ const Header = () => {
         </NavLink>
       </div>
       <div className="right flex items-center">
-        <Link to="/login" className="border text-black px-4 py-2 rounded mr-16" style={{ borderColor: "#004AAD", color: "#004AAD" }}>
+        <Link to="/auth/login" className="border text-black px-4 py-2 rounded mr-16" style={{ borderColor: "#004AAD", color: "#004AAD" }}>
           Signup / Login
         </Link>
       </div>

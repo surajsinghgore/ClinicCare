@@ -13,6 +13,7 @@ import AdminLayout from "../Layout/AdminLayout";
 import CreateDoctor from "../pages/Admin/CreateDoctor";
 import AdminCreate from "../pages/Authorization/AdminCreate";
 import OtpAndPasswordChange from "../pages/Authorization/OtpAndPasswordChange";
+import LoginOtpVerify from "../pages/Authorization/LoginOtpVerify";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,14 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout>
             <OtpVerify />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "login-otp-verify",
+        element: (
+          <AuthLayout>
+            <LoginOtpVerify />
           </AuthLayout>
         ),
       },
