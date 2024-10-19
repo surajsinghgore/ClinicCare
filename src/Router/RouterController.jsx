@@ -10,6 +10,7 @@ import OtpVerify from "../pages/Authorization/OtpVerify";
 import AdminProtected from "../PageProtected/AdminProtected";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AdminLayout from "../Layout/AdminLayout";
+import CreateDoctor from "../pages/Admin/CreateDoctor";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,14 @@ const router = createBrowserRouter([
         element: (
           <AdminLayout>
             <AdminDashboard />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: "add-doctor",
+        element: (
+          <AdminLayout>
+            <CreateDoctor />
           </AdminLayout>
         ),
       },
