@@ -37,6 +37,14 @@ export default {
       borderOutlineColor: {
         900: "#a7a7a7",
       },
+      alert: {
+        black: "#1F2937",
+        gray: "#6B7280",
+        teal: "#14B8A6",
+        blue: "#3B82F6",
+        red: "#EF4444",
+        yellow: "#EAB308",
+      }
     },
     screens: {
       "4xl": { max: "2047px" },

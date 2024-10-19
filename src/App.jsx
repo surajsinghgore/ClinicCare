@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import Footer from './components/Common/Footer';
 // import AdminPanel from './components/Admin/AdminPanel';
 import Loader from './components/Loader';
+import SuccessAlert from './components/Alerts/SuccessAlert';
+import BlackAlert from './components/Alerts/BlackAlert';
 
 
 const App = () => {
@@ -16,11 +18,11 @@ const App = () => {
       {/* <Header /> */}
       <Routes>
         {/* <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route path="adminregister" element={<Register />} />
         <Route path="forgetpassword" element={<ForgetPassword />} />
         <Route path="otpverify" element={<OtpVerify />} /> */}
         {/* <Route path="adminpanel" element={<AdminPanel />} /> */}
-        <Route path="loader" element={<Loader />} />
+        <Route path="loader" element={<BlackAlert />} />
 
       </Routes>
       {/* <Footer /> */}
