@@ -1,4 +1,5 @@
 import AdminHeader from "../components/Admin/AdminHeader";
+import AdminNavigate from "../components/Common/AdminNavigate";
 import Footer from "../components/Common/Footer";
 import Header from "../components/Common/Header";
 import LeftNavBar from "../components/Common/LeftNavBar";

@@ -38,8 +38,8 @@ const LeftNavBar = () => {
                 title="Doctor" 
                 icons={<FaStethoscope className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
-                    { link: "/doctors/list", title: "Doctor List" },
-                    { link: "/doctors/add", title: "Add Doctor" }
+                    { link: "/admin/add-doctor", title: "Add Doctor" },
+                    { link: "/admin/", title: "Verify Doctor" }
                 ]}
             />
             <LeftNavLink 

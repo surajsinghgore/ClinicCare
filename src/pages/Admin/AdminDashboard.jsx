@@ -3,7 +3,7 @@ import AdminNavigate from "../../components/Common/AdminNavigate";
 const AdminDashboard = () => {
   return (
     <>
-     <AdminNavigate/>
+     <AdminNavigate currentPath="Dashboard"/>
     </>
   );
 };

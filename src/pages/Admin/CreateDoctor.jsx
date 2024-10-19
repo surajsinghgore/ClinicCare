@@ -1,8 +1,11 @@
 import React from 'react'
+import AdminNavigate from '../../components/Common/AdminNavigate'
 
 const CreateDoctor = () => {
   return (
-    <div>CreateDoctor</div>
+    <div>
+        <AdminNavigate currentPath="Add Doctor"/>
+    </div>
   )
 }
 
