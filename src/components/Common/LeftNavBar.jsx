@@ -23,14 +23,50 @@ const LeftNavBar = () => {
           </div>
         </section>
         <section className="h-screen py-5 flex-grow bg-[#FFFFFF]">
-          <nav className="flex flex-col justify-between">
-            <LeftNavLink link="/users" title="User" icons={<FaRegUserCircle className="text-2xl text-[#116AEF]" />}/>
-            <LeftNavLink link="/users" title="Doctor" icons={<FaStethoscope className="text-2xl text-[#116AEF]" />}/>
-            <LeftNavLink link="/users" title="Transaction" icons={<RiMoneyRupeeCircleLine className="text-2xl text-[#116AEF]" />}/>
-            <LeftNavLink link="/users" title="Reports" icons={<TbReportMedical className="text-2xl text-[#116AEF]" />}/>
-            <LeftNavLink link="/users" title="Appointments" icons={<SlCalender className="text-2xl text-[#116AEF]" />}/>
-            <LeftNavLink link="/users" title="Platform Fees" icons={<FaMoneyCheckDollar className="text-2xl text-[#116AEF]" />}/>
-          </nav>
+        <nav className="flex flex-col justify-between">
+            <LeftNavLink 
+                link="/users" 
+                title="User" 
+                icons={<FaRegUserCircle className=" icon text-2xl text-black-800" />} 
+                submenuItems={[
+                    { link: "/users/profile", title: "Profile" },
+                    { link: "/users/settings", title: "Settings" }
+                ]}
+            />
+            <LeftNavLink 
+                link="/doctors" 
+                title="Doctor" 
+                icons={<FaStethoscope className=" icon text-2xl text-black-800" />} 
+                submenuItems={[
+                    { link: "/doctors/list", title: "Doctor List" },
+                    { link: "/doctors/add", title: "Add Doctor" }
+                ]}
+            />
+            <LeftNavLink 
+                link="/transactions" 
+                title="Transaction" 
+                icons={<RiMoneyRupeeCircleLine className=" icon text-2xl text-black-800" />}
+            />
+            <LeftNavLink 
+                link="/reports" 
+                title="Reports" 
+                icons={<TbReportMedical className=" icon text-2xl text-black-800" />} 
+            />
+            <LeftNavLink 
+                link="/appointments" 
+                title="Appointments" 
+                icons={<SlCalender className=" icon text-2xl text-black-800" />} 
+                submenuItems={[
+                    { link: "/appointments/upcoming", title: "Upcoming" },
+                    { link: "/appointments/past", title: "Past" }
+                ]}
+            />
+            <LeftNavLink 
+                link="/platform-fees" 
+                title="Platform Fees" 
+                icons={<FaMoneyCheckDollar className=" icon text-2xl text-black-800" />} 
+            />
+        </nav>
         </section>
       </div>
   )

@@ -7,3 +7,9 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+
+
+/* admin dashboard side navbar */
+.leftnav:hover .icon{
+  color: #116AEF;
+}

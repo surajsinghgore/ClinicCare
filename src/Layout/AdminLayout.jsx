@@ -12,7 +12,7 @@ const AdminLayout = ({ children }) => {
       <div>
         <Loader />
         <AdminHeader />
-        <div className="flex gap-10">
+        <div className="flex">
           <div className="flex flex-col">
             <LeftNavBar />
           </div>

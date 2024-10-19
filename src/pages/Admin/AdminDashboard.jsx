@@ -1,7 +1,9 @@
+import AdminNavigate from "../../components/Common/AdminNavigate";
+
 const AdminDashboard = () => {
   return (
     <>
-     tushar
+     <AdminNavigate/>
     </>
   );
 };
