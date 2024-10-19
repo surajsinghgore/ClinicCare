@@ -1,19 +1,20 @@
-import { useState } from "react";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useState, useRef } from "react";
 import otpverify from "../../assets/otpverify.png";
+import { getSessionStorage, removeSessionStorage } from "../../Utils/SessionStorage";
+import { showAlert } from "../../redux/Slices/AlertToggleState";
+import { useDispatch } from "react-redux";
+import { showLoader, hideLoader } from "../../redux/Slices/LoaderState";
 
+import { otpAdminAccountVerifyApi } from "../../Utils/services/apis/AuthApis";
+import { useNavigate } from "react-router-dom";
 const OtpVerify = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [reEnterPasswordVisible, setReEnterPasswordVisible] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const email = getSessionStorage("email");
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
-  const toggleReEnterPasswordVisibility = () => {
-    setReEnterPasswordVisible(!reEnterPasswordVisible);
-  };
+  const inputRefs = useRef([]);
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
@@ -21,6 +22,45 @@ const OtpVerify = () => {
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
+
+      if (value !== "" && index < otp.length - 1) {
+        inputRefs.current[index + 1].focus();
+      }
+    }
+  };
+
+  const handleBackspace = (e, index) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputRefs.current[index - 1].focus();
+    }
+  };
+
+  const submitOtp = async () => {
+    const isOtpValid = otp.every((digit) => digit !== "") && otp.length === 6;
+
+    if (!isOtpValid) {
+      dispatch(showAlert({ message: "please enter 6 digit otp", type: "warning" }));
+      return;
+    }
+    if (!email) {
+      dispatch(showAlert({ message: "Please retry by registration again", type: "warning" }));
+      return;
+    }
+    dispatch(showLoader());
+    try {
+      const otpValue = otp.join("");
+
+      let body = { email, otp: otpValue };
+      let res = await otpAdminAccountVerifyApi(body);
+      dispatch(showAlert({ message: res.message, type: "success" }));
+      removeSessionStorage("email");
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 2000);
+    } catch (error) {
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
     }
   };
 
@@ -40,47 +80,16 @@ const OtpVerify = () => {
                 type="text"
                 value={digit}
                 onChange={(e) => handleOtpChange(e, index)}
+                onKeyDown={(e) => handleBackspace(e, index)}
                 maxLength="1"
+                ref={(el) => (inputRefs.current[index] = el)}
                 className="w-12 h-12 text-center border border-[#004AAD] rounded-md focus:outline-none focus:ring-[#004AAD] focus:border-[#004AAD]"
               />
             ))}
           </div>
-          <div className="mb-4 relative">
-            <label htmlFor="new-password" className="block text-sm text-gray-700 font-medium">
-              Enter New Password:
-            </label>
-            <input
-              type={passwordVisible ? "text" : "password"}
-              id="new-password"
-              className="mt-1 block w-full px-3 py-2 border border-[#004AAD] rounded-md focus:outline-none focus:ring-[#004AAD] focus:border-[#004AAD]"
-            />
-            <div className="absolute inset-y-0 right-0 top-[35%] pr-3 flex items-center text-sm leading-5">
-              {passwordVisible ? (
-                <FaRegEyeSlash onClick={togglePasswordVisibility} className="cursor-pointer text-lg" />
-              ) : (
-                <FaRegEye onClick={togglePasswordVisibility} className="cursor-pointer text-lg" />
-              )}
-            </div>
-          </div>
-          <div className="mb-4 relative">
-            <label htmlFor="re-enter-password" className="block text-sm text-gray-700 font-medium">
-              Re-enter Password:
-            </label>
-            <input
-              type={reEnterPasswordVisible ? "text" : "password"}
-              id="re-enter-password"
-              className="mt-1 block w-full px-3 py-2 border border-[#004AAD] rounded-md focus:outline-none focus:ring-[#004AAD] focus:border-[#004AAD]"
-            />
-            <div className="absolute inset-y-0 right-0 top-[35%] pr-3 flex items-center text-sm leading-5">
-              {reEnterPasswordVisible ? (
-                <FaRegEyeSlash onClick={toggleReEnterPasswordVisibility} className="cursor-pointer text-lg" />
-              ) : (
-                <FaRegEye onClick={toggleReEnterPasswordVisibility} className="cursor-pointer text-lg" />
-              )}
-            </div>
-          </div>
-          <button type="button" className="w-full py-2 px-4 bg-[#004AAD] text-white rounded-md hover:bg-[#0fa3d1] font-medium">
-            Change Password
+
+          <button type="button" onClick={submitOtp} className="w-full py-2 px-4 bg-[#004AAD] text-white rounded-md hover:bg-[#0fa3d1] font-medium">
+            Verify OTP
           </button>
         </div>
       </div>
