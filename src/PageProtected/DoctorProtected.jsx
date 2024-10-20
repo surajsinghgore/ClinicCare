@@ -15,6 +15,9 @@ const DoctorProtected = () => {
     return <Navigate to="/auth/login" replace />;
   }
 
+
+
+  
   return <Outlet />;
 };
 
