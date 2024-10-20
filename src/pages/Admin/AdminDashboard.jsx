@@ -1,9 +1,9 @@
-import AdminNavigate from "../../components/Common/AdminNavigate";
+import BreadCrumbs from "../../components/Common/BreadCrumbs";
 
 const AdminDashboard = () => {
   return (
     <>
-     <AdminNavigate currentPath="Dashboard"/>
+     <BreadCrumbs currentPath="Dashboard"/>
     </>
   );
 };

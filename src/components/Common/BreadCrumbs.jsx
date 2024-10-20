@@ -3,7 +3,7 @@ import { FaHouseChimneyMedical } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
-const AdminNavigate = ({currentPath}) => {
+const BreadCrumbs = ({currentPath}) => {
   return (
     <div className='w-full flex gap-1 pl-7 py-2 shadow-lg'>
         <div className="icon flex align-center p-2">
@@ -18,4 +18,4 @@ const AdminNavigate = ({currentPath}) => {
   )
 }
 
-export default AdminNavigate
+export default BreadCrumbs

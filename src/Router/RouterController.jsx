@@ -14,6 +14,9 @@ import CreateDoctor from "../pages/Admin/CreateDoctor";
 import AdminCreate from "../pages/Authorization/AdminCreate";
 import OtpAndPasswordChange from "../pages/Authorization/OtpAndPasswordChange";
 import LoginOtpVerify from "../pages/Authorization/LoginOtpVerify";
+import DoctorLayout from "../Layout/DoctorLayout";
+import DoctorDashboard from "../pages/Doctor/DoctorDashboard";
+import DoctorVerification from "../pages/Doctor/DoctorVerification";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +104,28 @@ const router = createBrowserRouter([
           <AdminLayout>
             <CreateDoctor />
           </AdminLayout>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/doctor",
+    element: <AdminProtected />,
+    children: [
+      {
+        path: "dashboard",
+        element: (
+          <DoctorLayout>
+            <DoctorDashboard />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "verification",
+        element: (
+          <DoctorLayout>
+            <DoctorVerification />
+          </DoctorLayout>
         ),
       },
     ],

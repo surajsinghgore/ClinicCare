@@ -1,4 +1,5 @@
 import React from 'react'
+import DoctorHeader from '../components/Doctor/DoctorHeader'
 
 const DoctorLayout = ({ children }) => {
   return (
@@ -6,11 +7,11 @@ const DoctorLayout = ({ children }) => {
     {/* <ToastContainer /> */}
 
     <div>
-      <Loader />
-      <AdminHeader />
+      {/* <Loader /> */}
+      <DoctorHeader />
       <div className="flex">
         <div className="flex flex-col">
-          <LeftNavBar />
+          {/* <LeftNavBar /> */}
         </div>
         <div className="flex-1">
           {children}

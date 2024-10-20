@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminNavigate from '../../components/Common/AdminNavigate'
+import AdminNavigate from '../../components/Common/BreadCrumbs'
 import { RiUserAddLine } from "react-icons/ri";
 import { MdOutlineMail } from 'react-icons/md';
 import { FaUserEdit } from 'react-icons/fa'; 
