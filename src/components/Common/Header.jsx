@@ -12,10 +12,10 @@ const Header = () => {
         <NavLink to="/doctors" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">
           Our Doctors
         </NavLink>
-        <NavLink to="/home" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">
+        <NavLink to="/home" className="text-black transition-colors duration-300 hover:text-[#004AAD]" >
           Find A Clinic
         </NavLink>
-        <NavLink to="/about" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">
+        <NavLink to="/about" className="text-black transition-colors duration-300 hover:text-[#004AAD]" >
           Membership Plan
         </NavLink>
         <NavLink to="/contact" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">
