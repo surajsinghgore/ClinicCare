@@ -1,12 +1,27 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { getCookie } from "../Utils/Cookies";
+import { getLocalStorage } from "../Utils/LocalStorage";
 
 const AuthProtected = () => {
-  const loginState = getCookie("loginState");
-  console.log(loginState);
+  const token = getLocalStorage("token");
+  const role = getLocalStorage("role");
+  const isVerified = getLocalStorage("isVerified"); 
 
-  if (loginState) {
-    return <Navigate to="/user/dashboard" replace />;
+  if (token) {
+    if (role === "admin") {
+      return <Navigate to="/admin/dashboard" replace />;
+    }
+    
+    if (role === "doctor") {
+      if (isVerified) {
+        return <Navigate to="/doctor/dashboard" replace />;
+      } else {
+        return <Navigate to="/doctor/verification" replace />;
+      }
+    }
+
+    if (role === "user") {
+      return <Navigate to="/user/dashboard" replace />;
+    }
   }
 
   return <Outlet />;

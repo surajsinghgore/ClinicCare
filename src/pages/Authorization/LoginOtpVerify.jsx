@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { showLoader, hideLoader } from "../../redux/Slices/LoaderState";
 
 import { useNavigate } from "react-router-dom";
-import { getLocalStorage } from "../../Utils/LocalStorage";
+import { getLocalStorage, setLocalStorage } from "../../Utils/LocalStorage";
 import { loginAdminOtpVerifyApi } from "../../Utils/services/apis/CommonApi";
 
 const LoginOtpVerify = () => {
@@ -55,6 +55,7 @@ const LoginOtpVerify = () => {
       let body = { email, otp: otpValue };
       let res = await loginAdminOtpVerifyApi(body);
       dispatch(showAlert({ message: res.message, type: "success" }));
+      setLocalStorage("token", res.token);
       setTimeout(() => {
         navigate("/admin/dashboard");
       }, 2000);

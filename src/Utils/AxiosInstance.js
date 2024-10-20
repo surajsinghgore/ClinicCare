@@ -4,7 +4,7 @@ import { getLocalStorage } from "./LocalStorage";
 const axiosInstance = axios.create({
   // baseURL: `http://localhost:8000/api`,
   baseURL: `https://cliniccare.surajsingh.online/api`,
-  withCredentials: true,
+
 });
 
 axiosInstance.interceptors.request.use(
