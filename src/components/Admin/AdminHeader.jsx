@@ -2,8 +2,23 @@ import React from 'react'
 import { IoIosSearch } from "react-icons/io";
 import { IoMdLogOut } from "react-icons/io";
 import adminpanel from "../../assets/adminpanel.png";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getLocalStorage } from '../../Utils/LocalStorage';
+import { showAlert } from '../../redux/Slices/AlertToggleState';
 
 const AdminHeader = () => {
+
+  const dispatch = useDispatch();
+  const role = getLocalStorage('role')
+
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.clear();
+    dispatch(showAlert({ message: `${role} has logged out successfully`, type: "blue" }));
+    navigate("/auth/login");
+  }
+
   return (
     <div className="h-[80px] bg-gradient-to-r from-blue-500 to-blue-700 text-white py-4 px-10 flex justify-between items-center">
     <div className="flex items-center">
@@ -15,7 +30,7 @@ const AdminHeader = () => {
         <input type="text" placeholder="Search" className="bg-white text-black-900 border-none text-black p-2 w-80 rounded-lg focus:outline-none pl-10" />
         <IoIosSearch className="h-7 w-7 absolute left-6 top-1/2 transform -translate-y-1/2 text-[#116AEF]" />
       </div>
-      <button onClick={() => localStorage.clear()} className="px-2 py-2 rounded-full border border-black shadow-md text-white relative">
+      <button onClick={logout} className="px-2 py-2 rounded-full border border-black shadow-md text-white relative">
         <IoMdLogOut className="w-6 h-6" />
       </button>
     </div>
