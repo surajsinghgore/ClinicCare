@@ -1,4 +1,3 @@
-import React from 'react';
 import { IoMdLogOut } from "react-icons/io";
 import adminpanel from "../../assets/adminpanel.png";
 import { useNavigate } from 'react-router-dom';
@@ -6,15 +5,15 @@ import { useDispatch } from 'react-redux';
 import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { getLocalStorage } from '../../Utils/LocalStorage';
 
-export default DoctorHeader = () => {
+const DoctorHeader = () => { // Corrected: Removed 'export' from here
   const dispatch = useDispatch();
   const role = getLocalStorage('role')
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const logout = () => {
-    navigate("/auth/login")
     localStorage.clear();
     dispatch(showAlert({ message: `${role} has logged out successfully`, type: "blue" }));
+    navigate("/auth/login");
   }
 
   return (
@@ -34,11 +33,12 @@ export default DoctorHeader = () => {
           <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
           <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
         </div>
-        <button onClick={() => logout()} className="ml-4 px-2 py-2 rounded-full border border-black shadow-md text-white relative">
+        <button onClick={logout} className="ml-4 px-2 py-2 rounded-full border border-black shadow-md text-white relative">
           <IoMdLogOut className="w-6 h-6" />
         </button>
       </div>
     </div>
   );
-}
+};
 
+export default DoctorHeader; // Corrected: Moved 'export default' to the end

@@ -9,7 +9,7 @@ const Header = () => {
         <img src={logo} alt="Logo" className="w-full h-full mt-10 ml-2" />
       </div>
       <div className="center flex-grow flex justify-center space-x-10">
-        <NavLink to="/doctors" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">
+        <NavLink to="/doctors" className="text-black transition-colors duration-300 hover:text-[#004AAD]" >
           Our Doctors
         </NavLink>
         <NavLink to="/home" className="text-black transition-colors duration-300 hover:text-[#004AAD]" >
@@ -18,10 +18,10 @@ const Header = () => {
         <NavLink to="/about" className="text-black transition-colors duration-300 hover:text-[#004AAD]" >
           Membership Plan
         </NavLink>
-        <NavLink to="/contact" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">
+        <NavLink to="/contact" className="text-black transition-colors duration-300 hover:text-[#004AAD]" >
           Contact
         </NavLink>
-        <NavLink to="/bookappointment" className="text-black transition-colors duration-300 hover:text-[#004AAD]" activeClassName="text-[#004AAD]">
+        <NavLink to="/bookappointment" className="text-black transition-colors duration-300 hover:text-[#004AAD]" >
           Book Appointment
         </NavLink>
       </div>

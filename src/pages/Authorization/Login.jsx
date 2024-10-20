@@ -47,8 +47,6 @@ const Login = () => {
           navigate("/auth/login-otp-verify");
         }
         if (res.role == "doctor") {
-
-
           setLocalStorage("token", res.token);
           setLocalStorage("isVerified", res.isVerified);
           if (res.isVerified) {
@@ -104,6 +102,7 @@ const Login = () => {
                   type={passwordVisible ? "text" : "password"}
                   id="password"
                   name="password"
+                  autoComplete="off"
                   {...register("password")}
                   className="mt-1 block w-full px-3 py-2 border border-[#004AAD] rounded-md focus:outline-none focus:ring-[#004AAD] focus:border-[#004AAD]"
                 />
