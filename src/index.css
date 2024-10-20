@@ -13,7 +13,20 @@ body {
 .leftnav:hover .icon{
   color: #116AEF;
 }
+/* <<<<<<< HEAD */
 
 .mainDiv{
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+/* input[type=number] {
+  -moz-appearance: textfield;
+>>>>>>> c68dd75a83df532b6dfb0a8f2c5c6af636c381c9
+} */

@@ -11,6 +11,9 @@ import AdminProtected from "../PageProtected/AdminProtected";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AdminLayout from "../Layout/AdminLayout";
 import CreateDoctor from "../pages/Admin/CreateDoctor";
+import AdminCreate from "../pages/Authorization/AdminCreate";
+import OtpAndPasswordChange from "../pages/Authorization/OtpAndPasswordChange";
+import LoginOtpVerify from "../pages/Authorization/LoginOtpVerify";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +42,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "admin-create",
+        element: (
+          <AuthLayout>
+            <AdminCreate />
+          </AuthLayout>
+        ),
+      },
+      {
         path: "forgetpassword",
         element: (
           <AuthLayout>
@@ -51,6 +62,22 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout>
             <OtpVerify />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "login-otp-verify",
+        element: (
+          <AuthLayout>
+            <LoginOtpVerify />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "otp-change-password",
+        element: (
+          <AuthLayout>
+            <OtpAndPasswordChange />
           </AuthLayout>
         ),
       },
