@@ -37,7 +37,6 @@ const Login = () => {
 
     try {
       let res = await loginApi(body);
-      console.log(res)
       dispatch(showAlert({ message: res.message, type: "success" }));
       setLocalStorage("_id", res.id);
       setLocalStorage("email", res.email);
@@ -49,9 +48,12 @@ const Login = () => {
         }
         if (res.role == "doctor") {
           navigate("/doctor/dashboard");
+          setLocalStorage("token", res.token);
+          setLocalStorage("isVerified", res.isVerified);
         }
         if (res.role == "user") {
           navigate("/user/dashboard");
+          setLocalStorage("token", res.token);
         }
       }, 2000);
     } catch (error) {

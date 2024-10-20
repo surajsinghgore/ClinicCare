@@ -1,12 +1,13 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { getCookie } from "../Utils/Cookies";
+import { getLocalStorage } from "../Utils/LocalStorage";
 
 const AdminProtected = () => {
-  const loginState = getCookie("loginState");
+  const token = getLocalStorage("token");
+  const role = getLocalStorage("role");
 
-//   if (!loginState) {
-//     return <Navigate to="/auth/login" replace />;
-//   }
+  if (!token || role !== "admin") {
+    return <Navigate to="/auth/login" replace />;
+  }
 
   return <Outlet />;
 };

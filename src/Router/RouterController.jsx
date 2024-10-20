@@ -17,6 +17,7 @@ import LoginOtpVerify from "../pages/Authorization/LoginOtpVerify";
 import DoctorLayout from "../Layout/DoctorLayout";
 import DoctorDashboard from "../pages/Doctor/DoctorDashboard";
 import DoctorVerification from "../pages/Doctor/DoctorVerification";
+import DoctorProtected from "../PageProtected/DoctorProtected";
 
 const router = createBrowserRouter([
   {
@@ -110,7 +111,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/doctor",
-    element: <AdminProtected />,
+    element: <DoctorProtected />,
     children: [
       {
         path: "dashboard",
