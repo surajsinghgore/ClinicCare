@@ -15,9 +15,9 @@ const AdminHeader = () => {
         <input type="text" placeholder="Search" className="bg-white text-black-900 border-none text-black p-2 w-80 rounded-lg focus:outline-none pl-10" />
         <IoIosSearch className="h-7 w-7 absolute left-6 top-1/2 transform -translate-y-1/2 text-[#116AEF]" />
       </div>
-      <a href="/login" className="px-2 py-2 rounded-full border border-black shadow-md text-white relative">
+      <button onClick={() => localStorage.clear()} className="px-2 py-2 rounded-full border border-black shadow-md text-white relative">
         <IoMdLogOut className="w-6 h-6" />
-      </a>
+      </button>
     </div>
   </div>
   )

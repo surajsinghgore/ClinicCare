@@ -1,19 +1,13 @@
 import React from 'react'
 import BreadCrumbs from '../../components/Common/BreadCrumbs'
-import { RiUserAddLine } from "react-icons/ri";
 import { FaUserEdit } from 'react-icons/fa';
 import { FaPhone } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
 import { MdVerifiedUser } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+
 
 const DoctorVerification = () => {
-    const navigate = useNavigate();
-
-    const handleNextPage = () => {
-        navigate('/doctor-verification-next');
-    };
-
+console.log(" suraj")
     return (
         <>
             <BreadCrumbs currentPath="Doctor Verification" />
@@ -72,7 +66,7 @@ const DoctorVerification = () => {
                         </div>
                     </div>
                 </div>
-                <button className='ml-auto bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-0' onClick={handleNextPage}>
+                <button className='ml-auto bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-0'>
                     Submit
                 </button>
             </div>

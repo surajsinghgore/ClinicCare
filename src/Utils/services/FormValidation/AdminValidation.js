@@ -25,4 +25,11 @@ export const registerAdminValidation = yup.object({
 //     .required("Permission is required."),
 });
 
-
+export const createDoctorValidation = yup.object({
+  name: yup.string().min(3, "Name must be at least 3 characters long.").required("Name is required."),
+  email: yup
+    .string()
+    .email("Must be a valid email address.")
+    .matches(/@gmail\.com$/, "Only Gmail accounts are allowed.")
+    .required("Email is required."),
+});

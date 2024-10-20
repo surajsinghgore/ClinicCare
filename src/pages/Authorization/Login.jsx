@@ -47,9 +47,17 @@ const Login = () => {
           navigate("/auth/login-otp-verify");
         }
         if (res.role == "doctor") {
-          navigate("/doctor/dashboard");
+
+
           setLocalStorage("token", res.token);
           setLocalStorage("isVerified", res.isVerified);
+          if (res.isVerified) {
+            navigate("/doctor/dashboard");
+          }
+
+          if (!res.isVerified) {
+            navigate("/doctor/verification");
+          }
         }
         if (res.role == "user") {
           navigate("/user/dashboard");
