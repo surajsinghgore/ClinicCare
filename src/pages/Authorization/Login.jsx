@@ -37,6 +37,7 @@ const Login = () => {
 
     try {
       let res = await loginApi(body);
+      console.log(res)
       dispatch(showAlert({ message: res.message, type: "success" }));
       setLocalStorage("_id", res.id);
       setLocalStorage("email", res.email);
