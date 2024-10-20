@@ -52,57 +52,59 @@ const CreateDoctor = () => {
   return (
     <>
       <AdminNavigate currentPath="Add Doctor" />
-      <div className="relative mainDiv w-[90%] h-[55%] m-auto mt-10 rounded-lg">
-        <div className="p-5 text-2xl flex items-center gap-3 text-[#116AEF] border-b border-black-400">
+
+      <div className="relative w-[90%] h-[55%] m-auto mt-10 rounded-lg shadow-lg">
+        <div className="p-5 flex items-center gap-3 text-[#116AEF] border-b border-gray-400">
           <RiUserAddLine />
           <h1 className="font-semibold text-2xl">Add Doctor</h1>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex p-6">
-            <div className="flex flex-col">
-              <div className="flex items-center mb-3">
-                <label htmlFor="name" className="text-black-400">
-                  Doctor Name
-                </label>
-              </div>
-              <div className="flex items-center relative">
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6">
+          <div className="flex flex-wrap md:flex-nowrap">
+            <div className="flex flex-col flex-1">
+              <label htmlFor="name" className="mb-2 text-black-600">
+                Doctor Name
+              </label>
+              <div className="relative">
+                <FaUserEdit className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg text-black-500" />
                 <input
                   type="text"
                   {...register("name")}
                   autoFocus
                   autoComplete="off"
-                  name="name"
                   id="name"
                   placeholder="Add doctor name..."
-                  className="w-96 rounded-lg p-2 border border-black-200 focus:outline-none pl-10"
+                  className="w-80 p-2 pl-10 rounded-lg border border-black-300 focus:outline-none"
                 />
-                <FaUserEdit className="ml-2 text-lg absolute left-1" />
               </div>
             </div>
-            <div className="flex flex-col ml-10">
-              <div className="flex items-center mb-3">
-                <label htmlFor="email" className="text-black-400">
-                  Email
-                </label>
-              </div>
-              <div className="flex items-center relative">
+
+            <div className="flex flex-col flex-1">
+              <label htmlFor="email" className="mb-2 text-black-600">
+                Email
+              </label>
+              <div className="relative">
+                <MdOutlineMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg text-black-500" />
                 <input
                   type="email"
                   {...register("email")}
                   autoComplete="off"
-                  name="email"
                   id="email"
                   placeholder="Add doctor email..."
-                  className="w-96 rounded-lg p-2 border border-black-200 focus:outline-none pl-10"
+                  className="w-80 p-2 pl-10 rounded-lg border border-black-300 focus:outline-none"
                 />
-                <MdOutlineMail className="ml-2 text-lg absolute left-1" />
               </div>
-              <button className="ml-auto bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-0">Create Doctor Profile</button>
             </div>
           </div>
+
+          <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white font-bold py-2 px-4 shadow-lg rounded-md absolute bottom-6 right-6">
+            Create Doctor Profile
+          </button>
         </form>
       </div>
+
+
+
     </>
   );
 };

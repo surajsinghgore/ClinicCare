@@ -5,8 +5,8 @@ import { RiMoneyRupeeCircleLine } from "react-icons/ri";
 import { TbReportMedical } from "react-icons/tb";
 import { SlCalender } from "react-icons/sl";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
-import { IoIosArrowForward } from "react-icons/io";
-// import { IoIosArrowDown } from "react-icons/io";
+import { IoIosPersonAdd } from "react-icons/io";
+import { FaPersonCircleCheck } from "react-icons/fa6";
 import admin from "../../assets/admin.jpeg";
 import LeftNavLink from './LeftNavLink';
 
@@ -38,8 +38,9 @@ const LeftNavBar = () => {
                 title="Doctor" 
                 icons={<FaStethoscope className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
-                    { link: "/admin/add-doctor", title: "Add Doctor" },
-                    { link: "/admin/", title: "Verify Doctor" }
+                    { link: "/admin/add-doctor", title: "Add Doctor", icon: <IoIosPersonAdd className=" icon text-2xl text-black-800" /> },
+
+                    { link: "/admin/", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> }
                 ]}
             />
             <LeftNavLink 

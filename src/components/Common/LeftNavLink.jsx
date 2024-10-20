@@ -37,13 +37,18 @@ const LeftNavLink = ({ link, title, icons, submenuItems }) => {
             </div>
 
             {isOpen && submenuItems && (
-                <div className="bg-gray-100">
-                    {submenuItems.map((item, index) => (
-                        <Link key={index} to={item.link} className="block px-[4.5rem] py-2 text-black hover:bg-[#D8E9FF] transition-colors duration-300">
-                            {item.title}
-                        </Link>
-                    ))}
-                </div>
+                <div>
+                {submenuItems.map((item, index) => (
+                  <Link
+                    key={index}
+                    to={item.link}
+                    className="block px-9 mb-4 mt-3 py-2 text-black hover:bg-[#D8E9FF] transition-colors duration-300 flex items-center gap-2"
+                  >
+                    {item.icon}
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
             )}
         </>
     );
