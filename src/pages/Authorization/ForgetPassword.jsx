@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import forgetPassword from "../../assets/forgetpass.png";
 import { useNavigate } from "react-router-dom";
-import { setLocalStorage } from "../../Utils/LocalStorage";
 import { forgetPasswordUsingEmailApi } from "../../Utils/services/apis/CommonApi";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";

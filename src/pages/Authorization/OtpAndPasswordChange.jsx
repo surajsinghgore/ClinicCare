@@ -13,7 +13,7 @@ import { passwordMatcherValidation } from "../../Utils/services/FormValidation/C
 
 const OtpAndPasswordChange = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [cooldown, setCooldown] = useState(0);
+  const [cooldown, setCooldown] = useState(0); 
   const [reEnterPasswordVisible, setReEnterPasswordVisible] = useState(false);
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const dispatch = useDispatch();
@@ -42,6 +42,9 @@ const OtpAndPasswordChange = () => {
       }
     }
   }, [errors]);
+
+
+
   useEffect(() => {
     let timer;
     if (cooldown > 0) {
@@ -53,6 +56,10 @@ const OtpAndPasswordChange = () => {
       clearInterval(timer);
     };
   }, [cooldown]);
+
+
+
+  
   const handleBackspace = (e, index) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1].focus();
@@ -86,7 +93,7 @@ const OtpAndPasswordChange = () => {
       dispatch(showAlert({ message: "Please enter a 6-digit OTP", type: "warning" }));
       return;
     }
-
+  
     if (!email) {
       dispatch(showAlert({ message: "Please retry login api", type: "warning" }));
       return;
@@ -95,7 +102,7 @@ const OtpAndPasswordChange = () => {
     try {
       const otpValue = otp.join("");
 
-      let body = { email, otp: otpValue, password: formData.password };
+      let body = { email, otp: otpValue,password:formData.password };
       let res = await resetPasswordUsingEmailApi(body);
       dispatch(showAlert({ message: res.message, type: "success" }));
       setTimeout(() => {
@@ -108,6 +115,8 @@ const OtpAndPasswordChange = () => {
     }
   };
 
+
+
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -119,7 +128,7 @@ const OtpAndPasswordChange = () => {
       dispatch(showAlert({ message: "Please retry registration again", type: "warning" }));
       return;
     }
-    if (cooldown > 0) return;
+    if (cooldown > 0) return; 
     dispatch(showLoader());
     try {
       let body = { email };
@@ -156,15 +165,15 @@ const OtpAndPasswordChange = () => {
                 />
               ))}
             </div>
-            <div>
-              {cooldown === 0 ? (
-                <p onClick={resendOtp} className="text-sm cursor-pointer text-[#004AAD] hover:underline font-medium text-right">
-                  Resend OTP?
-                </p>
-              ) : (
-                <p className="text-sm font-medium text-right text-gray-500">Resend OTP in {formatTime(cooldown)}</p>
-              )}
-            </div>
+            <div >
+            {cooldown === 0 ? (
+              <p onClick={resendOtp} className="text-sm cursor-pointer text-[#004AAD] hover:underline font-medium text-right">
+                Resend OTP?
+              </p>
+            ) : (
+              <p className="text-sm font-medium text-right text-gray-500">Resend OTP in {formatTime(cooldown)}</p>
+            )}
+          </div>
             <div className="mb-4 relative">
               <label htmlFor="new-password" className="block text-sm text-gray-700 font-medium">
                 Enter New Password:
@@ -205,7 +214,7 @@ const OtpAndPasswordChange = () => {
                 )}
               </div>
             </div>
-
+        
             <button type="submit" className="w-full py-2 px-4 bg-[#004AAD] text-white rounded-md hover:bg-[#0fa3d1] font-medium">
               Change Password
             </button>
