@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import otpverify from "../../assets/otpverify.png";
-import { removeSessionStorage } from "../../Utils/SessionStorage";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { useDispatch } from "react-redux";
 import { showLoader, hideLoader } from "../../redux/Slices/LoaderState";
