@@ -18,6 +18,7 @@ import DoctorLayout from "../Layout/DoctorLayout";
 import DoctorDashboard from "../pages/Doctor/DoctorDashboard";
 import DoctorVerification from "../pages/Doctor/DoctorVerification";
 import DoctorProtected from "../PageProtected/DoctorProtected";
+import DoctorVerification2 from "../pages/Doctor/DoctorVerification2";
 
 const router = createBrowserRouter([
   {
@@ -126,6 +127,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <DoctorVerification />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "verification2",
+        element: (
+          <DoctorLayout>
+            <DoctorVerification2 />
           </DoctorLayout>
         ),
       },

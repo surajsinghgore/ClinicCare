@@ -15,8 +15,11 @@ export default {
       transparent: "transparent",
       blue: {
         900: "#2A2F3E",
+        800: "#3A3D41",
         700: "#004AAD",
+        600: "#0056B3",
         500: "#007BFF",
+        400: "#42a5f5",
         300: "#928A8A",
       },
       black: {
