@@ -13,65 +13,27 @@ const DoctorVerification2 = () => {
 
 
             <div className='relative docDiv w-[85%] h-full m-auto mt-10 rounded-lg overflow-hidden'>
-                <div className='p-5 text-2xl flex items-center gap-3 text-[#116AEF] border-b border-black-400'>
-                    <FaFileImport />
-                    <h1 className='font-semibold text-2xl'>Doctor Identity and Credential Verification</h1>
-                </div>
+                <div className='flex p-3 border-b border-black-400 bg-white'>
+                    <div className='flex gap-10 p-4 select-none'>
 
-                <div className='flex p-6 flex-wrap'>
-                    {/* Degree Upload */}
-                    <div className='flex flex-col flex-grow md:w-1/2'>
-                        <label className='text-black-400'>Degree Upload <span className='text-danger text-lg'>*</span></label>
-                        <div className='flex items-center relative'>
-                            <input
-                                type="file"
-                                className='w-96 rounded-lg p-2 border border-black-200 focus:outline-none pl-10'
-                                required
-                            />
-                            <FaCloudUploadAlt className='ml-2 text-lg absolute left-1' />
+                        {/* Navigation Item */}
+                        <div className='flex items-center gap-2 cursor-pointer '>
+                            <FaAddressCard className='text-black-500 text-2xl' />
+                            <span className='text-black-500 font-medium'>Personal Details</span>
                         </div>
-                    </div>
 
-                    {/* Licence Upload */}
-                    <div className='flex flex-col flex-grow md:w-1/2'>
-                        <label className='text-black-400'>Licence Upload <span className='text-danger text-lg'>*</span></label>
-                        <div className='flex items-center relative'>
-                            <input
-                                type="file"
-                                className='w-96 rounded-lg p-2 border border-black-200 focus:outline-none pl-10'
-                                required
-                            />
-                            <FaCloudUploadAlt className='ml-2 text-lg absolute left-1' />
+                        {/* Active Navigation Item */}
+                        <div className='flex items-center gap-2 cursor-pointer border-b-2 border-blue-400 pb-1'>
+                            <FaUserShield className='text-blue-500 text-2xl' />
+                            <div className='flex flex-col items-center'>
+                                <span className='text-blue-500 font-medium'>Profile and Bio</span>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div className='flex p-6 flex-wrap'>
-                    {/* Specialization */}
-                    <div className='flex flex-col flex-grow md:w-1/2'>
-                        <label className='text-black-400'>Specialization <span className='text-danger text-lg'>*</span></label>
-                        <div className='flex items-center relative'>
-                            <textarea
-                                placeholder='Add specialization...'
-                                className='w-96 rounded-lg p-2 border border-black-200 focus:outline-none pl-10'
-                                required
-                                style={{ color: 'red', fontStyle: 'italic' }}
-                            />
-                            <ImBooks className='ml-2 text-lg absolute left-1' />
-                        </div>
-                    </div>
-
-                    {/* Experience */}
-                    <div className='flex flex-col flex-grow md:w-1/2'>
-                        <label className='text-black-400'>Experience <span className='text-danger text-lg'>*</span></label>
-                        <div className='flex items-center relative'>
-                            <input
-                                type="number"
-                                placeholder='Add experience in years...'
-                                className='w-96 rounded-lg p-2 border border-black-200 focus:outline-none pl-10'
-                                required
-                            />
-                            <FaHospitalUser className='ml-2 text-lg absolute left-1' />
+                        {/* Navigation Item */}
+                        <div className='flex items-center gap-2 cursor-pointer '>
+                            <FaFileUpload className='text-black-500 text-2xl ' />
+                            <span className='text-black-500 font-medium '>Upload File</span>
                         </div>
                     </div>
                 </div>

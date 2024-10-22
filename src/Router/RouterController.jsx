@@ -19,11 +19,12 @@ import DoctorDashboard from "../pages/Doctor/DoctorDashboard";
 import DoctorVerification from "../pages/Doctor/DoctorVerification";
 import DoctorProtected from "../PageProtected/DoctorProtected";
 import DoctorVerification2 from "../pages/Doctor/DoctorVerification2";
+import FileUpload from "../pages/FileUpload";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <>d</>,
+    element: <><FileUpload/></>,
   },
 
   {
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "admin-create",
+        path: "create-admin",
         element: (
           <AuthLayout>
             <AdminCreate />

@@ -27,3 +27,8 @@ input::-webkit-inner-spin-button {
 .docDiv{
   box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
 }
+
+
+.rti--container {
+  width: 390px !important;
+}
