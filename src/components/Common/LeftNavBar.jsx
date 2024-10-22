@@ -40,7 +40,7 @@ const LeftNavBar = () => {
                 submenuItems={[
                     { link: "/admin/add-doctor", title: "Add Doctor", icon: <IoIosPersonAdd className=" icon text-2xl text-black-800" /> },
 
-                    { link: "/admin/", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> }
+                    { link: "/admin/verify-doctor", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> }
                 ]}
             />
             <LeftNavLink 

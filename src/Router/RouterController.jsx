@@ -21,6 +21,7 @@ import DoctorProtected from "../PageProtected/DoctorProtected";
 import DoctorVerification2 from "../pages/Doctor/DoctorVerification2";
 import FileUpload from "../pages/FileUpload";
 import DoctorVerification3 from "../pages/Doctor/DoctorVerification3";
+import DoctorVerify from "../pages/Admin/DoctorVerify";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,14 @@ const router = createBrowserRouter([
         element: (
           <AdminLayout>
             <CreateDoctor />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: "verify-doctor",
+        element: (
+          <AdminLayout>
+            <DoctorVerify />
           </AdminLayout>
         ),
       },
