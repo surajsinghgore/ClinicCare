@@ -1,9 +1,10 @@
 import React from 'react'
 import BreadCrumbs from '../../components/Common/BreadCrumbs'
-import { FaFileImport } from "react-icons/fa";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { FaHospitalUser } from "react-icons/fa";
-import { ImBooks } from "react-icons/im";
+import { FaUserShield, FaAddressCard } from 'react-icons/fa';
+import { FaFileUpload } from "react-icons/fa";
+import { TbCertificate } from "react-icons/tb";
+import { FaUserDoctor } from "react-icons/fa6";
+import { MdOutlineStarRate } from "react-icons/md";
 
 const DoctorVerification2 = () => {
     return (
@@ -18,13 +19,13 @@ const DoctorVerification2 = () => {
 
                         {/* Navigation Item */}
                         <div className='flex items-center gap-2 cursor-pointer '>
-                            <FaAddressCard className='text-black-500 text-2xl' />
+                            <FaUserShield className='text-black-500 text-2xl' />
                             <span className='text-black-500 font-medium'>Personal Details</span>
                         </div>
 
                         {/* Active Navigation Item */}
                         <div className='flex items-center gap-2 cursor-pointer border-b-2 border-blue-400 pb-1'>
-                            <FaUserShield className='text-blue-500 text-2xl' />
+                            <FaAddressCard className='text-blue-500 text-2xl' />
                             <div className='flex flex-col items-center'>
                                 <span className='text-blue-500 font-medium'>Profile and Bio</span>
                             </div>
@@ -37,6 +38,54 @@ const DoctorVerification2 = () => {
                         </div>
                     </div>
                 </div>
+
+
+                {/* Input Fields Container */}
+                <div className='flex flex-wrap p-8 gap-8'>
+                    <div className='flex flex-col gap-2'>
+                        <div className='flex items-center'>
+                            <span className='text-black-500 font-medium'>Degree</span>
+                        </div>
+                        <div className='relative'>
+                            <input type="text" className='border border-black-300 p-2 rounded-md w-80 pl-10' placeholder='Enter your degree' />
+                            <TbCertificate className='absolute left-3 top-3 text-black-400' />
+                        </div>
+                    </div>
+
+                    <div className='flex flex-col gap-2'>
+                        <div className='flex items-center gap-2'>
+                            <span className='text-black-500 font-medium'>Licence</span>
+                        </div>
+                        <div className='relative'>
+                            <input type="text" className='border border-black-300 p-2 rounded-md w-80 pl-10' placeholder='Enter your licence number' />
+                            <FaAddressCard className='absolute left-3 top-3 text-black-400' />
+                        </div>
+                    </div>
+
+                    <div className='flex flex-col gap-2'>
+                        <div className='flex items-center gap-2'>
+                            <span className='text-black-500 font-medium'>Experience</span>
+                        </div>
+                        <div className='relative'>
+                            <input type="text" className='border border-black-300 p-2 rounded-md w-80 pl-10' placeholder='Enter your experience' />
+                            <FaUserDoctor className='absolute left-3 top-3 text-black-400' />
+                        </div>
+                    </div>
+
+                    <div className='flex flex-col gap-2'>
+                        <div className='flex items-center gap-2'>
+                            <span className='text-black-500 font-medium'>Specialization</span>
+                        </div>
+                        <div className='relative'>
+                            <input type="text" className='border border-black-300 p-2 rounded-md w-80 pl-10' placeholder='Enter your specialization' />
+                            <MdOutlineStarRate className='absolute left-3 top-3 text-black-400' />
+                        </div>
+                    </div>
+                </div>
+
+                <button className='ml-auto bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-0'>
+                    Save & Next
+                </button>
             </div>
 
 

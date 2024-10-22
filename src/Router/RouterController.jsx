@@ -20,6 +20,7 @@ import DoctorVerification from "../pages/Doctor/DoctorVerification";
 import DoctorProtected from "../PageProtected/DoctorProtected";
 import DoctorVerification2 from "../pages/Doctor/DoctorVerification2";
 import FileUpload from "../pages/FileUpload";
+import DoctorVerification3 from "../pages/Doctor/DoctorVerification3";
 
 const router = createBrowserRouter([
   {
@@ -136,6 +137,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <DoctorVerification2 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "verification3",
+        element: (
+          <DoctorLayout>
+            <DoctorVerification3 />
           </DoctorLayout>
         ),
       },

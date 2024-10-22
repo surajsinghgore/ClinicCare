@@ -46,7 +46,7 @@ const DoctorVerification = () => {
         <div className='flex p-6 flex-wrap'>
           {/* Doctor Name */}
           <div className='flex flex-col mr-16 md:w-1/3 p-2'>
-            <label className='text-black-400'>Doctor Name <span className='text-danger text-lg'>*</span></label>
+            <label className='text-black-400 pb-2'>Doctor Name <span className='text-danger text-lg'>*</span></label>
             <div className='flex items-center relative'>
               <input
                 type="text"
@@ -60,7 +60,7 @@ const DoctorVerification = () => {
 
           {/* Date of Birth */}
           <div className='flex flex-col mr-16 md:w-1/3 p-2'>
-            <label className='text-black-400'>Date of Birth <span className='text-danger text-lg'>*</span></label>
+            <label className='text-black-400 pb-2'>Date of Birth <span className='text-danger text-lg'>*</span></label>
             <div className='flex items-center relative'>
               <input
                 type="date"
@@ -73,7 +73,7 @@ const DoctorVerification = () => {
 
           {/* Gender */}
           <div className='flex flex-col mr-16 md:w-1/3 p-2'>
-            <label className='text-black-400'>Gender <span className='text-danger text-lg'>*</span></label>
+            <label className='text-black-400 pb-2'>Gender <span className='text-danger text-lg'>*</span></label>
             <div className='flex items-center'>
               <label className='flex items-center gap-2'>
                 <input
@@ -102,7 +102,7 @@ const DoctorVerification = () => {
         <div className='flex p-6 mr-10'>
           {/* Mobile Number */}
           <div className='flex flex-col p-2 mr-16'>
-            <label className='text-black-400'>Mobile Number <span className='text-danger text-lg'>*</span></label>
+            <label className='text-black-400 pb-2'>Mobile Number <span className='text-danger text-lg'>*</span></label>
             <div className='flex items-center relative'>
               <input
                 type="text"
@@ -114,9 +114,9 @@ const DoctorVerification = () => {
             </div>
           </div>
 
-          <div className='flex pt-2 flex-wrap flex-col w-96'>
+          <div className='flex pt-3 flex-wrap flex-col w-96'>
 
-            <h1 className="text-black-400">Add Hobbies</h1>
+            <h1 className="text-black-400 pb-2">Add Hobbies</h1>
             {/* <pre>{JSON.stringify(selected)}</pre> */}
             <TagsInput
               value={selected}
