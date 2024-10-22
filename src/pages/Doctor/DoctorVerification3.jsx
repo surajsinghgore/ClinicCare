@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import BreadCrumbs from '../../components/Common/BreadCrumbs';
 import { RxCross2 } from "react-icons/rx";
+import { FaUserShield, FaAddressCard } from 'react-icons/fa';
+import { FaFileUpload } from "react-icons/fa";
 
 const DoctorVerification3 = () => {
     const [profileFile, setProfileFile] = useState(null);
@@ -24,6 +26,36 @@ const DoctorVerification3 = () => {
             <BreadCrumbs currentPath="Doctor Verification" />
 
             <div className='relative docDiv w-[85%] h-full m-auto mt-10 rounded-lg overflow-hidden'>
+
+
+            <div className='flex p-3 border-b border-black-400 bg-white'>
+                    <div className='flex gap-10 p-4 select-none'>
+
+                        {/* Navigation Item */}
+                        <div className='flex items-center gap-2 '>
+                            <FaUserShield className='text-black-500 text-2xl' />
+                            <span className='text-black-500 font-medium'>Personal Details</span>
+                        </div>
+
+
+                        {/* Navigation Item */}
+                        <div className='flex items-center gap-2 '>
+                            <FaAddressCard className='text-black-500 text-2xl ' />
+                            <span className='text-black-500 font-medium '>Profile and Bio</span>
+                        </div>
+
+                        {/* Active Navigation Item */}
+                        <div className='flex items-center gap-2 border-b-2 border-blue-400 pb-1'>
+                            <FaFileUpload className='text-blue-500 text-2xl' />
+                            <div className='flex flex-col items-center'>
+                                <span className='text-blue-500 font-medium'>Upload File</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div className="max-w-md m-7 p-4">
                     <h1 className="text-2xl font-bold mb-12">Upload Your Documents</h1>
 

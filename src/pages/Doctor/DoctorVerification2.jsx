@@ -18,13 +18,13 @@ const DoctorVerification2 = () => {
                     <div className='flex gap-10 p-4 select-none'>
 
                         {/* Navigation Item */}
-                        <div className='flex items-center gap-2 cursor-pointer '>
+                        <div className='flex items-center gap-2 '>
                             <FaUserShield className='text-black-500 text-2xl' />
                             <span className='text-black-500 font-medium'>Personal Details</span>
                         </div>
 
                         {/* Active Navigation Item */}
-                        <div className='flex items-center gap-2 cursor-pointer border-b-2 border-blue-400 pb-1'>
+                        <div className='flex items-center gap-2 border-b-2 border-blue-400 pb-1'>
                             <FaAddressCard className='text-blue-500 text-2xl' />
                             <div className='flex flex-col items-center'>
                                 <span className='text-blue-500 font-medium'>Profile and Bio</span>
@@ -32,7 +32,7 @@ const DoctorVerification2 = () => {
                         </div>
 
                         {/* Navigation Item */}
-                        <div className='flex items-center gap-2 cursor-pointer '>
+                        <div className='flex items-center gap-2 '>
                             <FaFileUpload className='text-black-500 text-2xl ' />
                             <span className='text-black-500 font-medium '>Upload File</span>
                         </div>

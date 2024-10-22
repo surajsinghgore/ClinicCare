@@ -21,7 +21,7 @@ const DoctorVerification = () => {
         <div className='flex p-3 border-b border-black-400 bg-white'>
           <div className='flex gap-10 p-4 select-none'>
             {/* Active Navigation Item */}
-            <div className='flex items-center gap-2 cursor-pointer border-b-2 border-blue-400 pb-1'>
+            <div className='flex items-center gap-2 border-b-2 border-blue-400 pb-1'>
               <FaUserShield className='text-blue-500 text-2xl' />
               <div className='flex flex-col items-center'>
                 <span className='text-blue-500 font-medium'>Personal Details</span>
@@ -29,13 +29,13 @@ const DoctorVerification = () => {
             </div>
 
             {/* Navigation Item */}
-            <div className='flex items-center gap-2 cursor-pointer '>
+            <div className='flex items-center gap-2 '>
               <FaAddressCard className='text-black-500 text-2xl' />
               <span className='text-black-500 font-medium'>Profile and Bio</span>
             </div>
 
             {/* Navigation Item */}
-            <div className='flex items-center gap-2 cursor-pointer '>
+            <div className='flex items-center gap-2 '>
               <FaFileUpload className='text-black-500 text-2xl ' />
               <span className='text-black-500 font-medium '>Upload File</span>
             </div>
@@ -128,14 +128,29 @@ const DoctorVerification = () => {
           </div>
         </div>
 
-
-
-
-
-
         <button className='ml-auto bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-0'>
           Save & Next
         </button>
+
+
+
+
+
+        {/* Pending Status page */}
+
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">Verification Under Review...</h1>
+          <p className="text-lg text-gray-600 mb-6">
+            "Your verification is still pending. Please wait while we complete the approval process."
+          </p>
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-opacity-50"></div>
+          </div>
+        </div>
+
+
+
+
       </div>
 
 

@@ -61,7 +61,7 @@ const CreateDoctor = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="p-6">
           <div className="flex flex-wrap md:flex-nowrap">
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-col mr-28">
               <label htmlFor="name" className="mb-2 text-black-600">
                 Doctor Name
               </label>
