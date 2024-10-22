@@ -4,7 +4,6 @@ import { getLocalStorage } from "./LocalStorage";
 const axiosInstance = axios.create({
   // baseURL: `http://localhost:8000/api`,
   baseURL: `https://cliniccare.surajsingh.online/api`,
-
 });
 
 axiosInstance.interceptors.request.use(
@@ -27,9 +26,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401 && error.response.data.error === "Token has expired") {
-    //   toast.error("Token Expired Please Login again");
-      
-      
+      //   toast.error("Token Expired Please Login again");
     }
 
     return Promise.reject(error);

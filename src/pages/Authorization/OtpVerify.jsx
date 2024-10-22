@@ -5,14 +5,14 @@ import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { useDispatch } from "react-redux";
 import { showLoader, hideLoader } from "../../redux/Slices/LoaderState";
 import { otpAdminAccountVerifyApi, resendOtpAdminAccountApi } from "../../Utils/services/apis/AuthApis";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const OtpVerify = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [otp, setOtp] = useState(new Array(6).fill(""));
-  const [cooldown, setCooldown] = useState(0); 
+  const [cooldown, setCooldown] = useState(0);
   const email = getSessionStorage("email");
   const inputRefs = useRef([]);
 
@@ -81,7 +81,7 @@ const OtpVerify = () => {
       dispatch(showAlert({ message: "Please retry registration again", type: "warning" }));
       return;
     }
-    if (cooldown > 0) return; 
+    if (cooldown > 0) return;
     dispatch(showLoader());
     try {
       let body = { email };

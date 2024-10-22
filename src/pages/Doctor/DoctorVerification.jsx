@@ -1,10 +1,8 @@
-import React from 'react'
-import BreadCrumbs from '../../components/Common/BreadCrumbs'
-import { FaUserEdit } from 'react-icons/fa';
+import BreadCrumbs from "../../components/Common/BreadCrumbs";
+import { FaUserEdit } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
 import { MdVerifiedUser } from "react-icons/md";
-
 
 const DoctorVerification = () => {
     return (
@@ -98,4 +96,4 @@ const DoctorVerification = () => {
     )
 }
 
-export default DoctorVerification
+export default DoctorVerification;
