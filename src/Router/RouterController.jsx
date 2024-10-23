@@ -22,6 +22,7 @@ import DoctorVerification2 from "../pages/Doctor/DoctorVerification2";
 import FileUpload from "../pages/FileUpload";
 import DoctorVerification3 from "../pages/Doctor/DoctorVerification3";
 import DoctorVerify from "../pages/Admin/DoctorVerify";
+import DoctorVerify2 from "../pages/Admin/DoctorVerify2";
 
 const router = createBrowserRouter([
   {

@@ -119,25 +119,32 @@ const DoctorVerify = () => {
                         <div className="col-span-2">
                             <h3 className="text-2xl underline font-medium text-black-700 mt-12 mb-8">Uploaded Files:</h3>
                             <div className="mt-2">
-                                <label className="block text-lg font-medium text-black-700">Self Image:</label>
-                                <img src={doctorData.files.selfImage} alt="Self" className="mt-1 w-80 mb-16" />
+                                <div className='flex justify-between'>
+                                    <div>
+                                        <h3 className="block text-lg font-medium text-black-700">Self Image:</h3>
+                                        <img src={doctorData.files.selfImage} alt="Self" className="mt-1 w-80 h-60 mb-16" />
+                                    </div>
 
-                                <label className="block text-lg font-medium text-black-700">Degree Image:</label>
-                                <img src={doctorData.files.degreeImage} alt="Degree" className="mt-1 w-80 mb-16" />
+                                    <div>
+                                        <h3 className="block text-lg font-medium text-black-700">Signature Image:</h3>
+                                        <img src={doctorData.files.signImage} alt="Signature" className="mt-1 w-80 h-60 mb-8" />
+                                    </div>
+                                </div>
 
-                                <label className="block text-lg font-medium text-black-700">License Image:</label>
-                                <img src={doctorData.files.licenseImage} alt="License" className="mt-1 w-80 mb-16" />
+                                <h3 className="block text-lg font-medium text-black-700">Degree Image:</h3>
+                                <img src={doctorData.files.degreeImage} alt="Degree" className="mt-1 w-full mb-16" />
 
-                                <label className="block text-lg font-medium text-black-700">Signature Image:</label>
-                                <img src={doctorData.files.signImage} alt="Signature" className="mt-1 w-80 mb-8" />
+                                <h3 className="block text-lg font-medium text-black-700">License Image:</h3>
+                                <img src={doctorData.files.licenseImage} alt="License" className="mt-1 w-full mb-16" />
+
                             </div>
                         </div>
 
 
                         {/* Status, Message, and Approve Button */}
-                        <div className="col-span-2 flex items-center">
+                        <div className="col-span-2 flex items-center w-full">
                             {/* Main Container */}
-                            <div className="flex flex-col w-[300px] p-6 rounded-xl border gap-6">
+                            <div className="flex flex-col w-full p-6 rounded-xl border gap-6">
                                 <div className="flex items-center gap-2">
                                     <MdFeedback className="text-2xl text-black-700" />
                                     <h1 className='text-2xl text-black-700 font-semibold'>Status & Feedback</h1>
@@ -145,7 +152,7 @@ const DoctorVerify = () => {
                                 {/* Status Card */}
                                 <div>
                                     <label className="block text-lg font-medium text-black-700 mb-2">Status:</label>
-                                    <select className="w-full border border-black-300 rounded-xl p-2 bg-white hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
+                                    <select className="w-full border border-black-300 rounded-xl p-3 bg-white hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
                                         <option>Approve</option>
                                         <option>Reject</option>
                                         <option>Ban</option>
@@ -156,7 +163,7 @@ const DoctorVerify = () => {
                                 <div>
                                     <label className="block text-lg font-medium text-black-700 mb-2">Message:</label>
                                     <textarea
-                                        className="block w-full h-14 border border-black-300 rounded-2xl p-2 bg-white resize-none hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                        className="block w-full h-28 border border-black-300 rounded-2xl p-2 bg-white resize-none hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                         placeholder="Enter a message..."
                                     />
                                 </div>

@@ -116,15 +116,16 @@ const DoctorVerification = () => {
 
           <div className='flex pt-3 flex-wrap flex-col w-96'>
 
-            <h1 className="text-black-400 pb-2">Add Hobbies</h1>
+            <h1 className="text-black-400 pb-2">Add Hobbies<span className='text-danger text-lg'>*</span></h1>
             {/* <pre>{JSON.stringify(selected)}</pre> */}
             <TagsInput
+            required
               value={selected}
               onChange={setSelected}
               name="fruits"
               placeHolder="Enter your hobbies..."
             />
-            <em className="text-black-400">press enter to add new tag</em>
+            <em className="text-black-400">press enter to add new hobbies</em>
           </div>
         </div>
 
