@@ -143,7 +143,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "verification",
+        path: "verification-page1",
         element: (
           <DoctorLayout>
             <DoctorVerification />
@@ -151,7 +151,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "verification2",
+        path: "verification-page2",
         element: (
           <DoctorLayout>
             <DoctorVerification2 />
@@ -159,7 +159,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "verification3",
+        path: "verification-page3",
         element: (
           <DoctorLayout>
             <DoctorVerification3 />

@@ -1,5 +1,3 @@
-
-
 import Loader from "../components/Loader";
 import SuccessAlert from "../components/Alerts/SuccessAlert";
 import BlackAlert from "../components/Alerts/BlackAlert";
@@ -11,11 +9,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DoctorHeader from "../components/Doctor/DoctorHeader";
 
-
-
-
 const DoctorLayout = ({ children }) => {
-
   const { isVisible, message, alertType } = useSelector((state) => state.alert);
   const isVisibleLoader = useSelector((state) => state.loader.isVisible);
   const [isManuallyVisible, setIsManuallyVisible] = useState(false);
@@ -55,12 +49,12 @@ const DoctorLayout = ({ children }) => {
 
       {isVisibleLoader && <Loader />}
       <div>
-        <DoctorHeader/>
+        <DoctorHeader />
         <div className="flex">
-          <div className="flex flex-col">
-          </div>
-          <div className="flex-1">
+          <div className="flex flex-col"></div>
+          <div className="flex-1 mb-10">
             {children}
+            <div className="h-10"></div>
           </div>
         </div>
       </div>

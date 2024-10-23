@@ -54,7 +54,7 @@ const Login = () => {
           }
 
           if (!res.isVerified) {
-            navigate("/doctor/verification");
+            navigate("/doctor/verification-page1");
           }
         }
         if (res.role == "user") {
