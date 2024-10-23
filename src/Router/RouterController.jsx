@@ -27,7 +27,7 @@ import DoctorVerify2 from "../pages/Admin/DoctorVerify2";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <>Home</>,
+    element: <><FileUpload/></>,
   },
 
   {
