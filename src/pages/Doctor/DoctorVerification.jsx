@@ -67,7 +67,9 @@ const DoctorVerification = () => {
   // set form default value
   useEffect(() => {
     if (getMyDoctorDetails) {
-      console.log(getMyDoctorDetails);
+      if(getMyDoctorDetails.data.applicationStatus==="submitted"){
+        navigate('/doctor/verification-page1')
+      }
 
       // Set values for the form fields
       setValue("name", getMyDoctorDetails?.data?.name);

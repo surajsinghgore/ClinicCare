@@ -50,8 +50,8 @@ const DoctorVerification2 = () => {
     try {
       let body = { ...formData, highlights: selected };
       let res = await updateQualificationDetailsDoctorVerificationApi(body);
-      dispatch(showAlert({ message: res.message, type: "success" }));
       if (res.success) {
+          dispatch(showAlert({ message: res.message, type: "success" }));
         setTimeout(() => {
           navigate("/doctor/verification-page3");
         }, 2000);
