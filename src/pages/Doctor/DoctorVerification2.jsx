@@ -51,7 +51,7 @@ const DoctorVerification2 = () => {
       let body = { ...formData, highlights: selected };
       let res = await updateQualificationDetailsDoctorVerificationApi(body);
       if (res.success) {
-          dispatch(showAlert({ message: res.message, type: "success" }));
+        dispatch(showAlert({ message: res.message, type: "success" }));
         setTimeout(() => {
           navigate("/doctor/verification-page3");
         }, 2000);
@@ -66,6 +66,10 @@ const DoctorVerification2 = () => {
   // set form default value
   useEffect(() => {
     if (getMyDoctorDetails) {
+      if (getMyDoctorDetails.data.applicationStatus === "submitted" || getMyDoctorDetails.data.applicationStatus === "banned" || getMyDoctorDetails.data.applicationStatus === "completed") {
+        navigate("/doctor/verification-page1");
+      }
+
       setValue("degree", getMyDoctorDetails?.data?.degree);
       setValue("licenseNumber", getMyDoctorDetails?.data?.licenseNumber);
       setValue("experience", getMyDoctorDetails?.data?.experience);

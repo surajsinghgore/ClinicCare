@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import BreadCrumbs from "../../components/Common/BreadCrumbs";
 import { FaRegEye } from "react-icons/fa";
-import { FaUserShield, FaAddressCard } from "react-icons/fa";
-import { FaFileUpload } from "react-icons/fa";
+import { FaUserShield, FaAddressCard, FaFileUpload } from "react-icons/fa";
 import { uploadDocumentsDoctorVerificationApi } from "../../Utils/services/apis/Doctor/DoctorVerificationApi";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
+import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice";
 
 const DoctorVerification3 = () => {
+  const { getMyDoctorDetails } = useSelector((state) => state.getMyDetailsDoctor);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchMyDoctorDetails());
+  }, [dispatch]);
+
   const [files, setFiles] = useState({
     profile: null,
     sign: null,
@@ -19,16 +26,19 @@ const DoctorVerification3 = () => {
     license: null,
   });
 
+  // Handle file changes
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
     setFiles((prev) => ({ ...prev, [type]: file }));
     e.target.value = null; // Reset input to allow same file re-selection
   };
 
+  // Remove file from the state
   const handleRemoveFile = (type) => {
     setFiles((prev) => ({ ...prev, [type]: null }));
   };
 
+  // File names for display
   const fileNames = {
     profile: "Upload Profile",
     sign: "Upload Sign/Stamp",
@@ -36,13 +46,26 @@ const DoctorVerification3 = () => {
     license: "Upload License",
   };
 
+  // Render file upload row
   const renderFileRow = (type, index) => {
+    const isUploadedFile = typeof files[type] === "string"; // Check if the file is a URL (uploaded file from DB)
+    const fileName = isUploadedFile ? "Uploaded File" : files[type]?.name || "No file chosen";
+
     return (
       <div key={index} className="flex items-center justify-between mb-3 p-4 bg-white hover:bg-black-50">
         <span className="w-10 text-sm text-center">{index + 1}</span>
         <span className="w-32 text-sm">{fileNames[type]}</span>
-        <span className="w-40 text-sm truncate">{files[type]?.name || "No file chosen"}</span>
-        <button className="w-12 text-black-600 hover:text-blue-500" onClick={() => files[type] && window.open(URL.createObjectURL(files[type]), "_blank")}>
+        <span className="w-40 text-sm truncate">{fileName}</span>
+        <button
+          className="w-12 text-black-600 hover:text-blue-500"
+          onClick={() => {
+            if (isUploadedFile) {
+              window.open(files[type], "_blank"); // Open the URL directly from DB
+            } else if (files[type]) {
+              window.open(URL.createObjectURL(files[type]), "_blank"); // Preview local file
+            }
+          }}
+        >
           <FaRegEye className="text-xl" />
         </button>
         <button className="w-24 bg-blue-500 text-white text-sm px-3 py-1 rounded hover:bg-blue-600" onClick={() => document.getElementById(`${type}-file`).click()}>
@@ -56,21 +79,22 @@ const DoctorVerification3 = () => {
     );
   };
 
+  // Handle final file upload
   const uploadVerificationDocuments = async () => {
-    console.log(files);
     const { profile, sign, degree, license } = files;
 
-    // Validate that all files are present
+    // Validate all files
     if (!profile || !sign || !degree || !license) {
-      dispatch(showAlert({ message: "All four documents (Profile, Sign/Stamp, Degree, License", type: "warning" }));
+      dispatch(showAlert({ message: "All four documents (Profile, Sign/Stamp, Degree, License) are required", type: "warning" }));
       return;
     }
 
     const formData = new FormData();
-    formData.append("profileUrl", profile);
-    formData.append("signatureUrl", sign);
-    formData.append("degreeUrl", degree);
-    formData.append("licenseUrl", license);
+    formData.append("profileUrl", profile instanceof File ? profile : null);
+    formData.append("signatureUrl", sign instanceof File ? sign : null);
+    formData.append("degreeUrl", degree instanceof File ? degree : null);
+    formData.append("licenseUrl", license instanceof File ? license : null);
+
     dispatch(showLoader());
 
     try {
@@ -87,19 +111,36 @@ const DoctorVerification3 = () => {
       dispatch(hideLoader());
     }
   };
+
+  // Populate files from DB when component mounts
+  useEffect(() => {
+    if (getMyDoctorDetails) {
+      if (getMyDoctorDetails.data.applicationStatus === "submitted" || getMyDoctorDetails.data.applicationStatus === "banned" || getMyDoctorDetails.data.applicationStatus === "completed") {
+        navigate("/doctor/verification-page1");
+      }
+
+      setFiles({
+        profile: getMyDoctorDetails?.data?.profileUrl || null,
+        sign: getMyDoctorDetails?.data?.signatureUrl || null,
+        degree: getMyDoctorDetails?.data?.degreeUrl || null,
+        license: getMyDoctorDetails?.data?.licenseUrl || null,
+      });
+    }
+  }, [getMyDoctorDetails]);
+
   return (
     <>
       <BreadCrumbs currentPath="Doctor Verification" />
       <div className="relative docDiv w-[85%] h-full m-auto mt-10 rounded-lg overflow-hidden">
         <div className="flex p-3 border-b border-black-400 bg-white">
           <div className="flex gap-10 p-4 select-none">
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2">
               <FaUserShield className="text-black-500 text-2xl" />
               <span className="text-black-500 font-medium">Personal Details</span>
             </div>
-            <div className="flex items-center gap-2 ">
-              <FaAddressCard className="text-black-500 text-2xl " />
-              <span className="text-black-500 font-medium ">Profile and Bio</span>
+            <div className="flex items-center gap-2">
+              <FaAddressCard className="text-black-500 text-2xl" />
+              <span className="text-black-500 font-medium">Profile and Bio</span>
             </div>
             <div className="flex items-center gap-2 border-b-2 border-blue-400 pb-1">
               <FaFileUpload className="text-blue-500 text-2xl" />
@@ -109,8 +150,10 @@ const DoctorVerification3 = () => {
             </div>
           </div>
         </div>
+
+        {/* File Upload Section */}
         <div className="w-[80%] h-80 mb-10 mx-auto bg-white shadow-lg rounded mt-10">
-          <div className="flex items-center justify-between bg-black-100 border-b border-black-300 p-3 ">
+          <div className="flex items-center justify-between bg-black-100 border-b border-black-300 p-3">
             <span className="w-10 text-sm font-semibold text-center">No.</span>
             <span className="w-32 text-sm font-semibold pl-1">Name</span>
             <span className="w-40 text-sm font-semibold pl-2">File</span>
@@ -120,6 +163,7 @@ const DoctorVerification3 = () => {
           </div>
           {["profile", "sign", "degree", "license"].map((type, index) => renderFileRow(type, index))}
         </div>
+
         <button
           onClick={() => uploadVerificationDocuments()}
           className="ml-auto bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-0"
