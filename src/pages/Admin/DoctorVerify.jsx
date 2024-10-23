@@ -152,7 +152,7 @@ const DoctorVerify = () => {
                                 {/* Status Card */}
                                 <div>
                                     <label className="block text-lg font-medium text-black-700 mb-2">Status:</label>
-                                    <select className="w-full border border-black-300 rounded-xl p-3 bg-white hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
+                                    <select className="w-full border border-black-300 rounded-xl p-2 bg-white hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
                                         <option>Approve</option>
                                         <option>Reject</option>
                                         <option>Ban</option>
@@ -163,7 +163,7 @@ const DoctorVerify = () => {
                                 <div>
                                     <label className="block text-lg font-medium text-black-700 mb-2">Message:</label>
                                     <textarea
-                                        className="block w-full h-28 border border-black-300 rounded-2xl p-2 bg-white resize-none hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                        className="block w-full h- border border-black-300 rounded-2xl p-2 bg-white resize-none hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                         placeholder="Enter a message..."
                                     />
                                 </div>
