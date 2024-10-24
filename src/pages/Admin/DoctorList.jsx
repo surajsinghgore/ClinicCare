@@ -1,65 +1,89 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchAllDoctorSubmittedListApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
+import { useLocation } from "react-router-dom";
+import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
+import { useDispatch } from "react-redux";
 
 const DoctorList = () => {
-  const doctors = [
-    {
-      id: "#0021",
-      name: "Smith White",
-      specialization: "Neurology",
-      gender: "female",
-      email: "smith@gmail.com",
-      phone: "3345678901",
-      image: "https://images.pexels.com/photos/3873193/pexels-photo-3873193.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: "#0022",
-      name: "Athus White",
-      specialization: "Neurology",
-      gender: "male",
-      email: "smith@gmail.com",
-      phone: "3345678901",
-      image: "https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: "#0023",
-      name: "Fartk White",
-      specialization: "Neurology",
-      gender: "female",
-      email: "smith@gmail.com",
-      phone: "3345678901",
-      image: "https://images.pexels.com/photos/3714743/pexels-photo-3714743.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: "#0024",
-      name: "Math White",
-      specialization: "Neurology",
-      gender: "male",
-      email: "smith@gmail.com",
-      phone: "3345678901",
-      image: "https://images.pexels.com/photos/7585023/pexels-photo-7585023.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    },
-  ];
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [limit, setLimit] = useState(queryParams.get("limit") || 10);
+  const [page, setPage] = useState(queryParams.get("page") || 1);
+  const [totalPage, setTotalPage] = useState(1); // Set default to 1
+  const [data, setData] = useState([]);
+  const [prev, setPrev] = useState(false);
+  const [next, setNext] = useState(false);
+  const [currentPage, setCurrentPage] = useState(Number(page));
+
+  // Fetch data when limit or page changes
   const dataFetch = async () => {
-    let res = await fetchAllDoctorSubmittedListApi();
-    console.log(res);
+    try {
+      dispatch(showLoader());
+      let res = await fetchAllDoctorSubmittedListApi(currentPage, limit);
+      if (res?.success) {
+        setData(res.data);
+        setLimit(res.pagination.limit);
+        setTotalPage(res.pagination.totalPages);
+        setNext(res.pagination.hasNextPage);
+        setPrev(res.pagination.hasPrevPage);
+        setCurrentPage(res.pagination.currentPage); // Ensure this reflects the correct current page
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(hideLoader());
+    }
   };
+
   useEffect(() => {
     dataFetch();
-  }, []);
+  }, [limit, currentPage]); // Update when limit or currentPage changes
+
+  // Handle limit change and navigate to page 1
+  const handleLimitChange = (e) => {
+    const newLimit = e.target.value;
+    setLimit(newLimit);
+    setPage(1); // Reset to page 1
+    navigate(`/admin/verify-doctor?limit=${newLimit}&page=1`);
+  };
+
+  // Handle previous page button click
+  const handlePrevPage = () => {
+    if (prev && currentPage > 1) {
+      const newPage = currentPage - 1;
+      setPage(newPage);
+      setCurrentPage(newPage); // Update current page
+      navigate(`/admin/verify-doctor?limit=${limit}&page=${newPage}`);
+    }
+  };
+
+  // Handle next page button click
+  const handleNextPage = () => {
+    if (next && currentPage < totalPage) {
+      const newPage = currentPage + 1;
+      setPage(newPage);
+      setCurrentPage(newPage); // Update current page
+      navigate(`/admin/verify-doctor?limit=${limit}&page=${newPage}`);
+    }
+  };
+
   return (
     <div className="relative w-[97%] m-auto mt-10 mb-10 rounded-lg shadow-lg p-5">
       <div className="top flex items-center justify-between mb-14">
         <h1 className="text-xl font-semibold">Doctor List</h1>
-        <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">Add Doctor</button>
+        <Link to="/admin/add-doctor">
+          <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">Add Doctor</button>
+        </Link>
       </div>
 
       <div className="mb-4">
         <div className="topSelect flex items-center justify-between">
           <div className="flex gap-1">
             <p className="text-black-600 text-sm">Display</p>
-            <select name="pages" id="pages" className="bg-white border border-black-400 text-sm rounded-sm">
+            <select name="pages" id="pages" value={limit} onChange={(e) => handleLimitChange(e)} className="bg-white border border-black-400 text-sm rounded-sm">
               <option value="10">10</option>
               <option value="25">25</option>
               <option value="50">50</option>
@@ -87,19 +111,20 @@ const DoctorList = () => {
           <div>Phone</div>
           <div>Action</div>
         </div>
-        {doctors.map((doctor) => (
-          <div key={doctor.id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
-            <div>{doctor.id}</div>
+
+        {data.map((doctor) => (
+          <div key={doctor._id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
+            <div>{doctor._id}</div>
             <div className="flex items-center">
-              <img src={doctor.image} alt={doctor.name} className="w-12 h-12 object-cover rounded-full mr-2" />
+              <img src={doctor.profileUrl} alt={doctor.profileUrl} className="w-12 h-12 object-cover rounded-full mr-2" />
               {doctor.name}
             </div>
             <div className="pr-5">{doctor.specialization}</div>
             <div className="pl-10">{doctor.gender}</div>
             <div>{doctor.email}</div>
-            <div>{doctor.phone}</div>
+            <div>{doctor.mobile}</div>
             <div>
-              <Link to={"/admin/verify-doctor"} className="bg-blue-500 text-white rounded-lg px-3 py-1 transition duration-200 ease-in-out hover:bg-blue-700">
+              <Link to={`/admin/verify-doctor/${doctor._id}`} className="bg-blue-500 text-white rounded-lg px-3 py-1 transition duration-200 ease-in-out hover:bg-blue-700">
                 View
               </Link>
             </div>
@@ -108,11 +133,17 @@ const DoctorList = () => {
       </div>
 
       <div className="last mt-6 flex items-center justify-between">
-        <p className="text-sm pl-2">Showing Page 1 of 1</p>
-        <div className=" flex items-center bg-black-100 border border-black-300 rounded-md">
-          <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none">Previous</button>
-          <div className="px-4 py-2 bg-blue-500 text-white">1</div>
-          <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none">Next</button>
+        <p className="text-sm pl-2">
+          Showing Page {currentPage} of {totalPage}
+        </p>
+        <div className="flex items-center bg-black-100 border border-black-300 rounded-md">
+          <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none" disabled={!prev} onClick={handlePrevPage}>
+            Previous
+          </button>
+          <div className="px-4 py-2 bg-blue-500 text-white">{currentPage}</div>
+          <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none" disabled={!next} onClick={handleNextPage}>
+            Next
+          </button>
         </div>
       </div>
     </div>
