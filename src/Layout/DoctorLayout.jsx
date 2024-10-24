@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import Loader from "../components/Loader";
 import SuccessAlert from "../components/Alerts/SuccessAlert";
 import BlackAlert from "../components/Alerts/BlackAlert";
@@ -6,15 +7,22 @@ import ErrorAlert from "../components/Alerts/ErrorAlert";
 import GrayAlert from "../components/Alerts/GrayAlert";
 import WarningAlert from "../components/Alerts/WarningAlert";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DoctorHeader from "../components/Doctor/DoctorHeader";
-import LeftNavBar from "../components/Common/LeftNavBar";
 import DoctorNavbar from "../components/Doctor/DoctorNavbar";
 
 const DoctorLayout = ({ children }) => {
   const { isVisible, message, alertType } = useSelector((state) => state.alert);
   const isVisibleLoader = useSelector((state) => state.loader.isVisible);
   const [isManuallyVisible, setIsManuallyVisible] = useState(false);
+  const location = useLocation(); // Get current route
+
+  // Routes where DoctorNavbar should be hidden
+  const hideNavbarRoutes = [
+    "/doctor/verification-page1",
+    "/doctor/verification-page2",
+    "/doctor/verification-page3"
+  ];
 
   useEffect(() => {
     if (isVisible) {
@@ -50,12 +58,17 @@ const DoctorLayout = ({ children }) => {
       {isManuallyVisible && <div className="fixed top-0 left-0 w-full z-50">{renderAlert()}</div>}
 
       {isVisibleLoader && <Loader />}
+
       <div>
         <DoctorHeader />
         <div className="flex">
-        <div className="flex flex-col h-screen sticky top-0">
-            <DoctorNavbar />
-          </div>
+          {/* Conditionally render the DoctorNavbar based on the current route */}
+          {!hideNavbarRoutes.includes(location.pathname) && (
+            <div className="flex flex-col h-screen sticky top-0">
+              <DoctorNavbar />
+            </div>
+          )}
+
           <div className="flex-1 mb-10">
             {children}
             <div className="h-10"></div>

@@ -30,7 +30,7 @@ import AddClinic3 from "../pages/Doctor/AddClinic3";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <><FileUpload/></>,
+    element: <><AddClinic2/></>,
   },
 
   {
