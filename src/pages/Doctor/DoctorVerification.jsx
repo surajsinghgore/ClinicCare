@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { doctorPersonalUpdateValidator } from "../../Utils/services/FormValidation/DoctorValidation";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import { updatePersonalDetailsDoctorVerificationApi } from "../../Utils/services/apis/Doctor/DoctorVerificationApi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DoctorVerification = () => {
   const navigate = useNavigate();
@@ -234,6 +234,24 @@ const DoctorVerification = () => {
                 <p className="text-lg text-gray-600 mb-6">&ldquo;Your verification is still pending. Please wait while we complete the approval process&ldquo;</p>
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-opacity-50"></div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        {getMyDoctorDetails?.data?.applicationStatus === "completed" && (
+          <>
+            <div>
+              {/* Pending Status page */}
+
+              <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+                <h1 className="text-4xl font-bold text-gray-800 mb-4">You are already verified to sell your services.</h1>
+                <p className="text-lg text-gray-600 mb-6">&ldquo;You have already completed verification to sell your services.&ldquo;</p>
+                <div className="flex items-center justify-center">
+                  <Link to="/doctor/dashboard">
+                    {" "}
+                    <p className=" p-2 border-2 px-10 text-blue-600">Go To Dashboard</p>
+                  </Link>
                 </div>
               </div>
             </div>

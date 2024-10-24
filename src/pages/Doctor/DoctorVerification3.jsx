@@ -131,6 +131,11 @@ const DoctorVerification3 = () => {
   return (
     <>
       <BreadCrumbs currentPath="Doctor Verification" />
+      {getMyDoctorDetails?.data?.applicationStatus === "rejected" && (
+        <>
+          <p className="w-full p-3 text-messageWarning  font-semibold ">{getMyDoctorDetails?.data?.adminMessage}</p>
+        </>
+      )}
       <div className="relative docDiv w-[85%] h-full m-auto mt-10 rounded-lg overflow-hidden">
         <div className="flex p-3 border-b border-black-400 bg-white">
           <div className="flex gap-10 p-4 select-none">
