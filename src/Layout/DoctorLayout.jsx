@@ -8,6 +8,8 @@ import WarningAlert from "../components/Alerts/WarningAlert";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DoctorHeader from "../components/Doctor/DoctorHeader";
+import LeftNavBar from "../components/Common/LeftNavBar";
+import DoctorNavbar from "../components/Doctor/DoctorNavbar";
 
 const DoctorLayout = ({ children }) => {
   const { isVisible, message, alertType } = useSelector((state) => state.alert);
@@ -51,7 +53,9 @@ const DoctorLayout = ({ children }) => {
       <div>
         <DoctorHeader />
         <div className="flex">
-          <div className="flex flex-col"></div>
+        <div className="flex flex-col h-screen sticky top-0">
+            <DoctorNavbar />
+          </div>
           <div className="flex-1 mb-10">
             {children}
             <div className="h-10"></div>

@@ -26,9 +26,31 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401 && error.response.data.error === "Token has expired") {
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      error.response.data.message === "Token has expired"
+    ) {
+      //   toast.error("Token Expired Please Login again");
+      setTimeout(() => {
+        localStorage.clear()
+      }, 2000);
+    }
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      error.response.data.message ===
+        "Unauthorized request: Token is invalid due to a new login session"
+        
+    ) {
+      setTimeout(() => {
+        localStorage.clear()
+      }, 2000);
+      
+      
       //   toast.error("Token Expired Please Login again");
     }
+    console.log("tushar", error);
 
     return Promise.reject(error);
   }

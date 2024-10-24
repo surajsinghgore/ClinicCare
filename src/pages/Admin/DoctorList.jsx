@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const DoctorList = () => {
     const doctors = [
@@ -28,9 +29,9 @@ const DoctorList = () => {
                         </select>
                         <p className='text-black-600 text-sm'>Records Per Page</p>
                     </div>
-                    <div className='flex gap-1'>
+                    <div className='flex gap-1 items-center'>
                         <label htmlFor="search" className='text-black-600'>Search: </label>
-                        <input type="text" name='search' id='search' className='border border-black-500 pl-1 rounded-md' />
+                        <input type="text" name='search' id='search' className='border border-black-500 pl-1 h-7 w-60 rounded-md' />
                     </div>
                 </div>
             </div>
@@ -57,18 +58,23 @@ const DoctorList = () => {
                         <div>{doctor.email}</div>
                         <div>{doctor.phone}</div>
                         <div>
-                            <button 
-                                className='bg-blue-500 text-white rounded-lg px-3 py-1 transition duration-200 ease-in-out hover:bg-blue-700' 
+                            <Link to={"/admin/verify-doctor"}
+                                className='bg-blue-500 text-white rounded-lg px-3 py-1 transition duration-200 ease-in-out hover:bg-blue-700'
                             >
                                 View
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 ))}
             </div>
 
-            <div className="last mt-6">
+            <div className="last mt-6 flex items-center justify-between">
                 <p className='text-sm pl-2'>Showing Page 1 of 1</p>
+                <div className=" flex items-center bg-black-100 border border-black-300 rounded-md">
+                    <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none">Previous</button>
+                    <div className="px-4 py-2 bg-blue-500 text-white">1</div>
+                    <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none">Next</button>
+                </div>
             </div>
         </div>
     );

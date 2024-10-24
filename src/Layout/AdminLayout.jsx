@@ -57,15 +57,17 @@ const AdminLayout = ({ children }) => {
       <div>
         <AdminHeader />
         <div className="flex">
-          <div className="flex flex-col">
+          <div className="flex flex-col h-screen sticky top-0">
             <LeftNavBar />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 overflow-y-hidden">
             {children}
           </div>
         </div>
       </div>
     </div>
+
+
   );
 };
 

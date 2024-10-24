@@ -7,7 +7,7 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { MdOutlineStarRate } from "react-icons/md";
 import { TagsInput } from "react-tag-input-component";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -82,17 +82,19 @@ const DoctorVerification2 = () => {
       <BreadCrumbs currentPath="Doctor Verification" />
       {getMyDoctorDetails?.data?.applicationStatus === "rejected" && (
         <>
-          <p className="w-full p-3 text-messageWarning  font-semibold ">{getMyDoctorDetails?.data?.adminMessage}</p>
+          <p className="w-full p-3 text-messageWarning text-center pt-10  font-semibold ">{getMyDoctorDetails?.data?.adminMessage}</p>
         </>
       )}
       <div className="relative docDiv w-[85%] h-full m-auto mt-10 rounded-lg overflow-hidden">
         <div className="flex p-3 border-b border-black-400 bg-white">
           <div className="flex gap-10 p-4 select-none">
             {/* Navigation Item */}
+            <Link to={"/doctor/verification-page1"}>
             <div className="flex items-center gap-2 ">
               <FaUserShield className="text-black-500 text-2xl" />
               <span className="text-black-500 font-medium">Personal Details</span>
             </div>
+            </Link>
 
             {/* Active Navigation Item */}
             <div className="flex items-center gap-2 border-b-2 border-blue-400 pb-1">
@@ -127,7 +129,7 @@ const DoctorVerification2 = () => {
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <label className="text-black-500 font-medium" htmlFor="licenseNumber">
-                  licenseNumber <span className="text-danger text-lg">*</span>
+                  License Number <span className="text-danger text-lg">*</span>
                 </label>
               </div>
               <div className="relative">
@@ -152,7 +154,7 @@ const DoctorVerification2 = () => {
               </div>
               <div className="relative">
                 <input
-                  type="text"
+                  type="number"
                   name="experience"
                   id="experience"
                   required
@@ -184,7 +186,7 @@ const DoctorVerification2 = () => {
               </div>
             </div>
 
-            <div className="flex pt-3 flex-wrap flex-col w-96">
+            <div className="flex pt-2 flex-wrap flex-col w-96">
               <h1 className="text-black-400 pb-2">
                 Add Profile Highlights<span className="text-danger text-lg">*</span>
               </h1>
@@ -193,6 +195,11 @@ const DoctorVerification2 = () => {
             </div>
           </div>
 
+          <Link to={"/doctor/verification-page1"}
+          className="ml-auto bg-secondary duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-32"
+        >
+          Back
+        </Link>
           <button className="ml-auto bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-0">Save & Next</button>
         </form>
       </div>

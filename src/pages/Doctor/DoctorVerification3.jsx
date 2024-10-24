@@ -5,7 +5,7 @@ import { FaUserShield, FaAddressCard, FaFileUpload } from "react-icons/fa";
 import { uploadDocumentsDoctorVerificationApi } from "../../Utils/services/apis/Doctor/DoctorVerificationApi";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice";
 
@@ -102,7 +102,7 @@ const DoctorVerification3 = () => {
       if (res.success) {
         dispatch(showAlert({ message: res.message, type: "success" }));
         setTimeout(() => {
-          navigate("/doctor/verification-page3");
+          navigate("/doctor/verification-page1");
         }, 2000);
       }
     } catch (error) {
@@ -133,20 +133,25 @@ const DoctorVerification3 = () => {
       <BreadCrumbs currentPath="Doctor Verification" />
       {getMyDoctorDetails?.data?.applicationStatus === "rejected" && (
         <>
-          <p className="w-full p-3 text-messageWarning  font-semibold ">{getMyDoctorDetails?.data?.adminMessage}</p>
+          <p className="w-full p-3 text-messageWarning text-center pt-10 font-semibold ">{getMyDoctorDetails?.data?.adminMessage}</p>
         </>
       )}
       <div className="relative docDiv w-[85%] h-full m-auto mt-10 rounded-lg overflow-hidden">
         <div className="flex p-3 border-b border-black-400 bg-white">
           <div className="flex gap-10 p-4 select-none">
-            <div className="flex items-center gap-2">
-              <FaUserShield className="text-black-500 text-2xl" />
-              <span className="text-black-500 font-medium">Personal Details</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FaAddressCard className="text-black-500 text-2xl" />
-              <span className="text-black-500 font-medium">Profile and Bio</span>
-            </div>
+            <Link to={"/doctor/verification-page1"}>
+              <div className="flex items-center gap-2">
+                <FaUserShield className="text-black-500 text-2xl" />
+                <span className="text-black-500 font-medium">Personal Details</span>
+              </div>
+            </Link>
+
+            <Link to={"/doctor/verification-page2"}>
+              <div className="flex items-center gap-2">
+                <FaAddressCard className="text-black-500 text-2xl" />
+                <span className="text-black-500 font-medium">Profile and Bio</span>
+              </div>
+            </Link>
             <div className="flex items-center gap-2 border-b-2 border-blue-400 pb-1">
               <FaFileUpload className="text-blue-500 text-2xl" />
               <div className="flex flex-col items-center">
@@ -169,6 +174,11 @@ const DoctorVerification3 = () => {
           {["profile", "sign", "degree", "license"].map((type, index) => renderFileRow(type, index))}
         </div>
 
+        <Link to={"/doctor/verification-page2"}
+          className="ml-auto bg-secondary duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-32"
+        >
+          Back
+        </Link>
         <button
           onClick={() => uploadVerificationDocuments()}
           className="ml-auto bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-0 right-0"

@@ -23,6 +23,8 @@ import FileUpload from "../pages/FileUpload";
 import DoctorVerification3 from "../pages/Doctor/DoctorVerification3";
 import DoctorVerify from "../pages/Admin/DoctorVerify";
 import DoctorList from "../pages/Admin/DoctorList";
+import AddClinic from "../pages/Doctor/AddClinic";
+import AddClinic2 from "../pages/Doctor/AddClinic2";
 
 const router = createBrowserRouter([
   {
@@ -116,15 +118,15 @@ const router = createBrowserRouter([
         path: "verify-doctor",
         element: (
           <AdminLayout>
-            <DoctorVerify />
+            <DoctorList />
           </AdminLayout>
         ),
       },
       {
-        path: "doctor-list",
+        path: "verify-doctor/:id",
         element: (
           <AdminLayout>
-            <DoctorList />
+            <DoctorVerify />
           </AdminLayout>
         ),
       },
@@ -139,6 +141,22 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <DoctorDashboard />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "add-clinic",
+        element: (
+          <DoctorLayout>
+            <AddClinic />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "add-clinic2",
+        element: (
+          <DoctorLayout>
+            <AddClinic2 />
           </DoctorLayout>
         ),
       },
