@@ -25,6 +25,7 @@ import DoctorVerify from "../pages/Admin/DoctorVerify";
 import DoctorList from "../pages/Admin/DoctorList";
 import AddClinic from "../pages/Doctor/AddClinic";
 import AddClinic2 from "../pages/Doctor/AddClinic2";
+import AddClinic3 from "../pages/Doctor/AddClinic3";
 
 const router = createBrowserRouter([
   {
@@ -157,6 +158,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <AddClinic2 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "add-clinic3",
+        element: (
+          <DoctorLayout>
+            <AddClinic3 />
           </DoctorLayout>
         ),
       },

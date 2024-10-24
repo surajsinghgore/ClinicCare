@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import BreadCrumbs from '../../components/Common/BreadCrumbs'
 import { FaHospitalUser } from 'react-icons/fa';
 import { CiCalendarDate } from 'react-icons/ci';
 import { FaImages } from 'react-icons/fa';
 
 const AddClinic2 = () => {
+
+    const [availability, setAvailability] = useState([
+        { day: 'Monday', opening: '', closing: '', status: '' },
+        { day: 'Tuesday', opening: '', closing: '', status: '' },
+        { day: 'Wednesday', opening: '', closing: '', status: '' },
+        { day: 'Thursday', opening: '', closing: '', status: '' },
+        { day: 'Friday', opening: '', closing: '', status: '' },
+        { day: 'Saturday', opening: '', closing: '', status: '' },
+        { day: 'Sunday', opening: '', closing: '', status: '' },
+    ]);
+
+    const handleInputChange = (index, field, value) => {
+        const updatedAvailability = [...availability];
+        updatedAvailability[index][field] = value;
+        setAvailability(updatedAvailability);
+    };
+
     return (
         <div>
             <BreadCrumbs currentPath="Add Clinic" />
@@ -33,6 +50,40 @@ const AddClinic2 = () => {
 
                     </div>
                 </div>
+
+
+                {/* Doctor Availability */}
+                <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg mt-12">
+                    <h2 className="text-3xl font-bold mb-10 text-gray-800 text-left">Doctor Availability</h2>
+                    <div className="grid grid-cols-4 gap-6 mb-4 border-b-2 border-gray-300 pb-4 text-gray-600">
+                        <div className="font-semibold text-left">Day</div>
+                        <div className="font-semibold text-center">Opening Time</div>
+                        <div className="font-semibold text-center">Closing Time</div>
+                        <div className="font-semibold text-right">Status</div>
+                    </div>
+                    {availability.map((slot, index) => (
+                        <div key={index} className="grid grid-cols-4 gap-6 items-center mb-4 border-b border-gray-200 pb-3 transition-all hover:bg-blue-50">
+                            <div className="text-left text-gray-700 font-medium">{slot.day}</div>
+                            <input
+                                type="time"
+                                className="p-2 w-full border rounded-md shadow-sm text-center bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all duration-300 hover:shadow-md"
+                                value={slot.opening}
+                                onChange={(e) => handleInputChange(index, 'opening', e.target.value)}
+                            />
+                            <input
+                                type="time"
+                                className="p-2 w-full border rounded-md shadow-sm text-center bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all duration-300 hover:shadow-md"
+                                value={slot.closing}
+                                onChange={(e) => handleInputChange(index, 'closing', e.target.value)}
+                            />
+                            <div className="text-right text-gray-500 italic">{slot.status || 'Set Status'}</div>
+                        </div>
+                    ))}
+                </div>
+
+                <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-semibold py-2 px-3 rounded-md ml-[87%]">
+                    Save & Next
+                </button>
             </div>
         </div>
     )
