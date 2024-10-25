@@ -19,13 +19,12 @@ import DoctorDashboard from "../pages/Doctor/DoctorDashboard";
 import DoctorVerification from "../pages/Doctor/DoctorVerification";
 import DoctorProtected from "../PageProtected/DoctorProtected";
 import DoctorVerification2 from "../pages/Doctor/DoctorVerification2";
-import FileUpload from "../pages/FileUpload";
 import DoctorVerification3 from "../pages/Doctor/DoctorVerification3";
 import DoctorVerify from "../pages/Admin/DoctorVerify";
 import DoctorList from "../pages/Admin/DoctorList";
-import AddClinic from "../pages/Doctor/AddClinic";
-import AddClinic2 from "../pages/Doctor/AddClinic2";
-import AddClinic3 from "../pages/Doctor/AddClinic3";
+import AddClinic from "../pages/Doctor/Clinic/AddClinic";
+import AddClinic2 from "../pages/Doctor/Clinic/AddClinic2";
+import AddClinic3 from "../pages/Doctor/Clinic/AddClinic3";
 
 const router = createBrowserRouter([
   {
@@ -146,7 +145,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "add-clinic",
+        path: "add-clinic-page1",
         element: (
           <DoctorLayout>
             <AddClinic />
@@ -154,7 +153,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "add-clinic2",
+        path: "add-clinic-page2/:id",
         element: (
           <DoctorLayout>
             <AddClinic2 />
@@ -162,7 +161,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "add-clinic3",
+        path: "add-clinic-page3",
         element: (
           <DoctorLayout>
             <AddClinic3 />

@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMyAdminDetails } from "../../redux/Slices/getMyDetailsAdminSlice";
 import { RiAdminFill } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
-import { IoIosCreate } from "react-icons/io";
 
 const LeftNavBar = () => {
   const dispatch = useDispatch();
