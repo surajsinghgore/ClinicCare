@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import BreadCrumbs from '../../components/Common/BreadCrumbs'
+import React, { useState } from 'react';
+import BreadCrumbs from '../../components/Common/BreadCrumbs';
 import { FaHospitalUser } from 'react-icons/fa';
 import { CiCalendarDate } from 'react-icons/ci';
 import { FaImages } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const AddClinic2 = () => {
-
     const [availability, setAvailability] = useState([
         { day: 'Monday', opening: '', closing: '', status: '' },
         { day: 'Tuesday', opening: '', closing: '', status: '' },
@@ -29,8 +29,6 @@ const AddClinic2 = () => {
                 {/* form list */}
                 <div className="flex p-3 border-b border-black-400 bg-white">
                     <div className="flex gap-10 p-4 select-none">
-
-
                         <div className="flex items-center gap-2">
                             <FaHospitalUser className="text-black-500 text-2xl" />
                             <span className="text-black-500 font-medium">Clinic Details</span>
@@ -47,10 +45,8 @@ const AddClinic2 = () => {
                             <FaImages className="text-black-500 text-2xl" />
                             <span className="text-black-500 font-medium">Upload File</span>
                         </div>
-
                     </div>
                 </div>
-
 
                 {/* Doctor Availability */}
                 <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg mt-12">
@@ -76,17 +72,33 @@ const AddClinic2 = () => {
                                 value={slot.closing}
                                 onChange={(e) => handleInputChange(index, 'closing', e.target.value)}
                             />
-                            <div className="text-right text-gray-500 italic">{slot.status || 'Set Status'}</div>
+                            <select
+                                className="p-2 ml-12 w-44 border rounded-md shadow-sm bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all duration-300 hover:shadow-md text-gray-700"
+                                value={slot.status}
+                                onChange={(e) => handleInputChange(index, 'status', e.target.value)}
+                            >
+                                <option value="">Set Status</option>
+                                <option value="Open">Open</option>
+                                <option value="Close">Close</option>
+                            </select>
                         </div>
                     ))}
                 </div>
+
+
+
+                <Link to={"/doctor/add-clinic"}
+                    className="ml-auto bg-secondary hover:bg-black-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-5 right-40"
+                >
+                    Back
+                </Link>
 
                 <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-semibold py-2 px-3 rounded-md ml-[87%]">
                     Save & Next
                 </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default AddClinic2
+export default AddClinic2;
