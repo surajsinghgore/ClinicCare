@@ -115,7 +115,7 @@ const AddClinic3 = () => {
 
 
                 <Link to={"/doctor/add-clinic2"}
-                    className="ml-auto bg-secondary duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-5 right-44"
+                    className="ml-auto bg-secondary hover:bg-black-700  duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-5 right-44"
                 >
                     Back
                 </Link>
