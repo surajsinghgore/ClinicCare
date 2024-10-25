@@ -1,42 +1,75 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrumbs from "../../components/Common/BreadCrumbs";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import { MdFeedback } from "react-icons/md";
-import { fetchSingleDoctorSubmittedDataApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
-import { useParams } from "react-router-dom";
+import { fetchSingleDoctorSubmittedDataApi, updateDoctorApplicationApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
+import { showAlert } from "../../redux/Slices/AlertToggleState";
 
 const DoctorVerify = () => {
   const { id } = useParams();
-  const doctorData = {
-    name: "John Doe",
-    dob: "1990-01-01",
-    gender: "Male",
-    mobile: "+1234567890",
-    hobbies: "Reading, Traveling",
-    degree: "MD in Medicine",
-    licenseNumber: "D123456789",
-    experience: "5 years",
-    specialization: "Cardiology",
-    files: {
-      selfImage: "https://images.pexels.com/photos/3873193/pexels-photo-3873193.jpeg?auto=compress&cs=tinysrgb&w=600",
-      degreeImage: "https://forum.wordreference.com/attachments/rishi-doctor-of-medicine-diploma-jpg.32395/",
-      licenseImage: "https://thelivenagpur.com/wp-content/uploads/2020/03/899995-driving-licenses.jpg",
-      signImage: "https://cdn.simplystamps.com/media/catalog/product/1/5/15992-doctor-signature-stamp-Self-Inking.jpg",
-    },
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [doctorData, setDoctorData] = useState([])
+  const [dob, setDob] = useState()
+
+  const [status, setStatus] = useState("completed");
+  const [message, setMessage] = useState("");
 
   const fetchSingleData = async () => {
     try {
       const resData = await fetchSingleDoctorSubmittedDataApi(id);
-      console.log(resData);
+      console.log(resData.data);
+      setDoctorData(resData.data)
+      setDob(resData?.data?.dob ? new Date(resData?.data?.dob).toISOString().split("T")[0] : "");
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    console.log(id);
     fetchSingleData();
   }, []);
+
+  const handleStatusChange = (e) => {
+    setStatus(e.target.value);
+  };
+
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const handleApprove = async () => {
+    if (status === "rejected" && !message.trim()) {
+      dispatch(showAlert({ message: "Please provide a message when the status is 'Rejected'", type: "warning" }));
+      return;
+    }
+  
+    const payload = {
+      newStatus: status,
+      adminMessage: message,
+    };
+  
+    dispatch(showLoader());
+    try {
+      const response = await updateDoctorApplicationApi(id, payload);
+      dispatch(showAlert({ message: response.message, type: "success" }));
+      if (response.success) {
+        setTimeout(() => {
+          navigate("/admin/verify-doctor?page=1&limit=10");
+        }, 2000);
+      }
+    } catch (error) {
+      dispatch(showAlert({ message: error?.response?.data?.message || "Failed to update application", type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+  
+
+
   return (
     <>
       <BreadCrumbs currentPath="Verify Doctor" />
@@ -49,39 +82,47 @@ const DoctorVerify = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Name:</label>
-              <input type="text" value={doctorData.name} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={doctorData?.name} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Date of Birth:</label>
-              <input type="text" value={doctorData.dob} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={dob} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Gender:</label>
-              <input type="text" value={doctorData.gender} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={doctorData?.gender} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+            </div>
+            <div className="mb-3">
+              <label className="block text-lg font-medium text-black-700">Email:</label>
+              <input type="text" value={doctorData?.email} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Mobile Number:</label>
-              <input type="text" value={doctorData.mobile} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={doctorData?.mobile} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Hobbies:</label>
-              <input type="text" value={doctorData.hobbies} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={doctorData?.hobbies} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+            </div>
+            <div className="mb-3">
+              <label className="block text-lg font-medium text-black-700">Highlights:</label>
+              <input type="text" value={doctorData?.highlights} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Degree Name:</label>
-              <input type="text" value={doctorData.degree} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={doctorData?.degree} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Doctor's License Number:</label>
-              <input type="text" value={doctorData.licenseNumber} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={doctorData?.licenseNumber} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Experience:</label>
-              <input type="text" value={doctorData.experience} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={doctorData?.experience} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
             <div className="mb-3">
               <label className="block text-lg font-medium text-black-700">Specialization:</label>
-              <input type="text" value={doctorData.specialization} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
+              <input type="text" value={doctorData?.specialization} readOnly className="mt-1 block w-3/4 border border-black-300 rounded-md p-2 bg-black-100" />
             </div>
 
             {/* File Uploads */}
@@ -91,20 +132,20 @@ const DoctorVerify = () => {
                 <div className="flex justify-between">
                   <div>
                     <h3 className="block text-lg font-medium text-black-700">Self Image:</h3>
-                    <img src={doctorData.files.selfImage} alt="Self" className="mt-1 w-80 h-60 mb-16" />
+                    <img src={doctorData?.profileUrl} alt="Self" className="mt-1 w-80 h-60 mb-16" />
                   </div>
 
                   <div>
                     <h3 className="block text-lg font-medium text-black-700">Signature Image:</h3>
-                    <img src={doctorData.files.signImage} alt="Signature" className="mt-1 w-80 h-60 mb-8" />
+                    <img src={doctorData?.signatureUrl} alt="Signature" className="mt-1 w-80 h-60 mb-8" />
                   </div>
                 </div>
 
                 <h3 className="block text-lg font-medium text-black-700">Degree Image:</h3>
-                <img src={doctorData.files.degreeImage} alt="Degree" className="mt-1 w-full mb-16" />
+                <img src={doctorData?.degreeUrl} alt="Degree" className="mt-1 w-full mb-16" />
 
                 <h3 className="block text-lg font-medium text-black-700">License Image:</h3>
-                <img src={doctorData.files.licenseImage} alt="License" className="mt-1 w-full mb-16" />
+                <img src={doctorData?.licenseUrl} alt="License" className="mt-1 w-full mb-16" />
               </div>
             </div>
 
@@ -119,10 +160,14 @@ const DoctorVerify = () => {
                 {/* Status Card */}
                 <div>
                   <label className="block text-lg font-medium text-black-700 mb-2">Status:</label>
-                  <select className="w-full border border-black-300 rounded-xl p-2 bg-white hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
-                    <option>Approve</option>
-                    <option>Reject</option>
-                    <option>Ban</option>
+                  <select
+                    value={status}
+                    onChange={handleStatusChange}
+                    className="w-full border border-black-300 rounded-xl p-2 bg-white hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
+                  >
+                    <option value="completed">Completed</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="banned">Banned</option>
                   </select>
                 </div>
 
@@ -130,14 +175,20 @@ const DoctorVerify = () => {
                 <div>
                   <label className="block text-lg font-medium text-black-700 mb-2">Message:</label>
                   <textarea
-                    className="block w-full h- border border-black-300 rounded-2xl p-2 bg-white resize-none hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    value={message}
+                    onChange={handleMessageChange}
+                    className="block w-full h-20 border border-black-300 rounded-2xl p-2 bg-white resize-none hover:bg-black-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     placeholder="Enter a message..."
                   />
                 </div>
 
                 {/* Approve Button Card */}
                 <div className="flex justify-center">
-                  <button className="py-3 px-6 rounded-[30px] bg-blue-400 text-white font-semibold transform transition-transform duration-200 hover:scale-105 hover:bg-primary focus:outline-none focus:ring-4 focus:ring-blue-300 shadow-lg">
+                  <button
+                    type="button"
+                    onClick={() => handleApprove()}
+                    className="py-3 px-6 rounded-[30px] bg-blue-400 text-white font-semibold transform transition-transform duration-200 hover:scale-105 hover:bg-primary focus:outline-none focus:ring-4 focus:ring-blue-300 shadow-lg"
+                  >
                     Approve
                   </button>
                 </div>

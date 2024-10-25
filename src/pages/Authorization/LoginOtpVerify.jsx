@@ -1,9 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import otpverify from "../../assets/otpverify.png";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { useDispatch } from "react-redux";
 import { showLoader, hideLoader } from "../../redux/Slices/LoaderState";
-
 import { useNavigate } from "react-router-dom";
 import { getLocalStorage, setLocalStorage } from "../../Utils/LocalStorage";
 import { loginAdminOtpVerifyApi } from "../../Utils/services/apis/CommonApi";
@@ -13,7 +12,6 @@ const LoginOtpVerify = () => {
   const navigate = useNavigate();
 
   const [otp, setOtp] = useState(new Array(6).fill(""));
-
   const email = getLocalStorage("email");
   const inputRefs = useRef([]);
 
@@ -35,6 +33,12 @@ const LoginOtpVerify = () => {
       inputRefs.current[index - 1].focus();
     }
   };
+
+  useEffect(() => {
+    if (otp.every((digit) => digit !== "")) {
+      submitOtp();
+    }
+  }, [otp]);
 
   const submitOtp = async () => {
     const isOtpValid = otp.every((digit) => digit !== "") && otp.length === 6;

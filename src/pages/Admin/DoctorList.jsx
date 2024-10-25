@@ -126,9 +126,9 @@ const DoctorList = () => {
           <div>Action</div>
         </div>
 
-        {data.map((doctor) => (
+        {data.map((doctor, index) => (
           <div key={doctor._id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
-            <div>{doctor._id}</div>
+            <div>#{++index}</div>
             <div className="flex items-center">
               <img src={doctor.profileUrl} alt={doctor.profileUrl} className="w-12 h-12 object-cover rounded-full mr-2" />
               {doctor.name}
