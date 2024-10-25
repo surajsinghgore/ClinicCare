@@ -3,6 +3,7 @@ import BreadCrumbs from '../../components/Common/BreadCrumbs';
 import { FaHospitalUser } from 'react-icons/fa';
 import { CiCalendarDate } from 'react-icons/ci';
 import { FaImages } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const AddClinic2 = () => {
     const [availability, setAvailability] = useState([
@@ -83,6 +84,14 @@ const AddClinic2 = () => {
                         </div>
                     ))}
                 </div>
+
+
+
+                <Link to={"/doctor/add-clinic"}
+                    className="ml-auto bg-secondary duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-5 right-40"
+                >
+                    Back
+                </Link>
 
                 <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-semibold py-2 px-3 rounded-md ml-[87%]">
                     Save & Next

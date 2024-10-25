@@ -5,6 +5,7 @@ import { CiCalendarDate } from 'react-icons/ci';
 import { FaImages } from 'react-icons/fa';
 import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 
 
@@ -30,14 +31,14 @@ const MultiPhotoUploader = ({ title }) => {
     };
 
     return (
-        <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-8 flex items-center gap-2 underline">
+        <div className="mb-10">
+            <h3 className="text-xl font-semibold flex items-center gap-2 underline">
                 <CiImageOn className="text-2xl" />
                 {title}
             </h3>
             <div className="flex flex-wrap gap-4">
                 {images.map((image, index) => (
-                    <div key={index} className="relative w-40 h-w-40 mb-10">
+                    <div key={index} className="relative w-40 h-40">
                         <img
                             src={image.url}
                             alt={`uploaded ${index}`}
@@ -113,6 +114,11 @@ const AddClinic3 = () => {
 
 
 
+                <Link to={"/doctor/add-clinic2"}
+                    className="ml-auto bg-secondary duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-5 right-44"
+                >
+                    Back
+                </Link>
 
                 <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-semibold py-2 px-3 rounded-md ml-[86%]">
                     Final Submit
