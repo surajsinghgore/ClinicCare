@@ -26,6 +26,11 @@ import DoctorList from "../pages/Admin/DoctorList";
 import AddClinic from "../pages/Doctor/AddClinic";
 import AddClinic2 from "../pages/Doctor/AddClinic2";
 import AddClinic3 from "../pages/Doctor/AddClinic3";
+import CreateAdmins from "../pages/Admin/CreateAdmins";
+import AdminLists from "../pages/Admin/AdminLists";
+import ClinicsList from "../pages/Doctor/ClinicsList";
+import AddServices from "../pages/Doctor/AddServices";
+import ServicesList from "../pages/Doctor/ServicesList";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +113,22 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "create-admins",
+        element: (
+          <AdminLayout>
+            <CreateAdmins />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: "admins-list",
+        element: (
+          <AdminLayout>
+            <AdminLists />
+          </AdminLayout>
+        ),
+      },
+      {
         path: "add-doctor",
         element: (
           <AdminLayout>
@@ -154,6 +175,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "clinics-list",
+        element: (
+          <DoctorLayout>
+            <ClinicsList />
+          </DoctorLayout>
+        ),
+      },
+      {
         path: "add-clinic2",
         element: (
           <DoctorLayout>
@@ -166,6 +195,22 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <AddClinic3 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "add-services",
+        element: (
+          <DoctorLayout>
+            <AddServices />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "services-list",
+        element: (
+          <DoctorLayout>
+            <ServicesList />
           </DoctorLayout>
         ),
       },

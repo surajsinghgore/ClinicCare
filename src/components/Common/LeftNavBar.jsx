@@ -7,13 +7,13 @@ import { SlCalender } from "react-icons/sl";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { IoIosPersonAdd } from "react-icons/io";
 import { FaPersonCircleCheck } from "react-icons/fa6";
-import admin from "../../assets/admin.jpeg";
 import LeftNavLink from "./LeftNavLink";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyAdminDetails } from "../../redux/Slices/getMyDetailsAdminSlice";
 import { RiAdminFill } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
 import { IoIosCreate } from "react-icons/io";
+import { FaClipboardList } from "react-icons/fa";
 
 const LeftNavBar = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const LeftNavBar = () => {
     <div className="shadow-lg">
       <section className="bg-[#FFFFFF] pb-4 px-2 border-b-[1px] border-black-200">
         <div className="flex items-center ml-1 mt-10">
-          <img src={admin} alt="Admin" className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover object-top shadow-md" />
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-N0W9aBg2dFilLSvq_-rgHFctIQ8mg9u-JVh3KG0qZ54GUqllfS3qq2yOUBA-DzHGLY&usqp=CAU" alt="Admin" className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover object-top shadow-md" />
           <div>
             <h1 className="text-xl font-semibold">{getMyAdminDetails?.data?.name}</h1>
             <p className="text-sm">{(getMyAdminDetails?.data?.permission=="all")?"Super Admin":getMyAdminDetails?.data?.permission}</p>
@@ -49,8 +49,8 @@ const LeftNavBar = () => {
               title="Admin"
               icons={<RiAdminFill className=" icon text-2xl text-black-800" />}
               submenuItems={[
-                { link: "/users/profile", title: "Create Admin",  },
-                { link: "/users/profile", title: "Admins List" },
+                { link: "/admin/create-admins", title: "Create Admin", icon: <IoIosCreate className=" icon text-2xl text-black-800" />},
+                { link: "/admin/admins-list", title: "Admin's List", icon: <FaClipboardList className=" icon text-2xl text-black-800" />},
               ]}
             />
           <LeftNavLink

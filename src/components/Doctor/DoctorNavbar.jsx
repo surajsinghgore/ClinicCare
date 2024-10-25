@@ -2,6 +2,8 @@ import React from 'react'
 import { FaRegHospital } from "react-icons/fa";
 import LeftNavLink from '../Common/LeftNavLink';
 import { BiClinic } from "react-icons/bi";
+import { FaClipboardList } from "react-icons/fa";
+import { MdOutlineMedicalServices } from "react-icons/md";
 
 const DoctorNavbar = () => {
   return (
@@ -23,7 +25,7 @@ const DoctorNavbar = () => {
                 icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
                     { link: "/doctor/add-clinic", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/add-clinic", title: "Clinics List", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/clinics-list", title: "Clinics List", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
                 ]}
             />
             <LeftNavLink 
@@ -31,8 +33,8 @@ const DoctorNavbar = () => {
                 title="Sevices" 
                 icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
-                    { link: "/doctor/add-clinic", title: "Add Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/add-clinic", title: "View Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/add-services", title: "Add Services", icon: <MdOutlineMedicalServices className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/services-list", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
                 ]}
             />
         </nav>
