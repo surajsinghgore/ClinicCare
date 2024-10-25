@@ -42,14 +42,17 @@ const DoctorVerify = () => {
   };
 
   const handleApprove = async () => {
-    if (status === "rejected" && !message.trim()) {
-      dispatch(showAlert({ message: "Please provide a message when the status is 'Rejected'", type: "warning" }));
+    if ((status === "rejected" || status === "banned") && !message.trim()) {
+      dispatch(showAlert({ message: "Please provide a message when the status is 'Rejected' or 'Banned'", type: "warning" }));
       return;
     }
   
+    // Set default message to "Success" if status is "Completed" and no message is provided
+    const finalMessage = (status === "completed" && !message.trim()) ? "Success" : message;
+  
     const payload = {
       newStatus: status,
-      adminMessage: message,
+      adminMessage: finalMessage,
     };
   
     dispatch(showLoader());
@@ -67,6 +70,7 @@ const DoctorVerify = () => {
       dispatch(hideLoader());
     }
   };
+  
   
 
 

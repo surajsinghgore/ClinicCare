@@ -10,9 +10,11 @@ import { useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { createDoctorApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
+import { useNavigate } from "react-router-dom";
 
 const CreateDoctor = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -41,6 +43,9 @@ const CreateDoctor = () => {
       if (res.success) {
         reset();
         dispatch(showAlert({ message: res.message, type: "success" }));
+          setTimeout(() => {
+            navigate("/admin/verify-doctor?page=1&limit=10");
+          }, 2000);
       }
     } catch (error) {
       dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));

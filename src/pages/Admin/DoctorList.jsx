@@ -144,6 +144,7 @@ const DoctorList = () => {
             </div>
           </div>
         ))}
+        {data.length == 0 &&  <p className="text-center text-lg py-5 text-black-400">No data found</p>}
       </div>
 
       <div className="last mt-6 flex items-center justify-between">

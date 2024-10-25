@@ -26,9 +26,13 @@ const DoctorVerification3 = () => {
     license: null,
   });
 
-  // Handle file changes
+  // Handle file changes with image validation
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
+    if (file && !file.type.startsWith("image/")) {
+      dispatch(showAlert({ message: "Only image files are allowed", type: "warning" }));
+      return;
+    }
     setFiles((prev) => ({ ...prev, [type]: file }));
     e.target.value = null; // Reset input to allow same file re-selection
   };
@@ -71,7 +75,7 @@ const DoctorVerification3 = () => {
         <button className="w-24 bg-blue-500 text-white text-sm px-3 py-1 rounded hover:bg-blue-600" onClick={() => document.getElementById(`${type}-file`).click()}>
           {files[type] ? "Change" : "Upload"}
         </button>
-        <input id={`${type}-file`} type="file" className="hidden" onChange={(e) => handleFileChange(e, type)} />
+        <input id={`${type}-file`} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileChange(e, type)} />
         <button className="w-24 bg-danger text-white text-sm px-3 py-1 rounded ml-2" onClick={() => handleRemoveFile(type)}>
           Delete
         </button>
@@ -190,4 +194,4 @@ const DoctorVerification3 = () => {
   );
 };
 
-export default DoctorVerification3;
+export default DoctorVerification3

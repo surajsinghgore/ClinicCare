@@ -23,6 +23,16 @@ const DoctorNavbar = () => {
                 icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
                     { link: "/doctor/add-clinic", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/add-clinic", title: "Clinics List", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                ]}
+            />
+            <LeftNavLink 
+                link="/doctor" 
+                title="Sevices" 
+                icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
+                submenuItems={[
+                    { link: "/doctor/add-clinic", title: "Add Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/add-clinic", title: "View Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
                 ]}
             />
         </nav>

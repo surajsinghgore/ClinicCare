@@ -38,7 +38,7 @@ const MultiPhotoUploader = ({ title }) => {
             </h3>
             <div className="flex flex-wrap gap-4">
                 {images.map((image, index) => (
-                    <div key={index} className="relative w-40 h-40">
+                    <div key={index} className="relative h-56">
                         <img
                             src={image.url}
                             alt={`uploaded ${index}`}
@@ -46,7 +46,7 @@ const MultiPhotoUploader = ({ title }) => {
                             onClick={() => openImageInNewTab(image.url)}
                         />
                         <MdOutlineRemoveRedEye
-                            className="absolute top-0 left-0 bg-black-800 text-white p-1 rounded-full transform translate-y-2 -translate-x-2 text-2xl cursor-pointer hover:text-blue-500"
+                            className="absolute top-0 left-4 bg-black-800 text-white p-1 rounded-full transform translate-y-2 -translate-x-2 text-2xl cursor-pointer hover:text-blue-500"
                             onClick={() => openImageInNewTab(image.url)}
                         />
                         <button
@@ -115,7 +115,7 @@ const AddClinic3 = () => {
 
 
                 <Link to={"/doctor/add-clinic2"}
-                    className="ml-auto bg-secondary hover:bg-black-700  duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-5 right-44"
+                    className="ml-auto bg-secondary hover:bg-black-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-5 right-44"
                 >
                     Back
                 </Link>

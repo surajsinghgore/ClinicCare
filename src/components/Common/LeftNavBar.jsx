@@ -11,6 +11,9 @@ import admin from "../../assets/admin.jpeg";
 import LeftNavLink from "./LeftNavLink";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyAdminDetails } from "../../redux/Slices/getMyDetailsAdminSlice";
+import { RiAdminFill } from "react-icons/ri";
+import { FaUserDoctor } from "react-icons/fa6";
+import { IoIosCreate } from "react-icons/io";
 
 const LeftNavBar = () => {
   const dispatch = useDispatch();
@@ -32,23 +35,32 @@ const LeftNavBar = () => {
       </section>
       <section className="h-screen py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between">
-          <LeftNavLink
-            link="/users"
-            title="User"
-            icons={<FaRegUserCircle className=" icon text-2xl text-black-800" />}
-            submenuItems={[
-              { link: "/users/profile", title: "Profile" },
-              { link: "/users/settings", title: "Settings" },
-            ]}
-          />
+            <LeftNavLink
+              link="/users"
+              title="User"
+              icons={<FaRegUserCircle className=" icon text-2xl text-black-800" />}
+              submenuItems={[
+                { link: "/users/profile", title: "Profile" },
+                { link: "/users/settings", title: "Settings" },
+              ]}
+            />
+            <LeftNavLink
+              link="/admin"
+              title="Admin"
+              icons={<RiAdminFill className=" icon text-2xl text-black-800" />}
+              submenuItems={[
+                { link: "/users/profile", title: "Create Admin",  },
+                { link: "/users/profile", title: "Admins List" },
+              ]}
+            />
           <LeftNavLink
             link="/doctors"
             title="Doctor"
             icons={<FaStethoscope className=" icon text-2xl text-black-800" />}
             submenuItems={[
               { link: "/admin/add-doctor", title: "Add Doctor", icon: <IoIosPersonAdd className=" icon text-2xl text-black-800" /> },
-
               { link: "/admin/verify-doctor?page=1&limit=10", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> },
+              { link: "/admin/verify-doctor?page=1&limit=10", title: "View All Doctors", icon: <FaUserDoctor className=" icon text-2xl text-black-800" /> },
             ]}
           />
           <LeftNavLink link="/transactions" title="Transaction" icons={<RiMoneyRupeeCircleLine className=" icon text-2xl text-black-800" />} />
