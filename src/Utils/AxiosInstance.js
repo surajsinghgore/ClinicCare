@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
       
       //   toast.error("Token Expired Please Login again");
     }
-    console.log("tushar", error);
+  
 
     return Promise.reject(error);
   }

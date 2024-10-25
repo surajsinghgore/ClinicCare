@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchAllDoctorSubmittedListApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
+import { fetchAllDoctorSubmittedListApi, searchAllDoctorSubmittedListApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
 import { useLocation } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import { useDispatch } from "react-redux";
@@ -65,11 +65,25 @@ const DoctorList = () => {
     if (next && currentPage < totalPage) {
       const newPage = currentPage + 1;
       setPage(newPage);
-      setCurrentPage(newPage); // Update current page
+      setCurrentPage(newPage); 
       navigate(`/admin/verify-doctor?limit=${limit}&page=${newPage}`);
     }
   };
 
+  const searchBarHandle = async (e) => {
+    let search = e.target.value;
+    console.log(search);
+    try {
+      if (e.target.value == "") {
+        dataFetch();
+      } else {
+        let searchData = await searchAllDoctorSubmittedListApi(search);
+        setData(searchData?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="relative w-[97%] m-auto mt-10 mb-10 rounded-lg shadow-lg p-5">
       <div className="top flex items-center justify-between mb-14">
@@ -96,7 +110,7 @@ const DoctorList = () => {
             <label htmlFor="search" className="text-black-600">
               Search:{" "}
             </label>
-            <input type="text" name="search" id="search" className="border border-black-500 pl-1 h-7 w-60 rounded-md" />
+            <input type="text" name="search" onChange={(e) => searchBarHandle(e)} id="search" className="border border-black-500 pl-1 h-7 w-60 rounded-md" />
           </div>
         </div>
       </div>

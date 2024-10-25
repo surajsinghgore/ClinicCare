@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaStethoscope } from "react-icons/fa";
 import { RiMoneyRupeeCircleLine } from "react-icons/ri";
@@ -48,7 +48,7 @@ const LeftNavBar = () => {
             submenuItems={[
               { link: "/admin/add-doctor", title: "Add Doctor", icon: <IoIosPersonAdd className=" icon text-2xl text-black-800" /> },
 
-              { link: "/admin/verify-doctor", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> },
+              { link: "/admin/verify-doctor?page=1&limit=10", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> },
             ]}
           />
           <LeftNavLink link="/transactions" title="Transaction" icons={<RiMoneyRupeeCircleLine className=" icon text-2xl text-black-800" />} />
