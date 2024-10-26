@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BreadCrumbs from '../../components/Common/BreadCrumbs';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
@@ -10,12 +10,14 @@ import { useDispatch } from 'react-redux';
 const ClinicsList = () => {
 
     const dispatch = useDispatch();
+    const [clinics, setClinics] = useState([])
 
     const fetchClinicData = async() => {
         dispatch(showLoader());
         try {
             let res = await getMyClinicApi()
             console.log(res)
+            setClinics(res.data)
         } catch (error) {
             dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
           } finally {
@@ -27,17 +29,10 @@ const ClinicsList = () => {
         fetchClinicData();
     },[])
 
-    const clinics = [
-        { id: '#1', name: 'Health of Clinic', address:'123 Main St', contact: '3345678901', city: 'New York' },
-        { id: '#2', name: 'Wellness Center', address:'456 Elm St', contact: '3345678902', city: 'Los Angeles' },
-        { id: '#3', name: 'City Health', address: '789 Oak St', contact: '3345678903', city: 'Chicago' },
-        { id: '#4', name: 'Family of Clinic', address: '321 Pine St', contact: '3345678904', city: 'Houston' }
-    ];
-
-    const handleView = (id) => {
-        // Implement view functionality here
-        console.log(`View clinic with ID: ${id}`);
-    };
+    // const handleView = (id) => {
+    //     // Implement view functionality here
+    //     console.log(`View clinic with ID: ${id}`);
+    // };
 
     const handleEdit = (id) => {
         // Implement edit functionality here
@@ -85,12 +80,12 @@ const ClinicsList = () => {
                         <div className='ml-10'>City</div>
                         <div>Action</div>
                     </div>
-                    {clinics.map((clinic) => (
-                        <div key={clinic.id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
-                            <div>{clinic.id}</div>
+                    {clinics.map((clinic, index) => (
+                        <div key={clinic._id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
+                            <div>#{++index}</div>
                             <div className="flex items-center">{clinic.name}</div>
                             <div className="mr-4">{clinic.address}</div>
-                            <div>{clinic.contact}</div>
+                            <div>{clinic.contactNumber}</div>
                             <div>{clinic.city}</div>
                             <div className="flex items-center">
                                 <FaEdit
