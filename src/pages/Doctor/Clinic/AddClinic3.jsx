@@ -92,7 +92,7 @@ const AddClinic3 = () => {
   }, [clinicDetails, dispatch]);
 
   const removeImage = async (url) => {
-    let id = getLocalStorage("clinicId");
+
     if (!id) {
       dispatch(showAlert({ message: "Please don't change local storage", type: "warning" }));
       return;
@@ -128,7 +128,7 @@ const AddClinic3 = () => {
                 <span className="text-black-500 font-medium">Clinic Details</span>
               </div>
             </Link>
-            <Link to={`/doctor/add-clinic-page2/${getLocalStorage("clinicId") || ""}`}>
+            <Link to={`/doctor/add-clinic-page2/${id}) || ""}`}>
               <div className="flex items-center gap-2">
                 <CiCalendarDate className="text-black-500 text-2xl" />
                 <span className="text-black-500 font-medium">Availability</span>
