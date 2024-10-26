@@ -182,8 +182,8 @@ const AddClinic3 = () => {
                   {clinicWorkPhotoUrl.map((image, index) => (
                     <div key={index} className="relative h-56 mb-4">
                       <img src={image} alt={`uploaded ${index}`} className="w-[320px] h-full object-cover rounded-md cursor-pointer" onClick={() => openImageInNewTab(image.url)} />
-                      <MdOutlineRemoveRedEye className="absolute top-1 left-1 text-3xl text-white bg-black-800 px-2 rounded-full" onClick={() => openImageInNewTab(image)} />
-                      <button onClick={() => removeImage(image)} className="absolute top-1 right-1 text-white bg-black-800 px-2 rounded-full " title="Delete this image">
+                      <MdOutlineRemoveRedEye className="absolute top-1 left-1 text-3xl text-white bg-black-800 px-2 rounded-full cursor-pointer" onClick={() => openImageInNewTab(image)} />
+                      <button onClick={() => removeImage(image)} className="absolute top-1 right-1 text-white bg-black-800 px-2 rounded-full cursor-pointer " title="Delete this image">
                         &times;
                       </button>
                     </div>
