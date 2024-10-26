@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { hideAlert } from "../../redux/Slices/AlertToggleState";
 
@@ -9,6 +9,18 @@ const BlueAlert = ({ message, initialState }) => {
     setShowAlert(false);
     dispatch(hideAlert());
   };
+
+    // Automatically hide alert after 2 seconds
+    useEffect(() => {
+      if (showAlert) {
+        const timer = setTimeout(() => {
+          hideAlertToast();
+        }, 2000);
+  
+        // Clear timer if component unmounts or `showAlert` changes
+        return () => clearTimeout(timer);
+      }
+    }, [showAlert]);
 
   return (
     <>
