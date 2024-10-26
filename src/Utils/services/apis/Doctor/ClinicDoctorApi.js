@@ -16,8 +16,8 @@ export const addClinicPhase3Api = async (id, payload) => {
   });
   return res.data;
 };
-export const deleteClinicPhotoApi = async (url) => {
-  const res = await axiosInstance.patch(`/v1/doctor/clinic/delete-clinic-photo/${url}`);
+export const deleteClinicPhotoApi = async (id,payload) => {
+  const res = await axiosInstance.patch(`/v1/doctor/clinic/delete-clinic-photo/${id}`,payload);
   return res.data;
 };
 export const getMyClinicApi = async () => {

@@ -1,17 +1,18 @@
 import { FaHospitalUser } from "react-icons/fa";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaImages } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { useState, useEffect } from "react";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { useDispatch, useSelector } from "react-redux";
 import { addClinicPhase2Api } from "../../../Utils/services/apis/Doctor/ClinicDoctorApi";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
-import { getLocalStorage } from "../../../Utils/LocalStorage";
 import { fetchMyClinicById } from "../../../redux/Slices/GetMyClinicByIdSlice";
 
 const AddClinic2 = () => {
+  const {id}=useParams();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -86,7 +87,7 @@ const AddClinic2 = () => {
       dispatch(showAlert({ message: errorMessage, type: "warning" }));
       return;
     }
-    let id=getLocalStorage("clinicId");
+
     if (!id) {
       dispatch(showAlert({ message: "Please don't change local storage", type: "warning" }));
       return;
@@ -116,14 +117,14 @@ const AddClinic2 = () => {
       }
     } catch (error) {
       console.log(error);
-      dispatch(showAlert({ message: errorMessage, type: "failed" }));
+      dispatch(showAlert({ message:  error?.response?.data?.message, type: "failed" }));
     } finally {
       dispatch(hideLoader());
     }
   };
 
   useEffect(() => {
-    const clinicId = getLocalStorage("clinicId");
+    const clinicId = id;
     if (clinicId) {
       dispatch(fetchMyClinicById(clinicId));
     }
