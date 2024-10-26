@@ -12,7 +12,7 @@ import { addClinicPhase1Api } from "../../../Utils/services/apis/Doctor/ClinicDo
 import { clinicDataValidatorPhase1 } from "../../../Utils/services/FormValidation/DoctorValidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { fetchMyClinicById } from "../../../redux/Slices/GetMyClinicByIdSlice";
+import { fetchMyClinicById, resetClinicDetails } from "../../../redux/Slices/GetMyClinicByIdSlice";
 import { getLocalStorage, setLocalStorage } from "../../../Utils/LocalStorage";
 import MapComponent from "../../../components/MapComponent";
 
@@ -36,25 +36,32 @@ const AddClinic = () => {
     const clinicId = getLocalStorage("clinicId");
     if (clinicId) {
       dispatch(fetchMyClinicById(clinicId));
+    } else {
+      dispatch(resetClinicDetails());
     }
   }, [dispatch]);
 
   useEffect(() => {
-    if (clinicDetails) {
-      
-      setValue("name", clinicDetails.data.name);
-      setValue("address", clinicDetails.data.address);
-      setValue("contactNumber", clinicDetails.data.contactNumber);
-      setLocationData(clinicDetails.data.fullAddress);
-      setCoords({ lat: clinicDetails.data.lat, long: clinicDetails.data.long });
-      setValue("city", clinicDetails.data.city || ""); // Populate city
-      setValue("state", clinicDetails.data.state || ""); // Populate state
-      setValue("pincode", clinicDetails.data.fullAddress.postcode || ""); // Populate state
-      setValue("country", clinicDetails.data.country || ""); // Populate country
-      setValue("lat", clinicDetails.data.lat || ""); // Populate country
-      setValue("long", clinicDetails.data.long || ""); // Populate country
-      setIsLocationFetched(true); // Enable location fetched state
-      setCord({latitude:clinicDetails.data.lat,longitude:clinicDetails.data.long })
+    const clinicId = getLocalStorage("clinicId");
+    if (clinicId) {
+      if (clinicDetails) {
+        setValue("name", clinicDetails.data.name);
+        setValue("address", clinicDetails.data.address);
+        setValue("contactNumber", clinicDetails.data.contactNumber);
+        setLocationData(clinicDetails.data.fullAddress);
+        setCoords({ lat: clinicDetails.data.lat, long: clinicDetails.data.long });
+        setValue("city", clinicDetails.data.city || ""); // Populate city
+        setValue("state", clinicDetails.data.state || ""); // Populate state
+        setValue("pincode", clinicDetails.data.fullAddress.postcode || ""); // Populate state
+        setValue("country", clinicDetails.data.country || ""); // Populate country
+        setValue("lat", clinicDetails.data.lat || ""); // Populate country
+        setValue("long", clinicDetails.data.long || ""); // Populate country
+        setIsLocationFetched(true); // Enable location fetched state
+        setCord({ latitude: clinicDetails.data.lat, longitude: clinicDetails.data.long });
+      }
+    } else {
+      console.log(clinicId, "n");
+      dispatch(resetClinicDetails());
     }
   }, [clinicDetails, dispatch]);
 
@@ -412,7 +419,7 @@ const AddClinic = () => {
 
           <div className="flex  justify-end mt-4  ">
             <button type="submit" className="px-4 py-2 bg-green-500 bg-primary text-white rounded-md">
-              {clinicDetails ? "Update" : "Submit"}
+              {getLocalStorage("clinicId") ? "Update" : "Submit"}
             </button>
           </div>
         </form>

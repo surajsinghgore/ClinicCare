@@ -6,7 +6,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
-import { getLocalStorage } from "../../../Utils/LocalStorage";
+import { getLocalStorage, removeLocalStorage } from "../../../Utils/LocalStorage";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { useDispatch, useSelector } from "react-redux";
 import { addClinicPhase3Api, deleteClinicPhotoApi } from "../../../Utils/services/apis/Doctor/ClinicDoctorApi";
@@ -48,21 +48,24 @@ const AddClinic3 = () => {
       dispatch(showAlert({ message: "please don't change local storage data!", type: "error" }));
       return;
     }
-
+    dispatch(showLoader());
     try {
       const response = await addClinicPhase3Api(id, formData);
       if (response.success) {
-        dispatch(showAlert({ message: "Photos uploaded successfully!", type: "success" }));
         dispatch(showAlert({ message: response.message, type: "success" }));
+        removeLocalStorage('clinicId')
         setTimeout(() => {
           navigate(`/doctor/clinics-list`);
         }, 2000);
       } else {
         dispatch(showAlert({ message: "Failed to upload photos.", type: "warning" }));
       }
-    } catch (error) {
-      dispatch(showAlert({ message: "An error occurred while uploading photos: " + error, type: "warning" }));
-    }
+    }catch (error) {
+        console.log(error);
+        dispatch(showAlert({ message:  error?.response?.data?.message, type: "failed" }));
+      } finally {
+        dispatch(hideLoader());
+      }
   };
 
   useEffect(() => {
@@ -73,7 +76,7 @@ const AddClinic3 = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(clinicDetails)
+    
     if (clinicDetails && clinicDetails.data) {
       if (clinicDetails.data.clinicPhotos.length !== 0) {
         setClinicPhotosUrl(clinicDetails.data.clinicPhotos);

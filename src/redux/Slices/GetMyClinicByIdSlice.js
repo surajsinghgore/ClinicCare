@@ -13,6 +13,9 @@ const getMyClinicByIdSlice = createSlice({
     setClinicDetails(state, action) {
       state.clinicDetails = action.payload;
     },
+    resetClinicDetails(state) {
+      state.clinicDetails = null; // Set clinicDetails to null
+    },
   },
 });
 
@@ -27,5 +30,5 @@ export const fetchMyClinicById = (id) => async (dispatch) => {
   }
 };
 
-export const { setClinicDetails } = getMyClinicByIdSlice.actions;
+export const { setClinicDetails, resetClinicDetails } = getMyClinicByIdSlice.actions; // Export reset action
 export default getMyClinicByIdSlice.reducer;
