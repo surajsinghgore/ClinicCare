@@ -29,7 +29,7 @@ const DoctorList = () => {
         setTotalPage(res.pagination.totalPages);
         setNext(res.pagination.hasNextPage);
         setPrev(res.pagination.hasPrevPage);
-        setCurrentPage(res.pagination.currentPage); // Ensure this reflects the correct current page
+        setCurrentPage(res.pagination.currentPage); 
       }
     } catch (error) {
       console.log(error);
@@ -65,7 +65,7 @@ const DoctorList = () => {
     if (next && currentPage < totalPage) {
       const newPage = currentPage + 1;
       setPage(newPage);
-      setCurrentPage(newPage); 
+      setCurrentPage(newPage);
       navigate(`/admin/verify-doctor?limit=${limit}&page=${newPage}`);
     }
   };
@@ -143,7 +143,7 @@ const DoctorList = () => {
             </div>
           </div>
         ))}
-        {data.length == 0 &&  <p className="text-center text-lg py-5 text-black-400">No data found</p>}
+        {data.length == 0 && <p className="text-center text-lg py-5 text-black-400">No data found</p>}
       </div>
 
       <div className="last mt-6 flex items-center justify-between">
