@@ -1,7 +1,7 @@
 import React from 'react';
 import BreadCrumbs from '../../components/Common/BreadCrumbs';
 
-const ClinicList = () => {
+const ClinicsList = () => {
     const clinics = [
         { id: '#1', name: 'Health of Clinic', address:'123 Main St', contact: '3345678901', city: 'New York' },
         { id: '#2', name: 'Wellness Center', address:'456 Elm St', contact: '3345678902', city: 'Los Angeles' },
@@ -76,4 +76,4 @@ const ClinicList = () => {
     );
 }
 
-export default ClinicList;
+export default ClinicsList;

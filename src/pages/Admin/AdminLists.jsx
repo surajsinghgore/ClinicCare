@@ -3,7 +3,7 @@ import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import BreadCrumbs from '../../components/Common/BreadCrumbs';
 
-const AdminList = () => {
+const AdminLists = () => {
     const admins = [
         { id: '#001', name: 'Smith White', email: 'smith@gmail.com', phone: '3345678901', password: 'password123', permission: 'read', lastLogin: '2024-10-22 10:00 AM' },
         { id: '#002', name: 'Athus White', email: 'athus@gmail.com', phone: '3345678902', password: 'password456', permission: 'write', lastLogin: '2024-10-21 9:30 AM' },
@@ -89,4 +89,4 @@ const AdminList = () => {
     );
 }
 
-export default AdminList;
+export default AdminLists;

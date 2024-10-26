@@ -2,6 +2,8 @@ import  { useEffect } from "react";
 import { FaRegHospital } from "react-icons/fa";
 import LeftNavLink from "../Common/LeftNavLink";
 import { BiClinic } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice";
 
 const DoctorNavbar = () => {
   const dispatch = useDispatch();
