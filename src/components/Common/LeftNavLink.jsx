@@ -15,7 +15,7 @@ const LeftNavLink = ({ link, title, icons, submenuItems }) => {
 
                 {/* icon */}
                 <div className='flex items-center flex-1 gap-2'>
-                    <div className="h-12 w-12 rounded-md bg-[#E9F2FF] flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-md bg-[#E9F2FF] flex items-center justify-center">
                         {icons}
                     </div>
 
