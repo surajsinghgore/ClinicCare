@@ -2,8 +2,6 @@ import  { useEffect } from "react";
 import { FaRegHospital } from "react-icons/fa";
 import LeftNavLink from "../Common/LeftNavLink";
 import { BiClinic } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice";
 
 const DoctorNavbar = () => {
   const dispatch = useDispatch();
@@ -25,24 +23,24 @@ const DoctorNavbar = () => {
       </section>
       <section className="h-screen py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between">
-          <LeftNavLink
-            link="/doctor"
-            title="Clinic"
-            icons={<FaRegHospital className=" icon text-2xl text-black-800" />}
-            submenuItems={[
-              { link: "/doctor/add-clinic-page1", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-              { link: "/doctor/add-clinic", title: "Clinics List", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-            ]}
-          />
-          <LeftNavLink
-            link="/doctor"
-            title="Sevices"
-            icons={<FaRegHospital className=" icon text-2xl text-black-800" />}
-            submenuItems={[
-              { link: "/doctor/add-clinic", title: "Add Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-              { link: "/doctor/add-clinic", title: "View Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-            ]}
-          />
+            <LeftNavLink 
+                link="/doctor" 
+                title="Clinic" 
+                icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
+                submenuItems={[
+                    { link: "/doctor/add-clinic", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/add-clinic", title: "Clinics List", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                ]}
+            />
+            <LeftNavLink 
+                link="/doctor" 
+                title="Sevices" 
+                icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
+                submenuItems={[
+                    { link: "/doctor/add-clinic", title: "Add Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/add-clinic", title: "View Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                ]}
+            />
         </nav>
       </section>
     </div>

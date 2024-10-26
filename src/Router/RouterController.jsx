@@ -108,6 +108,22 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "create-admins",
+        element: (
+          <AdminLayout>
+            <CreateAdmins />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: "admins-list",
+        element: (
+          <AdminLayout>
+            <AdminLists />
+          </AdminLayout>
+        ),
+      },
+      {
         path: "add-doctor",
         element: (
           <AdminLayout>
@@ -154,6 +170,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "clinics-list",
+        element: (
+          <DoctorLayout>
+            <ClinicsList />
+          </DoctorLayout>
+        ),
+      },
+      {
         path: "add-clinic-page2/:id",
         element: (
           <DoctorLayout>
@@ -166,6 +190,22 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <AddClinic3 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "add-services",
+        element: (
+          <DoctorLayout>
+            <AddServices />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "services-list",
+        element: (
+          <DoctorLayout>
+            <ServicesList />
           </DoctorLayout>
         ),
       },
