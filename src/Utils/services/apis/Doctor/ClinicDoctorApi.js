@@ -9,7 +9,11 @@ export const addClinicPhase2Api = async (id, payload) => {
   return res.data;
 };
 export const addClinicPhase3Api = async (id, payload) => {
-  const res = await axiosInstance.patch(`/v1/doctor/clinic/upload-clinic-photos/${id}`, payload);
+  const res = await axiosInstance.patch(`/v1/doctor/clinic/upload-clinic-photos/${id}`, payload, {
+    headers: {
+      "Content-Type": "multipart/form-data", 
+    },
+  });
   return res.data;
 };
 export const deleteClinicPhotoApi = async (url) => {
