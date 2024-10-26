@@ -28,9 +28,11 @@ import AddClinic3 from "../pages/Doctor/Clinic/AddClinic3";
 import Demo from "../pages/Demo";
 import CreateAdmins from "../pages/Admin/CreateAdmins";
 import AdminLists from "../pages/Admin/AdminLists";
-import ClinicsList from "../pages/Doctor/ClinicsList";
-import AddServices from "../pages/Doctor/AddServices";
-import ServicesList from "../pages/Doctor/ServicesList";
+
+
+import ClinicsList from "../pages/Doctor/Clinic/ClinicsList";
+import AddServices from "../pages/Doctor/Service/AddServices";
+import ServicesList from "../pages/Doctor/Service/ServicesList";
 
 const router = createBrowserRouter([
   {

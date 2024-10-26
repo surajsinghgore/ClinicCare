@@ -43,7 +43,7 @@ const DoctorNavbar = () => {
                 icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
                     { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/services-list", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/services-list?page=1&limit=10", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
                 ]}
             />
         </nav>

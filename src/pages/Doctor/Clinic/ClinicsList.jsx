@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
-import BreadCrumbs from "../../components/Common/BreadCrumbs";
+import  { useEffect, useState, useCallback } from "react";
+import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { getMyClinicApi, searchMyClinicApi } from "../../Utils/services/apis/Doctor/ClinicDoctorApi";
-import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
+import { getMyClinicApi, searchMyClinicApi } from "../../../Utils/services/apis/Doctor/ClinicDoctorApi";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
 const ClinicsList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
