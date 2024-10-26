@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BreadCrumbs from '../../components/Common/BreadCrumbs';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import { getMyClinicApi } from '../../Utils/services/apis/Doctor/ClinicDoctorApi';
+import { showAlert } from '../../redux/Slices/AlertToggleState';
+import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
+import { useDispatch } from 'react-redux';
 
 const ClinicsList = () => {
+
+    const dispatch = useDispatch();
+
+    const fetchClinicData = async() => {
+        dispatch(showLoader());
+        try {
+            let res = await getMyClinicApi()
+            console.log(res)
+        } catch (error) {
+            dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+          } finally {
+            dispatch(hideLoader());
+          }
+    }
+
+    useEffect(() => {
+        fetchClinicData();
+    },[])
+
     const clinics = [
         { id: '#1', name: 'Health of Clinic', address:'123 Main St', contact: '3345678901', city: 'New York' },
         { id: '#2', name: 'Wellness Center', address:'456 Elm St', contact: '3345678902', city: 'Los Angeles' },
