@@ -130,7 +130,9 @@ const AddClinic2 = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (clinicDetails && clinicDetails.data.day) {
+    
+    
+    if (clinicDetails && clinicDetails.data.day.length!==0) {
       setAvailability(
         clinicDetails.data.day.map((day) => ({
           day: day.name,

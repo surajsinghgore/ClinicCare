@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 
 const MapComponent = ({ selectedCord, setCord }) => {
+  
   const mapRef = useRef(null); // Reference for the map container
-  const [coords, setCoords] = useState({ latitude: selectedCord?.latitude || 30.756075, longitude: selectedCord?.longitude || 76.821314 });
+  const [coords, setCoords] = useState({ latitude: selectedCord?.latitude || selectedCord?.lat || "", longitude: selectedCord?.longitude || selectedCord?.long || ""});
 
   useEffect(() => {
     if (!mapRef.current) return; // Wait until mapRef is available

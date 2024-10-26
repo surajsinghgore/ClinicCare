@@ -41,6 +41,7 @@ const AddClinic = () => {
 
   useEffect(() => {
     if (clinicDetails) {
+      
       setValue("name", clinicDetails.data.name);
       setValue("address", clinicDetails.data.address);
       setValue("contactNumber", clinicDetails.data.contactNumber);
@@ -53,6 +54,7 @@ const AddClinic = () => {
       setValue("lat", clinicDetails.data.lat || ""); // Populate country
       setValue("long", clinicDetails.data.long || ""); // Populate country
       setIsLocationFetched(true); // Enable location fetched state
+      setCord({latitude:clinicDetails.data.lat,longitude:clinicDetails.data.long })
     }
   }, [clinicDetails, dispatch]);
 
@@ -114,7 +116,7 @@ const AddClinic = () => {
         // Populate form fields with fetched data
         setLocationData(data.address);
         setIsLocationFetched(true);
-        setValue("city", data.address.city || data.address.town || data.address.village || ""); // Handle city/town/village
+        setValue("city", data.address.city || data.address.county || data.address.town || data.address.village || ""); // Handle city/town/village
         setValue("state", data.address.state || data.address.city_district || data.address.state_district || ""); // Populate state field
         setValue("country", data.address.country || ""); // Populate country field
         setValue("pincode", data.address.postcode || ""); // Populate postcode field
@@ -403,7 +405,6 @@ const AddClinic = () => {
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
                 </div>
-
                 <MapComponent cord={cord} setCord={setCord} selectedCord={coords} />
               </>
             )}
