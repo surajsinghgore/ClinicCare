@@ -40,7 +40,7 @@ const DoctorList = () => {
 
   useEffect(() => {
     dataFetch();
-  }, [limit, currentPage]); // Update when limit or currentPage changes
+  }, [limit, currentPage]);
 
   // Handle limit change and navigate to page 1
   const handleLimitChange = (e) => {

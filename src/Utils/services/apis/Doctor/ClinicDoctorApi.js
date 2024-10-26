@@ -28,3 +28,7 @@ export const getMyClinicByIdApi = async (id) => {
   const res = await axiosInstance.get(`/v1/doctor/clinic/get-my-clinic/${id}`);
   return res.data;
 };
+export const searchMyClinicApi = async (search) => {
+  const res = await axiosInstance.get(`/v1/doctor/clinic/get-my-clinic/${search}`);
+  return res.data;
+};

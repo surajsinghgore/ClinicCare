@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getMeActiveDetailsAdminApi } from "../../Utils/services/apis/Admin/Doctor/AdminApi";
+import { getMeActiveDetailsAdminApi } from "../../Utils/services/apis/Admin/AdminApi";
 const initialState = {
   getMyAdminDetails: null,
 };
