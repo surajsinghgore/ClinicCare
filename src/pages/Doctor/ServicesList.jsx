@@ -1,5 +1,7 @@
 import React from 'react';
 import BreadCrumbs from '../../components/Common/BreadCrumbs';
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 
 const ServicesList = () => {
     const services = [
@@ -12,6 +14,16 @@ const ServicesList = () => {
     const handleView = (id) => {
         // Implement view functionality here
         console.log(`View services with ID: ${id}`);
+    };
+
+    const handleEdit = (id) => {
+        // Implement edit functionality here
+        console.log(`Edit admin with ID: ${id}`);
+    };
+
+    const handleDelete = (id) => {
+        // Implement delete functionality here
+        console.log(`Delete admin with ID: ${id}`);
     };
 
     return (
@@ -57,13 +69,15 @@ const ServicesList = () => {
                             <div className="mr-4">{services.speciality}</div>
                             <div>{services.fees}</div>
                             <div>{services.clinicName}</div>
-                            <div className="">
-                                <button 
-                                    className="bg-blue-500 text-white p-[0.4rem] rounded hover:bg-blue-700 cursor-pointer"
-                                    onClick={() => handleView(services.id)}
-                                >
-                                    View
-                                </button>
+                            <div className="flex items-center">
+                                <FaEdit
+                                    className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5"
+                                    onClick={() => handleEdit(admin.id)}
+                                />
+                                <MdDelete
+                                    className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer"
+                                    onClick={() => handleDelete(admin.id)}
+                                />
                             </div>
                         </div>
                     ))}

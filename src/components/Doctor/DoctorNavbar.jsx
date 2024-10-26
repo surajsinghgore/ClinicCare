@@ -4,6 +4,9 @@ import LeftNavLink from "../Common/LeftNavLink";
 import { BiClinic } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice";
+import { FaListAlt } from "react-icons/fa";
+import { FaHospitalUser } from "react-icons/fa";
+import { FaClipboardList } from "react-icons/fa6";
 
 const DoctorNavbar = () => {
   const dispatch = useDispatch();
@@ -31,7 +34,7 @@ const DoctorNavbar = () => {
                 icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
                     { link: "/doctor/add-clinic-page1", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/clinics-list", title: "Clinic List", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/clinics-list", title: "Clinic List", icon: <FaListAlt className=" icon text-2xl text-black-800" /> },
                 ]}
             />
             <LeftNavLink 
@@ -39,8 +42,8 @@ const DoctorNavbar = () => {
                 title="Sevices" 
                 icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
-                    { link: "/doctor/add-services", title: "Add Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/services-list", title: "View Services", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/services-list", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
                 ]}
             />
         </nav>

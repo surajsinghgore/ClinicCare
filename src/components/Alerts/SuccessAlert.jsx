@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { hideAlert } from "../../redux/Slices/AlertToggleState";
 
 const SuccessAlert = ({ message, initialState }) => {
   const dispatch = useDispatch();
   const [showAlert, setShowAlert] = React.useState(initialState);
+
   const hideAlertToast = () => {
     setShowAlert(false);
     dispatch(hideAlert());
   };
+
+  // Automatically hide alert after 2 seconds
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        hideAlertToast();
+      }, 2000);
+
+      // Clear timer if component unmounts or `showAlert` changes
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
   return (
     <>
       {showAlert && (
         <div className="space-y-3 z-50">
-          <div className="max-w bg-alert-teal text-sm text-white shadow-lg" role="alert" tabIndex="-1" aria-labelledby="hs-toast-solid-color-dark-label">
+          <div
+            className="max-w bg-alert-teal text-sm text-white shadow-lg"
+            role="alert"
+            tabIndex="-1"
+            aria-labelledby="hs-toast-solid-color-dark-label"
+          >
             <div id="hs-toast-solid-color-dark-label" className="flex p-4">
               {message}
               <div className="ms-auto">
