@@ -162,7 +162,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "add-clinic-page3",
+        path: "add-clinic-page3/:id",
         element: (
           <DoctorLayout>
             <AddClinic3 />

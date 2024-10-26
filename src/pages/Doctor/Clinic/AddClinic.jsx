@@ -19,7 +19,7 @@ import MapComponent from "../../../components/MapComponent";
 const AddClinic = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const[cord,setCord]=useState()
+  const [cord, setCord] = useState();
   const {
     handleSubmit,
     register,
@@ -31,7 +31,6 @@ const AddClinic = () => {
   const [locationData, setLocationData] = useState({});
   const [isLocationFetched, setIsLocationFetched] = useState(false);
   const clinicDetails = useSelector((state) => state.getMyClinicById?.clinicDetails);
-
 
   useEffect(() => {
     const clinicId = getLocalStorage("clinicId");
@@ -73,8 +72,7 @@ const AddClinic = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-   
-        
+
         setCoords({ latitude, longitude });
         getLocationFromLatLong(latitude, longitude);
       },
@@ -94,48 +92,44 @@ const AddClinic = () => {
     const lat = latitude;
     const lng = longitude;
 
-  
-    
     dispatch(showLoader());
 
     // Construct the API URL
     const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`;
 
     try {
-        const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl);
 
-        // Check if the response was successful
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+      // Check if the response was successful
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-        const data = await response.json();
+      const data = await response.json();
 
-        // Check if the data contains address details
-        if (data && data.address) {
-         
-          
-            dispatch(showAlert({ message: "Location fetched successfully.", type: "success" }));
+      // Check if the data contains address details
+      if (data && data.address) {
+        dispatch(showAlert({ message: "Location fetched successfully.", type: "success" }));
 
-            // Populate form fields with fetched data
-            setLocationData(data.address);
-            setIsLocationFetched(true);
-            setValue("city", data.address.city || data.address.town || data.address.village || ""); // Handle city/town/village
-            setValue("state", data.address.state || data.address.city_district || data.address.state_district || ""); // Populate state field
-            setValue("country", data.address.country || ""); // Populate country field
-            setValue("pincode", data.address.postcode || ""); // Populate postcode field
-            setValue("lat", lat || ""); // Populate latitude field
-            setValue("long", lng || ""); // Populate longitude field
-        } else {
-            dispatch(showAlert({ message: "Unable to fetch location details.", type: "failed" }));
-        }
+        // Populate form fields with fetched data
+        setLocationData(data.address);
+        setIsLocationFetched(true);
+        setValue("city", data.address.city || data.address.town || data.address.village || ""); // Handle city/town/village
+        setValue("state", data.address.state || data.address.city_district || data.address.state_district || ""); // Populate state field
+        setValue("country", data.address.country || ""); // Populate country field
+        setValue("pincode", data.address.postcode || ""); // Populate postcode field
+        setValue("lat", lat || ""); // Populate latitude field
+        setValue("long", lng || ""); // Populate longitude field
+      } else {
+        dispatch(showAlert({ message: "Unable to fetch location details.", type: "failed" }));
+      }
     } catch (error) {
-        console.error("Geocoding error: ", error);
-        dispatch(showAlert({ message: "Error fetching location details.", type: "failed" }));
+      console.error("Geocoding error: ", error);
+      dispatch(showAlert({ message: "Error fetching location details.", type: "failed" }));
     } finally {
-        dispatch(hideLoader());
+      dispatch(hideLoader());
     }
-};
+  };
 
   const onSubmit = async (formData) => {
     if (!coords) {
@@ -181,12 +175,11 @@ const AddClinic = () => {
     }
   };
 
-useEffect(()=>{
-  if(cord){
-
-    getLocationFromLatLong(cord?.latitude, cord?.longitude);
-  }
-  },[cord])
+  useEffect(() => {
+    if (cord) {
+      getLocationFromLatLong(cord?.latitude, cord?.longitude);
+    }
+  }, [cord]);
   return (
     <div>
       <BreadCrumbs currentPath="Add Clinic" />
@@ -329,7 +322,7 @@ useEffect(()=>{
                       placeholder="Enter state"
                       // value={locationData.city_district || ''} // Populate with location data
                     />
-                   
+
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
                 </div>
@@ -387,7 +380,6 @@ useEffect(()=>{
                       {...register("lat")}
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter latitude"
-                     
                     />
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
@@ -407,13 +399,12 @@ useEffect(()=>{
                       {...register("long")}
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter longitude"
-              
                     />
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
                 </div>
-{console.log(coords)}
-                <MapComponent cord={cord} setCord={setCord} selectedCord={coords}/>
+
+                <MapComponent cord={cord} setCord={setCord} selectedCord={coords} />
               </>
             )}
           </div>
