@@ -24,10 +24,10 @@ const LeftNavBar = () => {
   }, [dispatch]);
   return (
     <div className="shadow-lg">
-      <section className="bg-[#FFFFFF] pb-4 px-2 border-b-[1px] border-black-200">
+      <section className="bg-[#FFFFFF] pb-4 px-2 border-b-[1px] border-black-200 ">
         <div className="flex items-center ml-1 mt-10">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY-N0W9aBg2dFilLSvq_-rgHFctIQ8mg9u-JVh3KG0qZ54GUqllfS3qq2yOUBA-DzHGLY&usqp=CAU" alt="Admin" className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover object-top shadow-md" />
-          <div>
+          <img src="https://static.vecteezy.com/system/resources/previews/012/210/707/non_2x/worker-employee-businessman-avatar-profile-icon-vector.jpg" alt="Admin" className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover shadow-md" />
+          <div >
             <h1 className="text-xl font-semibold">{getMyAdminDetails?.data?.name}</h1>
             <p className="text-sm">{(getMyAdminDetails?.data?.permission=="all")?"Super Admin":getMyAdminDetails?.data?.permission}</p>
           </div>
