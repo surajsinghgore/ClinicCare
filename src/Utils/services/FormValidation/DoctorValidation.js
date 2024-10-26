@@ -20,3 +20,19 @@ export const doctorQualificationUpdateValidator = yup.object({
   experience: yup.number().typeError("Experience must be a number.").min(0, "Experience must be a non-negative number.").required("Experience is required."),
   specialization: yup.string().required("Specialization is required and must not be empty.").trim().min(1, "Specialization must not be empty."),
 });
+
+
+export const clinicDataValidatorPhase1 = yup.object({
+  name: yup.string()
+    .required("Clinic name is required.")
+    .trim()
+    .min(1, "Clinic name must not be empty."),
+  address: yup.string()
+    .required("Address is required.")
+    .trim()
+    .min(1, "Address must not be empty."),
+  contactNumber: yup.string()
+    .matches(/^[0-9]{10}$/, "Contact number must be a valid 10-digit number.")
+    .required("Contact number is required."),
+  
+});

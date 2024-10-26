@@ -7,7 +7,7 @@ import { getLocalStorage } from '../../Utils/LocalStorage';
 import { FiSearch } from "react-icons/fi";
 
 
-const DoctorHeader = () => { // Corrected: Removed 'export' from here
+const DoctorHeader = () => { 
   const dispatch = useDispatch();
   const role = getLocalStorage('role')
 
@@ -47,4 +47,4 @@ const DoctorHeader = () => { // Corrected: Removed 'export' from here
   );
 };
 
-export default DoctorHeader; // Corrected: Moved 'export default' to the end
+export default DoctorHeader;

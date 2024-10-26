@@ -55,7 +55,7 @@ const DoctorList = () => {
     if (prev && currentPage > 1) {
       const newPage = currentPage - 1;
       setPage(newPage);
-      setCurrentPage(newPage); // Update current page
+      setCurrentPage(newPage);
       navigate(`/admin/verify-doctor?limit=${limit}&page=${newPage}`);
     }
   };
@@ -72,7 +72,6 @@ const DoctorList = () => {
 
   const searchBarHandle = async (e) => {
     let search = e.target.value;
-    console.log(search);
     try {
       if (e.target.value == "") {
         dataFetch();

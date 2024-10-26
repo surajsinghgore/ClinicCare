@@ -15,6 +15,13 @@ const LoginOtpVerify = () => {
   const email = getLocalStorage("email");
   const inputRefs = useRef([]);
 
+  useEffect(() => {
+    // Focus on the first OTP input field when the component mounts
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+  }, []);
+
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
     if (/^\d?$/.test(value)) {

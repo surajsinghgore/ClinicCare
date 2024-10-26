@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BreadCrumbs from "../../components/Common/BreadCrumbs";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import { MdFeedback } from "react-icons/md";
@@ -13,20 +13,24 @@ const DoctorVerify = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [doctorData, setDoctorData] = useState([])
-  const [dob, setDob] = useState()
+  const [doctorData, setDoctorData] = useState([]);
+  const [dob, setDob] = useState();
 
   const [status, setStatus] = useState("completed");
   const [message, setMessage] = useState("");
 
   const fetchSingleData = async () => {
     try {
+      dispatch(showLoader());
+
       const resData = await fetchSingleDoctorSubmittedDataApi(id);
       console.log(resData.data);
-      setDoctorData(resData.data)
+      setDoctorData(resData.data);
       setDob(resData?.data?.dob ? new Date(resData?.data?.dob).toISOString().split("T")[0] : "");
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(hideLoader());
     }
   };
   useEffect(() => {
@@ -46,15 +50,15 @@ const DoctorVerify = () => {
       dispatch(showAlert({ message: "Please provide a message when the status is 'Rejected' or 'Banned'", type: "warning" }));
       return;
     }
-  
+
     // Set default message to "Success" if status is "Completed" and no message is provided
-    const finalMessage = (status === "completed" && !message.trim()) ? "Success" : message;
-  
+    const finalMessage = status === "completed" && !message.trim() ? "Success" : message;
+
     const payload = {
       newStatus: status,
       adminMessage: finalMessage,
     };
-  
+
     dispatch(showLoader());
     try {
       const response = await updateDoctorApplicationApi(id, payload);
@@ -70,9 +74,6 @@ const DoctorVerify = () => {
       dispatch(hideLoader());
     }
   };
-  
-  
-
 
   return (
     <>
