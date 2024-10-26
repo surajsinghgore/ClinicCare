@@ -22,14 +22,15 @@ import DoctorVerification2 from "../pages/Doctor/DoctorVerification2";
 import DoctorVerification3 from "../pages/Doctor/DoctorVerification3";
 import DoctorVerify from "../pages/Admin/DoctorVerify";
 import DoctorList from "../pages/Admin/DoctorList";
-import AddClinic from "../pages/Doctor/AddClinic";
-import AddClinic2 from "../pages/Doctor/AddClinic2";
-import AddClinic3 from "../pages/Doctor/AddClinic3";
+import AddClinic from "../pages/Doctor/Clinic/AddClinic";
+import AddClinic2 from "../pages/Doctor/Clinic/AddClinic2";
+import AddClinic3 from "../pages/Doctor/Clinic/AddClinic3";
+import Demo from "../pages/Demo";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <><AddClinic2/></>,
+    element: <><Demo/></>,
   },
 
   {

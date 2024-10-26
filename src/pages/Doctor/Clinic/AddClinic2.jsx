@@ -85,11 +85,16 @@ const AddClinic2 = () => {
           ))}
         </div>
 
-        <Link to={"/doctor/add-clinic-page1"} className="ml-auto bg-secondary hover:bg-black-700 duration-200 text-white m-8 shadow-lg font-bold py-2 px-3 rounded-md absolute bottom-5 right-40">
-          Back
-        </Link>
-
-        <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white m-8 shadow-lg font-semibold py-2 px-3 rounded-md ml-[87%]">Save & Next</button>
+        <div className="w-full flex justify-end gap-2 my-4 items-center">
+          <div>
+            <Link to={"/doctor/add-clinic-page1"} className=" bg-secondary hover:bg-black-700 duration-200 text-white shadow-lg font-bold py-2 px-3 rounded-md ">
+              Back
+            </Link>
+          </div>
+          <div>
+            <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white  shadow-lg font-semibold py-2 px-3 rounded-md ">Save & Next</button>
+          </div>
+        </div>
       </div>
     </div>
   );
