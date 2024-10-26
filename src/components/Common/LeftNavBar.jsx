@@ -36,15 +36,6 @@ const LeftNavBar = () => {
       <section className="h-screen py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between">
             <LeftNavLink
-              link="/users"
-              title="User"
-              icons={<FaRegUserCircle className=" icon text-2xl text-black-800" />}
-              submenuItems={[
-                { link: "/users/profile", title: "Profile" },
-                { link: "/users/settings", title: "Settings" },
-              ]}
-            />
-            <LeftNavLink
               link="/admin"
               title="Admin"
               icons={<RiAdminFill className=" icon text-2xl text-black-800" />}
@@ -63,6 +54,15 @@ const LeftNavBar = () => {
               { link: "/admin/verify-doctor?page=1&limit=10", title: "View All Doctors", icon: <FaUserDoctor className=" icon text-2xl text-black-800" /> },
             ]}
           />
+            <LeftNavLink
+              link="/users"
+              title="User"
+              icons={<FaRegUserCircle className=" icon text-2xl text-black-800" />}
+              submenuItems={[
+                { link: "/users/profile", title: "Profile" },
+                { link: "/users/settings", title: "Settings" },
+              ]}
+            />
           <LeftNavLink link="/transactions" title="Transaction" icons={<RiMoneyRupeeCircleLine className=" icon text-2xl text-black-800" />} />
           <LeftNavLink link="/reports" title="Reports" icons={<TbReportMedical className=" icon text-2xl text-black-800" />} />
           <LeftNavLink
