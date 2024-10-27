@@ -60,14 +60,14 @@ const router = createBrowserRouter([
           </AuthLayout>
         ),
       },
-      {
-        path: "create-admin",
-        element: (
-          <AuthLayout>
-            <AdminCreate />
-          </AuthLayout>
-        ),
-      },
+      // {
+      //   path: "create-admin",
+      //   element: (
+      //     <AuthLayout>
+      //       <AdminCreate />
+      //     </AuthLayout>
+      //   ),
+      // },
       {
         path: "forgetpassword",
         element: (
