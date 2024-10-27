@@ -17,6 +17,12 @@ const OtpVerify = () => {
   const inputRefs = useRef([]);
 
   useEffect(() => {
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+  }, []);
+
+  useEffect(() => {
     let timer;
     if (cooldown > 0) {
       timer = setInterval(() => {
@@ -35,7 +41,7 @@ const OtpVerify = () => {
       newOtp[index] = value;
       setOtp(newOtp);
 
-      if (value !== "" && index < otp.length - 1) {
+      if (value && index < otp.length - 1) {
         inputRefs.current[index + 1].focus();
       }
     }
@@ -47,10 +53,15 @@ const OtpVerify = () => {
     }
   };
 
-  const submitOtp = async () => {
-    const isOtpValid = otp.every((digit) => digit !== "") && otp.length === 6;
+  useEffect(() => {
+    if (otp.every((digit) => digit !== "")) {
+      submitOtp();
+    }
+  }, [otp]);
 
-    if (!isOtpValid) {
+  const submitOtp = async () => {
+    const otpValue = otp.join("");
+    if (otpValue.length !== 6) {
       dispatch(showAlert({ message: "Please enter a 6-digit OTP", type: "warning" }));
       return;
     }
@@ -60,10 +71,8 @@ const OtpVerify = () => {
     }
     dispatch(showLoader());
     try {
-      const otpValue = otp.join("");
-
-      let body = { email, otp: otpValue };
-      let res = await otpAdminAccountVerifyApi(body);
+      const body = { email, otp: otpValue };
+      const res = await otpAdminAccountVerifyApi(body);
       dispatch(showAlert({ message: res.message, type: "success" }));
       removeSessionStorage("email");
       setTimeout(() => {
@@ -77,17 +86,16 @@ const OtpVerify = () => {
   };
 
   const resendOtp = async () => {
+    if (cooldown > 0) return;
     if (!email) {
       dispatch(showAlert({ message: "Please retry registration again", type: "warning" }));
       return;
     }
-    if (cooldown > 0) return;
     dispatch(showLoader());
     try {
-      let body = { email };
-      let res = await resendOtpAdminAccountApi(body);
+      const res = await resendOtpAdminAccountApi({ email });
       dispatch(showAlert({ message: res.message, type: "success" }));
-      setCooldown(15 * 60);
+      setCooldown(15 * 60); // 15 minutes cooldown
     } catch (error) {
       dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
     } finally {

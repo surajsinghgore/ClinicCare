@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerAdminValidation } from "../../Utils/services/FormValidation/AdminValidation";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
-import { createAdminAccountApi } from "../../Utils/services/apis/AuthApis";
 import { showLoader, hideLoader } from "../../redux/Slices/LoaderState";
 import { setSessionStorage } from "../../Utils/SessionStorage";
-import BreadCrumbs from '../../components/Common/BreadCrumbs';
+import BreadCrumbs from "../../components/Common/BreadCrumbs";
+import { createAdminAccountPermissionApi } from "../../Utils/services/apis/Admin/AdminApi";
 
-const AdminCreate = () => {
+const AdminCreates = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -47,11 +47,11 @@ const AdminCreate = () => {
     dispatch(showLoader());
 
     try {
-      let res = await createAdminAccountApi(body);
+      let res = await createAdminAccountPermissionApi(body);
       dispatch(showAlert({ message: res.message, type: "success" }));
       setSessionStorage("email", res.email);
       setTimeout(() => {
-        navigate("/auth/otpverify");
+        navigate("/admin/admins-list");
       }, 2000);
     } catch (error) {
       dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
@@ -147,10 +147,7 @@ const AdminCreate = () => {
             </div>
 
             <div className="ml-[85%]">
-              <button
-                type="submit"
-                className="w-40 py-2 bg-[#004AAD] text-white rounded-md hover:bg-[#0fa3d1] font-medium"
-              >
+              <button type="submit" className="w-40 py-2 bg-[#004AAD] text-white rounded-md hover:bg-[#0fa3d1] font-medium">
                 Register
               </button>
             </div>
@@ -161,4 +158,4 @@ const AdminCreate = () => {
   );
 };
 
-export default AdminCreate;
+export default AdminCreates;
