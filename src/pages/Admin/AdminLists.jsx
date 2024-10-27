@@ -4,10 +4,11 @@ import { fetchAllDoctorSubmittedListApi, searchAllDoctorSubmittedListApi } from 
 import { useLocation } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import { useDispatch } from "react-redux";
-import { getAllAdminApi, searchAllAdminApi } from "../../Utils/services/apis/Admin/AdminApi";
+import { deleteAdminApi, getAllAdminApi, searchAllAdminApi } from "../../Utils/services/apis/Admin/AdminApi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { extractFullDateTime } from "../../Utils/DateFormatFunction";
+import { showAlert } from "../../redux/Slices/AlertToggleState";
 
 const AdminLists = () => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const AdminLists = () => {
       }
     } catch (error) {
       console.log(error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
     } finally {
       dispatch(hideLoader());
     }
@@ -87,6 +89,22 @@ const AdminLists = () => {
       console.log(error);
     }
   };
+
+  const deleteAdmin = async (id) => {
+    try {
+      let res = await deleteAdminApi(id);
+      console.log(res);
+      if (res.success) {
+        dispatch(showAlert({ message: res.message, type: "success" }));
+        dataFetch();
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
   return (
     <div className="relative w-[97%] m-auto mt-10 mb-10 rounded-lg shadow-lg p-5">
       <div className="top flex items-center justify-between mb-14">
@@ -129,7 +147,7 @@ const AdminLists = () => {
           <div>Active</div>
           <div>Action</div>
         </div>
-        {console.log(data)}
+
         {data.map((admin, index) => (
           <div key={admin._id} className="flex items-center text-sm justify-between border-b border-black-200 px-7 py-2">
             <div>#{++index}</div>
@@ -140,11 +158,12 @@ const AdminLists = () => {
             <div>{extractFullDateTime(admin.lastActiveAt)}</div>
             <div>{admin.activeDevice ? "Online" : "Offline"}</div>
             <div className="flex items-center">
-              <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" onClick={() => handleEdit(admin.id)} />
-              <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => handleDelete(admin.id)} />
+              <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" onClick={() => handleEdit(admin._id)} />
+              <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => deleteAdmin(admin._id)} />
             </div>
           </div>
         ))}
+        {data.length == 0 && <p className="text-center text-lg py-5 text-black-400">No data found</p>}
       </div>
 
       <div className="last mt-6 flex items-center justify-between">
