@@ -13,7 +13,7 @@ const Header = () => {
   };
 
   return (
-    <div className="h-20 w-full flex py-2 px-4 items-center font-semibold relative shadow-md bg-white">
+    <div className="head h-20 w-full flex py-2 px-4 items-center font-semibold relative bg-white">
       <div className="left w-[180px] flex items-center">
         <img src={logo} alt="Logo" className="w-40 mt-4 ml-2" />
       </div>
@@ -55,7 +55,7 @@ const Header = () => {
       </div>
       
       {/* Sidebar Menu */}
-      <div className={`fixed top-0 left-0 h-full bg-white w-64 p-6 shadow-2xl transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out z-50`}>
+      <div className={`fixed top-0 left-0 h-full bg-white w-72 p-6 shadow-lg transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out z-50`}>
         <FaTimes onClick={toggleSidebar} className="text-black text-2xl cursor-pointer absolute top-4 right-4 hover:text-red-600 transition-colors" />
         <div className="flex flex-col items-start">
           <img src={logo} alt="Logo" className="w-56" />
