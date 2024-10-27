@@ -33,11 +33,12 @@ import AdminLists from "../pages/Admin/AdminLists";
 import ClinicsList from "../pages/Doctor/Clinic/ClinicsList";
 import AddServices from "../pages/Doctor/Service/AddServices";
 import ServicesList from "../pages/Doctor/Service/ServicesList";
+import ClientDashboard from "../pages/Client/ClientDashboard";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <><Demo/></>,
+    element: <><ClientDashboard/></>,
   },
 
   {
