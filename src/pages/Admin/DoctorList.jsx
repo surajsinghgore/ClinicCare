@@ -29,7 +29,7 @@ const DoctorList = () => {
         setTotalPage(res.pagination.totalPages);
         setNext(res.pagination.hasNextPage);
         setPrev(res.pagination.hasPrevPage);
-        setCurrentPage(res.pagination.currentPage); 
+        setCurrentPage(res.pagination.currentPage);
       }
     } catch (error) {
       console.log(error);

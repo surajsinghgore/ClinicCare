@@ -155,7 +155,7 @@ const AdminLists = () => {
             <div>{admin.email}</div>
             <div>{admin.mobile}</div>
             <div>{admin.permission}</div>
-            <div>{extractFullDateTime(admin.lastActiveAt)}</div>
+            <div>{admin.lastActiveAt ? extractFullDateTime(admin.lastActiveAt) : "new"}</div>
             <div>{admin.activeDevice ? "Online" : "Offline"}</div>
             <div className="flex items-center">
               <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" onClick={() => handleEdit(admin._id)} />

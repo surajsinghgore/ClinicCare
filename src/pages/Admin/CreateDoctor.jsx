@@ -43,9 +43,9 @@ const CreateDoctor = () => {
       if (res.success) {
         reset();
         dispatch(showAlert({ message: res.message, type: "success" }));
-          setTimeout(() => {
-            navigate("/admin/verify-doctor?page=1&limit=10");
-          }, 2000);
+        setTimeout(() => {
+          navigate("/admin/verify-doctor?page=1&limit=10");
+        }, 2000);
       }
     } catch (error) {
       dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
@@ -102,14 +102,9 @@ const CreateDoctor = () => {
             </div>
           </div>
 
-          <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white font-bold py-2 px-4 shadow-lg rounded-md absolute bottom-6 right-6">
-            Create Doctor Profile
-          </button>
+          <button className="bg-blue-500 hover:bg-blue-700 duration-200 text-white font-bold py-2 px-4 shadow-lg rounded-md absolute bottom-6 right-6">Create Doctor Profile</button>
         </form>
       </div>
-
-
-
     </>
   );
 };
