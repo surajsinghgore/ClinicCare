@@ -34,11 +34,12 @@ import ClinicsList from "../pages/Doctor/Clinic/ClinicsList";
 import AddServices from "../pages/Doctor/Service/AddServices";
 import ServicesList from "../pages/Doctor/Service/ServicesList";
 import ClientDashboard from "../pages/Client/ClientDashboard";
+import ClientRegister from "../pages/Client/ClientRegister";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <><ClientDashboard/></>,
+    element: <><ClientRegister/></>,
   },
 
   {

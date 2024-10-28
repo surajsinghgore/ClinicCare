@@ -13,7 +13,7 @@ const Header = () => {
   };
 
   return (
-    <div className="head h-20 w-full flex py-2 px-4 items-center font-semibold relative bg-white">
+    <div className="head h-20 w-full flex py-2 px-4 items-center shadow-md font-semibold relative bg-white">
       <div className="left w-[180px] flex items-center">
         <img src={logo} alt="Logo" className="w-40 mt-4 ml-2" />
       </div>
