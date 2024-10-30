@@ -1,5 +1,5 @@
 import { useState } from "react";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/newLogo.png";
 import { NavLink } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsCalendarDate } from "react-icons/bs";
@@ -14,8 +14,8 @@ const Header = () => {
 
   return (
     <div className="head h-20 w-full flex py-2 px-4 items-center shadow-md font-semibold relative bg-white">
-      <div className="left w-[180px] flex items-center">
-        <img src={logo} alt="Logo" className="w-40 mt-4 ml-2" />
+      <div className="left w-[270px] flex items-center mb-2">
+        <img src={logo} alt="Logo" className="w-96 ml-2" />
       </div>
       <GiHamburgerMenu 
         onClick={toggleSidebar} 
@@ -58,7 +58,7 @@ const Header = () => {
       <div className={`fixed top-0 left-0 h-full bg-white w-72 p-6 shadow-lg transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out z-50`}>
         <FaTimes onClick={toggleSidebar} className="text-black text-2xl cursor-pointer absolute top-4 right-4 hover:text-red-600 transition-colors" />
         <div className="flex flex-col items-start">
-          <img src={logo} alt="Logo" className="w-56" />
+          <img src={logo} alt="Logo" className="w-72" />
           <h2 className="text-2xl font-semibold mb-7 border-b pb-2 w-full">Contact</h2>
           <p className="text-sm mb-1">+1 234 567 890</p>
           <p className="text-sm mb-10 border-b pb-6 w-full">+1 098 765 432</p>
