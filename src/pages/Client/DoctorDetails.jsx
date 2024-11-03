@@ -1,19 +1,28 @@
 import React from 'react';
 import Header from '../../components/Common/Header';
-import { FaMapMarkerAlt, FaGraduationCap } from 'react-icons/fa';
+import about from "../../assets/aboutDoctor2.png";
+import { FaMapMarkerAlt, FaGraduationCap, FaStar } from 'react-icons/fa';
+import ReviewCard from '../../components/ReviewCard';
 
 const DoctorDetails = () => {
     return (
         <>
             <Header />
+
+            {/* top img */}
+            <div className="top-img">
+                <img src={about} alt="" />
+            </div>
+
+            {/* profile */}
             <div className="relative p-6 font-sans flex justify-center items-center">
                 <div className="relative flex items-center p-8 bg-black-100 rounded-lg shadow-lg w-[85%] mt-16">
                     {/* Profile Image */}
                     <div className="absolute w-72 h-72 rounded-full overflow-hidden border-4 border-white flex-shrink-0">
-                        <img 
-                            src="https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                            alt="Dr. Profile" 
-                            className="w-full h-full object-cover" 
+                        <img
+                            src="https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                            alt="Dr. Profile"
+                            className="w-full h-full object-cover"
                         />
                     </div>
 
@@ -54,6 +63,33 @@ const DoctorDetails = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Clinic Section */}
+            <div className="p-6 font-sans flex justify-center items-start mt-20">
+                <div className="w-[85%]">
+                    <h3 className="text-xl font-semibold mb-4">Jenny Doe Clinic</h3>
+                    <div className="grid grid-cols-4 gap-4">
+                        {/* Clinic Card */}
+                        {[1, 2, 3, 4].map((item) => (
+                            <div key={item} className="rounded-lg overflow-hidden shadow-md">
+                                <img
+                                    src="https://images.pexels.com/photos/305568/pexels-photo-305568.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                    alt="clinic"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className="px-32 mt-20 min-h-screen">
+                <h2 className="text-lg font-semibold mb-4">What users are saying about Jane Cooper</h2>
+                <div className="flex space-x-4 overflow-x-auto">
+                    <ReviewCard />
+                    <ReviewCard />
                 </div>
             </div>
         </>
