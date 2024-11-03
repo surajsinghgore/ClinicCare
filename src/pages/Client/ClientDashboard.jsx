@@ -13,8 +13,11 @@ import { FaUserMd, FaClinicMedical, FaRegStar, FaTooth } from 'react-icons/fa';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { BsCalendarDate } from "react-icons/bs";
 import Footer from '../../components/Common/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const ClientDashboard = () => {
+
+  const navigate = useNavigate();
 
   const safetyData = [
     {
@@ -106,7 +109,7 @@ const ClientDashboard = () => {
           Healthcare you
           deserve!</h1>
 
-        <button className='bg-messageWarning p-3 rounded-full text-xl'>Book Appointment Now</button>
+        <button className='bg-messageWarning p-3 rounded-full text-xl' onClick={() => navigate('/book-appointment')}>Book Appointment Now</button>
       </div>
 
 

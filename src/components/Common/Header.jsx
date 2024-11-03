@@ -1,12 +1,13 @@
 import { useState } from "react";
 import logo from "../../assets/newLogo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsCalendarDate } from "react-icons/bs";
 import { FaTimes, FaTwitter, FaInstagram, FaYoutube, FaFacebook } from "react-icons/fa";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -14,7 +15,7 @@ const Header = () => {
 
   return (
     <div className="head h-20 w-full flex py-2 px-4 items-center shadow-md font-semibold relative bg-white">
-      <div className="left w-[270px] flex items-center mb-2">
+      <div className="left w-[270px] flex items-center mb-2 cursor-pointer" onClick={() => navigate('/')}>
         <img src={logo} alt="Logo" className="w-96 ml-2" />
       </div>
       <GiHamburgerMenu 
@@ -43,7 +44,7 @@ const Header = () => {
       
       {/* Right Button */}
       <div className="right flex items-center">
-        <button className="flex items-center rounded overflow-hidden mr-16">
+        <button className="flex items-center rounded overflow-hidden mr-16" onClick={() => navigate('/book-appointment')}>
           <span className="bg-[#4CC6DD] p-3 flex items-center justify-center">
             <BsCalendarDate className="text-white text-2xl" />
           </span>
