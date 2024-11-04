@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import Header from '../../components/Common/Header';
-import book from "../../assets/bookappointment.png";
 import { FiSearch } from "react-icons/fi";
 import { FaLocationDot } from "react-icons/fa6";
 import Footer from '../../components/Common/Footer';
@@ -10,10 +9,6 @@ const OurDoctors = () => {
   return (
     <>
             <Header />
-
-            <div className='img w-75%'>
-                <img src={book} alt="Book Appointment" />
-            </div>
 
             <div className="search w-full py-6">
                 {/* Heading */}
