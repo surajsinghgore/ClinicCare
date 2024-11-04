@@ -46,6 +46,7 @@ import OurDoctors from "../pages/Client/OurDoctors";
 import BookAppointmentForm from "../pages/Client/BookAppointmentForm";
 import PaymentStatusSuccess from "../pages/Client/PaymentStatusSuccess";
 import PaymentStatusFailed from "../pages/Client/PaymentStatusFailed";
+import PaymentSection from "../pages/Client/PaymentSection";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,14 @@ const router = createBrowserRouter([
     element: (
       <>
         <OurDoctors />
+      </>
+    ),
+  },
+  {
+    path: "/payment-section",
+    element: (
+      <>
+        <PaymentSection />
       </>
     ),
   },

@@ -32,8 +32,8 @@ const BookAppointmentForm = () => {
   return (
     <>
       <Header />
-      <div className="w-full h-screen flex items-center justify-center bg-black-50">
-        <div className="w-full max-w-5xl p-8 mt-10 bg-white shadow-lg rounded-lg">
+      <div className="w-full h-screen flex items-center justify-center">
+        <div className="w-full max-w-5xl p-8 mt-20 bg-white shadow-lg rounded-lg">
           {/* Heading Before Calendar */}
           <h3 className="text-2xl font-semibold text-center mb-8 mt-14">Select Appointment Date</h3>
 
@@ -53,7 +53,7 @@ const BookAppointmentForm = () => {
               <div
                 key={i}
                 className={`py-2 rounded-full cursor-pointer 
-                ${selectedDate === i + 1 ? 'bg-black-800 text-white' : 'bg-black-200'}
+                ${selectedDate === i + 1 ? 'bg-[#0148B1] text-white' : 'bg-black-200'}
               `}
                 onClick={() => handleDateClick(i + 1)}
               >
@@ -95,8 +95,8 @@ const BookAppointmentForm = () => {
             {durationOptions.map((duration) => (
               <button
                 key={duration}
-                className={`py-3 rounded-md text-sm border border-black-300 
-                ${selectedDuration === duration ? 'bg-black-800 text-white' : 'text-black-600'}
+                className={`py-3 rounded-md text-sm border border-black-300 mb-10 
+                ${selectedDuration === duration ? 'bg-[#0148B1] text-white' : 'text-black-600'}
               `}
                 onClick={() => setSelectedDuration(duration)}
               >
@@ -106,7 +106,7 @@ const BookAppointmentForm = () => {
           </div>
 
           {/* Proceed Button */}
-          <button className="w-full py-4 text-white font-semibold bg-black-800 rounded-md">
+          <button className="w-full py-4 text-white font-semibold bg-[#0148B1] rounded-md">
             Proceed
           </button>
         </div>
