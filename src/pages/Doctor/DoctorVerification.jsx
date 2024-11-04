@@ -81,6 +81,7 @@ const DoctorVerification = () => {
   }, [getMyDoctorDetails, setValue]);
   return (
     <>
+    
       <BreadCrumbs currentPath="Doctor Verification" />
       {getMyDoctorDetails?.data?.applicationStatus === "rejected" && (
         <>
