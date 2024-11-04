@@ -44,6 +44,8 @@ import BookAppointment from "../pages/Client/BookAppointment";
 import DoctorDetails from "../pages/Client/DoctorDetails";
 import OurDoctors from "../pages/Client/OurDoctors";
 import BookAppointmentForm from "../pages/Client/BookAppointmentForm";
+import PaymentStatusSuccess from "../pages/Client/PaymentStatusSuccess";
+import PaymentStatusFailed from "../pages/Client/PaymentStatusFailed";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +85,22 @@ const router = createBrowserRouter([
     element: (
       <>
         <OurDoctors />
+      </>
+    ),
+  },
+  {
+    path: "/payment-status-success",
+    element: (
+      <>
+        <PaymentStatusSuccess />
+      </>
+    ),
+  },
+  {
+    path: "/payment-status-failed",
+    element: (
+      <>
+        <PaymentStatusFailed />
       </>
     ),
   },

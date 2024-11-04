@@ -1,36 +1,117 @@
 import React, { useState } from 'react';
+import Header from '../../components/Common/Header';
 
 const BookAppointmentForm = () => {
-  const [selectedDate, setSelectedDate] = useState('');
+  // Get the current month and year
+  const today = new Date();
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth()); // 0 = January, 11 = December
+  const [currentYear, setCurrentYear] = useState(today.getFullYear());
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState("");
+  const [selectedDuration, setSelectedDuration] = useState("");
 
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+  // Handle date selection
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
   };
 
+  // Preset time and duration options
+  const timeOptions = [
+    '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+    '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
+    '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM'
+  ];
+  const durationOptions = ['15 min', '30 min', '45 min', '1 hour'];
+
+  // Month names for display
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
   return (
-    <div className="flex flex-col items-center max-w-xs mx-auto p-6 bg-white border rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">Select Date</h2>
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={handleDateChange}
-        className="w-full p-2 text-center border border-gray-300 rounded-md mb-4"
-      />
-      <div className="flex justify-between w-full">
-        <button
-          className="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300"
-          onClick={() => setSelectedDate('')}
-        >
-          Cancel
-        </button>
-        <button
-          className="px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-gray-900"
-          onClick={() => alert(`Selected Date: ${selectedDate}`)}
-        >
-          Save
-        </button>
+    <>
+      <Header />
+      <div className="w-full h-screen flex items-center justify-center bg-black-50">
+        <div className="w-full max-w-5xl p-8 mt-10 bg-white shadow-lg rounded-lg">
+          {/* Heading Before Calendar */}
+          <h3 className="text-2xl font-semibold text-center mb-8 mt-14">Select Appointment Date</h3>
+
+          {/* Display Current Month and Year */}
+          <div className="text-center mb-6">
+            <p className="text-3xl font-medium">{monthNames[currentMonth]}</p>
+            <p className="text-black-500 text-lg">{currentYear}</p>
+          </div>
+
+
+          {/* Calendar */}
+          <div className="grid grid-cols-7 gap-2 text-center text-black-600 mb-6">
+            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+              <div key={day} className="text-sm font-semibold">{day}</div>
+            ))}
+            {Array.from({ length: 31 }, (_, i) => (
+              <div
+                key={i}
+                className={`py-2 rounded-full cursor-pointer 
+                ${selectedDate === i + 1 ? 'bg-black-800 text-white' : 'bg-black-200'}
+              `}
+                onClick={() => handleDateClick(i + 1)}
+              >
+                {i + 1}
+              </div>
+            ))}
+          </div>
+
+          {/* Selected Date and Time */}
+          <p className="text-center text-black-600 font-semibold mb-4">Eastern Standard Time</p>
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col w-1/2 pr-2">
+              <label className="text-black-600 text-sm mb-1">Selected Date</label>
+              <input
+                type="text"
+                value={selectedDate ? `${monthNames[currentMonth]} ${selectedDate}, ${currentYear}` : 'Select a date'}
+                className="border border-black-300 rounded-md p-3 text-center"
+                readOnly
+              />
+            </div>
+            <div className="flex flex-col w-1/2 pl-2">
+              <label className="text-black-600 text-sm mb-1">Set Time</label>
+              <select
+                value={selectedTime}
+                onChange={(e) => setSelectedTime(e.target.value)}
+                className="border border-black-300 rounded-md p-3 text-center"
+              >
+                <option value="" disabled>Select Time</option>
+                {timeOptions.map((time) => (
+                  <option key={time} value={time}>{time}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Duration Buttons */}
+          <p className="text-black-600 font-semibold mb-3">Duration</p>
+          <div className="grid grid-cols-4 gap-3 mb-6">
+            {durationOptions.map((duration) => (
+              <button
+                key={duration}
+                className={`py-3 rounded-md text-sm border border-black-300 
+                ${selectedDuration === duration ? 'bg-black-800 text-white' : 'text-black-600'}
+              `}
+                onClick={() => setSelectedDuration(duration)}
+              >
+                {duration}
+              </button>
+            ))}
+          </div>
+
+          {/* Proceed Button */}
+          <button className="w-full py-4 text-white font-semibold bg-black-800 rounded-md">
+            Proceed
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
