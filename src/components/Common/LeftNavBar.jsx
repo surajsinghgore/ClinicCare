@@ -14,6 +14,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
 import { IoIosCreate } from "react-icons/io";
 import { FaClipboardList } from "react-icons/fa";
+import { FaRegEdit } from "react-icons/fa";
 
 const LeftNavBar = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const LeftNavBar = () => {
               submenuItems={[
                 { link: "/admin/create-admins", title: "Create Admin", icon: <IoIosCreate className=" icon text-2xl text-black-800" />},
                 { link: "/admin/admins-list?page=1&limit=10", title: "Admin's List", icon: <FaClipboardList className=" icon text-2xl text-black-800" />},
+                { link: "/admin/update-admin", title: "Update Admin", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
               ]}
             />
           <LeftNavLink
@@ -52,6 +54,7 @@ const LeftNavBar = () => {
               { link: "/admin/add-doctor", title: "Add Doctor", icon: <IoIosPersonAdd className=" icon text-2xl text-black-800" /> },
               { link: "/admin/verify-doctor?page=1&limit=10", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> },
               { link: "/admin/verify-doctor?page=1&limit=10", title: "View All Doctors", icon: <FaUserDoctor className=" icon text-2xl text-black-800" /> },
+              { link: "/admin/update-doctor", title: "Update Doctor", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
             ]}
           />
             <LeftNavLink

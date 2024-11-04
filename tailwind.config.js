@@ -13,6 +13,15 @@ export default {
       light: "#F8F9FA",
       dark: "#343A40",
       white: "#FFFFFF",
+      cyan: {
+        400: "#26C6DA",
+      },
+      sky: {
+        100:  "#E0F2F1",
+        300:  "#ADD8E6",
+
+
+      },
       transparent: "transparent",
       blue: {
         900: "#2A2F3E",

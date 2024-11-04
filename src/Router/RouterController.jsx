@@ -34,6 +34,15 @@ import AddServices from "../pages/Doctor/Service/AddServices";
 import ServicesList from "../pages/Doctor/Service/ServicesList";
 import ClientDashboard from "../pages/Client/ClientDashboard";
 import ClientRegister from "../pages/Client/ClientRegister";
+import AdminUpdate from "../pages/Admin/AdminUpdate";
+import UpdateDoctor from "../pages/Doctor/UpdateDoctor";
+import UpdateServices from "../pages/Doctor/Service/UpdateService";
+import UpdateClinic from "../pages/Doctor/Clinic/UpdateClinic";
+import UpdateClinic2 from "../pages/Doctor/Clinic/UpdateClinic2";
+import UpdateClinic3 from "../pages/Doctor/Clinic/UpdateClinic3";
+import BookAppointment from "../pages/Client/BookAppointment";
+import DoctorDetails from "../pages/Client/DoctorDetails";
+import OurDoctors from "../pages/Client/OurDoctors";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +50,30 @@ const router = createBrowserRouter([
     element: (
       <>
         <ClientDashboard />
+      </>
+    ),
+  },
+  {
+    path: "/book-appointment",
+    element: (
+      <>
+        <BookAppointment />
+      </>
+    ),
+  },
+  {
+    path: "/doctor-details",
+    element: (
+      <>
+        <DoctorDetails />
+      </>
+    ),
+  },
+  {
+    path: "/our-doctors",
+    element: (
+      <>
+        <OurDoctors />
       </>
     ),
   },
@@ -128,6 +161,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "update-admin",
+        element: (
+          <AdminLayout>
+            <AdminUpdate />
+          </AdminLayout>
+        ),
+      },
+      {
         path: "admins-list",
         element: (
           <AdminLayout>
@@ -156,6 +197,14 @@ const router = createBrowserRouter([
         element: (
           <AdminLayout>
             <DoctorVerify />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: "update-doctor",
+        element: (
+          <AdminLayout>
+            <UpdateDoctor />
           </AdminLayout>
         ),
       },
@@ -206,6 +255,30 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "update-clinic",
+        element: (
+          <DoctorLayout>
+            <UpdateClinic />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "update-clinic2",
+        element: (
+          <DoctorLayout>
+            <UpdateClinic2 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "update-clinic3",
+        element: (
+          <DoctorLayout>
+            <UpdateClinic3 />
+          </DoctorLayout>
+        ),
+      },
+      {
         path: "add-services",
         element: (
           <DoctorLayout>
@@ -218,6 +291,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <ServicesList />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "update-service",
+        element: (
+          <DoctorLayout>
+            <UpdateServices />
           </DoctorLayout>
         ),
       },

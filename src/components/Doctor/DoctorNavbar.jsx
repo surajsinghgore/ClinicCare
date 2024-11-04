@@ -7,6 +7,7 @@ import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice
 import { FaListAlt } from "react-icons/fa";
 import { FaHospitalUser } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa6";
+import { FaRegEdit } from "react-icons/fa";
 
 const DoctorNavbar = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const DoctorNavbar = () => {
                 submenuItems={[
                     { link: "/doctor/add-clinic-page1", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
                     { link: "/doctor/clinics-list?page=1&limit=10", title: "Clinic List", icon: <FaListAlt className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/update-clinic", title: "Update Clinic", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
                 ]}
             />
             <LeftNavLink 
@@ -44,6 +46,7 @@ const DoctorNavbar = () => {
                 submenuItems={[
                     { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },
                     { link: "/doctor/services-list?page=1&limit=10", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/update-service", title: "Update Services", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
                 ]}
             />
         </nav>
