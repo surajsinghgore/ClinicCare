@@ -43,6 +43,7 @@ import UpdateClinic3 from "../pages/Doctor/Clinic/UpdateClinic3";
 import BookAppointment from "../pages/Client/BookAppointment";
 import DoctorDetails from "../pages/Client/DoctorDetails";
 import OurDoctors from "../pages/Client/OurDoctors";
+import BookAppointmentForm from "../pages/Client/BookAppointmentForm";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,14 @@ const router = createBrowserRouter([
     element: (
       <>
         <BookAppointment />
+      </>
+    ),
+  },
+  {
+    path: "/book-appointment-form",
+    element: (
+      <>
+        <BookAppointmentForm />
       </>
     ),
   },

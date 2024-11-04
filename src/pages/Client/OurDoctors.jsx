@@ -4,6 +4,7 @@ import Header from '../../components/Common/Header';
 import book from "../../assets/bookappointment.png";
 import { FiSearch } from "react-icons/fi";
 import { FaLocationDot } from "react-icons/fa6";
+import Footer from '../../components/Common/Footer';
 
 const OurDoctors = () => {
   return (
@@ -104,6 +105,7 @@ const OurDoctors = () => {
                     </Link>
                 </div>
             </div>
+            <Footer/>
         </>
   )
 }

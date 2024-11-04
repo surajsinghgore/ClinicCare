@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <div className="head h-20 w-full flex py-2 px-4 items-center shadow-md font-semibold relative bg-white">
-      <div className="left w-[270px] flex items-center mb-2 cursor-pointer" onClick={() => navigate('/')}>
+      <div className="left w-[270px] flex items-center mb-2 cursor-pointer overflow-hidden" onClick={() => navigate('/')}>
         <img src={logo} alt="Logo" className="w-96 ml-2" />
       </div>
       <GiHamburgerMenu 

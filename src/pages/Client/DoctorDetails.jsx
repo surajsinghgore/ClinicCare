@@ -3,6 +3,7 @@ import Header from '../../components/Common/Header';
 import about from "../../assets/aboutDoctor2.png";
 import { FaMapMarkerAlt, FaGraduationCap, FaStar } from 'react-icons/fa';
 import ReviewCard from '../../components/ReviewCard';
+import Footer from '../../components/Common/Footer';
 
 const DoctorDetails = () => {
     return (
@@ -151,6 +152,7 @@ const DoctorDetails = () => {
                     <ReviewCard />
                 </div>
             </div>
+            <Footer />
         </>
     );
 };
