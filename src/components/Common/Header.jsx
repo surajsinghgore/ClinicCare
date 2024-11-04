@@ -25,7 +25,7 @@ const Header = () => {
       
       {/* Center Navigation */}
       <div className="center flex-grow flex justify-center space-x-10">
-        <NavLink to="/doctors" className="text-black transition-colors duration-300 hover:text-[#004AAD] border-r-2 border-black-400 pr-8" >
+        <NavLink to="/our-doctors" className="text-black transition-colors duration-300 hover:text-[#004AAD] border-r-2 border-black-400 pr-8" >
           Our Doctors
         </NavLink>
         <NavLink to="/home" className="text-black transition-colors duration-300 hover:text-[#004AAD] border-r-2 border-black-400 pr-8" >

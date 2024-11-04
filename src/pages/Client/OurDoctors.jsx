@@ -1,12 +1,13 @@
-import React from 'react';
+import React from 'react'
 import { Link } from 'react-router-dom';
 import Header from '../../components/Common/Header';
-import book from "../../assets/bookappointment2.png";
+import book from "../../assets/bookappointment.png";
+import { FiSearch } from "react-icons/fi";
 import { FaLocationDot } from "react-icons/fa6";
 
-const BookAppointment = () => {
-    return (
-        <>
+const OurDoctors = () => {
+  return (
+    <>
             <Header />
 
             <div className='img w-75%'>
@@ -16,34 +17,19 @@ const BookAppointment = () => {
             <div className="search w-full py-6">
                 {/* Heading */}
                 <h2 className="text-center text-3xl font-semibold text-black-700 mb-7 mt-14">
-                    Search for Doctor or Clinic
+                    Search for Our Doctor
                 </h2>
 
-                {/* Select Boxes */}
-                <div className="flex justify-center items-center space-x-4 mb-14 mt-10">
-                    {/* City Select Box */}
-                    <select className="bg-white w-1/5 rounded shadow-md px-4 py-3 outline outline-2 outline-[#0148B1]">
-                        <option value="">Select City</option>
-                        <option value="New York">Chandigarh</option>
-                        <option value="Los Angeles">Panchkula</option>
-                        <option value="Chicago">Mohali</option>
-                    </select>
-
-                    {/* Treatment Select Box */}
-                    <select className="bg-white w-1/5 rounded shadow-md px-4 py-3 outline outline-2 outline-[#0148B1]">
-                        <option value="">Select Treatment</option>
-                        <option value="Cardiology">Cardiology</option>
-                        <option value="Dermatology">Dermatology</option>
-                        <option value="Neurology">Neurology</option>
-                    </select>
-
-                    {/* Specialty Select Box */}
-                    <select className="bg-white w-1/5 rounded shadow-md px-4 py-3 outline outline-2 outline-[#0148B1]">
-                        <option value="">Select Specialty</option>
-                        <option value="Cardiologist">Cardiologist</option>
-                        <option value="Dermatologist">Dermatologist</option>
-                        <option value="Neurologist">Neurologist</option>
-                    </select>
+                {/* Search Bar */}
+                <div className="flex justify-center items-center">
+                    <div className="flex items-center bg-white w-3/5 rounded-full shadow-md px-4 py-3 outline outline-2 outline-black-300">
+                        <FiSearch className="text-black-600 mr-2 text-2xl" />
+                        <input
+                            type="text"
+                            placeholder="Search for Our Doctors"
+                            className="w-full outline-none text-black-700"
+                        />
+                    </div>
                 </div>
 
                 {/* Search Results */}
@@ -119,7 +105,7 @@ const BookAppointment = () => {
                 </div>
             </div>
         </>
-    )
+  )
 }
 
-export default BookAppointment;
+export default OurDoctors
