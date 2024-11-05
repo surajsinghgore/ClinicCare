@@ -81,7 +81,7 @@ const DoctorVerification = () => {
   }, [getMyDoctorDetails, setValue]);
   return (
     <>
-    
+
       <BreadCrumbs currentPath="Doctor Verification" />
       {getMyDoctorDetails?.data?.applicationStatus === "rejected" && (
         <>
@@ -195,8 +195,8 @@ const DoctorVerification = () => {
                     </div>
                   </div>
 
-                  <div className="flex pt-3 flex-wrap flex-col w-96">
-                    <h1 className="text-black-400 pb-2">
+                  <div className="flex flex-wrap flex-col w-96">
+                    <h1 className="text-black-400 text-base">
                       Add Hobbies<span className="text-danger text-lg">*</span>
                     </h1>
                     <TagsInput required value={selected} onChange={setSelected} name="fruits" placeHolder="Enter your hobbies..." />
@@ -216,18 +216,18 @@ const DoctorVerification = () => {
               {/* Pending Status page */}
 
               <div className="flex flex-col items-center justify-center min-h-screen bg-red-100">
-    <h1 className="text-4xl font-bold text-red-800 mb-4">Application Permanently Rejected</h1>
-    <p className="text-lg text-gray-600 mb-6">
-        Your account has been banned due to multiple attempts of wrong details.
-    </p>
-    <div className="flex items-center justify-center">
-        <div className="animate-pulse rounded-full h-16 w-16 flex items-center justify-center bg-red-600">
-            <svg className="h-14 w-14 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </div>
-    </div>
-</div>
+                <h1 className="text-4xl font-bold text-red-800 mb-4">Application Permanently Rejected</h1>
+                <p className="text-lg text-gray-600 mb-6">
+                  Your account has been banned due to multiple attempts of wrong details.
+                </p>
+                <div className="flex items-center justify-center">
+                  <div className="animate-pulse rounded-full h-16 w-16 flex items-center justify-center bg-red-600">
+                    <svg className="h-14 w-14 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
 
 
 
