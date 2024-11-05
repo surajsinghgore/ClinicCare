@@ -166,7 +166,7 @@ const DoctorVerification2 = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 mt-2">
               <div className="flex items-center gap-2">
                 <label className="text-black-500 font-medium" id="specialization">
                   Specialization <span className="text-danger text-lg">*</span>
@@ -186,8 +186,8 @@ const DoctorVerification2 = () => {
               </div>
             </div>
 
-            <div className="flex pt-2 flex-wrap flex-col w-96">
-              <h1 className="text-black-400 pb-2">
+            <div className="flex flex-wrap flex-col w-96">
+              <h1 className="text-black-400 text-base">
                 Add Profile Highlights<span className="text-danger text-lg">*</span>
               </h1>
               <TagsInput required value={selected} onChange={setSelected} name="fruits" placeHolder="Enter your highlights..." />
