@@ -47,6 +47,8 @@ import BookAppointmentForm from "../pages/Client/BookAppointmentForm";
 import PaymentStatusSuccess from "../pages/Client/PaymentStatusSuccess";
 import PaymentStatusFailed from "../pages/Client/PaymentStatusFailed";
 import PaymentSection from "../pages/Client/PaymentSection";
+import ViewAllDoctor from "../pages/Admin/ViewAllDoctor";
+import ViewSingleDoctor from "../pages/Admin/ViewSingleDoctor";
 
 const router = createBrowserRouter([
   {
@@ -229,10 +231,26 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "view-all-doctor",
+        element: (
+          <AdminLayout>
+            <ViewAllDoctor />
+          </AdminLayout>
+        ),
+      },
+      {
         path: "verify-doctor/:id",
         element: (
           <AdminLayout>
             <DoctorVerify />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: "view-doctor/:id",
+        element: (
+          <AdminLayout>
+            <ViewSingleDoctor />
           </AdminLayout>
         ),
       },

@@ -53,8 +53,8 @@ const LeftNavBar = () => {
             submenuItems={[
               { link: "/admin/add-doctor", title: "Add Doctor", icon: <IoIosPersonAdd className=" icon text-2xl text-black-800" /> },
               { link: "/admin/verify-doctor?page=1&limit=10", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> },
-              { link: "/admin/verify-doctor?page=1&limit=10", title: "View All Doctors", icon: <FaUserDoctor className=" icon text-2xl text-black-800" /> },
-              { link: "/admin/update-doctor", title: "Update Doctor", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
+              { link: "/admin/view-all-doctor?page=1&limit=10", title: "View All Doctors", icon: <FaUserDoctor className=" icon text-2xl text-black-800" /> },
+              // { link: "/admin/update-doctor", title: "Update Doctor", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
             ]}
           />
             <LeftNavLink
