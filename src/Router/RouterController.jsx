@@ -331,7 +331,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "update-service",
+        path: "update-service/:id",
         element: (
           <DoctorLayout>
             <UpdateServices />

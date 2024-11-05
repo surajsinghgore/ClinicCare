@@ -1,10 +1,6 @@
 import axios from "axios";
 import { getLocalStorage } from "./LocalStorage";
 
-
-
-
-
 const axiosInstance = axios.create({
   // baseURL: `http://localhost:8000/api`,
   // baseURL: `https://cliniccarebackend.onrender.com/api`,

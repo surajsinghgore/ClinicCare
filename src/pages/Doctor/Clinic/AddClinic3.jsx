@@ -76,18 +76,9 @@ const AddClinic3 = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    
-    if (clinicDetails && clinicDetails.data) {
-      if (clinicDetails.data.clinicPhotos.length !== 0) {
-        setClinicPhotosUrl(clinicDetails.data.clinicPhotos);
-      }else{
-        setClinicPhotosUrl([])
-      }
-      if (clinicDetails.data.workPhotos.length !== 0) {
-        setClinicWorkPhotoUrl(clinicDetails.data.workPhotos);
-      }else{
-        setClinicWorkPhotoUrl([])
-      }
+    if (clinicDetails?.data) {
+      setClinicPhotosUrl(clinicDetails.data.clinicPhotos?.length ? clinicDetails.data.clinicPhotos : []);
+      setClinicWorkPhotoUrl(clinicDetails.data.workPhotos?.length ? clinicDetails.data.workPhotos : []);
     }
   }, [clinicDetails, dispatch]);
 

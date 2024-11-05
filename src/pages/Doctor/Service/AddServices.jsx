@@ -98,7 +98,13 @@ const AddServices = () => {
               <label htmlFor="fees" className="block mb-2 text-sm font-medium text-black-600">
                 Fees<span className="text-danger">*</span>
               </label>
-              <input type="number" id="fees" {...register("fees")} className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input
+                type="number"
+                onWheel={(e) => e.target.blur()}
+                id="fees"
+                {...register("fees")}
+                className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
           </div>
 
@@ -108,7 +114,13 @@ const AddServices = () => {
               <label htmlFor="duration" className="block mb-2 text-sm font-medium text-black-600">
                 Duration (minutes)<span className="text-danger">*</span>
               </label>
-              <input type="number" id="duration" {...register("duration")} className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input
+                type="number"
+                onWheel={(e) => e.target.blur()}
+                id="duration"
+                {...register("duration")}
+                className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
             <div>
               <label htmlFor="clinic" className="block mb-2 text-sm font-medium text-black-600">

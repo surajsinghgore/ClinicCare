@@ -285,7 +285,7 @@ const AddClinic = () => {
               <div className="location w-full p-3 rounded-lg border border-black-300 cursor-pointer" onClick={() => getCurrentLocation()}>
                 <div className="icon&text flex items-center gap-3 ">
                   <IoMdLocate className="text-[#EF4F5F] text-md" />
-                  <h3 className="text-lg text-[#EF4F5F]">Detect current location</h3>
+                  <h3 className="text-lg text-[#EF4F5F]">Detect current clinic location</h3>
                 </div>
                 <div className="text-left pl-7">
                   <p className="text-sm text-black-300">Using GPS</p>
@@ -412,6 +412,7 @@ const AddClinic = () => {
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
                 </div>
+                <p className="text-danger">Please drag the location to match your clinic &lsquo;s location </p>
                 <MapComponent cord={cord} setCord={setCord} selectedCord={coords} />
               </>
             )}

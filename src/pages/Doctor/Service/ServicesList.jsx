@@ -79,6 +79,8 @@ const ServicesList = () => {
     }
   };
 
+
+
   return (
     <div>
       <BreadCrumbs currentPath="Service List" />
@@ -129,7 +131,9 @@ const ServicesList = () => {
               <div className="mr-4">{clinic.fees}</div>
               <div>{clinic.duration}</div>
               <div className="flex items-center">
-                <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" onClick={() => console.log(`Edit clinic with ID: ${clinic._id}`)} />
+                <Link to={`/doctor/update-service/${clinic._id}`}>
+                  <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" />
+                </Link>
                 <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => console.log(`Delete clinic with ID: ${clinic._id}`)} />
               </div>
             </div>

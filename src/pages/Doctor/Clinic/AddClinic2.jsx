@@ -69,7 +69,7 @@ const AddClinic2 = () => {
     let hasError = false;
     let errorMessage = "";
 
-    for (let i = 0; i < availability.length; i++) {
+    for (let i = 0; i < availability?.length; i++) {
       const slot = availability[i];
 
       if (!slot.status) {
@@ -131,9 +131,7 @@ const AddClinic2 = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    
-    
-    if (clinicDetails && clinicDetails.data.day.length!==0) {
+    if (clinicDetails?.data?.day && clinicDetails.data.day.length !== 0) {
       setAvailability(
         clinicDetails.data.day.map((day) => ({
           day: day.name,

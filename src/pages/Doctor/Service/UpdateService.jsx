@@ -7,14 +7,17 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { serviceDataValidator } from "../../../Utils/services/FormValidation/ServicesValidation";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
-import { addServicesApi } from "../../../Utils/services/apis/Doctor/ServiceDoctorApi";
-import { useNavigate } from "react-router-dom";
+import { addServicesApi, GetMyServiceByIdApi, updateServicesApi } from "../../../Utils/services/apis/Doctor/ServiceDoctorApi";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateServices = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors },
   } = useForm({ resolver: yupResolver(serviceDataValidator) });
   const dispatch = useDispatch();
@@ -44,17 +47,43 @@ const UpdateServices = () => {
     }
   }, [dispatch]);
 
+  const dataFetchToUpdate = useCallback(async () => {
+    try {
+      dispatch(showLoader());
+      const res = await GetMyServiceByIdApi(id);
+      if (res?.success) {
+        setData(res.data);
+      }
+    } catch (error) {
+      console.error("Error fetching clinics:", error);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }, [dispatch]);
+
   useEffect(() => {
     dataFetch();
+    dataFetchToUpdate();
   }, []);
 
+  // set form default value
+  useEffect(() => {
+    if (data) {
+      setValue("treatmentName", data?.treatmentName);
+      setValue("specialty", data?.specialty);
+      setValue("fees", data?.fees);
+      setValue("duration", data?.duration);
+      setValue("clinicId", data?.clinicId?._id);
+      setValue("description", data?.description);
+    }
+  }, [data, setValue]);
   const onSubmit = async (formData) => {
     let body = { ...formData };
     dispatch(showLoader());
     try {
-      let res = await addServicesApi(body);
+      let res = await updateServicesApi(id, body);
       if (res.success) {
-        dispatch(showAlert({ message: "service added successfully", type: "success" }));
+        dispatch(showAlert({ message: "service updated successfully", type: "success" }));
 
         setTimeout(() => {
           navigate("/doctor/services-list?page=1&limit=10");
@@ -98,7 +127,13 @@ const UpdateServices = () => {
               <label htmlFor="fees" className="block mb-2 text-sm font-medium text-black-600">
                 Fees<span className="text-danger">*</span>
               </label>
-              <input type="number" id="fees" {...register("fees")} className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input
+                type="number"
+                onWheel={(e) => e.target.blur()}
+                id="fees"
+                {...register("fees")}
+                className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
           </div>
 
@@ -108,7 +143,13 @@ const UpdateServices = () => {
               <label htmlFor="duration" className="block mb-2 text-sm font-medium text-black-600">
                 Duration (minutes)<span className="text-danger">*</span>
               </label>
-              <input type="number" id="duration" {...register("duration")} className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <input
+                type="number"
+                onWheel={(e) => e.target.blur()}
+                id="duration"
+                {...register("duration")}
+                className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
             <div>
               <label htmlFor="clinic" className="block mb-2 text-sm font-medium text-black-600">
