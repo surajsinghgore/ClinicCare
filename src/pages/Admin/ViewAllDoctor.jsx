@@ -86,7 +86,7 @@ const ViewAllDoctor = () => {
   return (
     <div className="relative w-[97%] m-auto mt-10 mb-10 rounded-lg shadow-lg p-5">
       <div className="top flex items-center justify-between mb-14">
-        <h1 className="text-xl font-semibold">Doctor List</h1>
+        <h1 className="text-xl font-semibold">All Doctor List</h1>
         <Link to="/admin/add-doctor">
           <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">Add Doctor</button>
         </Link>

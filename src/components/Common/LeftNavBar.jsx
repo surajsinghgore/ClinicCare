@@ -43,7 +43,7 @@ const LeftNavBar = () => {
               submenuItems={[
                 { link: "/admin/create-admins", title: "Create Admin", icon: <IoIosCreate className=" icon text-2xl text-black-800" />},
                 { link: "/admin/admins-list?page=1&limit=10", title: "Admin's List", icon: <FaClipboardList className=" icon text-2xl text-black-800" />},
-                { link: "/admin/update-admin", title: "Update Admin", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
+                // { link: "/admin/update-admin", title: "Update Admin", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
               ]}
             />
           <LeftNavLink
@@ -52,7 +52,7 @@ const LeftNavBar = () => {
             icons={<FaStethoscope className=" icon text-2xl text-black-800" />}
             submenuItems={[
               { link: "/admin/add-doctor", title: "Add Doctor", icon: <IoIosPersonAdd className=" icon text-2xl text-black-800" /> },
-              { link: "/admin/verify-doctor?page=1&limit=10", title: "Verify Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> },
+              { link: "/admin/verify-doctor?page=1&limit=10", title: "Approve Doctor", icon: <FaPersonCircleCheck className=" icon text-2xl text-black-800" /> },
               { link: "/admin/view-all-doctor?page=1&limit=10", title: "View All Doctors", icon: <FaUserDoctor className=" icon text-2xl text-black-800" /> },
               // { link: "/admin/update-doctor", title: "Update Doctor", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
             ]}
