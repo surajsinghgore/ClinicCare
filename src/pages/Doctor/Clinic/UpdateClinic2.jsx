@@ -151,7 +151,7 @@ const UpdateClinic2 = () => {
       <div className="relative w-[97%] m-auto mt-10 mb-10 rounded-lg shadow-lg p-5">
         <div className="flex p-3 border-b border-black-400 bg-white">
           <div className="flex gap-10 p-4 select-none">
-            <Link to="/doctor/add-clinic-page1">
+            <Link to={`/doctor/update-clinic/${id}`}>
               <div className="flex items-center gap-2">
                 <FaHospitalUser className="text-black-500 text-2xl" />
                 <span className="text-black-500 font-medium">Clinic Details</span>
@@ -161,10 +161,10 @@ const UpdateClinic2 = () => {
               <CiCalendarDate className="text-blue-500 text-2xl" />
               <span className="text-blue-500 font-medium">Availability</span>
             </div>
-            <div className="flex items-center gap-2">
+            <Link to={`/doctor/update-clinic/${id}`}><div className="flex items-center gap-2">
               <FaImages className="text-black-500 text-2xl" />
               <span className="text-black-500 font-medium">Upload File</span>
-            </div>
+            </div></Link>
           </div>
         </div>
 
@@ -208,7 +208,7 @@ const UpdateClinic2 = () => {
 
         <div className="w-full flex justify-end gap-2 my-4 items-center">
           <div>
-            <Link to={"/doctor/update-clinic"}>
+            <Link to={`/doctor/update-clinic/${id}`}>
               <button className="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400">Back</button>
             </Link>
           </div>

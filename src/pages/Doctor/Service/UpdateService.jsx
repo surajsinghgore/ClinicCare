@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { serviceDataValidator } from "../../../Utils/services/FormValidation/ServicesValidation";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
-import { addServicesApi, GetMyServiceByIdApi, updateServicesApi } from "../../../Utils/services/apis/Doctor/ServiceDoctorApi";
+import {  GetMyServiceByIdApi, updateServicesApi } from "../../../Utils/services/apis/Doctor/ServiceDoctorApi";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateServices = () => {

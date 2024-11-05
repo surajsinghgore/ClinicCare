@@ -28,3 +28,8 @@ export const updateServicesApi = async (id,payload) => {
   const res = await axiosInstance.post(`/v1/doctor/service/update-service/${id}`, payload);
   return res.data;
 };
+
+export const deleteServiceApi = async (id) => {
+  const res = await axiosInstance.delete(`/v1/doctor/service/delete-service/${id}`);
+  return res.data;
+};

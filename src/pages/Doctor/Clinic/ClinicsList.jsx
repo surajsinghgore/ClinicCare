@@ -2,10 +2,13 @@ import  { useEffect, useState, useCallback } from "react";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { getMyClinicApi, searchMyClinicApi } from "../../../Utils/services/apis/Doctor/ClinicDoctorApi";
+import { deleteClinicByIdApi, getMyClinicApi, searchMyClinicApi } from "../../../Utils/services/apis/Doctor/ClinicDoctorApi";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { useDispatch } from "react-redux";
+import { confirmAlert } from 'react-confirm-alert'; // Import the confirmAlert function
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { showAlert } from "../../../redux/Slices/AlertToggleState";
 const ClinicsList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -79,6 +82,50 @@ const ClinicsList = () => {
     }
   };
 
+
+  const UpdateClinic=(id)=>{
+       navigate(`/doctor/update-clinic/${id}`)
+  }
+
+
+
+
+  const handleDeleteService = async (clinicId) => {
+    try {
+      dispatch(showLoader());
+      const res = await deleteClinicByIdApi(clinicId);
+      if (res.success) {
+
+        dispatch(showAlert({ message: res.message, type: "success" }));
+
+        dataFetch(); 
+      } 
+    } catch (error) {
+      console.error("Error deleting service:", error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  // Function to show confirmation alert
+  const confirmDelete = (serviceId) => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure you want to delete this clinic?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => handleDeleteService(serviceId)
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('Delete action cancelled')
+        }
+      ]
+    });
+  };
   return (
     <div>
       <BreadCrumbs currentPath="Clinic List" />
@@ -127,8 +174,8 @@ const ClinicsList = () => {
               <div>{clinic.contactNumber}</div>
               <div>{clinic.city}</div>
               <div className="flex items-center">
-                <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" onClick={() => console.log(`Edit clinic with ID: ${clinic._id}`)} />
-                <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => console.log(`Delete clinic with ID: ${clinic._id}`)} />
+                <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" onClick={() => UpdateClinic(clinic._id)} />
+                <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => confirmDelete(clinic._id)} />
               </div>
             </div>
           ))}

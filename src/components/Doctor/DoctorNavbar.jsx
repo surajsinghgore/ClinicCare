@@ -36,7 +36,7 @@ const DoctorNavbar = () => {
                 submenuItems={[
                     { link: "/doctor/add-clinic-page1", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
                     { link: "/doctor/clinics-list?page=1&limit=10", title: "Clinic List", icon: <FaListAlt className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/update-clinic", title: "Update Clinic", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
+                    // { link: "/doctor/update-clinic", title: "Update Clinic", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
                 ]}
             />
             <LeftNavLink 

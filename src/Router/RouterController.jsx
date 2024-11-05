@@ -291,7 +291,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "update-clinic",
+        path: "update-clinic/:id",
         element: (
           <DoctorLayout>
             <UpdateClinic />
@@ -299,7 +299,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "update-clinic2",
+        path: "update-clinic2/:id",
         element: (
           <DoctorLayout>
             <UpdateClinic2 />
@@ -307,7 +307,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "update-clinic3",
+        path: "update-clinic3/:id",
         element: (
           <DoctorLayout>
             <UpdateClinic3 />

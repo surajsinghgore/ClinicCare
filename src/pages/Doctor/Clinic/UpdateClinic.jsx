@@ -5,7 +5,7 @@ import { IoMdLocate } from "react-icons/io";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { addClinicPhase1Api } from "../../../Utils/services/apis/Doctor/ClinicDoctorApi";
@@ -13,12 +13,12 @@ import { clinicDataValidatorPhase1 } from "../../../Utils/services/FormValidatio
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fetchMyClinicById, resetClinicDetails } from "../../../redux/Slices/GetMyClinicByIdSlice";
-import { getLocalStorage, setLocalStorage } from "../../../Utils/LocalStorage";
 import MapComponent from "../../../components/MapComponent";
 
 const UpdateClinic = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
   const [cord, setCord] = useState();
   const {
     handleSubmit,
@@ -33,7 +33,8 @@ const UpdateClinic = () => {
   const clinicDetails = useSelector((state) => state.getMyClinicById?.clinicDetails);
 
   useEffect(() => {
-    const clinicId = getLocalStorage("clinicId");
+    const clinicId = id;
+
     if (clinicId) {
       dispatch(fetchMyClinicById(clinicId));
     } else {
@@ -42,9 +43,9 @@ const UpdateClinic = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const clinicId = getLocalStorage("clinicId");
+    const clinicId = id;
     if (clinicId) {
-      if (clinicDetails) {
+      if (clinicDetails && clinicDetails.data.length !== 0) {
         setValue("name", clinicDetails.data.name);
         setValue("address", clinicDetails.data.address);
         setValue("contactNumber", clinicDetails.data.contactNumber);
@@ -54,8 +55,8 @@ const UpdateClinic = () => {
         setValue("state", clinicDetails.data.state || ""); // Populate state
         setValue("pincode", clinicDetails.data.fullAddress.postcode || ""); // Populate state
         setValue("country", clinicDetails.data.country || ""); // Populate country
-        setValue("lat", clinicDetails.data.lat || ""); // Populate country
-        setValue("long", clinicDetails.data.long || ""); // Populate country
+        setValue("lat", clinicDetails.data.lat || ""); // Populate lat
+        setValue("long", clinicDetails.data.long || ""); // Populate long
         setIsLocationFetched(true); // Enable location fetched state
         setCord({ latitude: clinicDetails.data.lat, longitude: clinicDetails.data.long });
       }
@@ -153,9 +154,9 @@ const UpdateClinic = () => {
 
     let payload;
 
-    if (getLocalStorage("clinicId")) {
+    if (id) {
       payload = {
-        clinicId: getLocalStorage("clinicId"),
+        clinicId: id,
         ...formData,
         fullAddress: locationData,
       };
@@ -172,7 +173,6 @@ const UpdateClinic = () => {
       if (res.success) {
         dispatch(showAlert({ message: res.message, type: "success" }));
         setTimeout(() => {
-          setLocalStorage("clinicId", res.clinicId);
           navigate(`/doctor/update-clinic2/${res.clinicId}`);
         }, 2000);
       }
@@ -199,14 +199,17 @@ const UpdateClinic = () => {
               <FaHospitalUser className="text-blue-500 text-2xl" />
               <span className="text-blue-500 font-medium">Clinic Details</span>
             </div>
+           <Link to={`/doctor/update-clinic2/${id}`}>
+
             <div className="flex items-center gap-2">
               <CiCalendarDate className="text-black-500 text-2xl" />
               <span className="text-black-500 font-medium">Availability</span>
             </div>
-            <div className="flex items-center gap-2">
+           </Link>
+           <Link to={`/doctor/update-clinic3/${id}`}> <div className="flex items-center gap-2">
               <FaImages className="text-black-500 text-2xl" />
               <span className="text-black-500 font-medium">Upload File</span>
-            </div>
+            </div></Link>
           </div>
         </div>
 
@@ -419,7 +422,7 @@ const UpdateClinic = () => {
 
           <div className="flex  justify-end mt-4  ">
             <button type="submit" className="px-4 py-2 bg-green-500 bg-primary text-white rounded-md">
-              {getLocalStorage("clinicId") ? "Update" : "Submit"}
+              {id ? "Update" : "Submit"}
             </button>
           </div>
         </form>

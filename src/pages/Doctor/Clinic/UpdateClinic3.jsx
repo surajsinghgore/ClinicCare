@@ -26,11 +26,7 @@ const UpdateClinic3 = () => {
   const [clinicPhotosUrl, setClinicPhotosUrl] = useState([]);
   const [clinicWorkPhotoUrl, setClinicWorkPhotoUrl] = useState([]);
   const handleSubmit = async () => {
-    if (clinicPhotos.length === 0 && workPhotos.length === 0) {
-      dispatch(showAlert({ message: "Please select at least one image for clinic photos or work photos.", type: "warning" }));
-      return;
-    }
-
+   
     const formData = new FormData();
 
     // Append clinic photos
@@ -122,13 +118,13 @@ const UpdateClinic3 = () => {
       <div className="relative w-[97%] m-auto mt-10 mb-10 rounded-lg shadow-lg p-5">
         <div className="flex p-3 border-b border-black-400 bg-white">
           <div className="flex gap-10 p-4 select-none">
-            <Link to="/doctor/add-clinic-page1">
+            <Link to="/doctor/update-clinic1">
               <div className="flex items-center gap-2">
                 <FaHospitalUser className="text-black-500 text-2xl" />
                 <span className="text-black-500 font-medium">Clinic Details</span>
               </div>
             </Link>
-            <Link to={`/doctor/add-clinic-page2/${id}`}>
+            <Link to={`/doctor/update-clinic2/${id}`}>
               <div className="flex items-center gap-2">
                 <CiCalendarDate className="text-black-500 text-2xl" />
                 <span className="text-black-500 font-medium">Availability</span>
@@ -195,7 +191,7 @@ const UpdateClinic3 = () => {
         </div>
         <div className="w-full flex justify-end gap-2 my-4 items-center">
           <div>
-            <Link to={"/doctor/update-clinic2"}>
+            <Link to={`/doctor/update-clinic2/${id}`}>
               <button className="bg-black-300 px-4 py-2 rounded-md hover:bg-black-400">Back</button>
             </Link>
           </div>

@@ -20,12 +20,16 @@ export const deleteClinicPhotoApi = async (id, payload) => {
   const res = await axiosInstance.patch(`/v1/doctor/clinic/delete-clinic-photo/${id}`, payload);
   return res.data;
 };
+export const deleteClinicByIdApi = async (id) => {
+  const res = await axiosInstance.delete(`/v1/doctor/clinic/delete-my-clinic/${id}`);
+  return res.data;
+};
 export const getMyClinicApi = async (page = 1, limit = 10) => {
   const res = await axiosInstance.get(`/v1/doctor/clinic/get-my-clinic?page=${page}&limit=${limit}`);
   return res.data;
 };
 export const getMyClinicByIdApi = async (id) => {
-  const res = await axiosInstance.get(`/v1/doctor/clinic/get-my-clinic/${id}`);
+  const res = await axiosInstance.get(`/v1/doctor/clinic/get-single-clinic/${id}`);
   return res.data;
 };
 export const searchMyClinicApi = async (search) => {
