@@ -62,14 +62,31 @@ const BookAppointmentForm = () => {
             ))}
           </div>
 
+          {/* Duration Buttons */}
+          <p className="text-black-600 font-semibold mb-3">Duration</p>
+          <div className="grid grid-cols-4 gap-3 mb-3">
+            {durationOptions.map((duration) => (
+              <button
+                key={duration}
+                className={`py-3 rounded-md text-sm border border-black-300 mb-10 
+                ${selectedDuration === duration ? 'bg-[#0148B1] text-white' : 'text-black-600'}
+              `}
+                onClick={() => setSelectedDuration(duration)}
+              >
+                {duration}
+              </button>
+            ))}
+          </div>
+
+
           {/* Selected Date and Time */}
-          <p className="text-center text-black-600 font-semibold mb-4">Eastern Standard Time</p>
+          <p className="text-black-600 font-semibold mb-4">Eastern Standard Time</p>
           <div className="flex justify-between items-center mb-6">
             <div className="flex flex-col w-1/2 pr-2">
               <label className="text-black-600 text-sm mb-1">Selected Date</label>
               <input
                 type="text"
-                value={selectedDate ? `${monthNames[currentMonth]} ${selectedDate}, ${currentYear}` : 'Select a date'}
+                value={selectedDate ? `${monthNames[currentMonth]} ${selectedDate}, ${currentYear}` : 'Selected date'}
                 className="border border-black-300 rounded-md p-3 text-center"
                 readOnly
               />
@@ -89,21 +106,6 @@ const BookAppointmentForm = () => {
             </div>
           </div>
 
-          {/* Duration Buttons */}
-          <p className="text-black-600 font-semibold mb-3">Duration</p>
-          <div className="grid grid-cols-4 gap-3 mb-6">
-            {durationOptions.map((duration) => (
-              <button
-                key={duration}
-                className={`py-3 rounded-md text-sm border border-black-300 mb-10 
-                ${selectedDuration === duration ? 'bg-[#0148B1] text-white' : 'text-black-600'}
-              `}
-                onClick={() => setSelectedDuration(duration)}
-              >
-                {duration}
-              </button>
-            ))}
-          </div>
 
           {/* Proceed Button */}
           <button className="w-full py-4 text-white font-semibold bg-[#0148B1] rounded-md">
