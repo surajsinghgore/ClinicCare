@@ -30,11 +30,13 @@ axiosInstance.interceptors.response.use(
       //   toast.error("Token Expired Please Login again");
       setTimeout(() => {
         localStorage.clear();
+        window.location.href = "/auth/login";
       }, 2000);
     }
     if (error.response && error.response.status === 401 && error.response.data.message === "Unauthorized request: Token is invalid due to a new login session") {
       setTimeout(() => {
         localStorage.clear();
+        window.location.href = "/auth/login";
       }, 2000);
 
       //   toast.error("Token Expired Please Login again");
