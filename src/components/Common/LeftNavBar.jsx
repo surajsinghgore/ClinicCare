@@ -43,7 +43,7 @@ const LeftNavBar = () => {
               submenuItems={[
                 { link: "/admin/create-admins", title: "Create Admin", icon: <IoIosCreate className=" icon text-2xl text-black-800" />},
                 { link: "/admin/admins-list?page=1&limit=10", title: "Admin's List", icon: <FaClipboardList className=" icon text-2xl text-black-800" />},
-                // { link: "/admin/update-admin", title: "Update Admin", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
+                { link: "/admin/update-admin", title: "Update Admin", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
               ]}
             />
           <LeftNavLink

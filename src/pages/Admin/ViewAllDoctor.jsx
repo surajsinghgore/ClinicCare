@@ -122,6 +122,7 @@ const ViewAllDoctor = () => {
           <div>Gender</div>
           <div>Email</div>
           <div>Phone</div>
+          <div>Status</div>
           <div>Action</div>
         </div>
 
@@ -136,6 +137,7 @@ const ViewAllDoctor = () => {
             <div className="pl-10">{doctor.gender}</div>
             <div>{doctor.email}</div>
             <div>{doctor.mobile}</div>
+            <div>{doctor.applicationStatus}</div>
             <div>
               <Link to={`/admin/view-doctor/${doctor._id}`} className="bg-blue-500 text-white rounded-lg px-3 py-1 transition duration-200 ease-in-out hover:bg-blue-700">
                 View
