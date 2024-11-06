@@ -52,7 +52,9 @@ const ClientRegister = () => {
   };
 
   const onSubmit = async (formData) => {
-    const formattedDob = new Date(formData.dob).toISOString().split("T")[0];
+    const dob = new Date(formData.dob);
+
+    const formattedDob = dob.getFullYear() + "-" + String(dob.getMonth() + 1).padStart(2, "0") + "-" + String(dob.getDate()).padStart(2, "0");
 
     let body = { ...formData, dob: formattedDob };
 
@@ -63,19 +65,16 @@ const ClientRegister = () => {
 
     dispatch(showLoader());
 
-    // Create a new FormData instance
     const formDataToSend = new FormData();
 
-    // Append formData fields directly to the FormData instance
     Object.entries(body).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
 
-    // Append the profile image
     formDataToSend.append("profileImage", profileImage);
 
     try {
-      const res = await createUserAccountApi(formDataToSend); // Ensure your API is set to handle FormData
+      const res = await createUserAccountApi(formDataToSend);
       dispatch(showAlert({ message: res.message, type: "success" }));
 
       setTimeout(() => {

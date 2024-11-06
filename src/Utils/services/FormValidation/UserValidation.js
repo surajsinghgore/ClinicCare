@@ -1,18 +1,24 @@
 import * as yup from "yup";
 
 export const userRegisterValidationSchema = yup.object().shape({
-  name: yup.string().min(3, "Name must be at least 3 characters long.").required("Name is required.").trim(),
+  name: yup.string().min(3, "Name must be at least 3 characters long.").trim().required("Name is required."),
 
-  dob: yup.date().typeError("Date of birth must be a valid date in YYYY-MM-DD format.").required("Date of birth is required."),
+  dob: yup.date().required("Date of birth is required.").typeError("Date of birth must be a valid date in YYYY-MM-DD format."),
 
-  email: yup.string().email("Must be a valid email address.").required("Email is required.").trim(),
+  email: yup
+    .string()
+    .email("Must be a valid email address.")
+    .matches(/^([a-zA-Z0-9._-]+)@gmail\.com$/, "Only Gmail addresses are allowed.")
+    .required("Email is required.")
+    .trim(),
 
   mobile: yup
     .string()
-    .matches(/^\d{10}$/, "Mobile number must be exactly 10 digits long.")
+    .length(10, "Mobile number must be exactly 10 digits long.")
+    .matches(/^[0-9]{10}$/, "Mobile number must contain only digits.")
     .required("Mobile number is required."),
 
-  bloodGroup: yup.string().oneOf(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"], "Invalid blood group. Allowed values are: A+, A-, B+, B-, AB+, AB-, O+, O-").optional(),
+  bloodGroup: yup.string().oneOf(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"], "Invalid blood group.").optional(),
 
   address: yup.string().min(5, "Address must be at least 5 characters long.").required("Address is required.").trim(),
 
@@ -24,7 +30,8 @@ export const userRegisterValidationSchema = yup.object().shape({
 
   pincode: yup
     .string()
-    .matches(/^\d{6}$/, "Pincode must be exactly 6 digits long.")
+    .length(6, "Pincode must be exactly 6 digits long.")
+    .matches(/^[0-9]{6}$/, "Pincode must contain only digits.")
     .required("Pincode is required."),
 
   password: yup
