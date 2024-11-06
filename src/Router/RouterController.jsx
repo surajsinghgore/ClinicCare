@@ -199,7 +199,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "update-admin",
+        path: "update-admin/:id",
         element: (
           <AdminLayout>
             <AdminUpdate />
@@ -255,7 +255,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "update-doctor",
+        path: "update-doctor/:id",
         element: (
           <AdminLayout>
             <UpdateDoctor />

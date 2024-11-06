@@ -16,7 +16,15 @@ export const deleteAdminApi = async (id) => {
   const res = await axiosInstance.delete(`/v1/admin/delete-admin/${id}`);
   return res.data;
 };
+export const getAdminByIdApi = async (id) => {
+  const res = await axiosInstance.get(`/v1/admin/get-all-admin/${id}`);
+  return res.data;
+};
 export const createAdminAccountPermissionApi = async (payload) => {
   const res = await axiosInstance.post("/v1/admin/create-admin-account-permission", payload);
+  return res.data;
+};
+export const updateAdminAccountApi = async (id,payload) => {
+  const res = await axiosInstance.post(`/v1/admin/update-admin-account/${id}`, payload);
   return res.data;
 };

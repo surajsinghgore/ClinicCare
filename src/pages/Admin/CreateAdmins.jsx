@@ -129,7 +129,7 @@ const AdminCreates = () => {
             <div className="mb-6">
               <label className="block text-lg font-medium text-black-700 mb-2">Permissions</label>
               <div className="flex flex-wrap">
-                {["all", "read", "write", "update", "create"].map((perm) => (
+                {["all", "read", "delete", "update", "create"].map((perm) => (
                   <div className="flex items-center mr-4" key={perm}>
                     <input
                       type="checkbox"

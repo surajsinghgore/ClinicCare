@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaStethoscope } from "react-icons/fa";
 import { RiMoneyRupeeCircleLine } from "react-icons/ri";
@@ -27,25 +27,29 @@ const LeftNavBar = () => {
     <div className="shadow-lg">
       <section className="bg-[#FFFFFF] pb-4 px-2 border-b-[1px] border-black-200 ">
         <div className="flex items-center ml-1 mt-10">
-          <img src="https://static.vecteezy.com/system/resources/previews/012/210/707/non_2x/worker-employee-businessman-avatar-profile-icon-vector.jpg" alt="Admin" className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover shadow-md" />
-          <div >
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/012/210/707/non_2x/worker-employee-businessman-avatar-profile-icon-vector.jpg"
+            alt="Admin"
+            className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover shadow-md"
+          />
+          <div>
             <h1 className="text-xl font-semibold">{getMyAdminDetails?.data?.name}</h1>
-            <p className="text-sm">{(getMyAdminDetails?.data?.permission=="all")?"Super Admin":getMyAdminDetails?.data?.permission}</p>
+            <p className="text-sm">{getMyAdminDetails?.data?.permission == "all" ? "Super Admin" : getMyAdminDetails?.data?.permission}</p>
           </div>
         </div>
       </section>
       <section className="h-screen py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between">
-            <LeftNavLink
-              link="/admin"
-              title="Admin"
-              icons={<RiAdminFill className=" icon text-2xl text-black-800" />}
-              submenuItems={[
-                { link: "/admin/create-admins", title: "Create Admin", icon: <IoIosCreate className=" icon text-2xl text-black-800" />},
-                { link: "/admin/admins-list?page=1&limit=10", title: "Admin's List", icon: <FaClipboardList className=" icon text-2xl text-black-800" />},
-                { link: "/admin/update-admin", title: "Update Admin", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
-              ]}
-            />
+          <LeftNavLink
+            link="/admin"
+            title="Admin"
+            icons={<RiAdminFill className=" icon text-2xl text-black-800" />}
+            submenuItems={[
+              { link: "/admin/create-admins", title: "Create Admin", icon: <IoIosCreate className=" icon text-2xl text-black-800" /> },
+              { link: "/admin/admins-list?page=1&limit=10", title: "Admin's List", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
+              // { link: "/admin/update-admin", title: "Update Admin", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
+            ]}
+          />
           <LeftNavLink
             link="/doctors"
             title="Doctor"
@@ -57,15 +61,15 @@ const LeftNavBar = () => {
               // { link: "/admin/update-doctor", title: "Update Doctor", icon: <FaRegEdit className=" icon text-2xl text-black-800" />},
             ]}
           />
-            <LeftNavLink
-              link="/users"
-              title="User"
-              icons={<FaRegUserCircle className=" icon text-2xl text-black-800" />}
-              submenuItems={[
-                { link: "/users/profile", title: "Profile" },
-                { link: "/users/settings", title: "Settings" },
-              ]}
-            />
+          <LeftNavLink
+            link="/users"
+            title="User"
+            icons={<FaRegUserCircle className=" icon text-2xl text-black-800" />}
+            submenuItems={[
+              { link: "/users/profile", title: "Profile" },
+              { link: "/users/settings", title: "Settings" },
+            ]}
+          />
           <LeftNavLink link="/transactions" title="Transaction" icons={<RiMoneyRupeeCircleLine className=" icon text-2xl text-black-800" />} />
           <LeftNavLink link="/reports" title="Reports" icons={<TbReportMedical className=" icon text-2xl text-black-800" />} />
           <LeftNavLink

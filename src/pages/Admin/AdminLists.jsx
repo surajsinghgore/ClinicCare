@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchAllDoctorSubmittedListApi, searchAllDoctorSubmittedListApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
 import { useLocation } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import { useDispatch } from "react-redux";
@@ -9,6 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { extractFullDateTime } from "../../Utils/DateFormatFunction";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
+import { confirmAlert } from "react-confirm-alert"; // Import the confirmAlert function
 
 const AdminLists = () => {
   const location = useLocation();
@@ -105,12 +105,34 @@ const AdminLists = () => {
       dispatch(hideLoader());
     }
   };
+
+  // Function to show confirmation alert
+  const confirmDelete = (serviceId) => {
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to delete this admin?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => deleteAdmin(serviceId),
+        },
+        {
+          label: "No",
+          onClick: () => console.log("Delete action cancelled"),
+        },
+      ],
+    });
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/admin/update-admin/${id}`);
+  };
   return (
     <div className="relative w-[97%] m-auto mt-10 mb-10 rounded-lg shadow-lg p-5">
       <div className="top flex items-center justify-between mb-14">
-        <h1 className="text-xl font-semibold">Doctor List</h1>
-        <Link to="/admin/add-doctor">
-          <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">Add Doctor</button>
+        <h1 className="text-xl font-semibold">Admin List</h1>
+        <Link to="/admin/create-admins">
+          <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">Add Admin</button>
         </Link>
       </div>
 
@@ -159,7 +181,7 @@ const AdminLists = () => {
             <div>{admin.activeDevice ? "Online" : "Offline"}</div>
             <div className="flex items-center">
               <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" onClick={() => handleEdit(admin._id)} />
-              <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => deleteAdmin(admin._id)} />
+              <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => confirmDelete(admin._id)} />
             </div>
           </div>
         ))}

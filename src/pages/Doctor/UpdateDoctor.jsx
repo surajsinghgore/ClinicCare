@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import AdminNavigate from "../../components/Common/BreadCrumbs";
 import { RiUserAddLine } from "react-icons/ri";
 import { MdOutlineMail } from "react-icons/md";
@@ -10,12 +10,12 @@ import { useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { createDoctorApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateDoctor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+const {id}=useParams()
   const {
     handleSubmit,
     register,

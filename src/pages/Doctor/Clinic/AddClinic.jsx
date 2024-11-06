@@ -60,7 +60,7 @@ const AddClinic = () => {
         setCord({ latitude: clinicDetails.data.lat, longitude: clinicDetails.data.long });
       }
     } else {
-      console.log(clinicId, "n");
+    
       dispatch(resetClinicDetails());
     }
   }, [clinicDetails, dispatch]);
