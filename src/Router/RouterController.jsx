@@ -49,6 +49,7 @@ import PaymentStatusFailed from "../pages/Client/PaymentStatusFailed";
 import PaymentSection from "../pages/Client/PaymentSection";
 import ViewAllDoctor from "../pages/Admin/ViewAllDoctor";
 import ViewSingleDoctor from "../pages/Admin/ViewSingleDoctor";
+import PlatformFeePage from "../pages/Admin/PlatformFees/PlatformFeePage";
 
 const router = createBrowserRouter([
   {
@@ -259,6 +260,14 @@ const router = createBrowserRouter([
         element: (
           <AdminLayout>
             <UpdateDoctor />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: "platform-fee",
+        element: (
+          <AdminLayout>
+            <PlatformFeePage />
           </AdminLayout>
         ),
       },

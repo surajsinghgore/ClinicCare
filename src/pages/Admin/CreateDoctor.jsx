@@ -44,7 +44,7 @@ const CreateDoctor = () => {
         reset();
         dispatch(showAlert({ message: res.message, type: "success" }));
         setTimeout(() => {
-          navigate("/admin/verify-doctor?page=1&limit=10");
+          navigate("/admin/view-all-doctor?page=1&limit=10");
         }, 2000);
       }
     } catch (error) {

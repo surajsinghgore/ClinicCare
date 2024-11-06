@@ -42,7 +42,7 @@ const LeftNavLink = ({ link, title, icons, submenuItems }) => {
                   <Link
                     key={index}
                     to={item.link}
-                    className="block px-9 mb-4 mt-3 py-2 text-black hover:bg-[#D8E9FF] transition-colors duration-300 flex items-center gap-2"
+                    className=" px-9 mb-4 mt-3 py-2 text-black hover:bg-[#D8E9FF] transition-colors duration-300 flex items-center gap-2"
                   >
                     {item.icon}
                     {item.title}

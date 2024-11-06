@@ -130,13 +130,13 @@ const ViewAllDoctor = () => {
           <div key={doctor._id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
             <div>#{++index}</div>
             <div className="flex items-center">
-              <img src={doctor.profileUrl} alt={doctor.profileUrl} className="w-12 h-12 object-cover rounded-full mr-2" />
+              <img src={(doctor.profileUrl) ? doctor.profileUrl : "https://i.pinimg.com/564x/ab/68/8b/ab688b791dcd556181d2786f54db9fe6.jpg" } alt={doctor.profileUrl} className="w-12 h-12 object-cover rounded-full mr-2" />
               {doctor.name}
             </div>
-            <div className="pr-5">{doctor.specialization}</div>
-            <div className="pl-10">{doctor.gender}</div>
-            <div>{doctor.email}</div>
-            <div>{doctor.mobile}</div>
+            <div className="pr-5">{(doctor.specialization) ? doctor.specialization : "-" }</div>
+            <div className="pl-10">{(doctor.gender) ? doctor.gender : "-" }</div>
+            <div>{(doctor.email) ? doctor.email : "-" }</div>
+            <div>{(doctor.mobile) ? doctor.mobile : "-" }</div>
             <div>{doctor.applicationStatus}</div>
             <div>
               <Link to={`/admin/view-doctor/${doctor._id}`} className="bg-blue-500 text-white rounded-lg px-3 py-1 transition duration-200 ease-in-out hover:bg-blue-700">

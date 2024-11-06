@@ -63,7 +63,7 @@ const BookAppointmentForm = () => {
           </div>
 
           {/* Duration Buttons */}
-          <p className="text-black-600 font-semibold mb-3">Duration</p>
+          <p className="text-black-600 font-semibold mb-3">Select Appointment Time</p>
           <div className="grid grid-cols-4 gap-3 mb-3">
             {durationOptions.map((duration) => (
               <button

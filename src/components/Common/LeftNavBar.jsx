@@ -14,7 +14,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { FaUserDoctor } from "react-icons/fa6";
 import { IoIosCreate } from "react-icons/io";
 import { FaClipboardList } from "react-icons/fa";
-import { FaRegEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const LeftNavBar = () => {
   const dispatch = useDispatch();
@@ -81,7 +81,9 @@ const LeftNavBar = () => {
               { link: "/appointments/past", title: "Past" },
             ]}
           />
-          <LeftNavLink link="/platform-fees" title="Platform Fees" icons={<FaMoneyCheckDollar className=" icon text-2xl text-black-800" />} />
+          <Link to="/admin/platform-fee">
+            <LeftNavLink title="Platform Fees" icons={<FaMoneyCheckDollar className=" icon text-2xl text-black-800" />} />
+          </Link>
         </nav>
       </section>
     </div>
