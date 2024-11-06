@@ -52,28 +52,32 @@ const ClientRegister = () => {
   };
 
   const onSubmit = async (formData) => {
+    const formattedDob = new Date(formData.dob).toISOString().split("T")[0];
+
+    let body = { ...formData, dob: formattedDob };
+
     if (!profileImage) {
       dispatch(showAlert({ message: "Please upload your profile pic", type: "warning" }));
       return;
     }
-  
+
     dispatch(showLoader());
-  
+
     // Create a new FormData instance
     const formDataToSend = new FormData();
-  
+
     // Append formData fields directly to the FormData instance
-    Object.entries(formData).forEach(([key, value]) => {
+    Object.entries(body).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-  
+
     // Append the profile image
     formDataToSend.append("profileImage", profileImage);
-  
+
     try {
-      const res = await createUserAccountApi(formDataToSend);  
+      const res = await createUserAccountApi(formDataToSend); // Ensure your API is set to handle FormData
       dispatch(showAlert({ message: res.message, type: "success" }));
-  
+
       setTimeout(() => {
         navigate("/auth/login");
       }, 2000);
