@@ -3,16 +3,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const BookAppointmentForm = () => {
   const today = new Date();
-  const currentMonth = today.getMonth(); // 0-based (0 = January)
+  const currentMonth = today.getMonth();
   const currentYear = today.getFullYear();
-  const currentDate = today.getDate(); // Get today's date
-  const currentTime = today.getHours() * 60 + today.getMinutes(); // Current time in minutes
-const navigate=useNavigate()
+  const currentDate = today.getDate();
+  const currentTime = today.getHours() * 60 + today.getMinutes();
+  const navigate = useNavigate()
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(''); // Initialize selectedTime as an empty string
+  const [selectedTime, setSelectedTime] = useState('');
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
-const {id}=useParams();
+  const { id } = useParams();
   const timeOptions = [
     '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
     '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
@@ -27,15 +27,15 @@ const {id}=useParams();
   ];
 
   const getDaysInMonth = (month, year) => {
-    return new Date(year, month + 1, 0).getDate(); // Get the last day of the month
+    return new Date(year, month + 1, 0).getDate();
   };
 
   const daysInMonth = getDaysInMonth(month, year);
 
   const handleDateClick = (date) => {
-    // For the current month: Only allow selecting today and future dates
+
     if (month === currentMonth && date < currentDate) {
-      return; // Don't allow past dates in the current month
+      return;
     }
     setSelectedDate(date);
   };
@@ -43,12 +43,12 @@ const {id}=useParams();
   const handlePrevMonth = () => {
     if (month > currentMonth || year > currentYear) {
       if (month === 0) {
-        setMonth(11); // December
+        setMonth(11);
         setYear(year - 1);
       } else {
         setMonth(month - 1);
       }
-      setSelectedDate(null); // Reset selected date when switching months
+      setSelectedDate(null);
     }
   };
 
@@ -97,7 +97,7 @@ const {id}=useParams();
 
 
 
-  const proceedToPayment=async()=>{
+  const proceedToPayment = async () => {
     navigate(`/user/payment-section/${id}`)
   }
   return (
@@ -176,7 +176,7 @@ const {id}=useParams();
             </div>
           </div>
 
-          <button className="w-full py-4 text-white font-semibold bg-[#0148B1] rounded-md" onClick={()=>proceedToPayment()}>
+          <button className="w-full py-4 text-white font-semibold bg-[#0148B1] rounded-md" onClick={() => proceedToPayment()}>
             Proceed
           </button>
         </div>
