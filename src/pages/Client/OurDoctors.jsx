@@ -81,7 +81,7 @@ const OurDoctors = () => {
                                 {doctor.map((data) => {
                                     return (
                                         <div key={data._id}>
-                                            <Link to={`/doctor-details/${data?._id}`} className="doctor-card flex items-start bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
+                                            <div className="doctor-card flex items-start bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
                                                 <img
                                                     src={data?.doctorInfo?.profileUrl}
                                                     alt="Doctor Jenny Doe"
@@ -95,13 +95,13 @@ const OurDoctors = () => {
                                                     </p>
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Treatment name:</span> {data?.treatmentName}</p>
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Specialization:</span> {data?.specialty}</p>
-                                                    <button className="mt-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</button>
+                                                    <Link to={`/doctor-details/${data?._id}`} className="my-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</Link>
                                                 </div>
                                                 <div className="ml-auto text-right">
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Experience:</span> {data?.doctorInfo?.experience} years</p>
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Expertise:</span> {data?.doctorInfo?.specialization}</p>
                                                 </div>
-                                            </Link>
+                                            </div>
                                         </div>
                                     );
                                 })}

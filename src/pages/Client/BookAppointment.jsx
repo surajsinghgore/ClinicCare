@@ -53,7 +53,7 @@ const BookAppointment = () => {
                 {/* Search Results */}
                 <div className="w-4/5 mx-auto mt-8 space-y-10">
                     {/* Doctor Card 1 */}
-                    <div className="doctor-card flex items-start bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
+                    <div className="doctor-card flex items-start py-8 bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
                         <img
                             src="https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             alt="Doctor Jenny Doe"
@@ -67,8 +67,8 @@ const BookAppointment = () => {
                                 Doe Clinic, 123 Main St, City
                             </p>
                             <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Specialization:</span> Specializing in cardiovascular health and preventive care.</p>
-                            <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Languages Spoken:</span> English, Spanish</p>
-                            <button onClick={() => navigate('/book-appointment-form')} className="mt-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</button>
+                            <p className="text-black-600 mb-5"><span className='text-[#0148B1] font-semibold'>Languages Spoken:</span> English, Spanish</p>
+                            <Link to={"#"} className="mt-4 px-4 py-2 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</Link>
                         </div>
                         <div className="ml-auto text-right">
                             <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Experience:</span> 10 years</p>
