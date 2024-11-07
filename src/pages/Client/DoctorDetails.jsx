@@ -166,7 +166,7 @@ const DoctorDetails = () => {
                                 <p className="text-black-500 mb-1">Specialty: <span className="text-black-700">{item.specialty}</span></p>
                                 <p className="text-black-500 mb-4">Fees: <span className="text-black-700">${item.fees}</span></p>
                                 <Link
-                                    to={`/book-appointment-form/${item.serviceId}`}
+                                    to={`/user/book-appointment-form/${item.serviceId}`}
                                     className="inline-block px-5 py-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition-all w-full mt-auto"
                                 >
                                     Book this service

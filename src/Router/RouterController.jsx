@@ -51,6 +51,7 @@ import ViewAllDoctor from "../pages/Admin/ViewAllDoctor";
 import ViewSingleDoctor from "../pages/Admin/ViewSingleDoctor";
 import PlatformFeePage from "../pages/Admin/PlatformFees/PlatformFeePage";
 import UserLayout from "../Layout/UserLayout";
+import UserProtected from "../PageProtected/UserProtected";
 
 const router = createBrowserRouter([
   {
@@ -72,14 +73,7 @@ const router = createBrowserRouter([
       </>
     ),
   },
-  {
-    path: "/book-appointment-form/:id",
-    element: (
-      <>
-        <BookAppointmentForm />
-      </>
-    ),
-  },
+
   {
     path: "/doctor-details/:id",
     element: (
@@ -124,6 +118,24 @@ const router = createBrowserRouter([
         <PaymentStatusFailed />
       </>
     ),
+  },
+
+
+
+  {
+    path: "/user",
+    element: <UserProtected />,
+    children: [
+      {
+        path: "book-appointment-form/:id",
+        element: (
+          <UserLayout>
+            <BookAppointmentForm />
+          </UserLayout>
+        ),
+      },
+
+    ]
   },
 
   {

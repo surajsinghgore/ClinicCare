@@ -196,7 +196,7 @@ const BookAppointment = () => {
                                     <p className="text-black-600 mb-5">
                                         <span className='text-[#0148B1] font-semibold'>Specialization:</span> {doctor.specialty || "Not Specified"}
                                     </p>
-                                    <Link to={`/book-appointment-form/${doctor.serviceId}`} className="mt-4 px-4 py-2 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</Link>
+                                    <Link to={`/user/book-appointment-form/${doctor.serviceId}`} className="mt-4 px-4 py-2 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</Link>
                                 </div>
                                 <div className="ml-auto text-right">
                                     <p className="text-black-600">
