@@ -65,17 +65,17 @@ const DoctorDetails = () => {
                     {/* Profile Information */}
                     <div className="ml-80 flex flex-col w-full">
                         {/* Name */}
-                        <h2 className="text-2xl font-bold text-[#0049AC] mb-2">Dr {(doctor?.doctorInfo?.name) ? doctor?.doctorInfo?.name : "Jenny Doe"}</h2>
+                        <h2 className="text-3xl font-bold text-[#0049AC] mb-5">Dr {(doctor?.doctorInfo?.name) ? doctor?.doctorInfo?.name : "Jenny Doe"}</h2>
 
                         {/* Location and Qualification */}
                         <div className="flex items-center space-x-6 text-black-700 mb-4">
                             <div className="flex items-center">
-                                <FaMapMarkerAlt className="text-orange-500 mr-2" />
-                                <span>{(doctor?.clinicInfo?.city) ? doctor?.clinicInfo?.city : "Bengaluru"}</span>
+                                <FaMapMarkerAlt className="text-blue-700 text-xl mr-2" />
+                                <span className='text-lg text-black-500'>{(doctor?.clinicInfo?.city) ? doctor?.clinicInfo?.city : "Bengaluru"}</span>
                             </div>
                             <div className="flex items-center">
-                                <FaGraduationCap className="text-orange-500 mr-2" />
-                                <span>{(doctor?.doctorInfo?.degree) ? doctor?.doctorInfo?.degree : "MDS (Orthodontics)"}</span>
+                                <FaGraduationCap className="text-blue-700 text-xl mr-2" />
+                                <span className='text-lg text-black-500'>{(doctor?.doctorInfo?.degree) ? doctor?.doctorInfo?.degree : "MDS (Orthodontics)"}</span>
                             </div>
                         </div>
 
@@ -84,7 +84,7 @@ const DoctorDetails = () => {
                             {/* Expertise */}
                             <div className='flex items-center gap-3'>
                                 <h3 className="text-[#0049AC] font-semibold text-lg">Expertise: </h3>
-                                <p className="text-black-700 mt-1 text-sm leading-relaxed">
+                                <p className="text-black-500 mt-1 text-base leading-relaxed">
                                     {(doctor?.doctorInfo?.specialization) ? doctor?.doctorInfo?.specialization : " Braces, Aligners, Root Canal Treatment (RCT), Teeth Whitening, Smile Design, General Dentistry, Tooth Extraction, Scaling & Polishing"}
                                 </p>
                             </div>
@@ -92,7 +92,7 @@ const DoctorDetails = () => {
                             {/* Experience */}
                             <div className='flex items-center gap-3'>
                                 <h3 className="text-[#0049AC] font-semibold text-lg">Experience: </h3>
-                                <p className="text-black-700 mt-1 text-sm leading-relaxed">
+                                <p className="text-black-500 mt-1 text-base leading-relaxed">
                                     {(doctor?.doctorInfo?.experience) ? doctor?.doctorInfo?.experience : " specialization 300+ Happy Patients "}
                                 </p>
                             </div>
