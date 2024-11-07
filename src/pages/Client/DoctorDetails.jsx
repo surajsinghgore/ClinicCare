@@ -80,18 +80,18 @@ const DoctorDetails = () => {
                         </div>
 
                         {/* Expertise and Experience Section */}
-                        <div className="flex items-center justify-around mt-4 gap-10">
+                        <div className="flex items-center justify-between mt-4 gap-10">
                             {/* Expertise */}
-                            <div className='w-[70%]'>
-                                <h3 className="text-[#0049AC] font-semibold text-lg">Expertise</h3>
+                            <div className='flex items-center gap-3'>
+                                <h3 className="text-[#0049AC] font-semibold text-lg">Expertise: </h3>
                                 <p className="text-black-700 mt-1 text-sm leading-relaxed">
                                     {(doctor?.doctorInfo?.specialization) ? doctor?.doctorInfo?.specialization : " Braces, Aligners, Root Canal Treatment (RCT), Teeth Whitening, Smile Design, General Dentistry, Tooth Extraction, Scaling & Polishing"}
                                 </p>
                             </div>
 
                             {/* Experience */}
-                            <div>
-                                <h3 className="text-[#0049AC] font-semibold text-lg">Experience</h3>
+                            <div className='flex items-center gap-3'>
+                                <h3 className="text-[#0049AC] font-semibold text-lg">Experience: </h3>
                                 <p className="text-black-700 mt-1 text-sm leading-relaxed">
                                     {(doctor?.doctorInfo?.experience) ? doctor?.doctorInfo?.experience : " specialization 300+ Happy Patients "}
                                 </p>
