@@ -52,6 +52,8 @@ import ViewSingleDoctor from "../pages/Admin/ViewSingleDoctor";
 import PlatformFeePage from "../pages/Admin/PlatformFees/PlatformFeePage";
 import UserLayout from "../Layout/UserLayout";
 import UserProtected from "../PageProtected/UserProtected";
+import DoctorSevicePlans from "../pages/Client/DoctorServicePlans";
+import TodayAppointment from "../pages/Doctor/Appointment/TodayAppointment";
 
 const router = createBrowserRouter([
   {
@@ -95,7 +97,16 @@ const router = createBrowserRouter([
       </>
     ),
   },
-
+  {
+    path: "/service-plans",
+    element: (
+      <>
+      <UserLayout>
+        <DoctorSevicePlans />
+      </UserLayout>
+      </>
+    ),
+  },
 
 
 
@@ -412,6 +423,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <DoctorVerification3 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "todays-appointment",
+        element: (
+          <DoctorLayout>
+            <TodayAppointment />
           </DoctorLayout>
         ),
       },
