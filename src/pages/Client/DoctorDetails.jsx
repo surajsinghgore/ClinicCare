@@ -11,9 +11,11 @@ import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import DoctorDetailsClinicCard from '../../components/Swiper/DoctorDetailsClinicCard';
 
+
 const DoctorDetails = () => {
     const dispatch = useDispatch();
     const [doctor, setDoctor] = useState([])
+   
     const { id } = useParams()
     const dataFetch = async () => {
         try {
@@ -31,10 +33,12 @@ const DoctorDetails = () => {
             dispatch(hideLoader());
         }
     };
+   
 
 
     useEffect(() => {
         dataFetch()
+   
     }, [])
 
     const openGoogleMaps = (lat, lng) => {
