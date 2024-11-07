@@ -50,6 +50,7 @@ import PaymentSection from "../pages/Client/PaymentSection";
 import ViewAllDoctor from "../pages/Admin/ViewAllDoctor";
 import ViewSingleDoctor from "../pages/Admin/ViewSingleDoctor";
 import PlatformFeePage from "../pages/Admin/PlatformFees/PlatformFeePage";
+import UserLayout from "../Layout/UserLayout";
 
 const router = createBrowserRouter([
   {
@@ -64,7 +65,10 @@ const router = createBrowserRouter([
     path: "/book-appointment",
     element: (
       <>
-        <BookAppointment />
+        <UserLayout>
+
+          <BookAppointment />
+        </UserLayout>
       </>
     ),
   },
@@ -80,15 +84,20 @@ const router = createBrowserRouter([
     path: "/doctor-details/:id",
     element: (
       <>
-        <DoctorDetails />
+        <UserLayout>
+
+          <DoctorDetails />
+        </UserLayout>
       </>
     ),
   },
   {
     path: "/our-doctors",
     element: (
-      <>
+      <><UserLayout>
+
         <OurDoctors />
+      </UserLayout>
       </>
     ),
   },

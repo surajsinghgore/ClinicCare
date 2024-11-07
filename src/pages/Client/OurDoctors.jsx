@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
-import Header from '../../components/Common/Header';
 import { FiSearch } from "react-icons/fi";
 import { FaLocationDot } from "react-icons/fa6";
-import Footer from '../../components/Common/Footer';
 import { ourDoctorAllDataApi, ourDoctorSearchApi } from '../../Utils/services/apis/CommonApi';
 import { useEffect, useState } from 'react';
 import { showAlert } from '../../redux/Slices/AlertToggleState';
@@ -26,7 +24,7 @@ const OurDoctors = () => {
             console.log(error);
             dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
         } finally {
-            // dispatch(hideLoader());
+            dispatch(hideLoader());
         }
     };
 
@@ -52,9 +50,9 @@ const OurDoctors = () => {
     }, [])
     return (
         <div className='z-0'>
-            <Header />
 
-            <div className="search w-full py-6">
+
+            <div className="search w-full ">
                 {/* Heading */}
                 <h2 className="text-center text-3xl font-semibold text-black-700 mb-7 mt-14">
                     Search for Our Doctor
@@ -113,7 +111,7 @@ const OurDoctors = () => {
 
                 </div>
             </div >
-            <Footer />
+
         </div>
     )
 }

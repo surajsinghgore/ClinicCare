@@ -19,7 +19,6 @@ export const resetPasswordUsingEmailApi = async (payload) => {
   return res.data;
 };
 
-
 export const ourDoctorSearchApi = async (search) => {
   const res = await axiosInstance.get(`/v1/our-doctor/${search}`);
   return res.data;
@@ -32,3 +31,21 @@ export const getDoctorServicesByIdApi = async (id) => {
   const res = await axiosInstance.get(`/v1/get-doctor-details/${id}`);
   return res.data;
 };
+export const getUniqueCitiesApi = async () => {
+  const res = await axiosInstance.get(`/v1/get-cities`);
+  return res.data;
+};
+export const getTreatmentNamesByCityApi = async (city) => {
+  const res = await axiosInstance.get(`/v1/get-treatment-by-city/${city}`);
+  return res.data;
+};
+export const getSpecialtiesByTreatmentApi = async (city, treatmentName) => {
+  const res = await axiosInstance.get(`/v1/get-specialties-by-treatment/${city}/${treatmentName}`);
+  return res.data;
+};
+
+export const getDoctorsByCityTreatmentAndSpecialtyApi = async (city, treatmentName, specialty) => {
+  const res = await axiosInstance.get(`/v1/get-doctors-by-city-treatment-specialty/${city}/${treatmentName}/${specialty}`);
+  return res.data;
+};
+
