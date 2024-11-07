@@ -61,7 +61,7 @@ const BookAppointment = () => {
                             onClick={() => navigate('/doctor-details')}
                         />
                         <div className="ml-4 flex-grow">
-                            <h3 className="text-xl font-semibold">Dr. Jenny Doe</h3>
+                            <h3 className="text-xl font-semibold text-[#0148B1]">Dr. Jenny Doe</h3>
                             <p className="text-black-600 flex items-center mb-3">
                                 <FaLocationDot className="mr-1" />
                                 Doe Clinic, 123 Main St, City
@@ -71,56 +71,8 @@ const BookAppointment = () => {
                             <button onClick={() => navigate('/book-appointment-form')} className="mt-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</button>
                         </div>
                         <div className="ml-auto text-right">
-                            <p className="text-black-600 mr-[3.1rem]"><span className='text-[#0148B1] font-semibold'>Experience:</span> 10 years</p>
+                            <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Experience:</span> 10 years</p>
                             <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Expertise:</span> Cardiologist, MD</p>
-                        </div>
-                    </div>
-
-                    {/* Doctor Card 2 */}
-                    <div className="doctor-card flex items-start bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
-                        <img
-                            src="https://images.pexels.com/photos/8376263/pexels-photo-8376263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            alt="Doctor Jane Smith"
-                            className="w-32 h-32 rounded-full object-cover cursor-pointer"
-                            onClick={() => navigate('/doctor-details')}
-                        />
-                        <div className="ml-4 flex-grow">
-                            <h3 className="text-xl font-semibold text-[#0148B1]">Dr. Jane Smith</h3>
-                            <p className="text-black-600 flex items-center mb-3">
-                                <FaLocationDot className="mr-1" />
-                                Smith Health Center, 456 Elm St, City
-                            </p>
-                            <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Specialization:</span> Expert in skin conditions, cosmetic dermatology, and patient education.</p>
-                            <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Languages Spoken:</span> English, French</p>
-                            <button onClick={() => navigate('/book-appointment-form')} className="mt-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</button>
-                        </div>
-                        <div className="ml-auto text-right">
-                            <p className="text-black-600 mr-[5.6rem]"><span className='text-[#0148B1] font-semibold'>Experience:</span> 8 years</p>
-                            <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Expertise:</span> Dermatologist, MBBS</p>
-                        </div>
-                    </div>
-
-                    {/* Doctor Card 3 */}
-                    <div className="doctor-card flex items-start bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
-                        <img
-                            src="https://images.pexels.com/photos/8376284/pexels-photo-8376284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            alt="Doctor Alex Turner"
-                            className="w-32 h-32 rounded-full object-cover cursor-pointer"
-                            onClick={() => navigate('/doctor-details')}
-                        />
-                        <div className="ml-4 flex-grow">
-                            <h3 className="text-xl font-semibold text-[#0148B1]">Dr. Alex Turner</h3>
-                            <p className="text-black-600 flex items-center mb-3">
-                                <FaLocationDot className="mr-1" />
-                                Turner Clinic, 789 Oak St, City
-                            </p>
-                            <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Specialization:</span> Specializes in neurological disorders, brain health, and patient care.</p>
-                            <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Languages Spoken:</span> English, German</p>
-                            <button onClick={() => navigate('/book-appointment-form')} className="mt-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</button>
-                        </div>
-                        <div className="ml-auto text-right">
-                            <p className="text-black-600 mr-[3.1rem]"><span className='text-[#0148B1] font-semibold'>Experience:</span> 15 years</p>
-                            <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Expertise:</span> Neurologist, PhD</p>
                         </div>
                     </div>
                 </div>

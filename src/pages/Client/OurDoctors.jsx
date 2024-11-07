@@ -26,7 +26,7 @@ const OurDoctors = () => {
             console.log(error);
             dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
         } finally {
-            dispatch(hideLoader());
+            // dispatch(hideLoader());
         }
     };
 
@@ -51,7 +51,7 @@ const OurDoctors = () => {
         dataFetch()
     }, [])
     return (
-        <>
+        <div className='z-0'>
             <Header />
 
             <div className="search w-full py-6">
@@ -93,12 +93,12 @@ const OurDoctors = () => {
                                                         <FaLocationDot className="mr-1" />
                                                         {data?.clinicInfo?.[0].city} {data?.clinicInfo?.[0].state}, {data?.clinicInfo?.[0].country}
                                                     </p>
-                                                    <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>treatment name:</span> {data?.treatmentName}</p>
+                                                    <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Treatment name:</span> {data?.treatmentName}</p>
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Specialization:</span> {data?.specialty}</p>
                                                     <button className="mt-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</button>
                                                 </div>
                                                 <div className="ml-auto text-right">
-                                                    <p className="text-black-600 mr-[3.1rem]"><span className='text-[#0148B1] font-semibold'>Experience:</span> {data?.doctorInfo?.experience} years</p>
+                                                    <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Experience:</span> {data?.doctorInfo?.experience} years</p>
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Expertise:</span> {data?.doctorInfo?.specialization}</p>
                                                 </div>
                                             </Link>
@@ -114,7 +114,7 @@ const OurDoctors = () => {
                 </div>
             </div >
             <Footer />
-        </>
+        </div>
     )
 }
 
