@@ -28,3 +28,7 @@ export const ourDoctorAllDataApi = async () => {
   const res = await axiosInstance.get(`/v1/our-doctor`);
   return res.data;
 };
+export const getDoctorServicesByIdApi = async (id) => {
+  const res = await axiosInstance.get(`/v1/get-doctor-details/${id}`);
+  return res.data;
+};

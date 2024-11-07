@@ -69,7 +69,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/book-appointment-form",
+    path: "/book-appointment-form/:id",
     element: (
       <>
         <BookAppointmentForm />
@@ -93,7 +93,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/payment-section",
+    path: "/payment-section/:id",
     element: (
       <>
         <PaymentSection />

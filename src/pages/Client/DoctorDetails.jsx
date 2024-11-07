@@ -1,11 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Common/Header';
 import about from "../../assets/aboutDoctor2.png";
 import { FaMapMarkerAlt, FaGraduationCap, FaStar } from 'react-icons/fa';
 import ReviewCard from '../../components/ReviewCard';
 import Footer from '../../components/Common/Footer';
+import { getDoctorServicesByIdApi } from '../../Utils/services/apis/CommonApi';
+import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
+import { showAlert } from '../../redux/Slices/AlertToggleState';
+import { useDispatch } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import DoctorDetailsClinicCard from '../../components/Swiper/DoctorDetailsClinicCard';
 
 const DoctorDetails = () => {
+    const dispatch = useDispatch();
+    const [doctor, setDoctor] = useState([])
+    const { id } = useParams()
+    const dataFetch = async () => {
+        try {
+            dispatch(showLoader());
+            let res = await getDoctorServicesByIdApi(id);
+            if (res?.success) {
+                console.log(res)
+                setDoctor(res.data)
+
+            }
+        } catch (error) {
+            console.log(error);
+            dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+        } finally {
+            dispatch(hideLoader());
+        }
+    };
+
+
+    useEffect(() => {
+        dataFetch()
+    }, [])
+
+    const openGoogleMaps = (lat, lng) => {
+        const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+        window.open(googleMapsUrl, '_blank');
+    };
     return (
         <>
             <Header />
@@ -21,7 +56,7 @@ const DoctorDetails = () => {
                     {/* Profile Image */}
                     <div className="absolute w-72 h-72 rounded-full overflow-hidden border-4 border-white flex-shrink-0">
                         <img
-                            src="https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                            src={(doctor?.doctorInfo?.profileUrl) ? doctor?.doctorInfo?.profileUrl : "https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
                             alt="Dr. Profile"
                             className="w-full h-full object-cover"
                         />
@@ -30,17 +65,17 @@ const DoctorDetails = () => {
                     {/* Profile Information */}
                     <div className="ml-80 flex flex-col w-full">
                         {/* Name */}
-                        <h2 className="text-2xl font-bold text-[#0049AC] mb-2">Doctor Jenny Doe</h2>
+                        <h2 className="text-2xl font-bold text-[#0049AC] mb-2">Dr {(doctor?.doctorInfo?.name) ? doctor?.doctorInfo?.name : "Jenny Doe"}</h2>
 
                         {/* Location and Qualification */}
                         <div className="flex items-center space-x-6 text-black-700 mb-4">
                             <div className="flex items-center">
                                 <FaMapMarkerAlt className="text-orange-500 mr-2" />
-                                <span>Bengaluru</span>
+                                <span>{(doctor?.clinicInfo?.city) ? doctor?.clinicInfo?.city : "Bengaluru"}</span>
                             </div>
                             <div className="flex items-center">
                                 <FaGraduationCap className="text-orange-500 mr-2" />
-                                <span>MDS (Orthodontics)</span>
+                                <span>{(doctor?.doctorInfo?.degree) ? doctor?.doctorInfo?.degree : "MDS (Orthodontics)"}</span>
                             </div>
                         </div>
 
@@ -50,7 +85,7 @@ const DoctorDetails = () => {
                             <div className='w-[70%]'>
                                 <h3 className="text-[#0049AC] font-semibold text-lg">Expertise</h3>
                                 <p className="text-black-700 mt-1 text-sm leading-relaxed">
-                                    Braces, Aligners, Root Canal Treatment (RCT), Teeth Whitening, Smile Design, General Dentistry, Tooth Extraction, Scaling & Polishing
+                                    {(doctor?.doctorInfo?.specialization) ? doctor?.doctorInfo?.specialization : " Braces, Aligners, Root Canal Treatment (RCT), Teeth Whitening, Smile Design, General Dentistry, Tooth Extraction, Scaling & Polishing"}
                                 </p>
                             </div>
 
@@ -58,8 +93,7 @@ const DoctorDetails = () => {
                             <div>
                                 <h3 className="text-[#0049AC] font-semibold text-lg">Experience</h3>
                                 <p className="text-black-700 mt-1 text-sm leading-relaxed">
-                                    300+ Happy Patients <br />
-                                    250+ Completed Ortho Cases
+                                    {(doctor?.doctorInfo?.experience) ? doctor?.doctorInfo?.experience : " specialization 300+ Happy Patients "}
                                 </p>
                             </div>
                         </div>
@@ -76,30 +110,22 @@ const DoctorDetails = () => {
                         {/* Key Highlights */}
                         <h3 className="text-2xl font-semibold text-[#0148B1] mb-4">Key Highlights</h3>
                         <ul className="list-disc list-inside text-lg space-y-2 text-black-700">
-                            <li>7+ Years of Clinical Experience</li>
-                            <li>3+ Years of experience at Clove</li>
-                            <li>Alumni: Annamalai University</li>
+                            {(doctor?.doctorInfo?.highlights) ? <>{doctor?.doctorInfo?.highlights.map((item, index) => <li key={index}>{item}</li>)}</> : ""}
+
                         </ul>
                     </div>
 
                     <div>
 
                         {/* Accolades */}
-                        <h3 className="text-2xl font-semibold text-[#0148B1] mt-8 mb-4">Accolades</h3>
+                        <h3 className="text-2xl font-semibold text-[#0148B1] mt-8 mb-4">Likes</h3>
                         <ul className="list-disc list-inside text-lg space-y-2 text-black-700">
-                            <li>Member of Indian Orthodontic Society</li>
-                            <li>Member of Indian Dental Association</li>
-                            <li>Fellowship in Esthetic Dentistry, Endodontics & Fixed Prosth</li>
-                            <li>Certified Invisalign Provider: Gold Member</li>
-                            <li>Certified in Basic Life Support</li>
-                            <li>Gold Medal: PG Ranked 1st in The University</li>
+                            {(doctor?.doctorInfo?.hobbies) ? <>{doctor?.doctorInfo?.hobbies.map((item, index) => <li key={index}>{item}</li>)}</> : ""}
+
                         </ul>
                     </div>
 
-                    {/* Likes */}
-                    <p className="mt-4 text-base font-semibold text-black-700">
-                        <span className="text-[#0148B1]">Likes:</span> Traveling, Listening to music, Cricket
-                    </p>
+
                 </div>
 
 
@@ -119,27 +145,73 @@ const DoctorDetails = () => {
                 </div>
             </div>
 
+            {/* doctor services */}
+            <div className="p-6 font-sans flex justify-center items-start mt-20">
+                <div className="w-[85%]">
+                    <h3 className="text-xl font-semibold mb-4">{(doctor?.doctorInfo?.name) ? doctor?.doctorInfo?.name : "Jenny Doe"} Services</h3>
+                    <div className="grid grid-cols-4 gap-4">
 
+
+                        {doctor?.services
+                            ?.map((item, index) => (
+                                <div className="rounded-lg overflow-hidden shadow-lg bg-white p-4 my-4" key={index}>
+
+                                    {console.log(item)}
+
+
+                                    {/* Clinic Name */}
+                                    <h3 className="text-xl font-semibold text-gray-800 mt-4">Treatment name{item.treatmentName}</h3>
+                                    <h3 className="text-xl font-semibold text-gray-800 mt-4">specialty{item.specialty}</h3>
+                                    <h3 className="text-xl font-semibold text-gray-800 mt-4">fees{item.fees}</h3>
+
+                                    {/* Clinic Location Button */}
+                                    <Link className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all" to={`/book-appointment-form/${item.serviceId}`}>
+                                        Book this service
+                                    </Link>
+                                </div>
+                            ))}
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
             {/* Clinic Section */}
             <div className="p-6 font-sans flex justify-center items-start mt-20">
                 <div className="w-[85%]">
-                    <h3 className="text-xl font-semibold mb-4">Jenny Doe Clinic</h3>
+                    <h3 className="text-xl font-semibold mb-4">{(doctor?.doctorInfo?.name) ? doctor?.doctorInfo?.name : "Jenny Doe"} Clinic</h3>
                     <div className="grid grid-cols-4 gap-4">
-                        {/* Clinic Card with Different Images */}
-                        {[
-                            "https://images.pexels.com/photos/305568/pexels-photo-305568.jpeg?auto=compress&cs=tinysrgb&w=600",
-                            "https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&w=600",
-                            "https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=600",
-                            "https://images.pexels.com/photos/236380/pexels-photo-236380.jpeg?auto=compress&cs=tinysrgb&w=600"
-                        ].map((imageUrl, index) => (
-                            <div key={index} className="rounded-lg overflow-hidden shadow-md">
-                                <img
-                                    src={imageUrl}
-                                    alt="clinic"
-                                    className="w-full h-full object-cover"
-                                />
+
+
+                        {doctor?.clinicInfo?.map((item, index) => (
+                            <div className="rounded-lg overflow-hidden shadow-lg bg-white p-4 my-4" key={index}>
+                                <DoctorDetailsClinicCard ImagesArray={item[0].clinicPhotos} />
+
+                                {/* Clinic Name */}
+                                <h3 className="text-xl font-semibold text-gray-800 mt-4">{item[0].name}</h3>
+                                <div>
+
+                                    {item[0].address}
+                                </div>
+                                <div>
+
+                                    {item[0].city},{item[0].state} {item[0].country}
+                                </div>
+                                {/* Clinic Location Button */}
+                                <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all" onClick={() => openGoogleMaps(item[0].lat, item[0].long)}>
+                                    View clinic location
+                                </button>
                             </div>
                         ))}
+
+
+
+
+
+
                     </div>
                 </div>
             </div>

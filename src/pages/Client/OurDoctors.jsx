@@ -93,16 +93,8 @@ const OurDoctors = () => {
                                                         <FaLocationDot className="mr-1" />
                                                         {data?.clinicInfo?.[0].city} {data?.clinicInfo?.[0].state}, {data?.clinicInfo?.[0].country}
                                                     </p>
-                                                    <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Specialization:</span> {data?.doctorInfo?.highlights.map((item, index) => (
-                                                        <>
-                                                            {item}{index !== data.doctorInfo.highlights.length - 1 && ", "}
-                                                        </>
-                                                    ))}</p>
-                                                    <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Hobbies:</span> {data?.doctorInfo?.hobbies.map((item, index) => (
-                                                        <>
-                                                            {item}{index !== data.doctorInfo.hobbies.length - 1 && ", "}
-                                                        </>
-                                                    ))}</p>
+                                                    <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>treatment name:</span> {data?.treatmentName}</p>
+                                                    <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Specialization:</span> {data?.specialty}</p>
                                                     <button className="mt-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</button>
                                                 </div>
                                                 <div className="ml-auto text-right">
