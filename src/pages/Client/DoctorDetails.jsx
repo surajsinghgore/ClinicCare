@@ -43,7 +43,6 @@ const DoctorDetails = () => {
     };
     return (
         <>
-            <Header />
 
             {/* top img */}
             <div className="top-img">
@@ -149,67 +148,67 @@ const DoctorDetails = () => {
 
 
 
-{/* Doctor Services Section */}
-<div className="p-10 font-sans flex justify-center items-start mt-20 bg-black-50">
-    <div className="w-full max-w-7xl">
-        <h3 className="text-2xl capitalize font-semibold text-black-800 mb-8">
-            {doctor?.doctorInfo?.name || "Jenny Doe"} Services
-        </h3>
-        <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
-            {doctor?.services?.map((item, index) => (
-                <div
-                    className="flex-shrink-0 w-[320px] rounded-lg shadow-md bg-white p-6 border border-black-200 flex flex-col hover:shadow-lg transition-shadow"
-                    key={index}
-                >
-                    <h3 className="text-lg font-semibold text-black-900 mb-2">
-                        {item.treatmentName}
+            {/* Doctor Services Section */}
+            <div className="p-10 font-sans flex justify-center items-start mt-20 bg-black-50">
+                <div className="w-full max-w-7xl">
+                    <h3 className="text-2xl capitalize font-semibold text-black-800 mb-8">
+                        {doctor?.doctorInfo?.name || "Jenny Doe"} Services
                     </h3>
-                    <p className="text-black-500 mb-1">Specialty: <span className="text-black-700">{item.specialty}</span></p>
-                    <p className="text-black-500 mb-4">Fees: <span className="text-black-700">${item.fees}</span></p>
-                    <Link
-                        to={`/book-appointment-form/${item.serviceId}`}
-                        className="inline-block px-5 py-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition-all w-full mt-auto"
-                    >
-                        Book this service
-                    </Link>
+                    <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+                        {doctor?.services?.map((item, index) => (
+                            <div
+                                className="flex-shrink-0 w-[320px] rounded-lg shadow-md bg-white p-6 border border-black-200 flex flex-col hover:shadow-lg transition-shadow"
+                                key={index}
+                            >
+                                <h3 className="text-lg font-semibold text-black-900 mb-2">
+                                    {item.treatmentName}
+                                </h3>
+                                <p className="text-black-500 mb-1">Specialty: <span className="text-black-700">{item.specialty}</span></p>
+                                <p className="text-black-500 mb-4">Fees: <span className="text-black-700">${item.fees}</span></p>
+                                <Link
+                                    to={`/user/book-appointment-form/${item.serviceId}`}
+                                    className="inline-block px-5 py-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition-all w-full mt-auto"
+                                >
+                                    Book this service
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            ))}
-        </div>
-    </div>
-</div>
+            </div>
 
 
-{/* Clinic Section */}
-<div className="p-10 font-sans flex justify-center items-start mt-10">
-    <div className="w-full max-w-7xl">
-        <h3 className="text-2xl font-semibold text-black-800 mb-8">
-            {doctor?.doctorInfo?.name || "Jenny Doe"} Clinic
-        </h3>
-        <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
-            {doctor?.clinicInfo?.map((item, index) => (
-                <div
-                    className="flex-shrink-0 w-[320px] rounded-lg shadow-md bg-white p-6 border border-black-200 hover:shadow-lg transition-shadow"
-                    key={index}
-                >
-                    <DoctorDetailsClinicCard ImagesArray={item[0].clinicPhotos} />
-                    <h3 className="text-lg capitalize font-semibold text-black-900 mt-4">
-                        {item[0].name}
+            {/* Clinic Section */}
+            <div className="p-10 font-sans flex justify-center items-start mt-10">
+                <div className="w-full max-w-7xl">
+                    <h3 className="text-2xl font-semibold text-black-800 mb-8">
+                        {doctor?.doctorInfo?.name || "Jenny Doe"} Clinic
                     </h3>
-                    <p className="text-black-500">{item[0].address}</p>
-                    <p className="text-black-500">
-                        {item[0].city}, {item[0].state}, {item[0].country}
-                    </p>
-                    <button
-                        className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all w-full"
-                        onClick={() => openGoogleMaps(item[0].lat, item[0].long)}
-                    >
-                        View clinic location
-                    </button>
+                    <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+                        {doctor?.clinicInfo?.map((item, index) => (
+                            <div
+                                className="flex-shrink-0 w-[320px] rounded-lg shadow-md bg-white p-6 border border-black-200 hover:shadow-lg transition-shadow"
+                                key={index}
+                            >
+                                <DoctorDetailsClinicCard ImagesArray={item[0].clinicPhotos} />
+                                <h3 className="text-lg capitalize font-semibold text-black-900 mt-4">
+                                    {item[0].name}
+                                </h3>
+                                <p className="text-black-500">{item[0].address}</p>
+                                <p className="text-black-500">
+                                    {item[0].city}, {item[0].state}, {item[0].country}
+                                </p>
+                                <button
+                                    className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all w-full"
+                                    onClick={() => openGoogleMaps(item[0].lat, item[0].long)}
+                                >
+                                    View clinic location
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            ))}
-        </div>
-    </div>
-</div>
+            </div>
 
 
 
@@ -222,7 +221,6 @@ const DoctorDetails = () => {
                     <ReviewCard />
                 </div>
             </div>
-            <Footer />
         </>
     );
 };

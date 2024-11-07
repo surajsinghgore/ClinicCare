@@ -50,6 +50,8 @@ import PaymentSection from "../pages/Client/PaymentSection";
 import ViewAllDoctor from "../pages/Admin/ViewAllDoctor";
 import ViewSingleDoctor from "../pages/Admin/ViewSingleDoctor";
 import PlatformFeePage from "../pages/Admin/PlatformFees/PlatformFeePage";
+import UserLayout from "../Layout/UserLayout";
+import UserProtected from "../PageProtected/UserProtected";
 
 const router = createBrowserRouter([
   {
@@ -64,31 +66,32 @@ const router = createBrowserRouter([
     path: "/book-appointment",
     element: (
       <>
-        <BookAppointment />
+        <UserLayout>
+
+          <BookAppointment />
+        </UserLayout>
       </>
     ),
   },
-  {
-    path: "/book-appointment-form/:id",
-    element: (
-      <>
-        <BookAppointmentForm />
-      </>
-    ),
-  },
+
   {
     path: "/doctor-details/:id",
     element: (
       <>
-        <DoctorDetails />
+        <UserLayout>
+
+          <DoctorDetails />
+        </UserLayout>
       </>
     ),
   },
   {
     path: "/our-doctors",
     element: (
-      <>
+      <><UserLayout>
+
         <OurDoctors />
+      </UserLayout>
       </>
     ),
   },
@@ -115,6 +118,24 @@ const router = createBrowserRouter([
         <PaymentStatusFailed />
       </>
     ),
+  },
+
+
+
+  {
+    path: "/user",
+    element: <UserProtected />,
+    children: [
+      {
+        path: "book-appointment-form/:id",
+        element: (
+          <UserLayout>
+            <BookAppointmentForm />
+          </UserLayout>
+        ),
+      },
+
+    ]
   },
 
   {
