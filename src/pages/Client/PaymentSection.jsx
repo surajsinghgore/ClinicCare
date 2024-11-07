@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import phonepeLogo from '../../assets/phonepe-logo.png';
-import Header from '../../components/Common/Header';
 
 const PaymentSection = () => {
     const [selectedPayment, setSelectedPayment] = useState(null);
@@ -17,7 +16,6 @@ const PaymentSection = () => {
 
     return (
         <>
-            <Header />
             <div className="w-full max-w-4xl mx-auto p-8 mt-8 bg-white rounded-lg shadow-lg">
                 <h2 className="text-3xl font-bold mb-6 text-black-800">Confirm and Pay</h2>
 

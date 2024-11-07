@@ -95,30 +95,8 @@ const router = createBrowserRouter([
       </>
     ),
   },
-  {
-    path: "/payment-section/:id",
-    element: (
-      <>
-        <PaymentSection />
-      </>
-    ),
-  },
-  {
-    path: "/payment-status-success",
-    element: (
-      <>
-        <PaymentStatusSuccess />
-      </>
-    ),
-  },
-  {
-    path: "/payment-status-failed",
-    element: (
-      <>
-        <PaymentStatusFailed />
-      </>
-    ),
-  },
+
+
 
 
 
@@ -134,6 +112,33 @@ const router = createBrowserRouter([
           </UserLayout>
         ),
       },
+
+
+      {
+        path: "payment-status-success",
+        element: (
+          // <UserLayout>
+          <PaymentStatusSuccess />
+          // </UserLayout>
+        ),
+      },
+      {
+        path: "payment-status-failed",
+        element: (
+          // <UserLayout>
+          <PaymentStatusFailed />
+          // </UserLayout>
+        ),
+      },
+      {
+        path: "payment-section/:id",
+        element: (
+          <UserLayout>
+            <PaymentSection />
+          </UserLayout>
+        ),
+      },
+
 
     ]
   },
