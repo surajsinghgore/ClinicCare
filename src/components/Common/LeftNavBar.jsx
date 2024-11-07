@@ -38,7 +38,7 @@ const LeftNavBar = () => {
           </div>
         </div>
       </section>
-      <section className="h-screen py-5 flex-grow bg-[#FFFFFF]">
+      <section className="h-full w-[16rem] py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between">
           <LeftNavLink
             link="/admin"

@@ -7,7 +7,9 @@ import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice
 import { FaListAlt } from "react-icons/fa";
 import { FaHospitalUser } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa6";
-import { FaRegEdit } from "react-icons/fa";
+import { MdOutlineHomeRepairService } from "react-icons/md";
+import { RiCalendarScheduleLine } from "react-icons/ri";
+import { GrSchedule } from "react-icons/gr";
 
 const DoctorNavbar = () => {
   const dispatch = useDispatch();
@@ -27,7 +29,7 @@ const DoctorNavbar = () => {
           </div>
         </div>
       </section>
-      <section className="h-screen py-5 flex-grow bg-[#FFFFFF]">
+      <section className="h-full w-[16rem] py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between">
             <LeftNavLink 
                 link="/doctor" 
@@ -42,7 +44,7 @@ const DoctorNavbar = () => {
             <LeftNavLink 
                 link="/doctor" 
                 title="Sevices" 
-                icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
+                icons={<MdOutlineHomeRepairService className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
                     { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },
                     { link: "/doctor/services-list?page=1&limit=10", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
@@ -52,10 +54,10 @@ const DoctorNavbar = () => {
             <LeftNavLink 
                 link="/doctor" 
                 title="Appointment" 
-                icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
+                icons={<RiCalendarScheduleLine className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
-                    { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/services-list?page=1&limit=10", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/add-services", title: "Today's Appointments", icon: <GrSchedule className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/services-list?page=1&limit=10", title: "All Appointments", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
                     // { link: "/doctor/services-list?page=1&limit=10", title: "Update Services", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
                 ]}
             />
