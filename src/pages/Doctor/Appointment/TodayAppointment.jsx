@@ -52,7 +52,7 @@ const TodayAppointment = () => {
 
         {/* Table for displaying appointment records */}
         <div className="overflow-x-auto">
-            <h1 className='text-lg font-semibold'>Recent Appointment</h1>
+            <h1 className='text-lg font-semibold'>Recent Appointments</h1>
           <table className="min-w-full bg-white border border-black-300 rounded-md">
             <thead>
               <tr className="bg-black-200">
