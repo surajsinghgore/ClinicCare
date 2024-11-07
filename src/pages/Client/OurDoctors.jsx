@@ -81,7 +81,7 @@ const OurDoctors = () => {
                                 {doctor.map((data) => {
                                     return (
                                         <div key={data._id}>
-                                            <div className="doctor-card flex items-start bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
+                                            <div className="doctor-card py-8 flex items-start bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
                                                 <img
                                                     src={data?.doctorInfo?.profileUrl}
                                                     alt="Doctor Jenny Doe"
@@ -94,7 +94,7 @@ const OurDoctors = () => {
                                                         {data?.clinicInfo?.[0].city} {data?.clinicInfo?.[0].state}, {data?.clinicInfo?.[0].country}
                                                     </p>
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Treatment name:</span> {data?.treatmentName}</p>
-                                                    <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Specialization:</span> {data?.specialty}</p>
+                                                    <p className="text-black-600 mb-5"><span className='text-[#0148B1] font-semibold'>Specialization:</span> {data?.specialty}</p>
                                                     <Link to={`/doctor-details/${data?._id}`} className="my-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</Link>
                                                 </div>
                                                 <div className="ml-auto text-right">

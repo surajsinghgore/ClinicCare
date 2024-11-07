@@ -104,7 +104,7 @@ const DoctorDetails = () => {
 
 
             {/* Key Highlights and Accolades Section */}
-            <div className="p-6 font-sans flex gap-56 justify-center items-start mt-20">
+            <div className="p-6 font-sans flex gap-96 justify-center items-start mt-20">
                 <div>
                     <div>
                         {/* Key Highlights */}
@@ -130,7 +130,7 @@ const DoctorDetails = () => {
 
 
                 {/* book apointment section button */}
-                <div className="flex justify-center items-center mt-14 rounded-lg bg-[#0148B1] p-6">
+                <div className="flex justify-center items-center rounded-lg bg-[#0148B1] p-3">
                     <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg text-center">
                         <h2 className="text-2xl font-bold text-[#0148B1] mb-4">Book An Appointment</h2>
                         <p className="text-black-700 mb-6 px-5">
@@ -145,76 +145,74 @@ const DoctorDetails = () => {
                 </div>
             </div>
 
-            {/* doctor services */}
-            <div className="p-6 font-sans flex justify-center items-start mt-20">
-                <div className="w-[85%]">
-                    <h3 className="text-xl font-semibold mb-4">{(doctor?.doctorInfo?.name) ? doctor?.doctorInfo?.name : "Jenny Doe"} Services</h3>
-                    <div className="grid grid-cols-4 gap-4">
-
-
-                        {doctor?.services
-                            ?.map((item, index) => (
-                                <div className="rounded-lg overflow-hidden shadow-lg bg-white p-4 my-4" key={index}>
-
-                                    {console.log(item)}
-
-
-                                    {/* Clinic Name */}
-                                    <h3 className="text-xl font-semibold text-gray-800 mt-4">Treatment name{item.treatmentName}</h3>
-                                    <h3 className="text-xl font-semibold text-gray-800 mt-4">specialty{item.specialty}</h3>
-                                    <h3 className="text-xl font-semibold text-gray-800 mt-4">fees{item.fees}</h3>
-
-                                    {/* Clinic Location Button */}
-                                    <Link className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all" to={`/book-appointment-form/${item.serviceId}`}>
-                                        Book this service
-                                    </Link>
-                                </div>
-                            ))}
 
 
 
 
-
-
-                    </div>
+{/* Doctor Services Section */}
+<div className="p-10 font-sans flex justify-center items-start mt-20 bg-black-50">
+    <div className="w-full max-w-7xl">
+        <h3 className="text-2xl capitalize font-semibold text-black-800 mb-8">
+            {doctor?.doctorInfo?.name || "Jenny Doe"} Services
+        </h3>
+        <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+            {doctor?.services?.map((item, index) => (
+                <div
+                    className="flex-shrink-0 w-[320px] rounded-lg shadow-md bg-white p-6 border border-black-200 flex flex-col hover:shadow-lg transition-shadow"
+                    key={index}
+                >
+                    <h3 className="text-lg font-semibold text-black-900 mb-2">
+                        {item.treatmentName}
+                    </h3>
+                    <p className="text-black-500 mb-1">Specialty: <span className="text-black-700">{item.specialty}</span></p>
+                    <p className="text-black-500 mb-4">Fees: <span className="text-black-700">${item.fees}</span></p>
+                    <Link
+                        to={`/book-appointment-form/${item.serviceId}`}
+                        className="inline-block px-5 py-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition-all w-full mt-auto"
+                    >
+                        Book this service
+                    </Link>
                 </div>
-            </div>
-            {/* Clinic Section */}
-            <div className="p-6 font-sans flex justify-center items-start mt-20">
-                <div className="w-[85%]">
-                    <h3 className="text-xl font-semibold mb-4">{(doctor?.doctorInfo?.name) ? doctor?.doctorInfo?.name : "Jenny Doe"} Clinic</h3>
-                    <div className="grid grid-cols-4 gap-4">
+            ))}
+        </div>
+    </div>
+</div>
 
 
-                        {doctor?.clinicInfo?.map((item, index) => (
-                            <div className="rounded-lg overflow-hidden shadow-lg bg-white p-4 my-4" key={index}>
-                                <DoctorDetailsClinicCard ImagesArray={item[0].clinicPhotos} />
-
-                                {/* Clinic Name */}
-                                <h3 className="text-xl font-semibold text-gray-800 mt-4">{item[0].name}</h3>
-                                <div>
-
-                                    {item[0].address}
-                                </div>
-                                <div>
-
-                                    {item[0].city},{item[0].state} {item[0].country}
-                                </div>
-                                {/* Clinic Location Button */}
-                                <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all" onClick={() => openGoogleMaps(item[0].lat, item[0].long)}>
-                                    View clinic location
-                                </button>
-                            </div>
-                        ))}
-
-
-
-
-
-
-                    </div>
+{/* Clinic Section */}
+<div className="p-10 font-sans flex justify-center items-start mt-10">
+    <div className="w-full max-w-7xl">
+        <h3 className="text-2xl font-semibold text-black-800 mb-8">
+            {doctor?.doctorInfo?.name || "Jenny Doe"} Clinic
+        </h3>
+        <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+            {doctor?.clinicInfo?.map((item, index) => (
+                <div
+                    className="flex-shrink-0 w-[320px] rounded-lg shadow-md bg-white p-6 border border-black-200 hover:shadow-lg transition-shadow"
+                    key={index}
+                >
+                    <DoctorDetailsClinicCard ImagesArray={item[0].clinicPhotos} />
+                    <h3 className="text-lg capitalize font-semibold text-black-900 mt-4">
+                        {item[0].name}
+                    </h3>
+                    <p className="text-black-500">{item[0].address}</p>
+                    <p className="text-black-500">
+                        {item[0].city}, {item[0].state}, {item[0].country}
+                    </p>
+                    <button
+                        className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all w-full"
+                        onClick={() => openGoogleMaps(item[0].lat, item[0].long)}
+                    >
+                        View clinic location
+                    </button>
                 </div>
-            </div>
+            ))}
+        </div>
+    </div>
+</div>
+
+
+
 
 
             <div className="px-32 mt-20 mb-10">
