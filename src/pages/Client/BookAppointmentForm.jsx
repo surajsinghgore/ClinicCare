@@ -3,131 +3,124 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getAvailableTimeSlotApi } from '../../Utils/services/apis/User/AppointmentApi';
 import { showAlert } from '../../redux/Slices/AlertToggleState';
 import { useDispatch } from 'react-redux';
+import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
+import { getLocalStorage, removeLocalStorage, setLocalStorage } from '../../Utils/LocalStorage';
 
 const BookAppointmentForm = () => {
   const today = new Date();
   const currentMonth = today.getMonth();
   const currentYear = today.getFullYear();
   const currentDate = today.getDate();
-  const [availableTimeSlots, setAvailableTimeSlots] = useState([])
   const currentTime = today.getHours() * 60 + today.getMinutes();
-  const navigate = useNavigate();
+
+  const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { id } = useParams();
-  const timeOptions = [
-    '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
-    '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
-    '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM'
-  ];
-
-  const durationOptions = ['15 min', '30 min', '45 min', '1 hour'];
 
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
 
-  const getDaysInMonth = (month, year) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
-
+  const getDaysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
   const daysInMonth = getDaysInMonth(month, year);
-
-  // Get the weekday (0-6) for the first day of the month to align the calendar
   const firstDayOfWeek = new Date(year, month, 1).getDay();
 
+  // Handle loading default date and time from session storage
+  useEffect(() => {
+    const storedDate = getLocalStorage("selectedDate");
+    const storedTime = getLocalStorage("selectedTime");
 
+    if (storedDate && storedTime) {
+      const [storedYear, storedMonth, storedDay] = storedDate.split('-').map(Number);
+      const [storedHours, storedMinutes] = storedTime.split(/[:\s]/).slice(0, 2).map(Number);
+      const isPM = storedTime.toLowerCase().includes('pm');
 
-  const handlePrevMonth = () => {
-    if (month > currentMonth || year > currentYear) {
-      if (month === 0) {
-        setMonth(11);
-        setYear(year - 1);
+      // Adjust for PM times
+      const storedTimeInMinutes = (storedHours % 12 + (isPM ? 12 : 0)) * 60 + storedMinutes;
+
+      // Check if the stored date is today and the time has passed
+      if (
+        storedYear === currentYear &&
+        storedMonth - 1 === currentMonth &&
+        storedDay === currentDate &&
+        storedTimeInMinutes < currentTime
+      ) {
+        removeLocalStorage("selectedDate");
+        removeLocalStorage("selectedTime");
       } else {
-        setMonth(month - 1);
-      }
-      setSelectedDate(null);
-    }
-  };
+        setSelectedDate(storedDay);
+        setSelectedTime(storedTime);
+        setMonth(storedMonth - 1);
+        setYear(storedYear);
 
-  const handleNextMonth = () => {
-    if (month === 11) {
-      setMonth(0);
-      setYear(year + 1);
-    } else {
-      setMonth(month + 1);
+        // Fetch available time slots for the stored date
+        const fetchAvailableTimeSlots = async () => {
+          dispatch(showLoader());
+          try {
+            const res = await getAvailableTimeSlotApi(id, storedDate);
+            if (res?.status) {
+              setAvailableTimeSlots(res.availableTimeSlots);
+            }
+          } catch (error) {
+            dispatch(showAlert({ message: error.response?.data?.error || "Error fetching time slots", type: "failed" }));
+            setAvailableTimeSlots([]);
+          } finally {
+            dispatch(hideLoader());
+          }
+        };
+        fetchAvailableTimeSlots();
+      }
     }
+  }, [currentYear, currentMonth, currentDate, currentTime, dispatch, id]);
+
+  const handleMonthChange = (increment) => {
+    const newMonth = month + increment;
+    const newYear = year + (newMonth < 0 ? -1 : newMonth > 11 ? 1 : 0);
+    setMonth((newMonth + 12) % 12);
+    setYear(newYear);
     setSelectedDate(null);
   };
 
-  useEffect(() => {
-    if (month === currentMonth) {
-      setSelectedDate(currentDate);
-    }
-  }, [month]);
+  const handleDateClick = async (date) => {
+    const selectedFullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+    if (month === currentMonth && date < currentDate) return;
 
-  const getDateClass = (date) => {
-    if (month === currentMonth && date < currentDate) {
-      return 'text-gray-300 cursor-not-allowed';
-    }
-
-    if (month === currentMonth && date === currentDate) {
-      const timeSlots = timeOptions.map(time => {
-        const [hours, minutes] = time.split(':');
-        const isPM = time.includes('PM');
-        const adjustedHours = isPM && hours < 12 ? parseInt(hours) + 12 : parseInt(hours);
-        const timeInMinutes = adjustedHours * 60 + parseInt(minutes.split(' ')[0]);
-
-        return {
-          timeSlot: time,
-          isPassed: currentTime > timeInMinutes,
-        };
-      });
-
-      return timeSlots.some(timeSlot => timeSlot.isPassed) ? 'bg-gray-300 text-gray-600' : '';
-    }
-
-    return '';
-  };
-
-  const proceedToPayment = async () => {
-    navigate(`/user/payment-section/${id}`);
-  };
-
-  const getAvailableTimeSlot = async (date) => {
+    dispatch(showLoader());
     try {
-      let res = await getAvailableTimeSlotApi(id, date);
+      const res = await getAvailableTimeSlotApi(id, selectedFullDate);
       if (res?.status) {
-        setAvailableTimeSlots(res.availableTimeSlots)
+        setSelectedDate(date);
+        setAvailableTimeSlots(res.availableTimeSlots);
       }
     } catch (error) {
-      console.log(error);
-      dispatch(showAlert({ message: error.response.data.error, type: "failed" }));
+      dispatch(showAlert({ message: error.response?.data?.error || "Error fetching time slots", type: "failed" }));
+      setAvailableTimeSlots([]);
+    } finally {
+      dispatch(hideLoader());
     }
   };
 
-  useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    getAvailableTimeSlot(today);
-  }, []);
-
-  const handleDateClick = (date) => {
-    if (month === currentMonth && date < currentDate) {
+  const proceedToPayment = () => {
+    if (!selectedDate) {
+      dispatch(showAlert({ message: "Please select an appointment date", type: "failed" }));
       return;
     }
-    const mm = month + 1; // Adjust month to be 1-indexed
-    const selectFullDate = `${year}-${mm.toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
-    console.log(selectFullDate);
-    getAvailableTimeSlot(selectFullDate);
-    setSelectedDate(date);
+    if (!selectedTime) {
+      dispatch(showAlert({ message: "Please select an appointment time", type: "failed" }));
+      return;
+    }
+
+    setLocalStorage("selectedDate", `${year}-${String(month + 1).padStart(2, '0')}-${String(selectedDate).padStart(2, '0')}`);
+    setLocalStorage("selectedTime", selectedTime);
+    navigate(`/user/payment-section/${id}`);
   };
-
-
 
   return (
     <div className="w-full my-5 mt-10">
@@ -137,7 +130,7 @@ const BookAppointmentForm = () => {
 
           <div className="flex justify-center items-center mb-6 mt-6">
             <button
-              onClick={handlePrevMonth}
+              onClick={() => handleMonthChange(-1)}
               className={`w-8 h-8 flex items-center justify-center border border-gray-400 rounded-full text-xl font-medium ${month === currentMonth && year === currentYear ? 'cursor-not-allowed text-gray-400' : ''}`}
               disabled={month === currentMonth && year === currentYear}
             >
@@ -145,7 +138,7 @@ const BookAppointmentForm = () => {
             </button>
             <p className="text-3xl font-medium mx-4">{monthNames[month]}</p>
             <p className="text-black-500 text-lg">{year}</p>
-            <button onClick={handleNextMonth} className="w-8 h-8 ml-6 flex items-center justify-center border border-gray-400 rounded-full text-xl font-medium">{'>'}</button>
+            <button onClick={() => handleMonthChange(1)} className="w-8 h-8 ml-6 flex items-center justify-center border border-gray-400 rounded-full text-xl font-medium">{'>'}</button>
           </div>
 
           <div className="grid grid-cols-7 gap-2 text-center text-black-600 mb-6">
@@ -153,14 +146,12 @@ const BookAppointmentForm = () => {
               <div key={day} className="text-sm font-semibold">{day}</div>
             ))}
             {Array.from({ length: firstDayOfWeek }).map((_, i) => (
-              <div key={`empty-${i}`} className="py-2"></div> // Empty slots for alignment
+              <div key={`empty-${i}`} className="py-2"></div>
             ))}
             {Array.from({ length: daysInMonth }, (_, i) => (
               <div
                 key={i}
-                className={`py-2 rounded-full cursor-pointer 
-                ${selectedDate === i + 1 ? 'bg-[#0148B1] text-white' : 'bg-black-200'} 
-                ${getDateClass(i + 1)}`}
+                className={`py-2 rounded-full cursor-pointer ${selectedDate === i + 1 ? 'bg-[#0148B1] text-white' : 'bg-black-200'} ${month === currentMonth && i + 1 < currentDate ? 'text-gray-300 cursor-not-allowed' : ''}`}
                 onClick={() => handleDateClick(i + 1)}
               >
                 {i + 1}
@@ -168,17 +159,15 @@ const BookAppointmentForm = () => {
             ))}
           </div>
 
-          {/* The rest of your form components */}
           <p className="text-black-600 font-semibold mb-3">Select Appointment Time</p>
           <div className="grid grid-cols-4 gap-3 mb-3">
-            {availableTimeSlots.map((duration) => (
+            {availableTimeSlots.map((slot) => (
               <button
-                key={duration}
-                className={`py-3 rounded-md text-sm border border-black-300 mb-10 
-                ${selectedDate === duration ? 'bg-[#0148B1] text-white' : 'text-black-600'}`}
-                onClick={() => setSelectedDate(duration)}
+                key={slot}
+                className={`py-3 rounded-md text-sm border border-black-300 ${selectedTime === slot ? 'bg-[#0148B1] text-white' : 'text-black-600'}`}
+                onClick={() => setSelectedTime(slot)}
               >
-                {duration}
+                {slot}
               </button>
             ))}
           </div>
@@ -190,32 +179,29 @@ const BookAppointmentForm = () => {
               <input
                 type="text"
                 value={selectedDate ? `${monthNames[month]} ${selectedDate}, ${year}` : 'Selected date'}
-                className="border border-black-300 rounded-md p-3 text-center"
+                className="border border-black-300 rounded-md p-3 text-sm"
                 readOnly
               />
             </div>
             <div className="flex flex-col w-1/2 pl-2">
-              <label className="text-black-600 text-sm mb-1">Set Time</label>
-              <select
-                value={selectedTime}
-                onChange={(e) => setSelectedTime(e.target.value)}
-                className="border border-black-300 rounded-md p-3 text-center"
-              >
-                <option value="" disabled>Select Time</option>
-                {timeOptions.map((time) => (
-                  <option key={time} value={time}>{time}</option>
-                ))}
-              </select>
+              <label className="text-black-600 text-sm mb-1">Selected Time</label>
+              <input
+                type="text"
+                value={selectedTime || 'Selected time'}
+                className="border border-black-300 rounded-md p-3 text-sm"
+                readOnly
+              />
             </div>
           </div>
-
-          <button className="w-full py-4 text-white font-semibold bg-[#0148B1] rounded-md" onClick={() => proceedToPayment()}>
-            Proceed
+          <button
+            onClick={proceedToPayment}
+            className="w-full py-3 bg-[#0148B1] text-white rounded-md font-medium"
+          >
+            Proceed to Payment
           </button>
         </div>
       </div>
     </div>
-
   );
 };
 
