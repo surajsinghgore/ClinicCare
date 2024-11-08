@@ -10,7 +10,7 @@ const TodayAppointment = () => {
         <div className="flex justify-between items-center">
           <h2 className="text-red-600 font-semibold">Today's Appointment Records</h2>
           <div className="text-right">
-            <span className="text-black-500">Today's Collection : </span>
+            <span className="text-black-500">Today's Revenue : </span>
             <span className="text-red-600 font-semibold">₹ 0</span>
           </div>
         </div>
@@ -32,21 +32,21 @@ const TodayAppointment = () => {
             <option>Select Date..</option>
           </select>
         </div>
-        <div className="mt-4 mb-14 flex space-x-4">
-          <div className="bg-blue-400 text-white font-medium px-4 py-2 rounded-md text-center w-full">
-            Total Orders : 10
+        <div className="mt-4 mb-14 flex space-x-2">
+          <div className="bg-blue-400 text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
+            <p>Total Appointment : 10</p>
           </div>
-          <div className="bg-success text-white font-medium px-4 py-2 rounded-md text-center w-full">
-            Complete Orders: 5
+          <div className="bg-success text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
+            <p>Complete Appointment: 5</p>
           </div>
-          <div className="bg-warning text-white font-medium px-4 py-2 rounded-md text-center w-full">
-            Pending Orders: 3
+          <div className="bg-warning text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
+            <p>Pending Appointment: 3</p>
           </div>
-          <div className="bg-danger text-white font-medium px-4 py-2 rounded-md text-center w-full">
-            Reject Orders : 1
+          <div className="bg-danger text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
+            <p>Reject Appointment : 1</p>
           </div>
-          <div className="bg-cyan-400 text-white font-medium px-4 py-2 rounded-md text-center w-full">
-            Not On Time: 1
+          <div className="bg-cyan-400 text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
+            <p>Not On Time: 1</p>
           </div>
         </div>
 
@@ -71,7 +71,14 @@ const TodayAppointment = () => {
               {/* Row */}
               <tr className="hover:bg-black-100">
                 <td className="px-4 text-sm py-2">12345</td>
-                <td className="px-4 text-sm py-2">John Doe</td>
+                <td className="px-4 text-sm py-2 flex items-center">
+                  <img
+                    src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Patient"
+                    className="w-16 h-16 rounded-full object-cover mr-2"
+                  />
+                  John Doe
+                </td>
                 <td className="px-4 text-sm py-2">24</td>
                 <td className="px-4 text-sm py-2">Ortho</td>
                 <td className="px-4 text-sm py-2">Ortho Operator</td>
@@ -79,7 +86,7 @@ const TodayAppointment = () => {
                 <td className="px-4 text-sm py-2">9:30</td>
                 <td className="px-4 text-sm py-2">Dec 12, 2024</td>
                 <td className="px-4 text-sm py-2 flex items-center justify-center gap-2">
-                <button className="bg-black-200 rounded p-2 text-success hover:text-[#06402B]">
+                  <button className="bg-black-200 rounded p-2 text-success hover:text-[#06402B]">
                     <FaCheck title="Accept" />
                   </button>
                   <button className="bg-black-200 rounded p-2 text-blue-500 hover:text-blue-700">
@@ -93,7 +100,14 @@ const TodayAppointment = () => {
               {/* Add more rows here */}
               <tr className="hover:bg-black-100">
                 <td className="px-4 text-sm py-2">12347</td>
-                <td className="px-4 text-sm py-2">Jason Marry</td>
+                <td className="px-4 text-sm py-2 flex items-center">
+                  <img
+                    src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Patient"
+                    className="w-16 h-16 rounded-full mr-2 object-cover"
+                  />
+                  Jason Marry
+                </td>
                 <td className="px-4 text-sm py-2">34</td>
                 <td className="px-4 text-sm py-2">Gastro</td>
                 <td className="px-4 text-sm py-2">Gastrospectrom</td>
@@ -101,7 +115,7 @@ const TodayAppointment = () => {
                 <td className="px-4 text-sm py-2">9:55</td>
                 <td className="px-4 text-sm py-2">Dec 14, 2024</td>
                 <td className="px-4 text-sm py-2 flex items-center justify-center gap-2">
-                <button className="bg-black-200 rounded p-2 text-success hover:text-[#06402B]">
+                  <button className="bg-black-200 rounded p-2 text-success hover:text-[#06402B]">
                     <FaCheck title="Accept" />
                   </button>
                   <button className="bg-black-200 rounded p-2 text-blue-500 hover:text-blue-700">
