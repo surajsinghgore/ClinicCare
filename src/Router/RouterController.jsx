@@ -98,7 +98,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/service-plans",
+    path: "/service-plans/:id",
     element: (
       <>
       <UserLayout>

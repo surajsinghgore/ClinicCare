@@ -74,7 +74,8 @@ const DoctorDetails = () => {
                         <div className="flex items-center space-x-6 text-black-700 mb-4">
                             <div className="flex items-center">
                                 <FaMapMarkerAlt className="text-blue-700 text-xl mr-2" />
-                                <span className='text-lg text-black-500'>{(doctor?.clinicInfo?.city) ? doctor?.clinicInfo?.city : "Bengaluru"}</span>
+                         
+                                <span className='text-lg text-black-500'>{(doctor?.clinicInfo?.[0][0]?.city) ? doctor?.clinicInfo?.[0][0].city : "Bengaluru"}</span>
                             </div>
                             <div className="flex items-center">
                                 <FaGraduationCap className="text-blue-700 text-xl mr-2" />
@@ -139,11 +140,11 @@ const DoctorDetails = () => {
                         <p className="text-black-700 mb-6 px-5">
                             Click the button below to schedule an appointment with us.
                         </p>
-                        <button
+                        <Link to={`/service-plans/${id}`}
                             className="bg-[#0148B1] text-white font-semibold py-2 px-6 rounded-full hover:bg-[#013a8c] transition duration-200"
                         >
                             Book Now
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

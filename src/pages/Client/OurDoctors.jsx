@@ -88,7 +88,8 @@ const OurDoctors = () => {
                                                 />
                                                 </Link>
                                                 <div className="ml-4 flex-grow">
-                                                    <h3 className="text-xl font-semibold">Dr. {data?.doctorInfo?.name}</h3>
+                                                <Link to={`/doctor-details/${data?._id}`}>
+                                                    <h3 className="text-xl font-semibold">Dr. {data?.doctorInfo?.name}</h3> </Link>
                                                     <p className="text-black-600 flex items-center mb-3">
                                                         <FaLocationDot className="mr-1" />
                                                         {data?.clinicInfo?.[0].city} {data?.clinicInfo?.[0].state}, {data?.clinicInfo?.[0].country}

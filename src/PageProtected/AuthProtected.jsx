@@ -20,7 +20,7 @@ const AuthProtected = () => {
     }
 
     if (role === "user") {
-      return <Navigate to="/user/dashboard" replace />;
+      return <Navigate to="/" replace />;
     }
   }
 

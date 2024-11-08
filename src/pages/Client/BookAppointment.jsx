@@ -178,14 +178,16 @@ const BookAppointment = () => {
                     ) : (
                         data.map((doctor, index) => (
                             <div key={index} className="doctor-card flex items-start py-8 bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
+                                <Link to={`/doctor-details/${doctor.doctorId}`}>
                                 <img
                                     src={doctor.profileUrl || "https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
                                     alt={doctor.doctorName || "Doctor Image"}
                                     className="w-32 h-32 rounded-full object-cover cursor-pointer"
                                     onClick={() => navigate('/doctor-details')}
                                 />
+                                </Link>
                                 <div className="ml-4 flex-grow">
-                                    <h3 className="text-xl font-semibold text-[#0148B1]">{doctor.doctorName || "Dr. Unknown"}</h3>
+                                <Link to={`/doctor-details/${doctor.doctorId}`}><h3 className="text-xl font-semibold text-[#0148B1]">{doctor.doctorName || "Dr. Unknown"}</h3></Link>
                                     <p className="text-black-600 flex items-center mb-3">
                                         <FaLocationDot className="mr-1" />
                                         {doctor.clinic?.address || "Unknown Address"}, {doctor.clinic?.city || "Unknown City"}, {doctor.clinic?.state || "Unknown State"}

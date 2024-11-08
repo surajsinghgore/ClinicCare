@@ -33,30 +33,30 @@ const TodayAppointment = () => {
           </select>
         </div>
         <div className="mt-4 mb-14 flex space-x-2">
-          <div className="bg-blue-400 text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
-            <p>Total Appointment : 10</p>
+          <div className="bg-blue-400 text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full">
+            <p>Total: 10</p>
           </div>
-          <div className="bg-success text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
-            <p>Complete Appointment: 5</p>
+          <div className="bg-success text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full">
+            <p>Completed: 5</p>
           </div>
-          <div className="bg-warning text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
-            <p>Pending Appointment: 3</p>
+          <div className="bg-warning text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full">
+            <p>Pending: 3</p>
           </div>
-          <div className="bg-danger text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
-            <p>Reject Appointment : 1</p>
+          <div className="bg-danger text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full">
+            <p>Rejected: 1</p>
           </div>
-          <div className="bg-cyan-400 text-white flex items-center justify-center font-medium px-4 py-2 rounded-md text-center w-full">
-            <p>Not On Time: 1</p>
+          <div className="bg-cyan-400 text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full">
+            <p>Delayed: 1</p>
           </div>
         </div>
 
         {/* Table for displaying appointment records */}
         <div className="overflow-x-auto">
-            <h1 className='text-lg font-semibold'>Recent Appointments</h1>
+          <h1 className='text-lg font-semibold'>Recent Appointments</h1>
           <table className="min-w-full bg-white border border-black-300 rounded-md">
             <thead>
               <tr className="bg-black-200">
-                <th className="text-left text-black-800 px-4 py-2 border-b">Appointment ID</th>
+                <th className="text-left text-black-800 px-4 py-2 border-b">ID</th>
                 <th className="text-left text-black-800 px-4 py-2 border-b">Patient Name</th>
                 <th className="text-left text-black-800 px-4 py-2 border-b">Age</th>
                 <th className="text-left text-black-800 px-4 py-2 border-b">Treatment Name</th>
@@ -79,51 +79,24 @@ const TodayAppointment = () => {
                   />
                   John Doe
                 </td>
-                <td className="px-4 text-sm py-2">24</td>
-                <td className="px-4 text-sm py-2">Ortho</td>
-                <td className="px-4 text-sm py-2">Ortho Operator</td>
-                <td className="px-4 text-sm py-2">Chandigarh Sec-7</td>
-                <td className="px-4 text-sm py-2">9:30</td>
-                <td className="px-4 text-sm py-2">Dec 12, 2024</td>
-                <td className="px-4 text-sm py-2 flex items-center justify-center gap-2">
-                  <button className="bg-black-200 rounded p-2 text-success hover:text-[#06402B]">
-                    <FaCheck title="Accept" />
-                  </button>
-                  <button className="bg-black-200 rounded p-2 text-blue-500 hover:text-blue-700">
-                    <FaEdit title="Edit" />
-                  </button>
-                  <button className="bg-black-200 rounded p-2 text-danger hover:text-[#8B0000]">
-                    <FaTrash title="Delete" />
-                  </button>
-                </td>
-              </tr>
-              {/* Add more rows here */}
-              <tr className="hover:bg-black-100">
-                <td className="px-4 text-sm py-2">12347</td>
-                <td className="px-4 text-sm py-2 flex items-center">
-                  <img
-                    src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Patient"
-                    className="w-16 h-16 rounded-full mr-2 object-cover"
-                  />
-                  Jason Marry
-                </td>
-                <td className="px-4 text-sm py-2">34</td>
-                <td className="px-4 text-sm py-2">Gastro</td>
-                <td className="px-4 text-sm py-2">Gastrospectrom</td>
-                <td className="px-4 text-sm py-2">Chandigarh Sec-32</td>
-                <td className="px-4 text-sm py-2">9:55</td>
-                <td className="px-4 text-sm py-2">Dec 14, 2024</td>
-                <td className="px-4 text-sm py-2 flex items-center justify-center gap-2">
-                  <button className="bg-black-200 rounded p-2 text-success hover:text-[#06402B]">
-                    <FaCheck title="Accept" />
-                  </button>
-                  <button className="bg-black-200 rounded p-2 text-blue-500 hover:text-blue-700">
-                    <FaEdit title="Edit" />
-                  </button>
-                  <button className="bg-black-200 rounded p-2 text-danger hover:text-[#8B0000]">
-                    <FaTrash title="Delete" />
-                  </button>
+                <td className="px-4 text-center text-sm py-2">24</td>
+                <td className="px-4 text-center text-sm py-2">Ortho</td>
+                <td className="px-4 text-center text-sm py-2">Ortho Operator</td>
+                <td className="px-4 text-center text-sm py-2">Chandigarh Sec-7</td>
+                <td className="px-4 text-center text-sm py-2">9:30</td>
+                <td className="px-4 text-center text-sm py-2">Dec 12, 2024</td>
+                <td className="px-4 text-center text-sm">
+                  <div className='flex gap-2'>
+                    <button className="bg-black-200 rounded p-2  text-success hover:text-[#06402B]">
+                      <FaCheck title="Accept" />
+                    </button>
+                    <button className="bg-black-200 rounded p-2  text-blue-500 hover:text-blue-700">
+                      <FaEdit title="Edit" />
+                    </button>
+                    <button className="bg-black-200 rounded p-2  text-danger hover:text-[#8B0000]">
+                      <FaTrash title="Delete" />
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
