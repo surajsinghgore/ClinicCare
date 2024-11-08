@@ -18,7 +18,7 @@ const BookAppointmentForm = () => {
   const [selectedTime, setSelectedTime] = useState('');
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
-
+  const [duration, setDuration] = useState(0)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -32,7 +32,6 @@ const BookAppointmentForm = () => {
   const daysInMonth = getDaysInMonth(month, year);
   const firstDayOfWeek = new Date(year, month, 1).getDay();
 
-  // Handle loading default date and time from session storage
   useEffect(() => {
     const storedDate = getLocalStorage("selectedDate");
     const storedTime = getLocalStorage("selectedTime");
@@ -66,6 +65,7 @@ const BookAppointmentForm = () => {
           try {
             const res = await getAvailableTimeSlotApi(id, storedDate);
             if (res?.status) {
+              setDuration(res.duration)
               setAvailableTimeSlots(res.availableTimeSlots);
             }
           } catch (error) {
@@ -96,6 +96,7 @@ const BookAppointmentForm = () => {
     try {
       const res = await getAvailableTimeSlotApi(id, selectedFullDate);
       if (res?.status) {
+        setDuration(res.duration)
         setSelectedDate(date);
         setAvailableTimeSlots(res.availableTimeSlots);
       }
@@ -119,6 +120,7 @@ const BookAppointmentForm = () => {
 
     setLocalStorage("selectedDate", `${year}-${String(month + 1).padStart(2, '0')}-${String(selectedDate).padStart(2, '0')}`);
     setLocalStorage("selectedTime", selectedTime);
+    setLocalStorage("selectedDuration", duration);
     navigate(`/user/payment-section/${id}`);
   };
 
