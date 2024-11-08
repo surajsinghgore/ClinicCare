@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getAvailableTimeSlotApi } from '../../Utils/services/apis/User/AppointmentApi';
+import { showAlert } from '../../redux/Slices/AlertToggleState';
+import { useDispatch } from 'react-redux';
 
 const BookAppointmentForm = () => {
   const today = new Date();
   const currentMonth = today.getMonth();
   const currentYear = today.getFullYear();
   const currentDate = today.getDate();
+  const [availableTimeSlots, setAvailableTimeSlots] = useState([])
   const currentTime = today.getHours() * 60 + today.getMinutes();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [month, setMonth] = useState(currentMonth);
   const [year, setYear] = useState(currentYear);
+  const dispatch = useDispatch();
+
   const { id } = useParams();
   const timeOptions = [
     '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
@@ -32,13 +38,10 @@ const BookAppointmentForm = () => {
 
   const daysInMonth = getDaysInMonth(month, year);
 
-  const handleDateClick = (date) => {
+  // Get the weekday (0-6) for the first day of the month to align the calendar
+  const firstDayOfWeek = new Date(year, month, 1).getDay();
 
-    if (month === currentMonth && date < currentDate) {
-      return;
-    }
-    setSelectedDate(date);
-  };
+
 
   const handlePrevMonth = () => {
     if (month > currentMonth || year > currentYear) {
@@ -54,29 +57,26 @@ const BookAppointmentForm = () => {
 
   const handleNextMonth = () => {
     if (month === 11) {
-      setMonth(0); // January
+      setMonth(0);
       setYear(year + 1);
     } else {
       setMonth(month + 1);
     }
-    setSelectedDate(null); // Reset selected date when switching months
+    setSelectedDate(null);
   };
 
   useEffect(() => {
     if (month === currentMonth) {
-      setSelectedDate(currentDate); // Set today's date as default in the current month
+      setSelectedDate(currentDate);
     }
   }, [month]);
 
   const getDateClass = (date) => {
-    // Check if the date is in the past (current month, past day, or past time)
     if (month === currentMonth && date < currentDate) {
-      return 'text-gray-300 cursor-not-allowed'; // Past date
+      return 'text-gray-300 cursor-not-allowed';
     }
 
-    // Check if the date is today and if the time has passed
     if (month === currentMonth && date === currentDate) {
-      // Compare current time to each time slot
       const timeSlots = timeOptions.map(time => {
         const [hours, minutes] = time.split(':');
         const isPM = time.includes('PM');
@@ -85,21 +85,50 @@ const BookAppointmentForm = () => {
 
         return {
           timeSlot: time,
-          isPassed: currentTime > timeInMinutes, // Check if the time is already passed
+          isPassed: currentTime > timeInMinutes,
         };
       });
 
       return timeSlots.some(timeSlot => timeSlot.isPassed) ? 'bg-gray-300 text-gray-600' : '';
     }
 
-    return ''; // Default case
+    return '';
+  };
+
+  const proceedToPayment = async () => {
+    navigate(`/user/payment-section/${id}`);
+  };
+
+  const getAvailableTimeSlot = async (date) => {
+    try {
+      let res = await getAvailableTimeSlotApi(id, date);
+      if (res?.status) {
+        setAvailableTimeSlots(res.availableTimeSlots)
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(showAlert({ message: error.response.data.error, type: "failed" }));
+    }
+  };
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    getAvailableTimeSlot(today);
+  }, []);
+
+  const handleDateClick = (date) => {
+    if (month === currentMonth && date < currentDate) {
+      return;
+    }
+    const mm = month + 1; // Adjust month to be 1-indexed
+    const selectFullDate = `${year}-${mm.toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
+    console.log(selectFullDate);
+    getAvailableTimeSlot(selectFullDate);
+    setSelectedDate(date);
   };
 
 
 
-  const proceedToPayment = async () => {
-    navigate(`/user/payment-section/${id}`)
-  }
   return (
     <div className="w-full my-5 mt-10">
       <div className="flex items-center justify-center">
@@ -123,6 +152,9 @@ const BookAppointmentForm = () => {
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
               <div key={day} className="text-sm font-semibold">{day}</div>
             ))}
+            {Array.from({ length: firstDayOfWeek }).map((_, i) => (
+              <div key={`empty-${i}`} className="py-2"></div> // Empty slots for alignment
+            ))}
             {Array.from({ length: daysInMonth }, (_, i) => (
               <div
                 key={i}
@@ -136,9 +168,10 @@ const BookAppointmentForm = () => {
             ))}
           </div>
 
+          {/* The rest of your form components */}
           <p className="text-black-600 font-semibold mb-3">Select Appointment Time</p>
           <div className="grid grid-cols-4 gap-3 mb-3">
-            {durationOptions.map((duration) => (
+            {availableTimeSlots.map((duration) => (
               <button
                 key={duration}
                 className={`py-3 rounded-md text-sm border border-black-300 mb-10 
@@ -182,6 +215,7 @@ const BookAppointmentForm = () => {
         </div>
       </div>
     </div>
+
   );
 };
 
