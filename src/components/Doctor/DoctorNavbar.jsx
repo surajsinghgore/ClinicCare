@@ -48,7 +48,6 @@ const DoctorNavbar = () => {
                 submenuItems={[
                     { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },
                     { link: "/doctor/services-list?page=1&limit=10", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
-                    // { link: "/doctor/services-list?page=1&limit=10", title: "Update Services", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
                 ]}
             />
             <LeftNavLink 
@@ -57,8 +56,7 @@ const DoctorNavbar = () => {
                 icons={<RiCalendarScheduleLine className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
                     { link: "/doctor/todays-appointment", title: "Today's Appointments", icon: <GrSchedule className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/services-list?page=1&limit=10", title: "All Appointments", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
-                    // { link: "/doctor/services-list?page=1&limit=10", title: "Update Services", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/appointment-list", title: "All Appointments", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
                 ]}
             />
         </nav>

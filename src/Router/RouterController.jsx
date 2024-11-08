@@ -54,6 +54,7 @@ import UserLayout from "../Layout/UserLayout";
 import UserProtected from "../PageProtected/UserProtected";
 import DoctorSevicePlans from "../pages/Client/DoctorServicePlans";
 import TodayAppointment from "../pages/Doctor/Appointment/TodayAppointment";
+import AppointmentList from "../pages/Doctor/Appointment/AppointmentList";
 
 const router = createBrowserRouter([
   {
@@ -431,6 +432,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <TodayAppointment />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "appointment-list",
+        element: (
+          <DoctorLayout>
+            <AppointmentList />
           </DoctorLayout>
         ),
       },

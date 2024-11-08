@@ -1,5 +1,7 @@
 import React from 'react';
-import { FaCheck, FaTrash, FaEdit } from 'react-icons/fa'; // Import icons
+import { FaCircleCheck } from "react-icons/fa6";
+import { RxCrossCircled } from "react-icons/rx";
+import { MdEditSquare } from "react-icons/md";
 import BreadCrumbs from '../../../components/Common/BreadCrumbs';
 
 const TodayAppointment = () => {
@@ -87,15 +89,15 @@ const TodayAppointment = () => {
                 <td className="px-4 text-center text-sm py-2">Dec 12, 2024</td>
                 <td className="px-4 text-center text-sm">
                   <div className='flex gap-2'>
-                    <button className="bg-black-200 rounded p-2  text-success hover:text-[#06402B]">
-                      <FaCheck title="Accept" />
-                    </button>
-                    <button className="bg-black-200 rounded p-2  text-blue-500 hover:text-blue-700">
-                      <FaEdit title="Edit" />
-                    </button>
-                    <button className="bg-black-200 rounded p-2  text-danger hover:text-[#8B0000]">
-                      <FaTrash title="Delete" />
-                    </button>
+                  <button className="rounded p-1 text-xl text-success hover:text-[#2f8a38]">
+                    <FaCircleCheck title="Accept" />
+                  </button>
+                  <button className="rounded p-1 text-xl text-danger hover:text-[#8B0000]">
+                    <RxCrossCircled title="Delete" />
+                  </button>
+                  <button className="rounded p-1 text-xl text-blue-500 hover:text-blue-700">
+                    <MdEditSquare title="Edit" />
+                  </button>
                   </div>
                 </td>
               </tr>
