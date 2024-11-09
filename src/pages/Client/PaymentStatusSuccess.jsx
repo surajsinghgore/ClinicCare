@@ -1,11 +1,16 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { BsCheckCircle } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { removeLocalStorage } from '../../Utils/LocalStorage';
 
 const PaymentStatusSuccess = () => {
 
     const navigate = useNavigate();
-
+    useEffect(() => {
+        removeLocalStorage('selectedDate')
+        removeLocalStorage('selectedDuration')
+        removeLocalStorage('selectedTime')
+    }, [])
     return (
         <div className="w-full h-screen flex items-center justify-center bg-black-50">
             <div className="w-full max-w-md text-center p-8 bg-white shadow-lg rounded-md">
