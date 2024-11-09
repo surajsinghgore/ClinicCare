@@ -127,7 +127,7 @@ const ClientRegister = () => {
                   className="mt-1 block w-full px-4 py-2 border border-black-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#004AAD] focus:border-transparent transition duration-200"
                 />
               </div>
-              <div className="col-span-2">
+              <div className="col-span-1">
                 <label htmlFor="email" className="block text-sm text-black-700 font-medium mb-1">
                   Email Address
                 </label>
@@ -140,6 +140,57 @@ const ClientRegister = () => {
                   autoComplete="off"
                 />
               </div>
+
+              <div className="col-span-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Gender
+                </label>
+                <div className="mt-1 flex space-x-6">
+                  <label htmlFor="male" className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      id="male"
+                      name="gender"
+                      value="male"
+                      required
+                      className="hidden peer"
+                    />
+                    <span className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 peer-checked:bg-[#004AAD] peer-checked:text-white peer-checked:border-transparent hover:bg-gray-100 transition-colors duration-200">
+                      Male
+                    </span>
+                  </label>
+
+                  <label htmlFor="female" className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      id="female"
+                      name="gender"
+                      value="female"
+                      required
+                      className="hidden peer"
+                    />
+                    <span className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 peer-checked:bg-[#004AAD] peer-checked:text-white peer-checked:border-transparent hover:bg-gray-100 transition-colors duration-200">
+                      Female
+                    </span>
+                  </label>
+
+                  <label htmlFor="other" className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      id="other"
+                      name="gender"
+                      value="other"
+                      required
+                      className="hidden peer"
+                    />
+                    <span className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 peer-checked:bg-[#004AAD] peer-checked:text-white peer-checked:border-transparent hover:bg-gray-100 transition-colors duration-200">
+                      Other
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+
 
               <div>
                 <label htmlFor="mobile" className="block text-sm text-black-700 font-medium mb-1">
