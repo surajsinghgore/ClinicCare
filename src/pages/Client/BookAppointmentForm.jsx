@@ -33,52 +33,58 @@ const BookAppointmentForm = () => {
   const firstDayOfWeek = new Date(year, month, 1).getDay();
 
   useEffect(() => {
-    const storedDate = getLocalStorage("selectedDate");
-    const storedTime = getLocalStorage("selectedTime");
+  const storedDate = getLocalStorage("selectedDate");
+  const storedTime = getLocalStorage("selectedTime");
 
-    if (storedDate && storedTime) {
-      const [storedYear, storedMonth, storedDay] = storedDate.split('-').map(Number);
-      const [storedHours, storedMinutes] = storedTime.split(/[:\s]/).slice(0, 2).map(Number);
-      const isPM = storedTime.toLowerCase().includes('pm');
+  if (storedDate && storedTime) {
+    const [storedYear, storedMonth, storedDay] = storedDate.split('-').map(Number);
+    const [storedHours, storedMinutes] = storedTime.split(/[:\s]/).slice(0, 2).map(Number);
+    const isPM = storedTime.toLowerCase().includes('pm');
 
-      // Adjust for PM times
-      const storedTimeInMinutes = (storedHours % 12 + (isPM ? 12 : 0)) * 60 + storedMinutes;
+    // Adjust for PM times
+    const storedTimeInMinutes = (storedHours % 12 + (isPM ? 12 : 0)) * 60 + storedMinutes;
 
-      // Check if the stored date is today and the time has passed
-      if (
-        storedYear === currentYear &&
-        storedMonth - 1 === currentMonth &&
-        storedDay === currentDate &&
-        storedTimeInMinutes < currentTime
-      ) {
-        removeLocalStorage("selectedDate");
-        removeLocalStorage("selectedTime");
-      } else {
-        setSelectedDate(storedDay);
-        setSelectedTime(storedTime);
-        setMonth(storedMonth - 1);
-        setYear(storedYear);
+    // Check if the stored date is today or if it has already passed
+    const isStoredDateToday = 
+      storedYear === currentYear &&
+      storedMonth - 1 === currentMonth &&
+      storedDay === currentDate;
 
-        // Fetch available time slots for the stored date
-        const fetchAvailableTimeSlots = async () => {
-          dispatch(showLoader());
-          try {
-            const res = await getAvailableTimeSlotApi(id, storedDate);
-            if (res?.status) {
-              setDuration(res.duration)
-              setAvailableTimeSlots(res.availableTimeSlots);
-            }
-          } catch (error) {
-            dispatch(showAlert({ message: error.response?.data?.error || "Error fetching time slots", type: "failed" }));
-            setAvailableTimeSlots([]);
-          } finally {
-            dispatch(hideLoader());
+    const isPastStoredDate =
+      storedYear < currentYear ||
+      (storedYear === currentYear && storedMonth - 1 < currentMonth) ||
+      (storedYear === currentYear && storedMonth - 1 === currentMonth && storedDay < currentDate);
+
+    if (isPastStoredDate || (isStoredDateToday && storedTimeInMinutes < currentTime)) {
+      // Clear outdated stored values
+      removeLocalStorage("selectedDate");
+      removeLocalStorage("selectedTime");
+    } else {
+      setSelectedDate(storedDay);
+      setSelectedTime(storedTime);
+      setMonth(storedMonth - 1);
+      setYear(storedYear);
+
+      // Fetch available time slots for the stored date
+      const fetchAvailableTimeSlots = async () => {
+        dispatch(showLoader());
+        try {
+          const res = await getAvailableTimeSlotApi(id, storedDate);
+          if (res?.status) {
+            setDuration(res.duration);
+            setAvailableTimeSlots(res.availableTimeSlots);
           }
-        };
-        fetchAvailableTimeSlots();
-      }
+        } catch (error) {
+          dispatch(showAlert({ message: error.response?.data?.error || "Error fetching time slots", type: "failed" }));
+          setAvailableTimeSlots([]);
+        } finally {
+          dispatch(hideLoader());
+        }
+      };
+      fetchAvailableTimeSlots();
     }
-  }, [currentYear, currentMonth, currentDate, currentTime, dispatch, id]);
+  }
+}, [currentYear, currentMonth, currentDate, currentTime, dispatch, id]);
 
   const handleMonthChange = (increment) => {
     const newMonth = month + increment;

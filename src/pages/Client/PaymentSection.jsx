@@ -8,6 +8,7 @@ import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
 import { showAlert } from '../../redux/Slices/AlertToggleState';
 import { bookAppointmentTempApi } from '../../Utils/services/apis/User/AppointmentApi';
 import { getLocalStorage } from '../../Utils/LocalStorage';
+import { createPaymentApi } from '../../Utils/services/apis/User/TransactionApi';
 
 const PaymentSection = () => {
     const [selectedPayment, setSelectedPayment] = useState(null);
@@ -33,7 +34,34 @@ const PaymentSection = () => {
         try {
             dispatch(showLoader());
             let res = await bookAppointmentTempApi(payload)
-            console.log(res)
+
+
+            if (res.status) {
+                // start making payment
+                let paymentPayload = {
+
+                    MUID: "MUIDW" + Date.now(),
+                    transactionId: "T" + Date.now(),
+                    appointmentId: res.appointmentId
+
+                }
+                try {
+                    dispatch(showLoader());
+
+                    let paymentRes = await createPaymentApi(paymentPayload)
+                    if (paymentRes.status) {
+                        window.location.href = paymentRes.data.data.instrumentResponse.redirectInfo.url;
+                    }
+                } catch (error) {
+                    console.log(error)
+                    dispatch(showAlert({ message: error.response?.data?.message, type: "failed" }));
+
+                } finally {
+                    dispatch(hideLoader());
+
+                }
+
+            }
         } catch (error) {
             console.log(error)
             dispatch(showAlert({ message: error.response?.data?.message, type: "failed" }));

@@ -102,9 +102,9 @@ const router = createBrowserRouter([
     path: "/service-plans/:id",
     element: (
       <>
-      <UserLayout>
-        <DoctorSevicePlans />
-      </UserLayout>
+        <UserLayout>
+          <DoctorSevicePlans />
+        </UserLayout>
       </>
     ),
   },
@@ -127,7 +127,7 @@ const router = createBrowserRouter([
 
 
       {
-        path: "payment-status-success",
+        path: "payment-status-success/:id",
         element: (
           // <UserLayout>
           <PaymentStatusSuccess />
@@ -135,7 +135,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "payment-status-failed",
+        path: "payment-status-failed/:id",
         element: (
           // <UserLayout>
           <PaymentStatusFailed />
