@@ -55,6 +55,7 @@ import UserProtected from "../PageProtected/UserProtected";
 import DoctorSevicePlans from "../pages/Client/DoctorServicePlans";
 import TodayAppointment from "../pages/Doctor/Appointment/TodayAppointment";
 import AppointmentList from "../pages/Doctor/Appointment/AppointmentList";
+import AboutClinic from "../pages/AboutClinic/AboutClinic";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,16 @@ const router = createBrowserRouter([
       <>
         <UserLayout>
           <DoctorSevicePlans />
+        </UserLayout>
+      </>
+    ),
+  },
+  {
+    path: "/about-clinic",
+    element: (
+      <>
+        <UserLayout>
+          <AboutClinic />
         </UserLayout>
       </>
     ),
