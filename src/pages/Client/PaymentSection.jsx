@@ -191,7 +191,8 @@ const PaymentSection = () => {
                     className="w-32 h-32 rounded-lg mr-6 object-cover shadow-md"
                 /></Link>
                 <div>
-                    <Link to={`/doctor-details/${doctor?.doctor?._id}`} >   <h3 className="text-xl font-semibold text-black-700">
+                    <Link to={`/doctor-details/${doctor?.doctor?._id}`} >   
+                    <h3 className="text-xl font-semibold text-black-700">
                         {(doctor?.doctor?.name) ? doctor.doctor.name : ""}, {(doctor?.service?.clinicId?.city) ? doctor.service.clinicId.city : ""}
                     </h3></Link>
                     <p className="text-black-600">{formattedTimeRange}</p>

@@ -114,3 +114,30 @@ h1 {
 .doctor-card{
   box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 4px 0px;
 }
+
+
+
+
+/* clinic img slider */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

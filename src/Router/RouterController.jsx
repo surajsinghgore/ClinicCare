@@ -125,7 +125,7 @@ const router = createBrowserRouter([
   // user dashboard
 
   {
-    path: "/about-clinic",
+    path: "/user-dashboard",
     element: (
       <>
         <DashboardLayout>
