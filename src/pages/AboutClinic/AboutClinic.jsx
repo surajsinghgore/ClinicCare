@@ -17,12 +17,25 @@ import { FaMapMarkerAlt, FaGraduationCap } from 'react-icons/fa';
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaSearchLocation } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
+import CountUp from 'react-countup';
+import { SlCalender } from "react-icons/sl";
 
 const AboutClinic = () => {
+
+  const schedule = [
+    { day: 'Monday', open: '09:00 AM', close: '05:00 PM' },
+    { day: 'Tuesday', open: '09:00 AM', close: '05:00 PM' },
+    { day: 'Wednesday', open: '09:00 AM', close: '05:00 PM' },
+    { day: 'Thursday', open: '09:00 AM', close: '05:00 PM' },
+    { day: 'Friday', open: '09:00 AM', close: '05:00 PM' },
+    { day: 'Saturday', open: '10:00 AM', close: '04:00 PM' },
+    { day: 'Sunday', open: 'Closed', close: 'Closed' },
+  ];
+
   return (
     <>
       <div className="banner mb-10">
-        <img src={aboutclinic} alt="Clinic Banner" className="w-full object-cover rounded-md shadow-lg" />
+        <img src={aboutclinic} alt="Clinic Banner" className="w-full object-cover shadow-lg" />
       </div>
 
       <div className="container mx-auto p-8 lg:p-16 rounded-lg flex lg:flex-row items-center lg:items-start">
@@ -44,7 +57,7 @@ const AboutClinic = () => {
         {/* Right Div */}
         <div className="w-full lg:w-1/2 space-y-8 lg:pl-12">
           {/* Header Section */}
-          <div className="flex items-center space-x-4 text-lg text-black-700">
+          <div className="flex items-center text-lg text-black-700">
             <div className="p-3 rounded-full text-blue-600">
               <FaStethoscope />
             </div>
@@ -108,6 +121,49 @@ const AboutClinic = () => {
         </div>
       </div>
 
+
+
+
+
+
+      {/* Counter Section */}
+      <div className="flex justify-around items-center mt-20 mb-20 px-3">
+        {/* Total Appointments Card */}
+        <div className="w-1/5 bg-[#005BCA] p-6 rounded-lg shadow-lg flex flex-col items-center transform transition-transform duration-300 hover:scale-105">
+          <h3 className="text-xl mb-4 font-semibold text-white capitalized tracking-wide">Total Appointments</h3>
+          <hr className="border-t-2 w-full border-white opacity-50 mb-4" />
+          <CountUp end={500} duration={2.5} className="text-3xl font-bold text-white" />
+        </div>
+
+        {/* Total Services Card */}
+        <div className="w-1/5 bg-[#005BCA] p-6 rounded-lg shadow-lg flex flex-col items-center transform transition-transform duration-300 hover:scale-105">
+          <h3 className="text-xl mb-4 font-semibold text-white capitalized tracking-wide">Total Services</h3>
+          <hr className="border-t-2 w-full border-white opacity-50 mb-4" />
+          <CountUp end={120} duration={2.5} className="text-3xl font-bold text-white" />
+        </div>
+
+        {/* Today's Appointments Card */}
+        <div className="w-1/5 bg-[#005BCA] px-4 py-6 rounded-lg shadow-lg flex flex-col items-center transform transition-transform duration-300 hover:scale-105">
+          <h3 className="text-xl mb-4 font-semibold text-white capitalized tracking-wide">Today's Appointments</h3>
+          <hr className="border-t-2 w-full border-white opacity-50 mb-4" />
+          <CountUp end={30} duration={2.5} className="text-3xl font-bold text-white" />
+        </div>
+
+        {/* Upcoming Appointments Card */}
+        <div className="w-1/5 bg-[#005BCA] px-3 py-6 rounded-lg shadow-lg flex flex-col items-center transform transition-transform duration-300 hover:scale-105">
+          <h3 className="text-xl mb-4 font-semibold text-white capitalized tracking-wide">Upcoming Appointment</h3>
+          <hr className="border-t-2 w-full border-white opacity-50 mb-4" />
+          <CountUp end={45} duration={2.5} className="text-3xl font-bold text-white" />
+        </div>
+      </div>
+
+
+
+
+
+
+
+
       {/* profile */}
       <div className="relative p-6 font-sans flex justify-center items-center">
         <div className="relative flex items-center p-8 bg-black-100 rounded-lg shadow-lg w-[85%] mt-12">
@@ -170,6 +226,7 @@ const AboutClinic = () => {
       </div>
 
 
+
       {/* map marker */}
       <div className="flex justify-center items-center py-10 mt-8">
         <div className="w-full max-w-[78rem] h-[500px] rounded-lg shadow-lg overflow-hidden">
@@ -185,33 +242,86 @@ const AboutClinic = () => {
       </div>
 
 
+
+
+      {/* clinic working days */}
+      <div className="container mx-auto py-12 px-36 lg:px-10 mt-16">
+        <p className='flex items-center text-lg gap-3 text-black-600 font-semibold mb-5'><SlCalender className='text-[#005BCA]' /> Working Days</p>
+      <h2 className="text-3xl font-extrabold text-left text-blue-700 mb-10">Clinic Weekly Schedule</h2>
+      <div className="overflow-hidden rounded-lg shadow-md">
+        <table className="min-w-full bg-black-50">
+          <thead>
+            <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+              <th className="py-4 px-6 font-semibold text-center text-lg">Day</th>
+              <th className="py-4 px-6 font-semibold text-center text-lg">Opening Time</th>
+              <th className="py-4 px-6 font-semibold text-center text-lg">Closing Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schedule.map((entry, index) => (
+              <tr
+                key={index}
+                className={`transition-colors duration-200 ${
+                  entry.open === 'Closed'
+                    ? 'bg-red-50 text-red-500'
+                    : 'bg-white hover:bg-blue-50'
+                }`}
+              >
+                <td className="py-5 px-6 text-black-800 font-medium text-center">{entry.day}</td>
+                <td
+                  className={`py-5 px-6 text-center font-semibold ${
+                    entry.open === 'Closed' ? 'text-danger' : 'text-blue-700'
+                  }`}
+                >
+                  {entry.open}
+                </td>
+                <td
+                  className={`py-5 px-6 text-center font-semibold ${
+                    entry.close === 'Closed' ? 'text-danger' : 'text-blue-700'
+                  }`}
+                >
+                  {entry.close}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+
+
+
       {/* clinic work photos */}
       <div className='clinic-img mt-28'>
-        <p className='pl-32 flex items-center gap-3 mb-5 font-semibold text-black-600'><FaCamera className='text-[#0049AC]' /> Clinic Images</p>
-        <h1 className='pl-32 text-4xl font-semibold text-[#0049AC]'>Clinic Work Photos</h1>
-      <Swiper
-        slidesPerView={3}
-        centeredSlides={true}
-        spaceBetween={30}
-        grabCursor={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        <SwiperSlide><img src={clinic1} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={clinic2} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={clinic3} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={clinic1} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={clinic2} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={clinic3} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={clinic1} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={clinic2} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={clinic3} alt="" /></SwiperSlide>
-        
-      </Swiper>
+        <p className='pl-32 flex items-center text-lg gap-3 mb-5 font-semibold text-black-600'><FaCamera className='text-[#0049AC]' /> Clinic Images</p>
+        <h1 className='pl-32 text-4xl font-bold text-[#0049AC]'>Clinic Work Photos</h1>
+        <Swiper
+          slidesPerView={3}
+          centeredSlides={true}
+          spaceBetween={30}
+          grabCursor={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          <SwiperSlide><img src={clinic1} alt="" /></SwiperSlide>
+          <SwiperSlide><img src={clinic2} alt="" /></SwiperSlide>
+          <SwiperSlide><img src={clinic3} alt="" /></SwiperSlide>
+          <SwiperSlide><img src={clinic1} alt="" /></SwiperSlide>
+          <SwiperSlide><img src={clinic2} alt="" /></SwiperSlide>
+          <SwiperSlide><img src={clinic3} alt="" /></SwiperSlide>
+          <SwiperSlide><img src={clinic1} alt="" /></SwiperSlide>
+          <SwiperSlide><img src={clinic2} alt="" /></SwiperSlide>
+          <SwiperSlide><img src={clinic3} alt="" /></SwiperSlide>
+
+        </Swiper>
       </div>
+
 
 
     </>
