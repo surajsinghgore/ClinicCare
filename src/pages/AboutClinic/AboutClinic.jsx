@@ -83,27 +83,6 @@ const AboutClinic = () => {
             </div>
           </div>
         </div>
-
-        {/* Clinic Time Showcase */}
-        <div className="space-y-1 mt-8">
-          <div className="flex items-center text-black-800">
-            <span className="bg-blue-100 p-3 rounded-full text-blue-600 flex items-center justify-center mr-4"><FaClock /></span>
-            <div className='flex items-center gap-3'>
-              <p className="font-semibold">Clinic Timings:</p>
-            </div>
-          </div>
-
-          <div className="pl-12">
-            <div className="flex items-center text-black-800">
-              <p className="font-semibold">Opening Date & Time:</p>
-              <p className="ml-3 text-black-600">Monday - Friday, 9:00 AM</p>
-            </div>
-            <div className="flex items-center text-black-800">
-              <p className="font-semibold">Closing Date & Time:</p>
-              <p className="ml-3 text-black-600">Monday - Friday, 6:00 PM</p>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );
