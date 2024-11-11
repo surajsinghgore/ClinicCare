@@ -16,6 +16,7 @@ import { TbMapPinCode } from "react-icons/tb";
 import { FaMapMarkerAlt, FaGraduationCap } from 'react-icons/fa';
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaSearchLocation } from "react-icons/fa";
+import { FaCamera } from "react-icons/fa";
 
 const AboutClinic = () => {
   return (
@@ -50,7 +51,7 @@ const AboutClinic = () => {
             <p className="font-semibold">About Clinic</p>
           </div>
 
-          <h2 className="text-4xl font-extrabold text-[#0148B1] shadow-sm">Serenity Health Center</h2>
+          <h2 className="text-4xl font-extrabold text-[#0148B1]">Serenity Health Center</h2>
 
           {/* Address Section */}
           <div className="space-y-14">
@@ -171,7 +172,7 @@ const AboutClinic = () => {
 
       {/* map marker */}
       <div className="flex justify-center items-center py-10 mt-8">
-        <div className="w-full max-w-4xl h-[500px] rounded-lg shadow-lg overflow-hidden">
+        <div className="w-full max-w-[78rem] h-[500px] rounded-lg shadow-lg overflow-hidden">
           <iframe
             src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=chandigarh&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
             width="100%"
@@ -185,11 +186,11 @@ const AboutClinic = () => {
 
 
       {/* clinic work photos */}
-      <div className='clinic-img mt-40'>
-        <p></p>
-        <h1 className='pl-28 text-4xl'>Clinic Work Photos</h1>
+      <div className='clinic-img mt-28'>
+        <p className='pl-32 flex items-center gap-3 mb-5 font-semibold text-black-600'><FaCamera className='text-[#0049AC]' /> Clinic Images</p>
+        <h1 className='pl-32 text-4xl font-semibold text-[#0049AC]'>Clinic Work Photos</h1>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={3}
         centeredSlides={true}
         spaceBetween={30}
         grabCursor={true}
