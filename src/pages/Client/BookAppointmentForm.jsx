@@ -33,58 +33,58 @@ const BookAppointmentForm = () => {
   const firstDayOfWeek = new Date(year, month, 1).getDay();
 
   useEffect(() => {
-  const storedDate = getLocalStorage("selectedDate");
-  const storedTime = getLocalStorage("selectedTime");
+    const storedDate = getLocalStorage("selectedDate");
+    const storedTime = getLocalStorage("selectedTime");
 
-  if (storedDate && storedTime) {
-    const [storedYear, storedMonth, storedDay] = storedDate.split('-').map(Number);
-    const [storedHours, storedMinutes] = storedTime.split(/[:\s]/).slice(0, 2).map(Number);
-    const isPM = storedTime.toLowerCase().includes('pm');
+    if (storedDate && storedTime) {
+      const [storedYear, storedMonth, storedDay] = storedDate.split('-').map(Number);
+      const [storedHours, storedMinutes] = storedTime.split(/[:\s]/).slice(0, 2).map(Number);
+      const isPM = storedTime.toLowerCase().includes('pm');
 
-    // Adjust for PM times
-    const storedTimeInMinutes = (storedHours % 12 + (isPM ? 12 : 0)) * 60 + storedMinutes;
+      // Adjust for PM times
+      const storedTimeInMinutes = (storedHours % 12 + (isPM ? 12 : 0)) * 60 + storedMinutes;
 
-    // Check if the stored date is today or if it has already passed
-    const isStoredDateToday = 
-      storedYear === currentYear &&
-      storedMonth - 1 === currentMonth &&
-      storedDay === currentDate;
+      // Check if the stored date is today or if it has already passed
+      const isStoredDateToday =
+        storedYear === currentYear &&
+        storedMonth - 1 === currentMonth &&
+        storedDay === currentDate;
 
-    const isPastStoredDate =
-      storedYear < currentYear ||
-      (storedYear === currentYear && storedMonth - 1 < currentMonth) ||
-      (storedYear === currentYear && storedMonth - 1 === currentMonth && storedDay < currentDate);
+      const isPastStoredDate =
+        storedYear < currentYear ||
+        (storedYear === currentYear && storedMonth - 1 < currentMonth) ||
+        (storedYear === currentYear && storedMonth - 1 === currentMonth && storedDay < currentDate);
 
-    if (isPastStoredDate || (isStoredDateToday && storedTimeInMinutes < currentTime)) {
-      // Clear outdated stored values
-      removeLocalStorage("selectedDate");
-      removeLocalStorage("selectedTime");
-    } else {
-      setSelectedDate(storedDay);
-      setSelectedTime(storedTime);
-      setMonth(storedMonth - 1);
-      setYear(storedYear);
+      if (isPastStoredDate || (isStoredDateToday && storedTimeInMinutes < currentTime)) {
+        // Clear outdated stored values
+        removeLocalStorage("selectedDate");
+        removeLocalStorage("selectedTime");
+      } else {
+        setSelectedDate(storedDay);
+        setSelectedTime(storedTime);
+        setMonth(storedMonth - 1);
+        setYear(storedYear);
 
-      // Fetch available time slots for the stored date
-      const fetchAvailableTimeSlots = async () => {
-        dispatch(showLoader());
-        try {
-          const res = await getAvailableTimeSlotApi(id, storedDate);
-          if (res?.status) {
-            setDuration(res.duration);
-            setAvailableTimeSlots(res.availableTimeSlots);
+        // Fetch available time slots for the stored date
+        const fetchAvailableTimeSlots = async () => {
+          dispatch(showLoader());
+          try {
+            const res = await getAvailableTimeSlotApi(id, storedDate);
+            if (res?.status) {
+              setDuration(res.duration);
+              setAvailableTimeSlots(res.availableTimeSlots);
+            }
+          } catch (error) {
+            dispatch(showAlert({ message: error.response?.data?.error || "Error fetching time slots", type: "failed" }));
+            setAvailableTimeSlots([]);
+          } finally {
+            dispatch(hideLoader());
           }
-        } catch (error) {
-          dispatch(showAlert({ message: error.response?.data?.error || "Error fetching time slots", type: "failed" }));
-          setAvailableTimeSlots([]);
-        } finally {
-          dispatch(hideLoader());
-        }
-      };
-      fetchAvailableTimeSlots();
+        };
+        fetchAvailableTimeSlots();
+      }
     }
-  }
-}, [currentYear, currentMonth, currentDate, currentTime, dispatch, id]);
+  }, [currentYear, currentMonth, currentDate, currentTime, dispatch, id]);
 
   const handleMonthChange = (increment) => {
     const newMonth = month + increment;
@@ -172,13 +172,14 @@ const BookAppointmentForm = () => {
             {availableTimeSlots.map((slot) => (
               <button
                 key={slot}
-                className={`py-3 rounded-md text-sm border border-black-300 ${selectedTime === slot ? 'bg-[#0148B1] text-white' : 'text-black-600'}`}
-                onClick={() => setSelectedTime(slot)}
+                className={`py-3 rounded-md text-sm border border-black-300 ${selectedTime === slot.toLowerCase() ? 'bg-[#0148B1] text-white' : 'text-black-600'}`}
+                onClick={() => setSelectedTime(slot.toLowerCase())}
               >
-                {slot}
+                {slot.toLowerCase()}
               </button>
             ))}
           </div>
+
 
           <p className="text-black-600 font-semibold mb-4">Selected Appointment Details</p>
           <div className="flex justify-between items-center mb-6">

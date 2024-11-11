@@ -123,16 +123,16 @@ const router = createBrowserRouter([
 
   // user dashboard
 
-  {
-    path: "/about-clinic",
-    element: (
-      <>
-        <DashboardLayout>
-          <DashboardNav />
-        </DashboardLayout>
-      </>
-    ),
-  },
+  // {
+  //   path: "/about-clinic",
+  //   element: (
+  //     <>
+  //       <DashboardLayout>
+  //         <DashboardNav />
+  //       </DashboardLayout>
+  //     </>
+  //   ),
+  // },
 
 
 

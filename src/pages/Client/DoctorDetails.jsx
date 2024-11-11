@@ -15,7 +15,7 @@ import DoctorDetailsClinicCard from '../../components/Swiper/DoctorDetailsClinic
 const DoctorDetails = () => {
     const dispatch = useDispatch();
     const [doctor, setDoctor] = useState([])
-   
+
     const { id } = useParams()
     const dataFetch = async () => {
         try {
@@ -33,12 +33,12 @@ const DoctorDetails = () => {
             dispatch(hideLoader());
         }
     };
-   
+
 
 
     useEffect(() => {
         dataFetch()
-   
+
     }, [])
 
     const openGoogleMaps = (lat, lng) => {
@@ -74,7 +74,7 @@ const DoctorDetails = () => {
                         <div className="flex items-center space-x-6 text-black-700 mb-4">
                             <div className="flex items-center">
                                 <FaMapMarkerAlt className="text-blue-700 text-xl mr-2" />
-                         
+
                                 <span className='text-lg text-black-500'>{(doctor?.clinicInfo?.[0][0]?.city) ? doctor?.clinicInfo?.[0][0].city : "Bengaluru"}</span>
                             </div>
                             <div className="flex items-center">
