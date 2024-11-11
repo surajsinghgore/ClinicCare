@@ -157,7 +157,7 @@ const DoctorDetails = () => {
             <div className="p-10 font-sans flex justify-center items-start mt-20 bg-black-50">
                 <div className="w-full max-w-7xl">
                     <h3 className="text-2xl capitalize font-semibold text-black-800 mb-8">
-                        {doctor?.doctorInfo?.name || "Jenny Doe"} Services
+                        {doctor?.doctorInfo?.name || "Jenny Doe"}, Services
                     </h3>
                     <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
                         {doctor?.services?.map((item, index) => (
@@ -186,8 +186,8 @@ const DoctorDetails = () => {
             {/* Clinic Section */}
             <div className="p-10 font-sans flex justify-center items-start mt-10">
                 <div className="w-full max-w-7xl">
-                    <h3 className="text-2xl font-semibold text-black-800 mb-8">
-                        {doctor?.doctorInfo?.name || "Jenny Doe"} Clinic
+                    <h3 className="text-2xl font-semibold capitalize text-black-800 mb-8">
+                        {doctor?.doctorInfo?.name || "Jenny Doe"}, Clinic
                     </h3>
                     <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
                         {doctor?.clinicInfo?.map((item, index) => (
