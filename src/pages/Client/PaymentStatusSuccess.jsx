@@ -1,16 +1,31 @@
 import { useEffect } from 'react';
 import { BsCheckCircle } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { removeLocalStorage } from '../../Utils/LocalStorage';
+import { getLocalStorage, removeLocalStorage } from '../../Utils/LocalStorage';
 
 const PaymentStatusSuccess = () => {
 
     const navigate = useNavigate();
     useEffect(() => {
+        if (!getLocalStorage('selectedDate')) {
+            navigate("/book-appointment")
+        }
         removeLocalStorage('selectedDate')
         removeLocalStorage('selectedDuration')
         removeLocalStorage('selectedTime')
     }, [])
+    useEffect(() => {
+        const handlePopState = () => {
+            navigate(0);
+        };
+
+        window.history.pushState(null, document.title, window.location.href);
+        window.addEventListener("popstate", handlePopState);
+
+        return () => {
+            window.removeEventListener("popstate", handlePopState);
+        };
+    }, [navigate])
     return (
         <div className="w-full h-screen flex items-center justify-center bg-black-50">
             <div className="w-full max-w-md text-center p-8 bg-white shadow-lg rounded-md">
