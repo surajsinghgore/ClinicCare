@@ -21,7 +21,7 @@ const DoctorDetailsClinicCard = ({ ImagesArray, ClinicName }) => {
                         <img
                             src={item}
                             alt="clinic"
-                            className="w-full h-full object-cover"
+                            className="w-full h-[250px] object-cover"
                         />
                     </SwiperSlide>
                 ))

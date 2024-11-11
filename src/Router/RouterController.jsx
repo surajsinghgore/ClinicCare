@@ -56,6 +56,8 @@ import DoctorSevicePlans from "../pages/Client/DoctorServicePlans";
 import TodayAppointment from "../pages/Doctor/Appointment/TodayAppointment";
 import AppointmentList from "../pages/Doctor/Appointment/AppointmentList";
 import AboutClinic from "../pages/AboutClinic/AboutClinic";
+import DashboardLayout from "../Layout/DashboardLayout";
+import DashboardNav from "../pages/UserDashboard/DashboardNav";
 
 const router = createBrowserRouter([
   {
@@ -116,6 +118,19 @@ const router = createBrowserRouter([
         <UserLayout>
           <AboutClinic />
         </UserLayout>
+      </>
+    ),
+  },
+
+  // user dashboard
+
+  {
+    path: "/about-clinic",
+    element: (
+      <>
+        <DashboardLayout>
+          <DashboardNav />
+        </DashboardLayout>
       </>
     ),
   },
