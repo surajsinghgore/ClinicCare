@@ -4,7 +4,6 @@ import AuthProtected from "../PageProtected/AuthProtected";
 // pages imported
 import Login from "../pages/Authorization/Login";
 import AuthLayout from "../Layout/AuthLayout";
-import Register from "../pages/Authorization/Register";
 import ForgetPassword from "../pages/Authorization/ForgetPassword";
 import OtpVerify from "../pages/Authorization/OtpVerify";
 import AdminProtected from "../PageProtected/AdminProtected";
@@ -52,7 +51,7 @@ import ViewSingleDoctor from "../pages/Admin/ViewSingleDoctor";
 import PlatformFeePage from "../pages/Admin/PlatformFees/PlatformFeePage";
 import UserLayout from "../Layout/UserLayout";
 import UserProtected from "../PageProtected/UserProtected";
-import DoctorSevicePlans from "../pages/Client/DoctorServicePlans";
+import DoctorServicePlans from "../pages/Client/DoctorServicePlans";
 import TodayAppointment from "../pages/Doctor/Appointment/TodayAppointment";
 import AppointmentList from "../pages/Doctor/Appointment/AppointmentList";
 import AboutClinic from "../pages/AboutClinic/AboutClinic";
@@ -106,7 +105,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <UserLayout>
-          <DoctorSevicePlans />
+          <DoctorServicePlans />
         </UserLayout>
       </>
     ),
@@ -124,16 +123,16 @@ const router = createBrowserRouter([
 
   // user dashboard
 
-  {
-    path: "/user-dashboard",
-    element: (
-      <>
-        <DashboardLayout>
-          <DashboardNav />
-        </DashboardLayout>
-      </>
-    ),
-  },
+  // {
+  //   path: "/about-clinic",
+  //   element: (
+  //     <>
+  //       <DashboardLayout>
+  //         <DashboardNav />
+  //       </DashboardLayout>
+  //     </>
+  //   ),
+  // },
 
 
 

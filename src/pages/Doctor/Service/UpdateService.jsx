@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { serviceDataValidator } from "../../../Utils/services/FormValidation/ServicesValidation";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
-import {  GetMyServiceByIdApi, updateServicesApi } from "../../../Utils/services/apis/Doctor/ServiceDoctorApi";
+import { GetMyServiceByIdApi, updateServicesApi } from "../../../Utils/services/apis/Doctor/ServiceDoctorApi";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateServices = () => {
@@ -73,6 +73,7 @@ const UpdateServices = () => {
       setValue("specialty", data?.specialty);
       setValue("fees", data?.fees);
       setValue("duration", data?.duration);
+      setValue("limit", data?.limit);
       setValue("clinicId", data?.clinicId?._id);
       setValue("description", data?.description);
     }
@@ -148,6 +149,19 @@ const UpdateServices = () => {
                 onWheel={(e) => e.target.blur()}
                 id="duration"
                 {...register("duration")}
+                className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="limit" className="block mb-2 text-sm font-medium text-black-600">
+                Slot availability limit<span className="text-danger">*</span>
+              </label>
+              <input
+                type="number"
+                onWheel={(e) => e.target.blur()}
+                id="limit"
+                {...register("limit")}
                 className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>

@@ -180,6 +180,7 @@ const BookAppointmentForm = () => {
             ))}
           </div>
 
+
           <p className="text-black-600 font-semibold mb-4">Selected Appointment Details</p>
           <div className="flex justify-between items-center mb-6">
             <div className="flex flex-col w-1/2 pr-2">

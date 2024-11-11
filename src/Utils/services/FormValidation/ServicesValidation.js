@@ -7,6 +7,7 @@ export const serviceDataValidator = yup.object({
   fees: yup.string().required("Fees  is required.").trim().min(1, "Fees must not be empty."),
 
   duration: yup.string().required("Duration is required.").trim().min(1, "Duration must not be empty."),
+  limit: yup.string().required("Slot availability limit is required.").trim().min(1, "Slot availability limit must not be empty."),
 
   clinicId: yup.string().required("Clinic ID is required.").trim(),
 

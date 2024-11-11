@@ -123,13 +123,14 @@ const AddServices = () => {
               />
             </div>
             <div>
-              <label htmlFor="duration" className="block mb-2 text-sm font-medium text-black-600">
-              Slot availablity limit<span className="text-danger">*</span>
+              <label htmlFor="limit" className="block mb-2 text-sm font-medium text-black-600">
+                Slot availability limit<span className="text-danger">*</span>
               </label>
               <input
                 type="number"
                 onWheel={(e) => e.target.blur()}
-                id="duration"
+                id="limit"
+                {...register("limit")}
                 className="border border-black-300 rounded-lg w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>

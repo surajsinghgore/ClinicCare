@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Header from "../../components/Common/Header";
-import Footer from "../../components/Common/Footer";
+import { useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash, FaTrashAlt } from "react-icons/fa";
 import clientRegister from "../../assets/clientRegister.jpg";
 import { Link, useNavigate } from "react-router-dom";
@@ -140,7 +138,6 @@ const ClientRegister = () => {
                   autoComplete="off"
                 />
               </div>
-
               <div className="col-span-1">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Gender
@@ -150,9 +147,8 @@ const ClientRegister = () => {
                     <input
                       type="radio"
                       id="male"
-                      name="gender"
                       value="male"
-                      required
+                      {...register("gender")}
                       className="hidden peer"
                     />
                     <span className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 peer-checked:bg-[#004AAD] peer-checked:text-white peer-checked:border-transparent hover:bg-gray-100 transition-colors duration-200">
@@ -164,9 +160,8 @@ const ClientRegister = () => {
                     <input
                       type="radio"
                       id="female"
-                      name="gender"
                       value="female"
-                      required
+                      {...register("gender")}
                       className="hidden peer"
                     />
                     <span className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 peer-checked:bg-[#004AAD] peer-checked:text-white peer-checked:border-transparent hover:bg-gray-100 transition-colors duration-200">
@@ -178,9 +173,8 @@ const ClientRegister = () => {
                     <input
                       type="radio"
                       id="other"
-                      name="gender"
                       value="other"
-                      required
+                      {...register("gender")}
                       className="hidden peer"
                     />
                     <span className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 peer-checked:bg-[#004AAD] peer-checked:text-white peer-checked:border-transparent hover:bg-gray-100 transition-colors duration-200">
@@ -189,6 +183,7 @@ const ClientRegister = () => {
                   </label>
                 </div>
               </div>
+
 
 
 
@@ -214,6 +209,7 @@ const ClientRegister = () => {
                   name="dob"
                   {...register("dob")}
                   required
+                  max={new Date().toISOString().split("T")[0]} // sets max to today's date
                   className="mt-1 block w-full px-4 py-2 border border-black-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#004AAD] focus:border-transparent transition duration-200"
                 />
               </div>

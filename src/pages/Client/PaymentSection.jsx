@@ -104,7 +104,6 @@ const PaymentSection = () => {
     };
 
     useEffect(() => {
-        // Check if the necessary values are in localStorage, if not navigate to /book-appointment
         const selectedDate = localStorage.getItem('selectedDate');
         const selectedDuration = localStorage.getItem('selectedDuration');
         const selectedTime = localStorage.getItem('selectedTime');

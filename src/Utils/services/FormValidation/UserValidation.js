@@ -34,6 +34,11 @@ export const userRegisterValidationSchema = yup.object().shape({
     .matches(/^[0-9]{6}$/, "Pincode must contain only digits.")
     .required("Pincode is required."),
 
+  gender: yup
+    .string()
+    .oneOf(["male", "female", "other"], "Gender must be either male, female, or other.")
+    .required("Gender is required."),
+
   password: yup
     .string()
     .min(5, "Password must be at least 5 characters long.")
@@ -44,3 +49,4 @@ export const userRegisterValidationSchema = yup.object().shape({
     .required("Password is required.")
     .trim(),
 });
+
