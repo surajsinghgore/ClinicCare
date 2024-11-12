@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../../components/Common/Header';
+import  { useEffect, useState } from 'react';
 import about from "../../assets/aboutDoctor2.png";
 import { FaMapMarkerAlt, FaGraduationCap, FaStar } from 'react-icons/fa';
 import ReviewCard from '../../components/ReviewCard';
-import Footer from '../../components/Common/Footer';
 import { getDoctorServicesByIdApi } from '../../Utils/services/apis/CommonApi';
 import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
 import { showAlert } from '../../redux/Slices/AlertToggleState';
