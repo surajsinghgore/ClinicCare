@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clinicImg1 from "../../../src/assets/clinic.jpg";
 import clinicImg2 from "../../../src/assets/clinic.jpg";
 import clinic1 from "../../../src/assets/1.jpg";
@@ -19,6 +19,8 @@ import { FaSearchLocation } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
 import CountUp from 'react-countup';
 import { SlCalender } from "react-icons/sl";
+import { useDispatch } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 
 const AboutClinic = () => {
 
@@ -31,6 +33,37 @@ const AboutClinic = () => {
     { day: 'Saturday', open: '10:00 AM', close: '04:00 PM' },
     { day: 'Sunday', open: 'Closed', close: 'Closed' },
   ];
+
+
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const [service, setService] = useState([])
+  const dataFetch = async () => {
+    try {
+      dispatch(showLoader());
+      let res = await getServicesByDoctorIdApi(id);
+      if (res?.success) {
+
+        setService(res.data)
+
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    dataFetch()
+  }, [])
+
+
+  const openGoogleMaps = (lat, lng) => {
+    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+    window.open(googleMapsUrl, '_blank');
+  };
 
   return (
     <>
@@ -247,47 +280,44 @@ const AboutClinic = () => {
       {/* clinic working days */}
       <div className="container mx-auto py-12 px-36 lg:px-10 mt-16">
         <p className='flex items-center text-lg gap-3 text-black-600 font-semibold mb-5'><SlCalender className='text-[#005BCA]' /> Working Days</p>
-      <h2 className="text-3xl font-extrabold text-left text-blue-700 mb-10">Clinic Weekly Schedule</h2>
-      <div className="overflow-hidden rounded-lg shadow-md">
-        <table className="min-w-full bg-black-50">
-          <thead>
-            <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-              <th className="py-4 px-6 font-semibold text-center text-lg">Day</th>
-              <th className="py-4 px-6 font-semibold text-center text-lg">Opening Time</th>
-              <th className="py-4 px-6 font-semibold text-center text-lg">Closing Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {schedule.map((entry, index) => (
-              <tr
-                key={index}
-                className={`transition-colors duration-200 ${
-                  entry.open === 'Closed'
-                    ? 'bg-red-50 text-red-500'
-                    : 'bg-white hover:bg-blue-50'
-                }`}
-              >
-                <td className="py-5 px-6 text-black-800 font-medium text-center">{entry.day}</td>
-                <td
-                  className={`py-5 px-6 text-center font-semibold ${
-                    entry.open === 'Closed' ? 'text-danger' : 'text-blue-700'
-                  }`}
-                >
-                  {entry.open}
-                </td>
-                <td
-                  className={`py-5 px-6 text-center font-semibold ${
-                    entry.close === 'Closed' ? 'text-danger' : 'text-blue-700'
-                  }`}
-                >
-                  {entry.close}
-                </td>
+        <h2 className="text-3xl font-extrabold text-left text-blue-700 mb-10">Clinic Weekly Schedule</h2>
+        <div className="overflow-hidden rounded-lg shadow-md">
+          <table className="min-w-full bg-black-50">
+            <thead>
+              <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                <th className="py-4 px-6 font-semibold text-center text-lg">Day</th>
+                <th className="py-4 px-6 font-semibold text-center text-lg">Opening Time</th>
+                <th className="py-4 px-6 font-semibold text-center text-lg">Closing Time</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {schedule.map((entry, index) => (
+                <tr
+                  key={index}
+                  className={`transition-colors duration-200 ${entry.open === 'Closed'
+                      ? 'bg-red-50 text-red-500'
+                      : 'bg-white hover:bg-blue-50'
+                    }`}
+                >
+                  <td className="py-5 px-6 text-black-800 font-medium text-center">{entry.day}</td>
+                  <td
+                    className={`py-5 px-6 text-center font-semibold ${entry.open === 'Closed' ? 'text-danger' : 'text-blue-700'
+                      }`}
+                  >
+                    {entry.open}
+                  </td>
+                  <td
+                    className={`py-5 px-6 text-center font-semibold ${entry.close === 'Closed' ? 'text-danger' : 'text-blue-700'
+                      }`}
+                  >
+                    {entry.close}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
 
 
@@ -321,6 +351,53 @@ const AboutClinic = () => {
 
         </Swiper>
       </div>
+
+
+
+
+
+      <div className="w-[90%] mx-auto p-8 mt-14 shadow-lg rounded-xl">
+        <h2 className="text-3xl font-bold text-center mb-4 text-black-800">Choose Your Service from <Link to={`/doctor-details/${service?.doctor?._id}`} className='hover:text-danger'>
+
+          {service?.doctor?.name} </Link></h2>
+        <p className="text-center text-black-500 mb-10 text-lg">
+          Choose the service that suits your needs best.
+        </p>
+
+        <div className="flex items-start justify-start gap-8 flex-wrap">
+          {/* Basic Plan */}
+          {service?.services && (
+            <>
+              {service?.services.map((details) => (
+                <div
+                  key={details._id} // Add a unique key for each mapped element
+                  className="w-[31.5%] p-6 bg-white border border-black-200 rounded-lg shadow-sm transform hover:scale-105 transition-transform duration-300 ease-out"
+                >
+                  <h3 className="text-2xl font-semibold mb-2 text-black-800">{details.treatmentName}</h3>
+                  <p className="text-black-500 mb-6">{details.description}</p>
+                  <p className="text-3xl font-bold mb-8 text-blue-600">
+                    ${details.fees} <span className="text-lg font-medium text-black-500">/ {details.duration} min</span>
+                  </p>
+                  <ul className="mb-8 space-y-3 text-black-600">
+                    <li>specialty: {details.specialty}</li>
+                    <li>clinic name: {details.clinicId.name}</li>
+                    <li onClick={() => openGoogleMaps(details.clinicId.lat, details.clinicId.long)} className='cursor-pointer'>location: {details.clinicId.city} {details.clinicId.state}, {details.clinicId.country}</li>
+                  </ul>
+                  <Link to={`/user/book-appointment-form/${details._id}`} className="px-4 w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition duration-200">
+                    Book Appointment
+                  </Link>
+                </div>
+              ))}
+            </>
+          )}
+
+
+        </div>
+      </div>
+
+
+
+
 
 
 
