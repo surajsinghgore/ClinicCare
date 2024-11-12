@@ -53,4 +53,8 @@ export const getClinicDetailsByIdApi = async (id) => {
   const res = await axiosInstance.get(`/v1/get-clinic-by-id/${id}`);
   return res.data;
 };
+export const getTotalPlatformStatsApi = async () => {
+  const res = await axiosInstance.get(`/v1/get-platform-stats`);
+  return res.data;
+};
 
