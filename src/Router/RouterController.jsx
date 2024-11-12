@@ -57,6 +57,8 @@ import AppointmentList from "../pages/Doctor/Appointment/AppointmentList";
 import AboutClinic from "../pages/AboutClinic/AboutClinic";
 import DashboardLayout from "../Layout/DashboardLayout";
 import DashboardNav from "../pages/UserDashboard/DashboardNav";
+import UserGeneralDetails from "../pages/UserDashboard/UserGeneralDetails";
+import UserChangePassword from "../pages/UserDashboard/UserChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -123,16 +125,26 @@ const router = createBrowserRouter([
 
   // user dashboard
 
-  // {
-  //   path: "/about-clinic",
-  //   element: (
-  //     <>
-  //       <DashboardLayout>
-  //         <DashboardNav />
-  //       </DashboardLayout>
-  //     </>
-  //   ),
-  // },
+  {
+    path: "/user-general-details",
+    element: (
+      <>
+        <DashboardLayout>
+          <UserGeneralDetails />
+        </DashboardLayout>
+      </>
+    ),
+  },
+  {
+    path: "/user-password-change",
+    element: (
+      <>
+        <DashboardLayout>
+          <UserChangePassword />
+        </DashboardLayout>
+      </>
+    ),
+  },
 
 
 

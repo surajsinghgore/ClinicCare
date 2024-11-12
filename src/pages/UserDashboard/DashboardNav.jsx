@@ -3,7 +3,8 @@ import { FaUserAlt, FaSignOutAlt } from "react-icons/fa";
 import { MdPassword, MdEventNote } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice";
-// import LeftNavLink from "../Common/LeftNavLink";
+import UserNav from "./UserNav";
+
 
 const DashboardNav = () => {
   const dispatch = useDispatch();
@@ -33,22 +34,22 @@ const DashboardNav = () => {
       {/* Navigation Section */}
       <section className="h-full w-[16rem] py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between space-y-2">
-          <LeftNavLink 
-            link="/user/general" 
+          <UserNav 
+            link="/user-general-details" 
             title="General" 
             icons={<FaUserAlt className="text-2xl text-black-800" />} 
           />
-          <LeftNavLink 
-            link="/user/password" 
+          <UserNav 
+            link="/user-password-change" 
             title="Password" 
             icons={<MdPassword className="text-2xl text-black-800" />} 
           />
-          <LeftNavLink 
+          <UserNav 
             link="/user/appointment" 
             title="Appointment" 
             icons={<MdEventNote className="text-2xl text-black-800" />} 
           />
-          <LeftNavLink 
+          <UserNav 
             link="/logout" 
             title="Logout" 
             icons={<FaSignOutAlt className="text-2xl text-black-800" />} 
