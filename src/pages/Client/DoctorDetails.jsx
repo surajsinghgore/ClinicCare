@@ -184,21 +184,27 @@ const DoctorDetails = () => {
 
 
             {/* Clinic Section */}
-            <div className="p-10 font-sans flex justify-center items-start mt-10">
+            <div className="p-10 font-sans flex justify-center items-start my-10">
                 <div className="w-full max-w-7xl">
                     <h3 className="text-2xl font-semibold capitalize text-black-800 mb-8">
                         {doctor?.doctorInfo?.name || "Jenny Doe"}, Clinic
                     </h3>
-                    <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+                    <div className="flex mb-20">
                         {doctor?.clinicInfo?.map((item, index) => (
                             <div
-                                className="flex-shrink-0 w-[320px] rounded-lg shadow-md bg-white p-6 border border-black-200 hover:shadow-lg transition-shadow"
+                                className="flex-shrink-0 w-[520px] rounded-lg shadow-md bg-white p-4 border border-black-200 hover:shadow-lg transition-shadow"
                                 key={index}
                             >
-                                <DoctorDetailsClinicCard ImagesArray={item[0].clinicPhotos} />
-                                <h3 className="text-lg capitalize font-semibold text-black-900 mt-4">
-                                    {item[0].name}
-                                </h3>
+                                <div className='h-90'>
+                                    <DoctorDetailsClinicCard ImagesArray={item[0].clinicPhotos} ClinicId={item[0]._id} />
+                                </div>
+
+                                <Link to={`/about-clinic/${item[0]._id}`}>
+
+                                    <h3 className="text-lg capitalize font-semibold text-black-900 mt-6">
+                                        {item[0].name}
+                                    </h3>
+                                </Link>
                                 <p className="text-black-500">{item[0].address}</p>
                                 <p className="text-black-500">
                                     {item[0].city}, {item[0].state}, {item[0].country}
@@ -219,7 +225,7 @@ const DoctorDetails = () => {
 
 
 
-            <div className="px-32 mt-20 mb-10">
+            <div className="px-32 my-20">
                 <h2 className="text-lg font-semibold mb-4">What users are saying about Jane Cooper</h2>
                 <div className="flex space-x-4 overflow-x-auto">
                     <ReviewCard />

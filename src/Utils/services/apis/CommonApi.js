@@ -49,3 +49,8 @@ export const getDoctorsByCityTreatmentAndSpecialtyApi = async (city, treatmentNa
   return res.data;
 };
 
+export const getClinicDetailsByIdApi = async (id) => {
+  const res = await axiosInstance.get(`/v1/get-clinic-by-id/${id}`);
+  return res.data;
+};
+

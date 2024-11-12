@@ -111,7 +111,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/about-clinic",
+    path: "/about-clinic/:id",
     element: (
       <>
         <UserLayout>

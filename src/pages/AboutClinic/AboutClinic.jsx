@@ -19,11 +19,16 @@ import { FaSearchLocation } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
 import CountUp from 'react-countup';
 import { SlCalender } from "react-icons/sl";
+import { getClinicDetailsByIdApi } from '../../Utils/services/apis/CommonApi';
+import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
+import { showAlert } from '../../redux/Slices/AlertToggleState';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
 
 const AboutClinic = () => {
-
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [data, setData] = useState([])
   const schedule = [
     { day: 'Monday', open: '09:00 AM', close: '05:00 PM' },
     { day: 'Tuesday', open: '09:00 AM', close: '05:00 PM' },
@@ -35,16 +40,14 @@ const AboutClinic = () => {
   ];
 
 
-  const { id } = useParams()
-  const dispatch = useDispatch()
-  const [service, setService] = useState([])
+  // Fetch data when limit or page changes
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
-      let res = await getServicesByDoctorIdApi(id);
-      if (res?.success) {
+      let res = await getClinicDetailsByIdApi(id);
 
-        setService(res.data)
+      if (res?.success) {
+        setData(res.data);
 
       }
     } catch (error) {
@@ -56,14 +59,8 @@ const AboutClinic = () => {
   };
 
   useEffect(() => {
-    dataFetch()
-  }, [])
-
-
-  const openGoogleMaps = (lat, lng) => {
-    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-    window.open(googleMapsUrl, '_blank');
-  };
+    dataFetch();
+  }, []);
 
   return (
     <>
@@ -75,6 +72,7 @@ const AboutClinic = () => {
         {/* Left Div with Swiper */}
         <div className="w-[50%] lg:w-1/2 flex justify-center items-center mb-10 lg:mb-0">
           <div className="w-3/4 h-[550px] p-4 bg-black-50 rounded-lg shadow-md">
+            {console.log(data)}
             <Swiper navigation autoplay={{ delay: 1000, disableOnInteraction: false }}
               loop={true} modules={[Navigation]} className="w-full h-full">
               <SwiperSlide>
