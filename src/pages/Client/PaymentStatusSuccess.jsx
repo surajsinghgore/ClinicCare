@@ -10,9 +10,13 @@ const PaymentStatusSuccess = () => {
         if (!getLocalStorage('selectedDate')) {
             navigate("/book-appointment")
         }
-        removeLocalStorage('selectedDate')
-        removeLocalStorage('selectedDuration')
-        removeLocalStorage('selectedTime')
+
+        setTimeout(() => {
+            removeLocalStorage('selectedDate')
+            removeLocalStorage('selectedDuration')
+            removeLocalStorage('selectedTime')
+        }, 5000)
+
     }, [])
     useEffect(() => {
         const handlePopState = () => {

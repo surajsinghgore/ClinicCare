@@ -55,7 +55,7 @@ const DoctorNavbar = () => {
                 title="Appointment" 
                 icons={<RiCalendarScheduleLine className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
-                    { link: "/doctor/todays-appointment?page=1&limit=10&type=total", title: "Today's Appointments", icon: <GrSchedule className=" icon text-2xl text-black-800" /> },
+                    { link: "/doctor/todays-appointment?page=1&limit=10&type=all", title: "Today's Appointments", icon: <GrSchedule className=" icon text-2xl text-black-800" /> },
                     { link: "/doctor/appointment-list", title: "All Appointments", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
                 ]}
             />

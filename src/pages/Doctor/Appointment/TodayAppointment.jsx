@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FaCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
 import { MdEditSquare } from "react-icons/md";
 import BreadCrumbs from '../../../components/Common/BreadCrumbs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getMyClinicApi, searchMyClinicApi } from '../../../Utils/services/apis/Doctor/ClinicDoctorApi';
 import { hideLoader, showLoader } from '../../../redux/Slices/LoaderState';
-import { getDetailedTodayAppointmentsApi, getDetailedTodayAppointmentStatsApi } from '../../../Utils/services/apis/Doctor/AppointmentApi';
+import { getDetailedTodayAppointmentsApi, getDetailedTodayAppointmentStatsApi, getTodayAppointmentByAppointmentNumber, getTodayAppointmentsBySearchApi, getTodayAppointmentsByTreatmentName, getTodayAppointmentsByUserName, searchTodayAppointmentsByTime } from '../../../Utils/services/apis/Doctor/AppointmentApi';
 
 const TodayAppointment = () => {
   const dispatch = useDispatch();
@@ -15,6 +14,100 @@ const TodayAppointment = () => {
   const [fact, setFact] = useState({})
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+
+
+
+
+
+  // Search filters
+  const [searchAppointmentNumber, setSearchAppointmentNumber] = useState('');
+  const [searchPatientName, setSearchPatientName] = useState('');
+  const [searchTreatmentName, setSearchTreatmentName] = useState('');
+  const [searchTime, setSearchTime] = useState('');
+
+
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+    console.log(name)
+    if (name === "searchAppointmentNumber") {
+      setSearchAppointmentNumber(value);
+
+      if (value == "") {
+        dataFetch()
+      } else {
+        try {
+          dispatch(showLoader());
+          const res = await getTodayAppointmentByAppointmentNumber(value);
+          if (res?.success) {
+            setData(res.data);
+          }
+        } catch (error) {
+          console.error("Error fetching clinics:", error);
+        } finally {
+          dispatch(hideLoader());
+        }
+      }
+    }
+    
+    else if (name === "searchPatientName") {
+      console.log('sasas')
+      setSearchPatientName(value);
+
+
+      if (value == "") {
+        dataFetch()
+      } else {
+        try {
+          dispatch(showLoader());
+          const res = await getTodayAppointmentsByUserName(value);
+          if (res?.success) {
+            setData(res.data);
+          }
+        } catch (error) {
+          console.error("Error fetching clinics:", error);
+        } finally {
+          dispatch(hideLoader());
+        }
+      }
+    } else if (name === "searchTreatmentName") {
+      setSearchTreatmentName(value);
+
+      if (value == "") {
+        dataFetch()
+      } else {
+        try {
+          dispatch(showLoader());
+          const res = await getTodayAppointmentsByTreatmentName(value);
+          if (res?.success) {
+            setData(res.data);
+          }
+        } catch (error) {
+          console.error("Error fetching clinics:", error);
+        } finally {
+          dispatch(hideLoader());
+        }
+      }
+    } else if (name === "searchTime") {
+      setSearchTime(value);
+
+      if (value == "") {
+        dataFetch()
+      } else {
+        try {
+          dispatch(showLoader());
+          const res = await searchTodayAppointmentsByTime(value);
+          if (res?.success) {
+            setData(res.data);
+          }
+        } catch (error) {
+          console.error("Error fetching clinics:", error);
+        } finally {
+          dispatch(hideLoader());
+        }
+      }
+    }
+    // handleSearch(value);
+  };
 
   const [data, setData] = useState([]);
   const [limit, setLimit] = useState(queryParams.get("limit") || 10);
@@ -80,24 +173,11 @@ const TodayAppointment = () => {
     if (next && currentPage < totalPage) {
       const newPage = currentPage + 1;
       setCurrentPage(newPage);
-      navigate(`/doctor/todays-appointment?limit=${limit}&page=${newPage}`);
+      navigate(`/doctor/todays-appointment?limit=${limit}&page=${newPage}&type=${type}`);
     }
   };
 
-  const searchBarHandle = async (e) => {
-    const search = e.target.value;
-    if (search === "") {
-      dataFetch();
-      navigate(`/doctor/todays-appointment?limit=${limit}&page=${currentPage}`);
-    } else {
-      try {
-        const searchData = await searchMyClinicApi(search);
-        setData(searchData?.data || []);
-      } catch (error) {
-        console.error("Error searching clinics:", error);
-      }
-    }
-  };
+
 
   return (
     <>
@@ -107,7 +187,7 @@ const TodayAppointment = () => {
           <h2 className="text-red-600 font-semibold">Today&apos;s Appointment Records</h2>
           <div className="text-right">
             <span className="text-black-500">Today&apos;s Revenue : </span>
-            <span className="text-red-600 font-semibold">₹ 0</span>
+            <span className="text-red-600 font-semibold">₹ {fact?.totalEarningsToday}</span>
           </div>
         </div>
         <div className="mt-4 mb-10 flex space-x-4">
@@ -115,18 +195,37 @@ const TodayAppointment = () => {
             type="text"
             placeholder="Search Appointment Id ..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
+            name="searchAppointmentNumber"
+            value={searchAppointmentNumber}
+            onChange={handleInputChange}
           />
           <input
             type="text"
             placeholder="Search Patient Name..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
+            name="searchPatientName"
+            value={searchPatientName}
+            onChange={handleInputChange}
           />
-          <select className="border border-black-300 rounded-md px-3 py-2 w-full">
-            <option>Search Time Slot...</option>
-          </select>
-          <select className="border border-black-300 rounded-md px-3 py-2 w-full">
-            <option>Select Date..</option>
-          </select>
+          <input
+            type="text"
+            placeholder="Search Treatment Name..."
+            className="border border-black-300 rounded-md px-3 py-2 w-full"
+            name="searchTreatmentName"
+            value={searchTreatmentName}
+            onChange={handleInputChange}
+          />
+          <div className="time-picker">
+            <label htmlFor="timeSlot" className="block text-sm font-medium text-gray-700"></label>
+            <input
+              type="time"
+              id="timeSlot"
+              name="searchTime"
+              value={searchTime}
+              onChange={handleInputChange}
+              className="border border-black-300 rounded-md px-3 py-2 w-full"
+            />
+          </div>
         </div>
         <div className="mt-4 mb-14 flex space-x-2">
           <div
@@ -185,12 +284,7 @@ const TodayAppointment = () => {
               </select>
               <p className="text-black-600 text-sm">Records Per Page</p>
             </div>
-            <div className="flex gap-1 items-center">
-              <label htmlFor="search" className="text-black-600">
-                Search:{" "}
-              </label>
-              <input type="text" name="search" onChange={searchBarHandle} id="search" className="border border-black-500 pl-1 h-7 w-60 rounded-md" />
-            </div>
+
           </div>
         </div>
         {/* Table for displaying appointment records */}
@@ -220,7 +314,7 @@ const TodayAppointment = () => {
                     <tr key={record.appointmentId} className="hover:bg-black-100">
                       <td className="px-4 text-sm py-2">{record.appointmentNumber}</td>
                       <td className="px-4 text-sm py-2 flex items-center">
-                        {console.log(record)}
+
                         <img
                           src={record.userProfileUrl}
                           alt="Patient"
@@ -245,7 +339,10 @@ const TodayAppointment = () => {
                         })}
                       </td>
                       <td className="px-4 text-center text-sm">
-                        <div className="flex gap-2">
+
+
+
+                        {record.status == "pending" ? <div className="flex gap-2">
                           <button className="rounded p-1 text-xl text-success hover:text-[#2f8a38]">
                             <FaCircleCheck title="Accept" />
                           </button>
@@ -255,7 +352,11 @@ const TodayAppointment = () => {
                           <button className="rounded p-1 text-xl text-blue-500 hover:text-blue-700">
                             <MdEditSquare title="Edit" />
                           </button>
-                        </div>
+                        </div> : <div className={`px-3 py-1 rounded-md text-white ${record.status === "completed" ? "bg-success" :
+                          record.status === "rejected" ? "bg-danger" : ""
+                          }`}>
+                          {record.status}
+                        </div>}
                       </td>
                     </tr>
                   ))}
