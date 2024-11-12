@@ -81,22 +81,22 @@ const OurDoctors = () => {
                                         <div key={data._id}>
                                             <div className="doctor-card py-8 flex items-start bg-white p-4 shadow rounded-lg hover:shadow-lg transition-shadow">
                                                 <Link to={`/doctor-details/${data?._id}`}>
-                                                <img
-                                                    src={data?.doctorInfo?.profileUrl}
-                                                    alt="Doctor Jenny Doe"
-                                                    className="w-32 h-32 rounded-full object-cover"
-                                                />
+                                                    <img
+                                                        src={data?.doctorInfo?.profileUrl}
+                                                        alt="Doctor Jenny Doe"
+                                                        className="w-32 h-32 rounded-full object-cover"
+                                                    />
                                                 </Link>
                                                 <div className="ml-4 flex-grow">
-                                                <Link to={`/doctor-details/${data?._id}`}>
-                                                    <h3 className="text-xl font-semibold">Dr. {data?.doctorInfo?.name}</h3> </Link>
+                                                    <Link to={`/doctor-details/${data?._id}`}>
+                                                        <h3 className="text-xl font-semibold">Dr. {data?.doctorInfo?.name}</h3> </Link>
                                                     <p className="text-black-600 flex items-center mb-3">
                                                         <FaLocationDot className="mr-1" />
                                                         {data?.clinicInfo?.[0].city} {data?.clinicInfo?.[0].state}, {data?.clinicInfo?.[0].country}
                                                     </p>
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Treatment name:</span> {data?.treatmentName}</p>
                                                     <p className="text-black-600 mb-5"><span className='text-[#0148B1] font-semibold'>Specialization:</span> {data?.specialty}</p>
-                                                    <Link to={`/book-appointment-form/${data?._id}`} className="my-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</Link>
+                                                    <Link to={`/user/book-appointment-form/${data?.serviceId}`} className="my-4 px-4 py-1 text-white bg-[#0148B1] rounded-md shadow">Book Appointment</Link>
                                                 </div>
                                                 <div className="ml-auto text-right">
                                                     <p className="text-black-600"><span className='text-[#0148B1] font-semibold'>Experience:</span> {data?.doctorInfo?.experience} years</p>
@@ -109,7 +109,7 @@ const OurDoctors = () => {
                             </>
                         ) : <p>No Doctor Found</p>
                     }
-                
+
 
 
                 </div>
