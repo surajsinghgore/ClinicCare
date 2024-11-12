@@ -7,12 +7,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getMyClinicApi, searchMyClinicApi } from '../../../Utils/services/apis/Doctor/ClinicDoctorApi';
 import { hideLoader, showLoader } from '../../../redux/Slices/LoaderState';
-import { getDetailedAppointmentsApi } from '../../../Utils/services/apis/Doctor/AppointmentApi';
+import { getDetailedTodayAppointmentsApi, getDetailedTodayAppointmentStatsApi } from '../../../Utils/services/apis/Doctor/AppointmentApi';
 
 const TodayAppointment = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const[fact,setFact]=useState({})
+  const [fact, setFact] = useState({})
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -33,11 +33,13 @@ const TodayAppointment = () => {
   const dataFetch = useCallback(async () => {
     try {
       dispatch(showLoader());
-      const res = await getDetailedAppointmentsApi(currentPage, limit, type);
+      const res = await getDetailedTodayAppointmentsApi(currentPage, limit, type);
+      const statsRes = await getDetailedTodayAppointmentStatsApi();
+      setFact(statsRes.data)
       if (res?.success) {
-    
+
         setData(res.data);
-        setFact(res.statusCounts)
+
         setTotalPage(res.pagination.totalPages);
         setNext(res.pagination.hasNextPage);
         setPrev(res.pagination.hasPrevPage);
@@ -47,11 +49,11 @@ const TodayAppointment = () => {
     } finally {
       dispatch(hideLoader());
     }
-  }, [dispatch, currentPage, limit,type]);
+  }, [dispatch, currentPage, limit, type]);
 
   useEffect(() => {
     dataFetch();
-  }, [limit, currentPage,type]);
+  }, [limit, currentPage, type]);
 
   const handleLimitChange = (e) => {
     const newLimit = e.target.value;
@@ -60,7 +62,7 @@ const TodayAppointment = () => {
     navigate(`/doctor/todays-appointment?limit=${newLimit}&page=${currentPage}&type=${type}`);
   };
   const handleTypeChange = (state) => {
- 
+
     setType(state);
     setCurrentPage(1); // Reset to page 1
     navigate(`/doctor/todays-appointment?limit=${limit}&page=${currentPage}&type=${state}`);
@@ -127,22 +129,47 @@ const TodayAppointment = () => {
           </select>
         </div>
         <div className="mt-4 mb-14 flex space-x-2">
-          <div className="bg-blue-400 text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full" onClick={()=>handleTypeChange('all')}>
-            <p>Total: {fact?.total}</p>
+          <div
+            className={`${type === 'all' ? 'shadow-xl' : ''
+              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-blue-400`}
+            onClick={() => handleTypeChange('all')}
+          >
+            <p>Total: {fact?.totalOrders}</p>
           </div>
-          <div className="bg-success text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full" onClick={()=>handleTypeChange('completed')}>
-            <p>Completed: {fact?.completed}</p>
+
+          <div
+            className={`${type === 'completed' ? 'shadow-xl' : ''
+              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-success`}
+            onClick={() => handleTypeChange('completed')}
+          >
+            <p>Completed: {fact?.totalCompletedOrders}</p>
           </div>
-          <div className="bg-warning text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full"onClick={()=>handleTypeChange('pending')}>
-            <p>Pending: {fact?.pending}</p>
+
+          <div
+            className={`${type === 'pending' ? 'shadow-xl' : ''
+              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-warning`}
+            onClick={() => handleTypeChange('pending')}
+          >
+            <p>Pending: {fact?.totalPendingOrdersNotDelayed}</p>
           </div>
-          <div className="bg-danger text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full"onClick={()=>handleTypeChange('rejected')}>
-            <p>Rejected: {fact?.rejected}</p>
+
+          <div
+            className={`${type === 'rejected' ? 'shadow-xl' : ''
+              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-danger`}
+            onClick={() => handleTypeChange('rejected')}
+          >
+            <p>Rejected: {fact?.totalRejectedOrders}</p>
           </div>
-          <div className="bg-cyan-400 text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full" onClick={()=>handleTypeChange('delayed')}>
-            <p>Delayed: {fact?.delayed}</p>
+
+          <div
+            className={`${type === 'delayed' ? 'shadow-xl' : ''
+              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-cyan-400`}
+            onClick={() => handleTypeChange('delayed')}
+          >
+            <p>Delayed: {fact?.totalDelayedOrders}</p>
           </div>
         </div>
+
 
 
         <div className="mb-4">
@@ -169,9 +196,9 @@ const TodayAppointment = () => {
         {/* Table for displaying appointment records */}
         <div className="overflow-x-auto">
           <h1 className='text-lg font-semibold'><span className='capitalize mr-1'>
-          {type}
+            {type}
           </span>
-           Appointments</h1>
+            Appointments</h1>
           <table className="min-w-full bg-white border border-black-300 rounded-md">
             <thead>
               <tr className="bg-black-200">
@@ -193,6 +220,7 @@ const TodayAppointment = () => {
                     <tr key={record.appointmentId} className="hover:bg-black-100">
                       <td className="px-4 text-sm py-2">{record.appointmentNumber}</td>
                       <td className="px-4 text-sm py-2 flex items-center">
+                        {console.log(record)}
                         <img
                           src={record.userProfileUrl}
                           alt="Patient"
@@ -237,7 +265,7 @@ const TodayAppointment = () => {
 
             </tbody>
           </table>
-            {data.length==0&&<p className='min-w-full bg-white border border-black-300  p-4 w-full flex-1'>No Appointment Found.</p>}
+          {data.length == 0 && <p className='min-w-full bg-white border border-black-300  p-4 w-full flex-1'>No Appointment Found.</p>}
         </div>
 
 

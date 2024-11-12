@@ -12,7 +12,6 @@ const BookAppointmentForm = () => {
   const currentYear = today.getFullYear();
   const currentDate = today.getDate();
   const currentTime = today.getHours() * 60 + today.getMinutes();
-
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
