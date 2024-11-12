@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clinicImg1 from "../../../src/assets/clinic.jpg";
 import clinicImg2 from "../../../src/assets/clinic.jpg";
 import clinic1 from "../../../src/assets/1.jpg";
@@ -19,9 +19,16 @@ import { FaSearchLocation } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
 import CountUp from 'react-countup';
 import { SlCalender } from "react-icons/sl";
+import { getClinicDetailsByIdApi } from '../../Utils/services/apis/CommonApi';
+import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
+import { showAlert } from '../../redux/Slices/AlertToggleState';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const AboutClinic = () => {
-
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [data, setData] = useState([])
   const schedule = [
     { day: 'Monday', open: '09:00 AM', close: '05:00 PM' },
     { day: 'Tuesday', open: '09:00 AM', close: '05:00 PM' },
@@ -31,6 +38,29 @@ const AboutClinic = () => {
     { day: 'Saturday', open: '10:00 AM', close: '04:00 PM' },
     { day: 'Sunday', open: 'Closed', close: 'Closed' },
   ];
+
+
+  // Fetch data when limit or page changes
+  const dataFetch = async () => {
+    try {
+      dispatch(showLoader());
+      let res = await getClinicDetailsByIdApi(id);
+
+      if (res?.success) {
+        setData(res.data);
+
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    dataFetch();
+  }, []);
 
   return (
     <>
@@ -42,6 +72,7 @@ const AboutClinic = () => {
         {/* Left Div with Swiper */}
         <div className="w-[50%] lg:w-1/2 flex justify-center items-center mb-10 lg:mb-0">
           <div className="w-3/4 h-[550px] p-4 bg-black-50 rounded-lg shadow-md">
+            {console.log(data)}
             <Swiper navigation autoplay={{ delay: 1000, disableOnInteraction: false }}
               loop={true} modules={[Navigation]} className="w-full h-full">
               <SwiperSlide>
@@ -247,47 +278,44 @@ const AboutClinic = () => {
       {/* clinic working days */}
       <div className="container mx-auto py-12 px-36 lg:px-10 mt-16">
         <p className='flex items-center text-lg gap-3 text-black-600 font-semibold mb-5'><SlCalender className='text-[#005BCA]' /> Working Days</p>
-      <h2 className="text-3xl font-extrabold text-left text-blue-700 mb-10">Clinic Weekly Schedule</h2>
-      <div className="overflow-hidden rounded-lg shadow-md">
-        <table className="min-w-full bg-black-50">
-          <thead>
-            <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-              <th className="py-4 px-6 font-semibold text-center text-lg">Day</th>
-              <th className="py-4 px-6 font-semibold text-center text-lg">Opening Time</th>
-              <th className="py-4 px-6 font-semibold text-center text-lg">Closing Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {schedule.map((entry, index) => (
-              <tr
-                key={index}
-                className={`transition-colors duration-200 ${
-                  entry.open === 'Closed'
-                    ? 'bg-red-50 text-red-500'
-                    : 'bg-white hover:bg-blue-50'
-                }`}
-              >
-                <td className="py-5 px-6 text-black-800 font-medium text-center">{entry.day}</td>
-                <td
-                  className={`py-5 px-6 text-center font-semibold ${
-                    entry.open === 'Closed' ? 'text-danger' : 'text-blue-700'
-                  }`}
-                >
-                  {entry.open}
-                </td>
-                <td
-                  className={`py-5 px-6 text-center font-semibold ${
-                    entry.close === 'Closed' ? 'text-danger' : 'text-blue-700'
-                  }`}
-                >
-                  {entry.close}
-                </td>
+        <h2 className="text-3xl font-extrabold text-left text-blue-700 mb-10">Clinic Weekly Schedule</h2>
+        <div className="overflow-hidden rounded-lg shadow-md">
+          <table className="min-w-full bg-black-50">
+            <thead>
+              <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                <th className="py-4 px-6 font-semibold text-center text-lg">Day</th>
+                <th className="py-4 px-6 font-semibold text-center text-lg">Opening Time</th>
+                <th className="py-4 px-6 font-semibold text-center text-lg">Closing Time</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {schedule.map((entry, index) => (
+                <tr
+                  key={index}
+                  className={`transition-colors duration-200 ${entry.open === 'Closed'
+                      ? 'bg-red-50 text-red-500'
+                      : 'bg-white hover:bg-blue-50'
+                    }`}
+                >
+                  <td className="py-5 px-6 text-black-800 font-medium text-center">{entry.day}</td>
+                  <td
+                    className={`py-5 px-6 text-center font-semibold ${entry.open === 'Closed' ? 'text-danger' : 'text-blue-700'
+                      }`}
+                  >
+                    {entry.open}
+                  </td>
+                  <td
+                    className={`py-5 px-6 text-center font-semibold ${entry.close === 'Closed' ? 'text-danger' : 'text-blue-700'
+                      }`}
+                  >
+                    {entry.close}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
 
 

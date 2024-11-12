@@ -1,32 +1,37 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from 'swiper/modules';
 
-// Import Swiper styles
 import "swiper/css";
+import { Link } from "react-router-dom";
 
-const DoctorDetailsClinicCard = ({ ImagesArray, ClinicName }) => {
-
+const DoctorDetailsClinicCard = ({ ImagesArray, ClinicId }) => {
     return (
-        <Swiper
-            className="mySwiper"
-            modules={[Autoplay]} // Enable the Autoplay module
-            autoplay={{
-                delay: 3000, // Set the delay for each slide (in milliseconds)
-                disableOnInteraction: false, // Continue autoplay even after user interaction
-            }}
-        >
-            {ImagesArray.length !== 0 &&
-                ImagesArray.map((item, index) => (
-                    <SwiperSlide key={index}>
-                        <img
-                            src={item}
-                            alt="clinic"
-                            className="w-full h-[250px] object-cover"
-                        />
-                    </SwiperSlide>
-                ))
-            }
-        </Swiper>
+        <div className="h-90 overflow-hidden">
+            <Swiper
+                className="mySwiper h-full"
+                modules={[Autoplay]}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                }}
+            >
+                {ImagesArray.length !== 0 &&
+                    ImagesArray.map((item, index) => (
+                        <SwiperSlide key={index} className="">
+                            <div className="bg-primary h-80 w-full">
+
+                                <Link to={`/about-clinic/${ClinicId}`}>   <img
+                                    src={item}
+                                    alt="clinic"
+                                    className="w-full h-full object-cover"
+                                />
+                                </Link>
+                            </div>
+                        </SwiperSlide>
+                    ))
+                }
+            </Swiper>
+        </div>
     );
 };
 
