@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Common/Header';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
@@ -14,11 +14,15 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { BsCalendarDate } from "react-icons/bs";
 import Footer from '../../components/Common/Footer';
 import { useNavigate } from 'react-router-dom';
+import { getTotalPlatformStatsApi } from '../../Utils/services/apis/CommonApi';
+import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
+import { showAlert } from '../../redux/Slices/AlertToggleState';
+import { useDispatch } from 'react-redux';
 
 const ClientDashboard = () => {
-
+  const dispatch = useDispatch()
   const navigate = useNavigate();
-
+  const [stats, setStats] = useState({})
   const safetyData = [
     {
       image: "https://clovedental.in/wp-content/themes/clove-child/images/safety1-min.webp",
@@ -51,6 +55,26 @@ const ClientDashboard = () => {
         "Our modern facilities offer the latest in medical technology and equipment, with continually trained staff for the highest quality care.",
     },
   ];
+
+  const dataFetch = async () => {
+    try {
+      dispatch(showLoader());
+      let res = await getTotalPlatformStatsApi();
+
+      if (res?.status) {
+        setStats(res)
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    dataFetch();
+  }, []);
 
   return (
     <>
