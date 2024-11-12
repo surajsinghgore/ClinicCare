@@ -59,6 +59,9 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import DashboardNav from "../pages/UserDashboard/DashboardNav";
 import UserGeneralDetails from "../pages/UserDashboard/UserGeneralDetails";
 import UserChangePassword from "../pages/UserDashboard/UserChangePassword";
+import UserAppointments from "../pages/UserDashboard/UserAppointments";
+import UserProfileChange from "../pages/UserDashboard/UserProfileChange";
+import Header from "../components/Common/Header";
 
 const router = createBrowserRouter([
   {
@@ -141,6 +144,26 @@ const router = createBrowserRouter([
       <>
         <DashboardLayout>
           <UserChangePassword />
+        </DashboardLayout>
+      </>
+    ),
+  },
+  {
+    path: "/user-appointment",
+    element: (
+      <>
+        <DashboardLayout>
+          <UserAppointments />
+        </DashboardLayout>
+      </>
+    ),
+  },
+  {
+    path: "/user-profile-chnage",
+    element: (
+      <>
+        <DashboardLayout>
+          <UserProfileChange />
         </DashboardLayout>
       </>
     ),

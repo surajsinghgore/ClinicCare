@@ -1,31 +1,30 @@
 import { useEffect } from "react";
-import { FaUserAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaUserAlt, FaSignOutAlt, FaEdit } from "react-icons/fa";
 import { MdPassword, MdEventNote } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMyDoctorDetails } from "../../redux/Slices/getMyDetailsDoctorSlice";
+import { Link } from "react-router-dom";
 import UserNav from "./UserNav";
 
-
 const DashboardNav = () => {
-  const dispatch = useDispatch();
-  const { getMyDoctorDetails } = useSelector((state) => state.getMyDetailsDoctor);
-
-  useEffect(() => {
-    dispatch(fetchMyDoctorDetails());
-  }, [dispatch]);
-
   return (
     <div className="shadow-lg">
       {/* Profile Section */}
       <section className="bg-[#FFFFFF] pb-4 px-4 border-b-[1px] border-black-200">
-        <div className="flex items-center ml-1 mt-10">
-          <img 
-            src={getMyDoctorDetails?.data?.profileUrl} 
-            alt="User Profile" 
-            className="h-[4.6rem] w-[4.6rem] mr-4 rounded-full object-cover shadow-md" 
-          />
+        <div className="flex items-center ml-1 mt-10 relative">
+          <div className="relative group">
+            <img 
+              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="User Profile" 
+              className="h-[4.8rem] w-[4.8rem] mr-4 rounded-full object-cover shadow-md" 
+            />
+            <Link to={"/user-profile-chnage"}>
+            <FaEdit 
+              className="absolute right-3 inset-0 m-auto p-1 bg-white rounded-full text-black-800 text-3xl cursor-pointer shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              title="Edit Profile"
+            />
+            </Link>
+          </div>
           <div>
-            <h1 className="text-xl font-semibold">{getMyDoctorDetails?.data?.name}</h1>
+            <h1 className="text-xl font-semibold">Tushar Negi</h1>
             <p className="text-sm">User</p>
           </div>
         </div>
@@ -45,12 +44,12 @@ const DashboardNav = () => {
             icons={<MdPassword className="text-2xl text-black-800" />} 
           />
           <UserNav 
-            link="/user/appointment" 
+            link="/user-appointment" 
             title="Appointment" 
             icons={<MdEventNote className="text-2xl text-black-800" />} 
           />
           <UserNav 
-            link="/logout" 
+            link="/auth/login" 
             title="Logout" 
             icons={<FaSignOutAlt className="text-2xl text-black-800" />} 
           />

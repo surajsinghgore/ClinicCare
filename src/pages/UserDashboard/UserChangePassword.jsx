@@ -5,7 +5,7 @@ const UserChangePassword = () => {
   return (
     <div className="flex justify-center items-center py-16">
       <div className="w-[80%] p-8">
-        <h1 className="flex gap-4 text-3xl font-semibold text-left text-[#004AAD] mb-10">Change Password <RiLockPasswordLine /></h1>
+        <h1 className="flex gap-4 text-3xl font-bold text-left text-[#004AAD] mb-10">Change Password <RiLockPasswordLine /></h1>
         
         <form>
           {/* Current Password */}
