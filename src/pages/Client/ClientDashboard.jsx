@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Header from '../../components/Common/Header';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
@@ -22,7 +22,21 @@ import { useDispatch } from 'react-redux';
 const ClientDashboard = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
-  const [stats, setStats] = useState({})
+  const [stats, setStats] = useState({
+    totalAppointments: 0,
+    totalClinics: 0,
+    totalDoctors: 0,
+    totalPatients: 0,
+    totalServices: 0,
+    totalTransactions: 0,
+    totalUsers: 0,
+  })
+
+
+  const [startCount, setStartCount] = useState(false);
+  const statsRef = useRef(null);
+
+
   const safetyData = [
     {
       image: "https://clovedental.in/wp-content/themes/clove-child/images/safety1-min.webp",
@@ -60,6 +74,8 @@ const ClientDashboard = () => {
     try {
       dispatch(showLoader());
       let res = await getTotalPlatformStatsApi();
+      // console.log(res);
+
 
       if (res?.status) {
         setStats(res)
@@ -71,6 +87,46 @@ const ClientDashboard = () => {
       dispatch(hideLoader());
     }
   };
+
+
+
+
+  const animateCount = (targetValue, duration = 1000) => {
+    let startValue = 0;
+    const increment = targetValue / (duration / 16.67); // 16.67ms per frame (60 FPS)
+    const [currentValue, setCurrentValue] = useState(startValue);
+
+    useEffect(() => {
+      if (startCount) {
+        const timer = setInterval(() => {
+          setCurrentValue((prevValue) => {
+            const nextValue = prevValue + increment;
+            if (nextValue >= targetValue) {
+              clearInterval(timer);
+              return targetValue;
+            }
+            return nextValue;
+          });
+        }, 16.67);
+      }
+    }, [startCount, targetValue]);
+
+    return Math.floor(currentValue);
+  };
+
+  // Observe stats section to start count-up animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) setStartCount(true);
+      },
+      { threshold: 0.5 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+
 
   useEffect(() => {
     dataFetch();
@@ -89,7 +145,7 @@ const ClientDashboard = () => {
       {/* cards */}
       <div className="cards">
         <div className="bg-[#e6f7fb] py-24 px-4 h-[38rem]">
-          <h2 className="text-center text-2xl font-semibold text-blue-800 mb-2">Why Choose</h2>
+          <h2 className="text-center text-2xl font-semibold text-blue-700 mb-2">Why Choose</h2>
           <h1 className="text-center text-5xl font-bold  mb-8">Clinic Care</h1>
           <p className="text-center max-w-4xl mx-auto text-black-600 mb-12">
             ClinicCare is a trusted platform designed to make healthcare accessible and convenient for everyone. With our seamless and fast doctor booking system, patients from any region can effortlessly book appointments with top-rated doctors specializing in various fields. ClinicCare allows users to explore detailed profiles of our doctors, including their specializations, experience, and successful case histories, ensuring you find the right care provider for your needs. Choose ClinicCare for a streamlined healthcare experience that puts quality care and patient convenience first.
@@ -135,6 +191,41 @@ const ClientDashboard = () => {
 
         <button className='bg-messageWarning p-3 rounded-full text-xl' onClick={() => navigate('/book-appointment')}>Book Appointment Now</button>
       </div>
+
+
+
+
+      {/* Stats Section */}
+      <div ref={statsRef} className="stats py-16 mt-20">
+        <h1 className="text-center text-4xl font-medium text-blue-900 mb-16 underline">Our Statistics</h1>
+        <div className="container flex flex-wrap justify-center gap-10 px-4">
+          {/* Each stat box */}
+          {[
+            { title: 'Total Appointments', value: stats.totalAppointments, icon: '📅' },
+            { title: 'Total Clinics', value: stats.totalClinics, icon: '🏥' },
+            { title: 'Total Doctors', value: stats.totalDoctors, icon: '👨‍⚕️' },
+            { title: 'Total Patients', value: stats.totalPatients, icon: '👥' },
+            { title: 'Total Services', value: stats.totalServices, icon: '🩺' },
+            { title: 'Total Transactions', value: stats.totalTransactions, icon: '💳' },
+            { title: 'Total Users', value: stats.totalUsers, icon: '👤' },
+          ].map((stat, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center bg-white shadow-xl rounded-lg p-8 w-64 text-center border-t-4 border-blue-600 hover:border-blue-800 transition-transform transform hover:scale-105"
+            >
+              <div className="text-5xl mb-4">{stat.icon}</div>
+              <h3 className="text-2xl font-semibold text-blue-700 mb-2">{stat.title}</h3>
+              <p className="text-4xl font-extrabold text-black-900">{animateCount(stat.value)}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+
+
+
+
 
 
 
