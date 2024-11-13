@@ -102,7 +102,7 @@ const UserChangePassword = () => {
               placeholder="Enter new password"
               name="newPassword"
 
-              {...register("newPassword")} 
+              {...register("newPassword")}
               required
             />
             <div className="absolute inset-y-0 right-0 top-[35%] pr-3 flex items-center text-sm leading-5">

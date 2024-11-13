@@ -36,7 +36,7 @@ const DashboardNav = () => {
     navigate("/auth/login");
   }
   return (
-    <div className="shadow-lg">
+    <div className="shadow-lg h-[100vh]">
       {/* Profile Section */}
       <section className="bg-[#FFFFFF] pb-4 px-4 border-b-[1px] border-black-200">
         <div className="flex items-center ml-1 mt-10 relative">
@@ -61,7 +61,7 @@ const DashboardNav = () => {
       </section>
 
       {/* Navigation Section */}
-      <section className="h-full w-[16rem] py-5 flex-grow bg-[#FFFFFF]">
+      <section className=" w-[16rem] py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between space-y-2">
           <UserNav
             link="/user/user-general-details"

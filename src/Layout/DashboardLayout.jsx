@@ -51,7 +51,7 @@ const DashboardLayout = ({ children }) => {
     }
   };
 
-  
+
   return (
     <div className={"main"}>
       {isManuallyVisible && <div className="fixed top-0 left-0 w-full z-50">{renderAlert()}</div>}
@@ -60,13 +60,14 @@ const DashboardLayout = ({ children }) => {
       <div>
         <Header />
         <div className="flex">
-          <div className="flex flex-col h-screen sticky top-0">
+          <div className="flex flex-col h-[100vh] sticky top-0">
             <DashboardNav />
           </div>
           <div className="flex-1 overflow-y-hidden">
             {children}
           </div>
         </div>
+
       </div>
     </div>
 
