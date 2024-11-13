@@ -230,7 +230,7 @@ const TodayAppointment = () => {
         <div className="mt-4 mb-14 flex space-x-2">
           <div
             className={`${type === 'all' ? 'shadow-xl' : ''
-              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-blue-400`}
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-blue-400`}
             onClick={() => handleTypeChange('all')}
           >
             <p>Total: {fact?.totalOrders}</p>
@@ -238,7 +238,7 @@ const TodayAppointment = () => {
 
           <div
             className={`${type === 'completed' ? 'shadow-xl' : ''
-              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-success`}
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-success`}
             onClick={() => handleTypeChange('completed')}
           >
             <p>Completed: {fact?.totalCompletedOrders}</p>
@@ -246,7 +246,7 @@ const TodayAppointment = () => {
 
           <div
             className={`${type === 'pending' ? 'shadow-xl' : ''
-              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-warning`}
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-warning`}
             onClick={() => handleTypeChange('pending')}
           >
             <p>Pending: {fact?.totalPendingOrdersNotDelayed}</p>
@@ -254,7 +254,7 @@ const TodayAppointment = () => {
 
           <div
             className={`${type === 'rejected' ? 'shadow-xl' : ''
-              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-danger`}
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-danger`}
             onClick={() => handleTypeChange('rejected')}
           >
             <p>Rejected: {fact?.totalRejectedOrders}</p>
@@ -262,7 +262,7 @@ const TodayAppointment = () => {
 
           <div
             className={`${type === 'delayed' ? 'shadow-xl' : ''
-              } text-white flex items-center justify-center font-medium px-4 py-3 rounded-md text-center w-full bg-cyan-400`}
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-cyan-400`}
             onClick={() => handleTypeChange('delayed')}
           >
             <p>Delayed: {fact?.totalDelayedOrders}</p>
