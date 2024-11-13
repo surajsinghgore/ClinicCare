@@ -201,7 +201,7 @@ const TodayAppointment = () => {
         </div>
         <div className="mt-4 mb-10 flex space-x-4">
           <input
-            type="text"
+            type="number"
             placeholder="Search Appointment Id ..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
             name="searchAppointmentNumber"
