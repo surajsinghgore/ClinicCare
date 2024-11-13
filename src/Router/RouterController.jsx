@@ -127,46 +127,8 @@ const router = createBrowserRouter([
 
   // user dashboard
 
-  {
-    path: "/user-general-details",
-    element: (
-      <>
-        <DashboardLayout>
-          <UserGeneralDetails />
-        </DashboardLayout>
-      </>
-    ),
-  },
-  {
-    path: "/user-password-change",
-    element: (
-      <>
-        <DashboardLayout>
-          <UserChangePassword />
-        </DashboardLayout>
-      </>
-    ),
-  },
-  {
-    path: "/user-appointment",
-    element: (
-      <>
-        <DashboardLayout>
-          <UserAppointments />
-        </DashboardLayout>
-      </>
-    ),
-  },
-  {
-    path: "/user-profile-change",
-    element: (
-      <>
-        <DashboardLayout>
-          <UserProfileChange />
-        </DashboardLayout>
-      </>
-    ),
-  },
+
+
 
 
 
@@ -184,7 +146,47 @@ const router = createBrowserRouter([
         ),
       },
 
+      {
+        path: "user-general-details",
+        element: (
+          <>
+            <DashboardLayout>
+              <UserGeneralDetails />
+            </DashboardLayout>
+          </>
+        ),
+      },
+      {
+        path: "user-password-change",
+        element: (
+          <>
+            <DashboardLayout>
+              <UserChangePassword />
+            </DashboardLayout>
+          </>
+        ),
+      },
+      {
+        path: "user-profile-change",
+        element: (
+          <>
+            <DashboardLayout>
+              <UserProfileChange />
+            </DashboardLayout>
+          </>
+        ),
+      },
 
+      {
+        path: "user-appointment",
+        element: (
+          <>
+            <DashboardLayout>
+              <UserAppointments />
+            </DashboardLayout>
+          </>
+        ),
+      },
       {
         path: "payment-status-success/:id",
         element: (

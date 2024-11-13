@@ -4,6 +4,7 @@ import loaderReducer from "./Slices/LoaderState";
 import getMyDetailsDoctorSlice from "./Slices/getMyDetailsDoctorSlice";
 import getMyDetailsAdminSlice from "./Slices/getMyDetailsAdminSlice";
 import GetMyClinicByIdSlice from "./Slices/GetMyClinicByIdSlice";
+import GetMyActiveUserDetailSlice from "./Slices/GetMyActiveUserDetails";
 const store = configureStore({
   reducer: {
     alert: alertReducer,
@@ -11,6 +12,7 @@ const store = configureStore({
     getMyDetailsDoctor: getMyDetailsDoctorSlice,
     getMyDetailsAdmin: getMyDetailsAdminSlice,
    getMyClinicById: GetMyClinicByIdSlice,
+   getMyUserDetails: GetMyActiveUserDetailSlice,
   },
 });
 
