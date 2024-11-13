@@ -59,6 +59,8 @@ import UserGeneralDetails from "../pages/UserDashboard/UserGeneralDetails";
 import UserChangePassword from "../pages/UserDashboard/UserChangePassword";
 import UserAppointments from "../pages/UserDashboard/UserAppointments";
 import UserProfileChange from "../pages/UserDashboard/UserProfileChange";
+import EditAppointment from "../pages/Doctor/Appointment/EditAppointment";
+import EditAppointment2 from "../pages/Doctor/Appointment/EditAppointment2";
 
 const router = createBrowserRouter([
   {
@@ -497,6 +499,22 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <AppointmentList />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "edit-appointment-form1",
+        element: (
+          <DoctorLayout>
+            <EditAppointment />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "edit-appointment-form2",
+        element: (
+          <DoctorLayout>
+            <EditAppointment2 />
           </DoctorLayout>
         ),
       },
