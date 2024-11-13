@@ -154,33 +154,55 @@ const ServicesList = () => {
           </div>
         </div>
         <div className="list w-[100%] border border-black-200 rounded-md">
-          <div className="heading flex justify-between font-semibold border-b-2 border-black-400 pb-2 px-7 py-3 mb-2">
-            <div>ID</div>
-            <div className="ml-7">Treatment Name</div>
-            <div className="ml-10">Specialty</div>
-            <div className="ml-10">Clinic Name</div>
-            <div className="ml-10">Fees</div>
-            <div className="ml-10">Duration</div>
-            <div>Action</div>
-          </div>
-          {clinics.map((clinic, index) => (
-            <div key={clinic._id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
-              <div>#{index + 1}</div>
-              <div className="flex items-center">{clinic.treatmentName}</div>
-              <div>{clinic.specialty}</div>
-              <div>{clinic?.clinicId?.name}</div>
-              <div className="mr-4">{clinic.fees}</div>
-              <div>{clinic.duration}</div>
-              <div className="flex items-center">
-                <Link to={`/doctor/update-service/${clinic._id}`}>
-                  <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" />
-                </Link>
-                <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => confirmDelete(clinic._id)} />
-              </div>
-            </div>
-          ))}
-          {clinics.length === 0 && <p className="text-center text-lg py-5 text-black-400">No data found</p>}
-        </div>
+  <div className="heading flex justify-between font-semibold border-b-2 border-black-400 pb-2 px-7 py-3 mb-2">
+    <div className="w-[5%]">ID</div>
+    <div className="w-[20%]">Treatment Name</div>
+    <div className="w-[15%]">Specialty</div>
+    <div className="w-[20%]">Clinic Name</div>
+    <div className="w-[10%]">Fees</div>
+    <div className="w-[10%]">Duration</div>
+    <div className="w-[10%]">Action</div>
+  </div>
+  {clinics.map((clinic, index) => (
+    <div key={clinic._id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
+      <div className="w-[5%]">#{index + 1}</div>
+
+      {/* Treatment Name Field */}
+      <div className="w-[20%] truncate">
+        {clinic.treatmentName.length > 20 ? clinic.treatmentName.slice(0, 20) + '...' : clinic.treatmentName}
+      </div>
+
+      {/* Specialty Field */}
+      <div className="w-[15%] truncate">
+        {clinic.specialty.length > 15 ? clinic.specialty.slice(0, 15) + '...' : clinic.specialty}
+      </div>
+
+      {/* Clinic Name Field */}
+      <div className="w-[20%] truncate">
+        {clinic.clinicId?.name?.length > 20 ? clinic.clinicId.name.slice(0, 20) + '...' : clinic.clinicId?.name}
+      </div>
+
+      {/* Fees Field */}
+      <div className="w-[10%]">{clinic.fees}</div>
+
+      {/* Duration Field */}
+      <div className="w-[10%]">{clinic.duration}</div>
+
+      {/* Actions */}
+      <div className="w-[10%] flex items-center">
+        <Link to={`/doctor/update-service/${clinic._id}`}>
+          <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" />
+        </Link>
+        <MdDelete
+          className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer"
+          onClick={() => confirmDelete(clinic._id)}
+        />
+      </div>
+    </div>
+  ))}
+  {clinics.length === 0 && <p className="text-center text-lg py-5 text-black-400">No data found</p>}
+</div>
+
         <div className="last mt-6 flex items-center justify-between">
           <p className="text-sm pl-2">
             Showing Page {currentPage} of {totalPage}

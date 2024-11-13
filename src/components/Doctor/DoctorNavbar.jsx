@@ -29,7 +29,7 @@ const DoctorNavbar = () => {
           </div>
         </div>
       </section>
-      <section className="h-full w-[16rem] py-5 flex-grow bg-[#FFFFFF]">
+      <section className="h-full w-[17rem] py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between">
             <LeftNavLink 
                 link="/doctor" 
@@ -43,7 +43,7 @@ const DoctorNavbar = () => {
             />
             <LeftNavLink 
                 link="/doctor" 
-                title="Sevices" 
+                title="Services" 
                 icons={<MdOutlineHomeRepairService className=" icon text-2xl text-black-800" />} 
                 submenuItems={[
                     { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },

@@ -24,7 +24,6 @@ import DoctorList from "../pages/Admin/DoctorList";
 import AddClinic from "../pages/Doctor/Clinic/AddClinic";
 import AddClinic2 from "../pages/Doctor/Clinic/AddClinic2";
 import AddClinic3 from "../pages/Doctor/Clinic/AddClinic3";
-import Demo from "../pages/Demo";
 import CreateAdmins from "../pages/Admin/CreateAdmins";
 import AdminLists from "../pages/Admin/AdminLists";
 
@@ -56,7 +55,6 @@ import TodayAppointment from "../pages/Doctor/Appointment/TodayAppointment";
 import AppointmentList from "../pages/Doctor/Appointment/AppointmentList";
 import AboutClinic from "../pages/AboutClinic/AboutClinic";
 import DashboardLayout from "../Layout/DashboardLayout";
-import DashboardNav from "../pages/UserDashboard/DashboardNav";
 import UserGeneralDetails from "../pages/UserDashboard/UserGeneralDetails";
 import UserChangePassword from "../pages/UserDashboard/UserChangePassword";
 import UserAppointments from "../pages/UserDashboard/UserAppointments";

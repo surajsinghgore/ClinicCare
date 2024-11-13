@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TodaysAppointments from './TodaysAppointments';
 import AllAppointments from './AllAppointments';
 import { SlCalender } from "react-icons/sl";
@@ -10,6 +10,7 @@ const UserAppointments = () => {
     setActiveTab(tab);
   };
 
+
   return (
     <div className="w-[95%] mx-auto p-6">
       {/* Tab Navigation*/}
@@ -18,7 +19,7 @@ const UserAppointments = () => {
           className={`text-lg font-semibold py-2 px-5 flex items-center gap-3 rounded-md transition duration-300 ${activeTab === 'today' ? 'bg-white text-blue-500' : 'hover:bg-white hover:text-blue-500'}`}
           onClick={() => handleTabClick('today')}
         >
-          Today&lsquos Appointments <SlCalender className='text-2xl ' />
+          Today&apos;s Appointments <SlCalender className='text-2xl ' />
         </button>
         <button
           className={`text-lg font-semibold py-2 px-8 flex items-center gap-3 rounded-md transition duration-300 ${activeTab === 'all' ? 'bg-white text-blue-500' : 'hover:bg-white hover:text-blue-500'}`}
