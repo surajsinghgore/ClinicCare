@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchAllDoctorSubmittedListApi, searchAllDoctorSubmittedListApi } from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
+import {
+  fetchAllDoctorSubmittedListApi,
+  searchAllDoctorSubmittedListApi,
+} from "../../Utils/services/apis/Admin/Doctor/AdminDoctorApi";
 import { useLocation } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import { useDispatch } from "react-redux";
@@ -88,7 +91,9 @@ const DoctorList = () => {
       <div className="top flex items-center justify-between mb-14">
         <h1 className="text-xl font-semibold">Doctor List</h1>
         <Link to="/admin/add-doctor">
-          <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">Add Doctor</button>
+          <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">
+            Add Doctor
+          </button>
         </Link>
       </div>
 
@@ -96,7 +101,13 @@ const DoctorList = () => {
         <div className="topSelect flex items-center justify-between">
           <div className="flex gap-1">
             <p className="text-black-600 text-sm">Display</p>
-            <select name="pages" id="pages" value={limit} onChange={(e) => handleLimitChange(e)} className="bg-white border border-black-400 text-sm rounded-sm">
+            <select
+              name="pages"
+              id="pages"
+              value={limit}
+              onChange={(e) => handleLimitChange(e)}
+              className="bg-white border border-black-400 text-sm rounded-sm"
+            >
               <option value="10">10</option>
               <option value="25">25</option>
               <option value="50">50</option>
@@ -109,7 +120,13 @@ const DoctorList = () => {
             <label htmlFor="search" className="text-black-600">
               Search:{" "}
             </label>
-            <input type="text" name="search" onChange={(e) => searchBarHandle(e)} id="search" className="border border-black-500 pl-1 h-7 w-60 rounded-md" />
+            <input
+              type="text"
+              name="search"
+              onChange={(e) => searchBarHandle(e)}
+              id="search"
+              className="border border-black-500 pl-1 h-7 w-60 rounded-md"
+            />
           </div>
         </div>
       </div>
@@ -117,7 +134,7 @@ const DoctorList = () => {
       <div className="list w-[100%] border border-black-200 rounded-md">
         <div className="heading flex justify-between font-semibold border-b-2 border-black-400 pb-2 px-5 py-3 mb-2">
           <div>ID</div>
-          <div>Name</div>
+          <div className="min-w-[50px]">Name</div>
           <div className="ml-6">Specialization</div>
           <div>Gender</div>
           <div>Email</div>
@@ -126,24 +143,76 @@ const DoctorList = () => {
         </div>
 
         {data.map((doctor, index) => (
-          <div key={doctor._id} className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2">
-            <div>#{++index}</div>
-            <div className="flex items-center">
-              <img src={doctor.profileUrl} alt={doctor.profileUrl} className="w-12 h-12 object-cover rounded-full mr-2" />
-              {doctor.name}
+          <div
+            key={doctor._id}
+            className="flex items-center text-sm justify-between border-b border-black-200 px-5 py-2"
+          >
+            {/* ID */}
+            <div>#{index + 1}</div>
+
+            {/* Name with Profile Image */}
+            <div className="flex items-center min-w-[200px]">
+              <img
+                src={
+                  doctor.profileUrl ||
+                  "https://i.pinimg.com/564x/ab/68/8b/ab688b791dcd556181d2786f54db9fe6.jpg"
+                }
+                alt="Profile"
+                className="w-12 h-12 object-cover rounded-full mr-2"
+              />
+              {doctor.name.length > 20
+                ? doctor.name.slice(0, 20) + "..."
+                : doctor.name}
             </div>
-            <div className="pr-5">{doctor.specialization}</div>
-            <div className="pl-10">{doctor.gender}</div>
-            <div>{doctor.email}</div>
-            <div>{doctor.mobile}</div>
+
+            {/* Specialization */}
+            <div className="pr-5">
+              {doctor.specialization
+                ? doctor.specialization.length > 15
+                  ? doctor.specialization.slice(0, 15) + "..."
+                  : doctor.specialization
+                : "-"}
+            </div>
+
+            {/* Gender */}
+            <div className="pl-10">{doctor.gender || "-"}</div>
+
+            {/* Email with Truncation */}
             <div>
-              <Link to={`/admin/verify-doctor/${doctor._id}`} className="bg-blue-500 text-white rounded-lg px-3 py-1 transition duration-200 ease-in-out hover:bg-blue-700">
+              {doctor.email
+                ? doctor.email.length > 18
+                  ? doctor.email.slice(0, 18) + "..."
+                  : doctor.email
+                : "-"}
+            </div>
+
+            {/* Phone */}
+            <div>
+              {doctor.mobile
+                ? doctor.mobile.length > 10
+                  ? doctor.mobile.slice(0, 10) + "..."
+                  : doctor.mobile
+                : "-"}
+            </div>
+
+            {/* Action */}
+            <div>
+              <Link
+                to={`/admin/verify-doctor/${doctor._id}`}
+                className="bg-blue-500 text-white rounded-lg px-3 py-1 transition duration-200 ease-in-out hover:bg-blue-700"
+              >
                 View
               </Link>
             </div>
           </div>
         ))}
-        {data.length == 0 && <p className="text-center text-lg py-5 text-black-400">No data found</p>}
+
+        {/* No Data Message */}
+        {data.length === 0 && (
+          <p className="text-center text-lg py-5 text-black-400">
+            No data found
+          </p>
+        )}
       </div>
 
       <div className="last mt-6 flex items-center justify-between">
@@ -151,11 +220,19 @@ const DoctorList = () => {
           Showing Page {currentPage} of {totalPage}
         </p>
         <div className="flex items-center bg-black-100 border border-black-300 rounded-md">
-          <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none" disabled={!prev} onClick={handlePrevPage}>
+          <button
+            className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
+            disabled={!prev}
+            onClick={handlePrevPage}
+          >
             Previous
           </button>
           <div className="px-4 py-2 bg-blue-500 text-white">{currentPage}</div>
-          <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none" disabled={!next} onClick={handleNextPage}>
+          <button
+            className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
+            disabled={!next}
+            onClick={handleNextPage}
+          >
             Next
           </button>
         </div>

@@ -3,7 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import { useDispatch } from "react-redux";
-import { deleteAdminApi, getAllAdminApi, searchAllAdminApi } from "../../Utils/services/apis/Admin/AdminApi";
+import {
+  deleteAdminApi,
+  getAllAdminApi,
+  searchAllAdminApi,
+} from "../../Utils/services/apis/Admin/AdminApi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { extractFullDateTime } from "../../Utils/DateFormatFunction";
@@ -38,7 +42,9 @@ const AdminLists = () => {
       }
     } catch (error) {
       console.log(error);
-      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+      dispatch(
+        showAlert({ message: error?.response?.data?.message, type: "failed" })
+      );
     } finally {
       dispatch(hideLoader());
     }
@@ -100,7 +106,9 @@ const AdminLists = () => {
       }
     } catch (error) {
       console.log(error);
-      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+      dispatch(
+        showAlert({ message: error?.response?.data?.message, type: "failed" })
+      );
     } finally {
       dispatch(hideLoader());
     }
@@ -132,7 +140,9 @@ const AdminLists = () => {
       <div className="top flex items-center justify-between mb-14">
         <h1 className="text-xl font-semibold">Admin List</h1>
         <Link to="/admin/create-admins">
-          <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">Add Admin</button>
+          <button className="bg-blue-500 text-white shadow-sm shadow-secondary rounded-lg p-2">
+            Add Admin
+          </button>
         </Link>
       </div>
 
@@ -140,7 +150,13 @@ const AdminLists = () => {
         <div className="topSelect flex items-center justify-between">
           <div className="flex gap-1">
             <p className="text-black-600 text-sm">Display</p>
-            <select name="pages" id="pages" value={limit} onChange={(e) => handleLimitChange(e)} className="bg-white border border-black-400 text-sm rounded-sm">
+            <select
+              name="pages"
+              id="pages"
+              value={limit}
+              onChange={(e) => handleLimitChange(e)}
+              className="bg-white border border-black-400 text-sm rounded-sm"
+            >
               <option value="10">10</option>
               <option value="25">25</option>
               <option value="50">50</option>
@@ -153,7 +169,13 @@ const AdminLists = () => {
             <label htmlFor="search" className="text-black-600">
               Search:{" "}
             </label>
-            <input type="text" name="search" onChange={(e) => searchBarHandle(e)} id="search" className="border border-black-500 pl-1 h-7 w-60 rounded-md" />
+            <input
+              type="text"
+              name="search"
+              onChange={(e) => searchBarHandle(e)}
+              id="search"
+              className="border border-black-500 pl-1 h-7 w-60 rounded-md"
+            />
           </div>
         </div>
       </div>
@@ -171,21 +193,67 @@ const AdminLists = () => {
         </div>
 
         {data.map((admin, index) => (
-          <div key={admin._id} className="flex items-center text-sm justify-between border-b border-black-200 px-7 py-2">
-            <div>#{++index}</div>
-            <div className="flex items-center">{admin.name}</div>
-            <div>{admin.email}</div>
-            <div>{admin.mobile}</div>
-            <div>{admin.permission}</div>
-            <div>{admin.lastActiveAt ? extractFullDateTime(admin.lastActiveAt) : "new"}</div>
-            <div>{admin.activeDevice ? "Online" : "Offline"}</div>
+          <div
+            key={admin._id}
+            className="flex items-center text-sm justify-between border-b border-black-200 px-7 py-2"
+          >
+            {/* ID */}
+            <div>#{index + 1}</div>
+
+            {/* Name with Truncation */}
             <div className="flex items-center">
-              <FaEdit className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5" onClick={() => handleEdit(admin._id)} />
-              <MdDelete className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer" onClick={() => confirmDelete(admin._id)} />
+              {admin.name.length > 15
+                ? admin.name.slice(0, 15) + "..."
+                : admin.name}
+            </div>
+
+            {/* Email with Truncation */}
+            <div>
+              {admin.email.length > 10
+                ? admin.email.slice(0, 15) + "..."
+                : admin.email}
+            </div>
+
+            {/* Phone with Truncation */}
+            <div>
+              {admin.mobile.length > 10
+                ? admin.mobile.slice(0, 10) + "..."
+                : admin.mobile}
+            </div>
+
+            {/* Permission */}
+            <div>{admin.permission}</div>
+
+            {/* Last Login with Date Extraction */}
+            <div>
+              {admin.lastActiveAt
+                ? extractFullDateTime(admin.lastActiveAt)
+                : "new"}
+            </div>
+
+            {/* Online/Offline Status */}
+            <div>{admin.activeDevice ? "Online" : "Offline"}</div>
+
+            {/* Actions */}
+            <div className="flex items-center">
+              <FaEdit
+                className="text-black-500 hover:text-black-800 text-xl cursor-pointer mr-5"
+                onClick={() => handleEdit(admin._id)}
+              />
+              <MdDelete
+                className="text-[#FF5B61] hover:text-[#FF0000] text-xl cursor-pointer"
+                onClick={() => confirmDelete(admin._id)}
+              />
             </div>
           </div>
         ))}
-        {data.length == 0 && <p className="text-center text-lg py-5 text-black-400">No data found</p>}
+
+        {/* No Data Found Message */}
+        {data.length === 0 && (
+          <p className="text-center text-lg py-5 text-black-400">
+            No data found
+          </p>
+        )}
       </div>
 
       <div className="last mt-6 flex items-center justify-between">
@@ -193,11 +261,19 @@ const AdminLists = () => {
           Showing Page {currentPage} of {totalPage}
         </p>
         <div className="flex items-center bg-black-100 border border-black-300 rounded-md">
-          <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none" disabled={!prev} onClick={handlePrevPage}>
+          <button
+            className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
+            disabled={!prev}
+            onClick={handlePrevPage}
+          >
             Previous
           </button>
           <div className="px-4 py-2 bg-blue-500 text-white">{currentPage}</div>
-          <button className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none" disabled={!next} onClick={handleNextPage}>
+          <button
+            className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
+            disabled={!next}
+            onClick={handleNextPage}
+          >
             Next
           </button>
         </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { FaCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
