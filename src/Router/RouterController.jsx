@@ -126,16 +126,6 @@ const router = createBrowserRouter([
   // user dashboard
 
   {
-    path: "/user-general-details",
-    element: (
-      <>
-        <DashboardLayout>
-          <UserGeneralDetails />
-        </DashboardLayout>
-      </>
-    ),
-  },
-  {
     path: "/user-password-change",
     element: (
       <>
@@ -182,7 +172,26 @@ const router = createBrowserRouter([
         ),
       },
 
-
+      {
+        path: "user-general-details",
+        element: (
+          <>
+            <DashboardLayout>
+              <UserGeneralDetails />
+            </DashboardLayout>
+          </>
+        ),
+      },
+      {
+        path: "user-profile-change",
+        element: (
+          <>
+            <DashboardLayout>
+              <UserProfileChange />
+            </DashboardLayout>
+          </>
+        ),
+      },
       {
         path: "payment-status-success/:id",
         element: (

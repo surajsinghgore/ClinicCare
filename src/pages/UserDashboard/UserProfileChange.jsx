@@ -1,16 +1,50 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { FaUpload } from "react-icons/fa6";
+import { useDispatch, useSelector } from 'react-redux';
+import { hideLoader, showLoader } from '../../redux/Slices/LoaderState';
+import { updateMeUserProfileByIdApi } from '../../Utils/services/apis/User/UserPersonalApi';
+import { showAlert } from '../../redux/Slices/AlertToggleState';
+import { fetchMyUserDetails } from '../../redux/Slices/GetMyActiveUserDetails';
 
 const UserProfileChange = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const { getMyUserDetails } = useSelector((state) => state.getMyUserDetails);
+  const dispatch = useDispatch();
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
-      setSelectedImage(URL.createObjectURL(file));
+      setSelectedImage(file);
     } else {
-      alert("Please select an image file.");
+      dispatch(showAlert({ message: "Please select an image file..", type: "failed" }));
+
+    }
+  };
+
+  const updateUserProfilePhoto = async () => {
+    if (!selectedImage) {
+      dispatch(showAlert({ message: "Please upload the newly updated photo.", type: "failed" }));
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append('profileImage', selectedImage);
+
+    dispatch(showLoader());
+
+    try {
+      const res = await updateMeUserProfileByIdApi(formData);
+
+      if (res.success) {
+        dispatch(fetchMyUserDetails());
+        dispatch(showAlert({ message: res.message, type: "success" }));
+      }
+
+    } catch (error) {
+      dispatch(showAlert({ message: error?.response?.data?.message || "Failed to update profile image", type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
     }
   };
 
@@ -44,7 +78,7 @@ const UserProfileChange = () => {
         <div className="flex flex-col items-center">
           <p className="mb-2 text-lg font-medium">Profile Image</p>
           <img
-            src={selectedImage || "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600"}
+            src={selectedImage ? URL.createObjectURL(selectedImage) : getMyUserDetails?.profileUrl}  // Show the uploaded image or the current one
             alt="Profile"
             className="w-[250px] h-[250px] rounded-full object-cover shadow-md"
           />
@@ -54,6 +88,7 @@ const UserProfileChange = () => {
       {/* Upload Button */}
       <div className="flex justify-center">
         <button
+          onClick={updateUserProfilePhoto}
           className="w-[200px] py-3 bg-[#0148B1] text-white rounded-full hover:bg-blue-500 transition duration-150"
         >
           Click to upload

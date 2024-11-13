@@ -50,3 +50,46 @@ export const userRegisterValidationSchema = yup.object().shape({
     .trim(),
 });
 
+
+export const userUpdateValidationSchema = yup.object().shape({
+  name: yup.string().min(3, "Name must be at least 3 characters long.").trim().optional(),
+
+  dob: yup.date().typeError("Date of birth must be a valid date in YYYY-MM-DD format.").optional(),
+
+  email: yup
+    .string()
+    .email("Must be a valid email address.")
+    .matches(/^([a-zA-Z0-9._-]+)@gmail\.com$/, "Only Gmail addresses are allowed.")
+    .trim()
+    .optional(),
+
+  mobile: yup
+    .string()
+    .length(10, "Mobile number must be exactly 10 digits long.")
+    .matches(/^[0-9]{10}$/, "Mobile number must contain only digits.")
+    .optional(),
+
+  bloodGroup: yup
+    .string()
+    .oneOf(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"], "Invalid blood group.")
+    .optional(),
+
+  address: yup.string().min(5, "Address must be at least 5 characters long.").trim().optional(),
+
+  state: yup.string().trim().optional(),
+
+  city: yup.string().trim().optional(),
+
+  country: yup.string().trim().optional(),
+
+  pincode: yup
+    .string()
+    .length(6, "Pincode must be exactly 6 digits long.")
+    .matches(/^[0-9]{6}$/, "Pincode must contain only digits.")
+    .optional(),
+
+  gender: yup
+    .string()
+    .oneOf(["male", "female", "other"], "Gender must be either male, female, or other.")
+    .optional(),
+});

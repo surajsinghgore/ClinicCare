@@ -51,6 +51,7 @@ const DashboardLayout = ({ children }) => {
     }
   };
 
+  
   return (
     <div className={"main"}>
       {isManuallyVisible && <div className="fixed top-0 left-0 w-full z-50">{renderAlert()}</div>}
