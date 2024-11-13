@@ -64,17 +64,17 @@ const DashboardNav = () => {
       <section className="h-full w-[16rem] py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between space-y-2">
           <UserNav
-            link="/user-general-details"
+            link="/user/user-general-details"
             title="General"
             icons={<FaUserAlt className="text-2xl text-black-800" />}
           />
           <UserNav
-            link="/user-password-change"
+            link="/user/user-password-change"
             title="Password"
             icons={<MdPassword className="text-2xl text-black-800" />}
           />
           <UserNav
-            link="/user-appointment"
+            link="/user/user-appointment"
             title="Appointment"
             icons={<MdEventNote className="text-2xl text-black-800" />}
           />

@@ -38,6 +38,7 @@ const UserProfileChange = () => {
 
       if (res.success) {
         dispatch(fetchMyUserDetails());
+        setSelectedImage([])
         dispatch(showAlert({ message: res.message, type: "success" }));
       }
 

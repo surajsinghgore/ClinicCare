@@ -14,3 +14,9 @@ export const updateMeUserProfileByIdApi = async (payload) => {
   const res = await axiosInstance.patch(`/v1/user/update-my-profile`, payload);
   return res.data;
 };
+
+
+export const changeUserActivePasswordApi = async (payload) => {
+  const res = await axiosInstance.patch(`/v1/user/update-my-password`, payload);
+  return res.data;
+};
