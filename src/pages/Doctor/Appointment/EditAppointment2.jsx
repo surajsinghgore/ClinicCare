@@ -312,7 +312,11 @@ const EditAppointment2 = () => {
 
           <em className="text-black-400">Press enter to add new tests</em>
         </div>
+        <div className="btn flex justify-end gap-3">
+          <button className="px-5 font-medium py-2 bg-[#01962e] text-white rounded" >Complete Appointment</button>
+                </div>
       </div>
+    
     </div>
   );
 };

@@ -43,3 +43,11 @@ export const searchTodayAppointmentsByTime = async (time) => {
 
   return res.data;
 };
+
+
+
+
+export const fetchDoctorAppointmentById = async (id) => {
+  const res = await axiosInstance.get(`/v1/doctor/appointment/get-doctor-appointment-by-id/${id}`);
+  return res.data;
+};
