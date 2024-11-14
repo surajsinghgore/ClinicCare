@@ -1,11 +1,9 @@
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
-import { FaBookMedical } from "react-icons/fa";
 import AppointmentDetails from "../../../components/Doctor/AppointmentDetails";
 import { FaUser, FaEnvelope, FaTransgender, FaTint } from "react-icons/fa";
 import { GiMedicines } from "react-icons/gi";
 import { FaSyringe, FaClock, FaCalendarAlt } from "react-icons/fa";
 import { FaUserDoctor, FaStethoscope, FaPhoneFlip } from "react-icons/fa6";
-import { FaDisease } from "react-icons/fa";
 import { FaRegStickyNote } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { GrTransaction } from "react-icons/gr";
