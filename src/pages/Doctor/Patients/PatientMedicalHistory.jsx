@@ -65,12 +65,6 @@ const PatientMedicalHistory = () => {
               icon={<FaUser />}
             />
             <AppointmentDetails
-              field={"Patient Name"}
-              //   value={DoctorAppointmentById?.patientName}
-              value={"John Doe"}
-              icon={<FaUser />}
-            />
-            <AppointmentDetails
               field={"Email"}
               //   value={DoctorAppointmentById?.patientEmail}
               value={"johndoe@example.com"}
