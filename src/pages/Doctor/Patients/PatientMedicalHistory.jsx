@@ -7,7 +7,7 @@ import { GiMedicines } from "react-icons/gi";
 import { FaSyringe, FaClock, FaCalendarAlt } from "react-icons/fa";
 import { FaUserDoctor, FaStethoscope } from "react-icons/fa6";
 import { MdDateRange } from "react-icons/md";
-import { GoNumber } from "react-icons/go";
+import { PiCertificate } from "react-icons/pi";
 import { BiMessageRoundedError } from "react-icons/bi";
 import { FaNotesMedical, FaCalendarDay } from "react-icons/fa";
 import { GiHypodermicTest } from "react-icons/gi";
@@ -57,6 +57,36 @@ const PatientMedicalHistory = () => {
               icon={<FaUser />}
             />
             <AppointmentDetails
+              field={"Treatment Name"}
+              //   value={DoctorAppointmentById?.treatmentName}
+              value={"Heart Checkup"}
+              icon={<FaStethoscope />}
+            />
+            <AppointmentDetails
+              field={"Doctor Name"}
+              //   value={DoctorAppointmentById?.appointmentNumber}
+              value={"Dr. Joe"}
+              icon={<FaUserDoctor />}
+            />
+            <AppointmentDetails
+              field={"Doctor Specialization"}
+              //   value={DoctorAppointmentById?.appointmentNumber}
+              value={"Heart Surgeon"}
+              icon={<FaUserDoctor />}
+            />
+            <AppointmentDetails
+              field={"Doctors Degree"}
+              //   value={DoctorAppointmentById?.appointmentNumber}
+              value={"MBBS"}
+              icon={<PiCertificate />}
+            />
+            <AppointmentDetails
+              field={"Doctor Specialty"}
+              //   value={DoctorAppointmentById?.doctorSpecialization}
+              value={"Cardiology"}
+              icon={<FaUserDoctor />}
+            />
+            <AppointmentDetails
               field={"Clinic Name"}
               //   value={calculateAge(DoctorAppointmentById?.patientDob)}
               //   value={Medicare Clinic}
@@ -67,12 +97,6 @@ const PatientMedicalHistory = () => {
               //   value={calculateAge(DoctorAppointmentById?.patientDob)}
               value={30}
               icon={<FaRegHospital />}
-            />
-            <AppointmentDetails
-              field={"Doctor Specialty"}
-              //   value={DoctorAppointmentById?.doctorSpecialization}
-              value={"Cardiology"}
-              icon={<FaUserDoctor />}
             />
             <AppointmentDetails
               field={"Appointment Date"}
@@ -87,17 +111,21 @@ const PatientMedicalHistory = () => {
               icon={<FaClock />}
             />
             <AppointmentDetails
-              field={"Treatment Name"}
-              //   value={DoctorAppointmentById?.treatmentName}
-              value={"Heart Checkup"}
-              icon={<FaStethoscope />}
-            />
-            <AppointmentDetails
               field={"Appointment Status"}
               //   value={DoctorAppointmentById?.transactionStatus}
               value={"Completed"}
               icon={<BiMessageRoundedError />}
             />
+          </div>
+
+          {/* view clinic button */}
+          <div className="btn flex justify-end gap-3 mb-10">
+            <button
+              className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
+              type="submit"
+            >
+              View Clinic in Map
+            </button>
           </div>
 
           <hr className="border-black-300 mb-14" />
