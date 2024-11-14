@@ -8,7 +8,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { RiMedicineBottleLine } from "react-icons/ri";
 import { FaPills, FaSyringe, FaClock, FaCalendarAlt } from "react-icons/fa";
 import { FaNotesMedical, FaCalendarDay, FaRegStickyNote } from "react-icons/fa";
-import { LuTestTubes } from "react-icons/lu";
+import { GiHypodermicTest } from "react-icons/gi";
 import AppointmentDetails from "../../../components/Doctor/AppointmentDetails";
 import { useEffect, useState } from "react";
 import { TagsInput } from "react-tag-input-component";
@@ -260,7 +260,7 @@ const EditAppointment2 = () => {
               onClick={addMedicine}
               required
               autoComplete="off"
-              className="bg-[#034EB0] text-white px-5 font-medium py-2 rounded"
+              className="bg-[#034EB0] hover:bg-blue-500 duration-150 text-white px-5 font-medium py-2 rounded"
             >
               Add Medicine
             </button>
@@ -333,7 +333,7 @@ const EditAppointment2 = () => {
         {/* medicine */}
         <div className="mt-16">
           <h1 className="text-3xl font-medium mb-10 flex gap-3">
-            Request Patient Diagnostic Tests: <LuTestTubes />
+            Request Patient Diagnostic Tests: <GiHypodermicTest />
           </h1>
 
           {/* Label for the diagnostic tests */}
