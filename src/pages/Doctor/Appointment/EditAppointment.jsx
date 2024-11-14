@@ -127,7 +127,7 @@ const EditAppointment = () => {
         {/* Read-only input fields */}
         <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
           <AppointmentDetails
-            field={"Appointment ID"}
+            field={"Appointment Number"}
             value={DoctorAppointmentById?.appointmentNumber}
             icon={<FaUser />}
           />
