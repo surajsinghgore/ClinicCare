@@ -62,6 +62,7 @@ import UserProfileChange from "../pages/UserDashboard/UserProfileChange";
 import EditAppointment from "../pages/Doctor/Appointment/EditAppointment";
 import EditAppointment2 from "../pages/Doctor/Appointment/EditAppointment2";
 import PatientsDetails from "../pages/Doctor/Patients/PatientsDetails";
+import PatientMedicalHistory from "../pages/Doctor/Patients/PatientMedicalHistory";
 
 const router = createBrowserRouter([
   {
@@ -526,6 +527,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <PatientsDetails />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "patient-medical-history",
+        element: (
+          <DoctorLayout>
+            <PatientMedicalHistory />
           </DoctorLayout>
         ),
       },
