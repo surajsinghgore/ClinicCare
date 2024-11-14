@@ -67,6 +67,12 @@ const EditAppointment = () => {
       ],
     });
   };
+
+  useEffect(() => {
+    if (!id) {
+      navigate('/doctor/todays-appointment?limit=10&page=1&type=all')
+    }
+  }, [])
   return (
     <div>
       {/* BreadCrumbs for navigation */}
@@ -85,14 +91,18 @@ const EditAppointment = () => {
         {/* steps for form */}
         <div className="flex p-3 items-center justify-center mb-10 bg-white">
           <div className="flex gap-10 p-4 select-none">
+
+
             <div className="flex items-center gap-2 border-b-2 border-[#034EB0] pb-1">
               <IoDocuments className="text-[#034EB0] text-2xl" />
               <span className="text-[#034EB0] font-medium">Form 1</span>
             </div>
-            <div className="flex items-center gap-2">
-              <IoDocuments className="text-black-500 text-2xl" />
-              <span className="text-black-500 font-medium">Form 2</span>
-            </div>
+            <Link to={`/doctor/edit-appointment-form2/${id}`}>
+              <div className="flex items-center gap-2">
+                <IoDocuments className="text-black-500 text-2xl" />
+                <span className="text-black-500 font-medium">Form 2</span>
+              </div>
+            </Link>
           </div>
         </div>
 
