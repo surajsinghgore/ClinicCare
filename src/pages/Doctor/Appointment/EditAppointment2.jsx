@@ -12,6 +12,7 @@ import { GiHypodermicTest } from "react-icons/gi";
 import AppointmentDetails from "../../../components/Doctor/AppointmentDetails";
 import { useState } from "react";
 import { TagsInput } from "react-tag-input-component";
+import { Link } from "react-router-dom";
 
 const EditAppointment2 = () => {
   const [medicines, setMedicines] = useState([
@@ -62,13 +63,15 @@ const EditAppointment2 = () => {
 
         {/* Profile Image and Name Centered */}
         <div className="center flex flex-col items-center justify-center mb-14">
-          <div className="img-circle w-52 h-52 rounded-full overflow-hidden border-2 border-black">
-            <img
-              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600"
-              alt="profile image"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <Link to={"/doctor/patient-details"}>
+            <div className="img-circle w-52 h-52 rounded-full overflow-hidden border-2 border-black">
+              <img
+                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt="profile image"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </Link>
           <p className="mt-3 text-2xl font-medium">Suraj Singh</p>
         </div>
 
@@ -313,10 +316,11 @@ const EditAppointment2 = () => {
           <em className="text-black-400">Press enter to add new tests</em>
         </div>
         <div className="btn flex justify-end gap-3">
-          <button className="px-5 font-medium py-2 bg-[#01962e] text-white rounded" >Complete Appointment</button>
-                </div>
+          <button className="px-5 font-medium py-2 bg-[#01962e] text-white rounded">
+            Complete Appointment
+          </button>
+        </div>
       </div>
-    
     </div>
   );
 };
