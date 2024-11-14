@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { FaRegHospital } from "react-icons/fa";
 import LeftNavLink from "../Common/LeftNavLink";
 import { BiClinic } from "react-icons/bi";
@@ -31,34 +31,34 @@ const DoctorNavbar = () => {
       </section>
       <section className="h-full w-[17rem] py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between">
-            <LeftNavLink 
-                link="/doctor" 
-                title="Clinic" 
-                icons={<FaRegHospital className=" icon text-2xl text-black-800" />} 
-                submenuItems={[
-                    { link: "/doctor/add-clinic-page1", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/clinics-list?page=1&limit=10", title: "Clinic List", icon: <FaListAlt className=" icon text-2xl text-black-800" /> },
-                    // { link: "/doctor/update-clinic", title: "Update Clinic", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
-                ]}
-            />
-            <LeftNavLink 
-                link="/doctor" 
-                title="Services" 
-                icons={<MdOutlineHomeRepairService className=" icon text-2xl text-black-800" />} 
-                submenuItems={[
-                    { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/services-list?page=1&limit=10", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
-                ]}
-            />
-            <LeftNavLink 
-                link="/doctor" 
-                title="Appointment" 
-                icons={<RiCalendarScheduleLine className=" icon text-2xl text-black-800" />} 
-                submenuItems={[
-                    { link: "/doctor/todays-appointment?page=1&limit=10&type=all", title: "Today's Appointments", icon: <GrSchedule className=" icon text-2xl text-black-800" /> },
-                    { link: "/doctor/appointment-list", title: "All Appointments", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
-                ]}
-            />
+          <LeftNavLink
+            link="/doctor"
+            title="Clinic"
+            icons={<FaRegHospital className=" icon text-2xl text-black-800" />}
+            submenuItems={[
+              { link: "/doctor/add-clinic-page1", title: "Add Clinic", icon: <BiClinic className=" icon text-2xl text-black-800" /> },
+              { link: "/doctor/clinics-list?page=1&limit=10", title: "Clinic List", icon: <FaListAlt className=" icon text-2xl text-black-800" /> },
+              // { link: "/doctor/update-clinic", title: "Update Clinic", icon: <FaRegEdit className=" icon text-2xl text-black-800" /> },
+            ]}
+          />
+          <LeftNavLink
+            link="/doctor"
+            title="Services"
+            icons={<MdOutlineHomeRepairService className=" icon text-2xl text-black-800" />}
+            submenuItems={[
+              { link: "/doctor/add-services", title: "Add Services", icon: <FaHospitalUser className=" icon text-2xl text-black-800" /> },
+              { link: "/doctor/services-list?page=1&limit=10", title: "View Services", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
+            ]}
+          />
+          <LeftNavLink
+            link="/doctor"
+            title="Appointment"
+            icons={<RiCalendarScheduleLine className=" icon text-2xl text-black-800" />}
+            submenuItems={[
+              { link: "/doctor/todays-appointment?page=1&limit=10&type=all", title: "Today's Appointments", icon: <GrSchedule className=" icon text-2xl text-black-800" /> },
+              { link: "/doctor/appointment-list?page=1&limit=10", title: "All Appointments", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
+            ]}
+          />
         </nav>
       </section>
     </div>

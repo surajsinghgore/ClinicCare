@@ -12,9 +12,9 @@ import {
   getTodayAppointmentByAppointmentNumber,
   getTodayAppointmentsByTreatmentName,
   getTodayAppointmentsByUserName,
+  processRejectAppointmentByAppointmentId,
   searchTodayAppointmentsByTime,
 } from "../../../Utils/services/apis/Doctor/AppointmentApi";
-import { deleteAdminApi } from "../../../Utils/services/apis/Admin/AdminApi";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 
 const TodayAppointment = () => {
@@ -189,7 +189,8 @@ const TodayAppointment = () => {
   // cancelledAppointment
   const cancelledAppointment = async (id) => {
     try {
-      let res = await deleteAdminApi(id);
+      dispatch(showLoader());
+      let res = await processRejectAppointmentByAppointmentId(id);
       if (res.success) {
         dispatch(showAlert({ message: res.message, type: "success" }));
         dataFetch();
@@ -211,7 +212,7 @@ const TodayAppointment = () => {
 
     confirmAlert({
       title: "Confirm to delete",
-      message: "Are you sure you want to canceled this appointment?",
+      message: "Are you sure you want to rejected this appointment?",
       buttons: [
         {
           label: "Yes",
