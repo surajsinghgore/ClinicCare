@@ -11,13 +11,14 @@ import { BiMessageRoundedError } from "react-icons/bi";
 import AppointmentDetails from "../../../components/Doctor/AppointmentDetails";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
-import { hideLoader } from "../../../redux/Slices/LoaderState";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { deleteAdminApi } from "../../../Utils/services/apis/Admin/AdminApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchDoctorAppointmentDetailsById } from "../../../redux/Slices/FetchDoctorAppointmentById";
 import { calculateAge } from "../../../Utils/DateFormatFunction";
+import { processRejectAppointmentByAppointmentId } from "../../../Utils/services/apis/Doctor/AppointmentApi";
 
 const EditAppointment = () => {
   const { id } = useParams()
@@ -33,9 +34,11 @@ const EditAppointment = () => {
 
   const cancelledAppointment = async (id) => {
     try {
-      let res = await deleteAdminApi(id);
+      dispatch(showLoader());
+      let res = await processRejectAppointmentByAppointmentId(id);
       if (res.success) {
         dispatch(showAlert({ message: res.message, type: "success" }));
+        navigate("/doctor/todays-appointment?page=1&limit=10&type=rejected")
       }
     } catch (error) {
       console.log(error);
@@ -48,13 +51,12 @@ const EditAppointment = () => {
   }
 
 
-
   // Function to show confirmation alert
   const confirmDelete = (appointmentId) => {
 
     confirmAlert({
       title: "Confirm to delete",
-      message: "Are you sure you want to canceled this appointment?",
+      message: "Are you sure you want to rejected this appointment?",
       buttons: [
         {
           label: "Yes",

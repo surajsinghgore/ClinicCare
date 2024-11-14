@@ -49,7 +49,17 @@ export const fetchDoctorAppointmentById = async (id) => {
   return res.data;
 };
 
-export const processAppointmentByAppointmentId = async (id,payload) => {
-  const res = await axiosInstance.post(`/v1/doctor/appointment/process-appointment-by-id/${id}`,payload);
+export const processAppointmentByAppointmentId = async (id, payload) => {
+  const res = await axiosInstance.post(`/v1/doctor/appointment/process-appointment-by-id/${id}`, payload);
+  return res.data;
+};
+
+export const processRejectAppointmentByAppointmentId = async (id) => {
+  const res = await axiosInstance.patch(`/v1/doctor/appointment/process-reject-appointment-by-id/${id}`);
+  return res.data;
+};
+
+export const getAllDetailedAppointmentsApi = async (page = 1, limit = 10) => {
+  const res = await axiosInstance.get(`/v1/doctor/appointment/get-my-all-appointment?page=${page}&limit=${limit}`);
   return res.data;
 };
