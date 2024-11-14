@@ -63,6 +63,7 @@ import EditAppointment from "../pages/Doctor/Appointment/EditAppointment";
 import EditAppointment2 from "../pages/Doctor/Appointment/EditAppointment2";
 import PatientsDetails from "../pages/Doctor/Patients/PatientsDetails";
 import PatientMedicalHistory from "../pages/Doctor/Patients/PatientMedicalHistory";
+import ViewAppointment from "../pages/Doctor/Appointment/ViewAppointment";
 
 const router = createBrowserRouter([
   {
@@ -503,6 +504,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <AppointmentList />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "view-appointment",
+        element: (
+          <DoctorLayout>
+            <ViewAppointment />
           </DoctorLayout>
         ),
       },
