@@ -505,7 +505,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "edit-appointment-form1",
+        path: "edit-appointment-form1/:id",
         element: (
           <DoctorLayout>
             <EditAppointment />
@@ -513,7 +513,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "edit-appointment-form2",
+        path: "edit-appointment-form2/:id",
         element: (
           <DoctorLayout>
             <EditAppointment2 />

@@ -134,7 +134,7 @@ const EditAppointment = () => {
         {/* buttons */}
         <div className="btn flex justify-end gap-3">
             <button className="px-5 font-medium py-2 bg-danger text-white rounded">Reject</button>
-            <button className="px-5 font-medium py-2 bg-[#034EB0] text-white rounded">Process</button>
+            <button className="px-5 font-medium py-2 bg-[#034EB0] hover:bg-blue-500 duration-150 text-white rounded">Process</button>
         </div>
       </div>
     </div>
