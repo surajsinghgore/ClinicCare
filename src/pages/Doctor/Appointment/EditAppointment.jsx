@@ -1,5 +1,5 @@
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
-import { TiEdit } from "react-icons/ti";
+import { FaWpforms } from "react-icons/fa6";
 import { FaUser, FaEnvelope, FaTransgender, FaTint } from "react-icons/fa";
 import { FaUserDoctor, FaClock, FaStethoscope, FaPhoneFlip } from "react-icons/fa6";
 import { IoDocuments } from "react-icons/io5";
@@ -83,8 +83,8 @@ const EditAppointment = () => {
         {/* Heading Section */}
         <div className="heading mb-6">
           <h1 className="flex gap-4 text-3xl font-medium underline">
-            Edit Appointment
-            <TiEdit size={35} className="text-[#034EB0]" />
+            Patient Appointment Details
+            <FaWpforms size={35} className="text-[#034EB0]" />
           </h1>
         </div>
 

@@ -1,7 +1,6 @@
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import {
   FaUserCircle,
-  FaUser,
   FaEnvelope,
   FaTransgender,
   FaTint,
@@ -76,23 +75,9 @@ const PatientsDetails = () => {
 
         {/* Details Section */}
         <h1 className="text-2xl text-black-600 mb-10 font-medium flex gap-3">
-          Edit User Details:
+          General User Details:
         </h1>
         <div className="details mt-4 mb-6 grid grid-cols-4 gap-5">
-          {/* Name */}
-          <div className="flex flex-col">
-            <label className="flex items-center gap-2 text-lg font-medium text-black-600">
-              <FaUser /> Name <span className="text-danger text-xl">*</span>
-            </label>
-            <input
-              type="text"
-              className="border border-black-300 rounded-md p-2"
-              placeholder="Enter Name"
-              required
-              autoComplete="off"
-            />
-          </div>
-
           {/* Age */}
           <div className="flex flex-col">
             <label className="flex items-center gap-2 text-lg font-medium text-black-600">
@@ -100,10 +85,8 @@ const PatientsDetails = () => {
             </label>
             <input
               type="number"
-              className="border border-black-300 rounded-md p-2"
-              placeholder="Enter Age"
-              required
-              autoComplete="off"
+              className="bg-black-100 border border-black-300 rounded-md p-2"
+              readOnly
             />
           </div>
 
@@ -115,10 +98,8 @@ const PatientsDetails = () => {
             </label>
             <input
               type="text"
-              className="border border-black-300 rounded-md p-2"
-              placeholder="Enter Gender"
-              required
-              autoComplete="off"
+              className="bg-black-100 border border-black-300 rounded-md p-2"
+              readOnly
             />
           </div>
 
@@ -130,10 +111,8 @@ const PatientsDetails = () => {
             </label>
             <input
               type="email"
-              className="border border-black-300 rounded-md p-2"
-              placeholder="Enter Email"
-              required
-              autoComplete="off"
+              className="bg-black-100 border border-black-300 rounded-md p-2"
+              readOnly
             />
           </div>
 
@@ -145,10 +124,8 @@ const PatientsDetails = () => {
             </label>
             <input
               type="tel"
-              className="border border-black-300 rounded-md p-2"
-              placeholder="Enter Phone Number"
-              required
-              autoComplete="off"
+              className="bg-black-100 border border-black-300 rounded-md p-2"
+              readOnly
             />
           </div>
 
@@ -160,10 +137,8 @@ const PatientsDetails = () => {
             </label>
             <input
               type="text"
-              className="border border-black-300 rounded-md p-2"
-              placeholder="Enter Blood Group"
-              required
-              autoComplete="off"
+              className="bg-black-100 border border-black-300 rounded-md p-2"
+              readOnly
             />
           </div>
         </div>
@@ -173,7 +148,7 @@ const PatientsDetails = () => {
           Medical History <FaHistory />
         </h1>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+          <table className="w-full border-collapse bg-white rounded-lg overflow-hidden">
             <thead>
               <tr className="bg-[#034EB0] text-white uppercase text-base leading-normal">
                 <th className="p-4 text-left">ID</th>
@@ -212,6 +187,7 @@ const PatientsDetails = () => {
               ))}
             </tbody>
           </table>
+          <p className="text-black-600 flex cursor-pointer">Load More </p>
         </div>
       </div>
     </div>
