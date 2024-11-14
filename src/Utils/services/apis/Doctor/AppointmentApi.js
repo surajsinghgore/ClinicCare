@@ -63,3 +63,23 @@ export const getAllDetailedAppointmentsApi = async (page = 1, limit = 10) => {
   const res = await axiosInstance.get(`/v1/doctor/appointment/get-my-all-appointment?page=${page}&limit=${limit}`);
   return res.data;
 };
+
+export const searchDoctorAllAppointmentsApi = async (appointmentId = "", patientName = "", appointmentDate = "", status = "") => {
+  // Create an object to hold the query parameters
+  const queryObj = {};
+
+  // Add parameters to the query only if they have a value
+  if (appointmentId) queryObj.appointmentId = appointmentId;
+  if (patientName) queryObj.patientName = patientName;
+  if (appointmentDate) queryObj.appointmentDate = appointmentDate;
+  if (status) queryObj.status = status;
+
+  // Use URLSearchParams to convert the object to a query string
+  const query = new URLSearchParams(queryObj).toString();
+
+  // Make the GET request with the properly formatted query string
+  const res = await axiosInstance.get(`/v1/doctor/appointment/search-get-my-all-appointment?${query}`);
+  
+  return res.data;
+};
+

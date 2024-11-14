@@ -2,7 +2,7 @@ import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { FaCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
 import { MdEditSquare, MdPreview } from "react-icons/md";
-import { getAllDetailedAppointmentsApi, processRejectAppointmentByAppointmentId } from "../../../Utils/services/apis/Doctor/AppointmentApi";
+import { getAllDetailedAppointmentsApi, processRejectAppointmentByAppointmentId, searchDoctorAllAppointmentsApi } from "../../../Utils/services/apis/Doctor/AppointmentApi";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,12 @@ import { confirmAlert } from "react-confirm-alert";
 
 const AppointmentList = () => {
   const [data, setData] = useState([]);
+  const [searchParams, setSearchParams] = useState({
+    appointmentId: "",
+    patientName: "",
+    appointmentDate: "",
+    status: "",
+  });
   const queryParams = new URLSearchParams(location.search);
   const [limit, setLimit] = useState(queryParams.get("limit") || 10);
   const [currentPage, setCurrentPage] = useState(
@@ -97,21 +103,59 @@ const AppointmentList = () => {
 
   const confirmDelete = (appointmentId) => {
 
-confirmAlert({
-  title: "Confirm to delete",
-  message: "Are you sure you want to rejected this appointment?",
-  buttons: [
-    {
-      label: "Yes",
-      onClick: () => cancelledAppointment(appointmentId),
-    },
-    {
-      label: "No",
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to rejected this appointment?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => cancelledAppointment(appointmentId),
+        },
+        {
+          label: "No",
 
-    },
-  ],
-});
-};
+        },
+      ],
+    });
+  };
+
+
+  const searchFetch = useCallback(async () => {
+  try {
+    dispatch(showLoader());
+
+    // Destructure searchParams correctly
+    const { appointmentId, patientName, appointmentDate, status } = searchParams;
+
+    // Call the API function with the current search parameters
+    const res = await searchDoctorAllAppointmentsApi(appointmentId, patientName, appointmentDate, status);
+
+    // Check the response and update the state accordingly
+    if (res?.success) {
+      setData(res.data);
+      setTotalPage(res.pagination.totalPages);
+      setNext(res.pagination.hasNextPage);
+      setPrev(res.pagination.hasPrevPage);
+    }
+  } catch (error) {
+    console.error("Error searching appointments:", error);
+  } finally {
+    dispatch(hideLoader());
+  }
+}, [dispatch, currentPage, limit, searchParams]);
+
+
+  const handleSearchChange = (e) => {
+    setSearchParams({
+      ...searchParams,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSearch = () => {
+    setCurrentPage(1); // Reset to page 1 on search
+    searchFetch(); // Trigger the search
+  };
   return (
     <>
       <BreadCrumbs currentPath="Today's Appointment" />
@@ -120,46 +164,59 @@ confirmAlert({
         <div className="flex justify-between items-center mb-8 mt-7">
           <h2>All Appointment Records</h2>
         </div>
+
+
         <div className="mt-4 mb-10 flex space-x-3">
           <input
             type="text"
-            placeholder="Search Appointment Id ..."
+            placeholder="Search Appointment Number ..."
             className="border border-black-300 rounded-md px-3 py-1 w-[23%]"
-            name="searchAppointmentNumber"
+            name="appointmentId"
+            value={searchParams.appointmentId}
+            onChange={handleSearchChange}
           />
           <input
             type="text"
             placeholder="Search Patient Name..."
             className="border border-black-300 rounded-md px-3 py-1 w-[23%]"
-            name="searchPatientName"
+            name="patientName"
+            value={searchParams.patientName}
+            onChange={handleSearchChange}
           />
           <input
             type="date"
-            placeholder="Select Date of Birth"
+            placeholder="Select Appointment Date"
             className="border border-black-300 rounded-md px-3 py-1 w-[23%]"
-            name="dob"
-            max={new Date().toISOString().split("T")[0]} // Sets max date to today
+            name="appointmentDate"
+            value={searchParams.appointmentDate}
+            onChange={handleSearchChange}
           />
-
           <div className="status-picker">
             <select
               id="status"
               name="status"
               className="border border-black-300 rounded-md px-10 py-2 w-full"
+              value={searchParams.status}
+              onChange={handleSearchChange}
             >
               <option value="">Select Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
               <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+              <option value="rejected">Rejected</option>
             </select>
           </div>
-
           <div className="btn">
-            <button className="rounded bg-[#116AEF] px-7 py-2 text-white">
+            <button
+              className="rounded bg-[#116AEF] px-7 py-2 text-white"
+              onClick={handleSearch}
+            >
               Search
             </button>
           </div>
         </div>
+
+
+
         <div className="mb-4">
           <div className="topSelect flex items-center justify-between">
             <div className="flex gap-1">
@@ -335,7 +392,7 @@ confirmAlert({
                   ))}
                 </>
               ) : (
-                <p className="min-w-full bg-white border border-black-300 p-4 w-full flex-1">
+                <p className="min-w-full bg-white  p-4 w-full flex-1">
                   No Appointment Found.
                 </p>
               )}
