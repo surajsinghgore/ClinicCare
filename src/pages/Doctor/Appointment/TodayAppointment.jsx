@@ -485,7 +485,7 @@ const TodayAppointment = () => {
                   ))}
                 </>
               ) : (
-                <p className="min-w-full bg-white border border-black-300 p-4 w-full flex-1">
+                <p className="min-w-full bg-white  p-4 w-full flex-1">
                   No Appointment Found.
                 </p>
               )}
