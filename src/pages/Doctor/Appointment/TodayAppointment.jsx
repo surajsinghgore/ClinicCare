@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
 import { FaCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
-import { MdEditSquare } from "react-icons/md";
+import { confirmAlert } from "react-confirm-alert";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import {
   getDetailedTodayAppointmentsApi,
   getDetailedTodayAppointmentStatsApi,
   getTodayAppointmentByAppointmentNumber,
-  getTodayAppointmentsBySearchApi,
   getTodayAppointmentsByTreatmentName,
   getTodayAppointmentsByUserName,
   searchTodayAppointmentsByTime,
 } from "../../../Utils/services/apis/Doctor/AppointmentApi";
+import { deleteAdminApi } from "../../../Utils/services/apis/Admin/AdminApi";
+import { showAlert } from "../../../redux/Slices/AlertToggleState";
 
 const TodayAppointment = () => {
   const dispatch = useDispatch();
@@ -184,6 +185,45 @@ const TodayAppointment = () => {
     }
   };
 
+
+  // cancelledAppointment
+  const cancelledAppointment = async (id) => {
+    try {
+      let res = await deleteAdminApi(id);
+      if (res.success) {
+        dispatch(showAlert({ message: res.message, type: "success" }));
+        dataFetch();
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        showAlert({ message: error?.response?.data?.message, type: "failed" })
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+
+
+
+  // Function to show confirmation alert
+  const confirmDelete = (appointmentId) => {
+
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to canceled this appointment?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => cancelledAppointment(appointmentId),
+        },
+        {
+          label: "No",
+
+        },
+      ],
+    });
+  };
   return (
     <>
       <BreadCrumbs currentPath="Today's Appointment" />
@@ -201,7 +241,7 @@ const TodayAppointment = () => {
         </div>
         <div className="mt-4 mb-10 flex space-x-4">
           <input
-            type="text"
+            type="number"
             placeholder="Search Appointment Id ..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
             name="searchAppointmentNumber"
@@ -241,45 +281,40 @@ const TodayAppointment = () => {
         </div>
         <div className="mt-4 mb-14 flex space-x-2">
           <div
-            className={`${
-              type === "all" ? "shadow-xl" : ""
-            } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-blue-400`}
+            className={`${type === "all" ? "shadow-xl" : ""
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-blue-400`}
             onClick={() => handleTypeChange("all")}
           >
             <p>Total: {fact?.totalOrders}</p>
           </div>
 
           <div
-            className={`${
-              type === "completed" ? "shadow-xl" : ""
-            } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-success`}
+            className={`${type === "completed" ? "shadow-xl" : ""
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-success`}
             onClick={() => handleTypeChange("completed")}
           >
             <p>Completed: {fact?.totalCompletedOrders}</p>
           </div>
 
           <div
-            className={`${
-              type === "pending" ? "shadow-xl" : ""
-            } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-warning`}
+            className={`${type === "pending" ? "shadow-xl" : ""
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-warning`}
             onClick={() => handleTypeChange("pending")}
           >
             <p>Pending: {fact?.totalPendingOrdersNotDelayed}</p>
           </div>
 
           <div
-            className={`${
-              type === "rejected" ? "shadow-xl" : ""
-            } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-danger`}
+            className={`${type === "rejected" ? "shadow-xl" : ""
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-danger`}
             onClick={() => handleTypeChange("rejected")}
           >
             <p>Rejected: {fact?.totalRejectedOrders}</p>
           </div>
 
           <div
-            className={`${
-              type === "delayed" ? "shadow-xl" : ""
-            } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-cyan-400`}
+            className={`${type === "delayed" ? "shadow-xl" : ""
+              } text-white flex items-center justify-center font-medium cursor-pointer px-4 py-3 rounded-md text-center w-full bg-cyan-400`}
             onClick={() => handleTypeChange("delayed")}
           >
             <p>Delayed: {fact?.totalDelayedOrders}</p>
@@ -374,7 +409,7 @@ const TodayAppointment = () => {
                       <td className="px-4 text-center text-sm py-2">
                         {record.userDob
                           ? new Date().getFullYear() -
-                            new Date(record.userDob).getFullYear()
+                          new Date(record.userDob).getFullYear()
                           : "N/A"}
                       </td>
 
@@ -418,27 +453,28 @@ const TodayAppointment = () => {
 
                       {/* Action Field with Conditional Buttons */}
                       <td className="px-4 text-center text-sm">
+
                         {record.status === "pending" ? (
                           <div className="flex gap-2">
-                            <button className="rounded p-1 text-xl text-success hover:text-[#2f8a38]">
-                              <FaCircleCheck title="Accept" />
-                            </button>
-                            <button className="rounded p-1 text-xl text-danger hover:text-[#8B0000]">
+                            <Link to={`/doctor/edit-appointment-form1/${record.appointmentId
+                              }`}>
+                              <button className="rounded p-1 text-xl text-success hover:text-[#2f8a38]"  >
+                                <FaCircleCheck title="Accept" />
+                              </button>
+                            </Link>
+                            <button className="rounded p-1 text-xl text-danger hover:text-[#8B0000]" onClick={() => confirmDelete(record.appointmentId)}>
                               <RxCrossCircled title="Delete" />
                             </button>
-                            <button className="rounded p-1 text-xl text-blue-500 hover:text-blue-700">
-                              <MdEditSquare title="Edit" />
-                            </button>
+
                           </div>
                         ) : (
                           <div
-                            className={`px-3 py-1 rounded-md text-white ${
-                              record.status === "completed"
-                                ? "bg-success"
-                                : record.status === "rejected"
+                            className={`px-3 py-1 rounded-md text-white ${record.status === "completed"
+                              ? "bg-success"
+                              : record.status === "rejected"
                                 ? "bg-danger"
                                 : ""
-                            }`}
+                              }`}
                           >
                             {record.status}
                           </div>
