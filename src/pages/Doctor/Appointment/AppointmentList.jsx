@@ -1,8 +1,12 @@
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { FaCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
-import { MdEditSquare, MdPreview } from "react-icons/md";
-import { getAllDetailedAppointmentsApi, processRejectAppointmentByAppointmentId, searchDoctorAllAppointmentsApi } from "../../../Utils/services/apis/Doctor/AppointmentApi";
+import { MdPreview } from "react-icons/md";
+import {
+  getAllDetailedAppointmentsApi,
+  processRejectAppointmentByAppointmentId,
+  searchDoctorAllAppointmentsApi,
+} from "../../../Utils/services/apis/Doctor/AppointmentApi";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -32,8 +36,7 @@ const AppointmentList = () => {
   const dataFetch = useCallback(async () => {
     try {
       dispatch(showLoader());
-      const res = await getAllDetailedAppointmentsApi(currentPage,
-        limit);
+      const res = await getAllDetailedAppointmentsApi(currentPage, limit);
 
       if (res?.success) {
         setData(res.data);
@@ -52,23 +55,18 @@ const AppointmentList = () => {
     dataFetch();
   }, [limit, currentPage]);
 
-
   const handleLimitChange = (e) => {
     const newLimit = e.target.value;
     setLimit(newLimit);
     setCurrentPage(1); // Reset to page 1
-    navigate(
-      `/doctor/appointment-list?limit=${newLimit}&page=${currentPage}`
-    );
+    navigate(`/doctor/appointment-list?limit=${newLimit}&page=${currentPage}`);
   };
 
   const handlePrevPage = () => {
     if (prev && currentPage > 1) {
       const newPage = currentPage - 1;
       setCurrentPage(newPage);
-      navigate(
-        `/doctor/appointment-list?limit=${limit}&page=${newPage}`
-      );
+      navigate(`/doctor/appointment-list?limit=${limit}&page=${newPage}`);
     }
   };
 
@@ -76,12 +74,9 @@ const AppointmentList = () => {
     if (next && currentPage < totalPage) {
       const newPage = currentPage + 1;
       setCurrentPage(newPage);
-      navigate(
-        `/doctor/appointment-list?limit=${limit}&page=${newPage}`
-      );
+      navigate(`/doctor/appointment-list?limit=${limit}&page=${newPage}`);
     }
   };
-
 
   const cancelledAppointment = async (id) => {
     try {
@@ -89,7 +84,7 @@ const AppointmentList = () => {
       let res = await processRejectAppointmentByAppointmentId(id);
       if (res.success) {
         dispatch(showAlert({ message: res.message, type: "success" }));
-        dataFetch()
+        dataFetch();
       }
     } catch (error) {
       console.log(error);
@@ -99,12 +94,11 @@ const AppointmentList = () => {
     } finally {
       dispatch(hideLoader());
     }
-  }
+  };
 
   const confirmDelete = (appointmentId) => {
-
     confirmAlert({
-      title: "Confirm to delete",
+      title: "Confirm to Reject",
       message: "Are you sure you want to rejected this appointment?",
       buttons: [
         {
@@ -113,37 +107,40 @@ const AppointmentList = () => {
         },
         {
           label: "No",
-
         },
       ],
     });
   };
 
-
   const searchFetch = useCallback(async () => {
-  try {
-    dispatch(showLoader());
+    try {
+      dispatch(showLoader());
 
-    // Destructure searchParams correctly
-    const { appointmentId, patientName, appointmentDate, status } = searchParams;
+      // Destructure searchParams correctly
+      const { appointmentId, patientName, appointmentDate, status } =
+        searchParams;
 
-    // Call the API function with the current search parameters
-    const res = await searchDoctorAllAppointmentsApi(appointmentId, patientName, appointmentDate, status);
+      // Call the API function with the current search parameters
+      const res = await searchDoctorAllAppointmentsApi(
+        appointmentId,
+        patientName,
+        appointmentDate,
+        status
+      );
 
-    // Check the response and update the state accordingly
-    if (res?.success) {
-      setData(res.data);
-      setTotalPage(res.pagination.totalPages);
-      setNext(res.pagination.hasNextPage);
-      setPrev(res.pagination.hasPrevPage);
+      // Check the response and update the state accordingly
+      if (res?.success) {
+        setData(res.data);
+        setTotalPage(res.pagination.totalPages);
+        setNext(res.pagination.hasNextPage);
+        setPrev(res.pagination.hasPrevPage);
+      }
+    } catch (error) {
+      console.error("Error searching appointments:", error);
+    } finally {
+      dispatch(hideLoader());
     }
-  } catch (error) {
-    console.error("Error searching appointments:", error);
-  } finally {
-    dispatch(hideLoader());
-  }
-}, [dispatch, currentPage, limit, searchParams]);
-
+  }, [dispatch, currentPage, limit, searchParams]);
 
   const handleSearchChange = (e) => {
     setSearchParams({
@@ -164,7 +161,6 @@ const AppointmentList = () => {
         <div className="flex justify-between items-center mb-8 mt-7">
           <h2>All Appointment Records</h2>
         </div>
-
 
         <div className="mt-4 mb-10 flex space-x-3">
           <input
@@ -214,8 +210,6 @@ const AppointmentList = () => {
             </button>
           </div>
         </div>
-
-
 
         <div className="mb-4">
           <div className="topSelect flex items-center justify-between">
@@ -269,7 +263,7 @@ const AppointmentList = () => {
                 <th className="text-left text-black-800 px-4 py-2 border-b">
                   status
                 </th>
-                <th className="text-left text-black-800 px-4 py-2 border-b">
+                <th className="text-center text-black-800 px-4 py-2 border-b">
                   Action
                 </th>
               </tr>
@@ -303,7 +297,7 @@ const AppointmentList = () => {
                       <td className="px-4 text-center text-sm py-2">
                         {record.userDob
                           ? new Date().getFullYear() -
-                          new Date(record.userDob).getFullYear()
+                            new Date(record.userDob).getFullYear()
                           : "N/A"}
                       </td>
 
@@ -321,8 +315,6 @@ const AppointmentList = () => {
                           : record.diseaseName}
                       </td>
 
-
-
                       {/* Time Field */}
                       <td className="px-4 text-center text-sm py-2">
                         {record.appointmentTime}
@@ -338,10 +330,8 @@ const AppointmentList = () => {
                             year: "numeric",
                           }
                         )}
-
                       </td>
                       <td className="px-2 text-center text-sm">
-
                         {record.status === "pending" ? (
                           <div
                             className={`px-2 py-1 rounded-md text-white bg-warning`}
@@ -350,12 +340,13 @@ const AppointmentList = () => {
                           </div>
                         ) : (
                           <div
-                            className={`px-2 py-1 rounded-md text-white ${record.status === "completed"
-                              ? "bg-success"
-                              : record.status === "rejected"
+                            className={`px-2 py-1 rounded-md text-white ${
+                              record.status === "completed"
+                                ? "bg-success"
+                                : record.status === "rejected"
                                 ? "bg-danger"
                                 : ""
-                              }`}
+                            }`}
                           >
                             {record.status}
                           </div>
@@ -363,27 +354,40 @@ const AppointmentList = () => {
                       </td>
                       {/* Action Field with Conditional Buttons */}
                       <td className="px-4 text-center text-sm">
-
                         {record.status === "pending" ? (
                           <div className="flex gap-2">
-                            <Link to={`/doctor/edit-appointment-form1/${record.appointmentId
-                              }`}>
-                              <button className="rounded p-1 text-xl text-success hover:text-[#2f8a38]"  >
+                            <Link
+                              to={`/doctor/edit-appointment-form1/${record.appointmentId}`}
+                            >
+                              <button className="rounded p-1 text-xl text-success hover:text-[#2f8a38]">
                                 <FaCircleCheck title="Accept" />
                               </button>
                             </Link>
-                            <button className="rounded p-1 text-xl text-danger hover:text-[#8B0000]" onClick={() => confirmDelete(record.appointmentId)}>
+                            <button
+                              className="rounded p-1 text-xl text-danger hover:text-[#8B0000]"
+                              onClick={() =>
+                                confirmDelete(record.appointmentId)
+                              }
+                            >
                               <RxCrossCircled title="Delete" />
                             </button>
-
                           </div>
                         ) : (
                           <div
                             className={`px-3 py-1 rounded-md text-xl flex justify-center items-center cursor-pointer text-primary`}
                           >
-                            <Link to={"/doctor/viewRecord/" + record?.patientTreatmentId}>
-                              <MdPreview title="View " />
-
+                            <Link
+                              to={
+                                "/doctor/view-appointment/" +
+                                record?.patientTreatmentId
+                              }
+                            >
+                              <button
+                                className="px-2 text-sm py-1 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
+                                type="submit"
+                              >
+                                view
+                              </button>
                             </Link>
                           </div>
                         )}
@@ -424,8 +428,6 @@ const AppointmentList = () => {
           </div>
         </div>
       </div>
-
-
     </>
   );
 };

@@ -508,7 +508,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "view-appointment",
+        path: "view-appointment/:id",
         element: (
           <DoctorLayout>
             <ViewAppointment />

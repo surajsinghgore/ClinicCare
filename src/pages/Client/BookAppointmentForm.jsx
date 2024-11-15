@@ -74,7 +74,7 @@ const BookAppointmentForm = () => {
               setAvailableTimeSlots(res.availableTimeSlots);
             }
           } catch (error) {
-            dispatch(showAlert({ message: error.response?.data?.error || "Error fetching time slots", type: "failed" }));
+            dispatch(showAlert({ message: error.response?.data?.error || "Please login to fetch time slots!!", type: "failed" }));
             setAvailableTimeSlots([]);
           } finally {
             dispatch(hideLoader());

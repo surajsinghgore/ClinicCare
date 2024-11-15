@@ -24,7 +24,7 @@ const ViewAppointment = () => {
           {/* Heading Section */}
           <div className="heading mb-10">
             <h1 className="flex gap-4 text-3xl font-medium underline">
-              Detailed Appointment Details
+              Appointment Details
               <FaFileMedical size={35} className="text-[#034EB0]" />
             </h1>
           </div>
@@ -324,14 +324,14 @@ const ViewAppointment = () => {
           </div>
 
           {/* Submit Button */}
-          {/* <div className="btn flex justify-end gap-3">
+          <div className="btn flex justify-end gap-3">
             <button
               className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
               type="submit"
             >
-              Download Full Report
+              Download Report
             </button>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

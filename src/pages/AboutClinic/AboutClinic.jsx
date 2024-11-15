@@ -130,7 +130,7 @@ const AboutClinic = () => {
             <div className='flex gap-5'>
               <div className='flex flex-col'>
                 <div className="flex items-center text-lg text-black-800">
-                  <span className="bg-blue-100 p-3 rounded-full text-blue-600 flex items-center justify-center "><FaHome /></span>
+                  <span className="p-3 rounded-full text-blue-600 flex items-center justify-center "><FaHome /></span>
                   <div className='flex items-center gap-3'>
                     <p className="font-semibold">Address:</p>
                     <p className="text-black-600">{clinic?.address}</p>
@@ -138,7 +138,7 @@ const AboutClinic = () => {
                 </div>
 
                 <div className="flex items-center text-lg text-black-800">
-                  <span className="bg-blue-100 p-3 rounded-full text-blue-600 flex items-center justify-center "><FaCity /></span>
+                  <span className="p-3 rounded-full text-blue-600 flex items-center justify-center "><FaCity /></span>
                   <div className='flex items-center gap-3'>
                     <p className="font-semibold">City:</p>
                     <p className="text-black-600">{clinic?.city}</p>
@@ -146,7 +146,7 @@ const AboutClinic = () => {
                 </div>
 
                 <div className="flex items-center text-lg text-black-800">
-                  <span className="bg-blue-100 p-3 rounded-full text-blue-600 flex items-center justify-center "><FaMapMarkedAlt /></span>
+                  <span className="p-3 rounded-full text-blue-600 flex items-center justify-center "><FaMapMarkedAlt /></span>
                   <div className='flex items-center gap-3'>
                     <p className="font-semibold">State:</p>
                     <p className="text-black-600">{clinic?.state}</p>
@@ -154,7 +154,7 @@ const AboutClinic = () => {
                 </div>
 
                 <div className="flex items-center text-lg text-black-800">
-                  <span className="bg-blue-100 p-3 rounded-full text-blue-600 flex items-center justify-center "><TbMapPinCode /></span>
+                  <span className="p-3 rounded-full text-blue-600 flex items-center justify-center "><TbMapPinCode /></span>
                   <div className='flex items-center gap-3'>
                     <p className="font-semibold">Pincode:</p>
                     <p className="text-black-600">{clinic?.pincode}</p>
@@ -164,7 +164,7 @@ const AboutClinic = () => {
 
               <div className='flex flex-col'>
                 <div className="flex items-center text-lg text-black-800">
-                  <span className="bg-blue-100 p-3 rounded-full text-blue-600 flex items-center justify-center"><FaPhoneAlt /></span>
+                  <span className="p-3 rounded-full text-blue-600 flex items-center justify-center"><FaPhoneAlt /></span>
                   <div className='flex items-center gap-3'>
                     <p className="font-semibold">Phone:</p>
                     <p className="text-black-600">{clinic?.contactNumber}</p>
@@ -182,8 +182,6 @@ const AboutClinic = () => {
 
 
 
-      {console.log(stat)}
-
       {/* Counter Section */}
       <div className="flex justify-around items-center mt-20 mb-20 px-3" >
         {/* Total Appointments Card */}
@@ -191,7 +189,7 @@ const AboutClinic = () => {
           <h3 className="text-xl mb-4 font-semibold text-white capitalized tracking-wide">Total Appointments</h3>
           <hr className="border-t-2 w-full border-white opacity-50 mb-4" />
           <CountUp end={stat?.totalAppointments} duration={2.5} className="text-3xl font-bold text-white" />
-        </div >
+        </div>
 
         {/* Total Services Card */}
         <div className="w-1/5 bg-[#005BCA] p-6 rounded-lg shadow-lg flex flex-col items-center transform transition-transform duration-300 hover:scale-105" >

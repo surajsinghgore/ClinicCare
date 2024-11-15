@@ -211,7 +211,7 @@ const TodayAppointment = () => {
   const confirmDelete = (appointmentId) => {
 
     confirmAlert({
-      title: "Confirm to delete",
+      title: "Confirm to Reject",
       message: "Are you sure you want to rejected this appointment?",
       buttons: [
         {

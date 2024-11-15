@@ -10,6 +10,9 @@ import { FaClipboardList } from "react-icons/fa6";
 import { MdOutlineHomeRepairService } from "react-icons/md";
 import { RiCalendarScheduleLine } from "react-icons/ri";
 import { GrSchedule } from "react-icons/gr";
+import { FaUserInjured } from "react-icons/fa";
+import { FcMoneyTransfer } from "react-icons/fc";
+import UserNav from "../../pages/UserDashboard/UserNav";
 
 const DoctorNavbar = () => {
   const dispatch = useDispatch();
@@ -58,6 +61,16 @@ const DoctorNavbar = () => {
               { link: "/doctor/todays-appointment?page=1&limit=10&type=all", title: "Today's Appointments", icon: <GrSchedule className=" icon text-2xl text-black-800" /> },
               { link: "/doctor/appointment-list?page=1&limit=10", title: "All Appointments", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
             ]}
+          />
+          <UserNav
+            link=""
+            title="Patients"
+            icons={<FaUserInjured className="text-2xl text-black-800" />}
+          />
+          <UserNav
+            link=""
+            title="Transactions"
+            icons={<FcMoneyTransfer className="text-2xl text-black-800" />}
           />
         </nav>
       </section>
