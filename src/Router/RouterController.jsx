@@ -65,6 +65,7 @@ import PatientsDetails from "../pages/Doctor/Patients/PatientsDetails";
 import PatientMedicalHistory from "../pages/Doctor/Patients/PatientMedicalHistory";
 import ViewAppointment from "../pages/Doctor/Appointment/ViewAppointment";
 import Transactions from "../pages/Doctor/Transaction/Transactions";
+import TransactionDetails from "../pages/Doctor/Transaction/TransactionDetails";
 
 const router = createBrowserRouter([
   {
@@ -553,6 +554,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <Transactions />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "transaction-details",
+        element: (
+          <DoctorLayout>
+            <TransactionDetails />
           </DoctorLayout>
         ),
       },

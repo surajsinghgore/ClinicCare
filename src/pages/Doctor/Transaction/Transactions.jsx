@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 
 const Transactions = () => {
@@ -114,11 +115,8 @@ const Transactions = () => {
                 </tr>
               </thead>
               <tbody>
-                {appointments.map((appointment, index) => (
-                  <tr
-                    key={appointment.id}
-                    className={index % 2 === 0 ? "bg-black-100" : "bg-white"}
-                  >
+                {appointments.map((appointment) => (
+                  <tr key={appointment.id} className="hover:bg-black-100">
                     <td className="px-6 py-4  text-black-900">
                       {appointment.id}
                     </td>
@@ -142,12 +140,13 @@ const Transactions = () => {
                       {truncateText(appointment.txnId, 12)}
                     </td>
                     <td className="px-6 py-4">
-                      <a
-                        href={`/appointments/${appointment.id}`}
-                        className="inline-block bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-md hover:bg-blue-700 transition duration-200 ease-in-out"
-                      >
-                        View
-                      </a>
+                      <Link to={"/doctor/transaction-details"}>
+                        <button
+                          className="inline-block bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-md hover:bg-blue-700 transition duration-200 ease-in-out"
+                        >
+                          View
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}

@@ -44,7 +44,7 @@ const PatientsDetails = () => {
 
   return (
     <div>
-      <BreadCrumbs currentPath={"Edit Patient Details"} />
+      <BreadCrumbs currentPath={"Patient Medical Details"} />
 
       {/* Container for the whole content */}
       <div className="p-8 w-[95%] m-auto mt-10 border border-black-300 rounded-md">
