@@ -64,6 +64,7 @@ import EditAppointment2 from "../pages/Doctor/Appointment/EditAppointment2";
 import PatientsDetails from "../pages/Doctor/Patients/PatientsDetails";
 import PatientMedicalHistory from "../pages/Doctor/Patients/PatientMedicalHistory";
 import ViewAppointment from "../pages/Doctor/Appointment/ViewAppointment";
+import Transactions from "../pages/Doctor/Transaction/Transactions";
 
 const router = createBrowserRouter([
   {
@@ -544,6 +545,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <PatientMedicalHistory />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "transaction-records",
+        element: (
+          <DoctorLayout>
+            <Transactions />
           </DoctorLayout>
         ),
       },

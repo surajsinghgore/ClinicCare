@@ -68,7 +68,7 @@ const DoctorNavbar = () => {
             icons={<FaUserInjured className="text-2xl text-black-800" />}
           />
           <UserNav
-            link=""
+            link="/doctor/transaction-records"
             title="Transactions"
             icons={<FcMoneyTransfer className="text-2xl text-black-800" />}
           />
