@@ -1,4 +1,4 @@
-
+import { BsCalendarDateFill } from "react-icons/bs";
 
 const TodaysAppointments = () => {
   // Inline data
@@ -26,33 +26,33 @@ const TodaysAppointments = () => {
   return (
     <>
       {/* Heading */}
-      <h1 className="text-2xl font-bold mt-16 mb-6 text-black-800">
-        Your Appointments Today
+      <h1 className="text-2xl font-semibold mt-20 mb-6 flex items-center gap-3 text-black-800">
+        Your Appointments Today <BsCalendarDateFill />
       </h1>
       <div className="overflow-x-auto border border-black-300">
         {/* Table */}
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="text-white bg-blue-600 border-b">
-              <th className="p-4 text-sm font-medium uppercase tracking-wide">
+            <tr className="text-white bg-gradient-to-r from-blue-500 to-blue-700 border-b font-bold uppercase">
+              <th className="p-4 text-sm tracking-wide">
                 #ID
               </th>
-              <th className="p-4 text-sm font-medium uppercase tracking-wide">
+              <th className="p-4 text-sm tracking-wide">
                 Doctor Name
               </th>
-              <th className="p-4 text-sm font-medium uppercase tracking-wide">
+              <th className="p-4 text-sm tracking-wide">
                 Date
               </th>
-              <th className="p-4 text-sm font-medium uppercase tracking-wide">
+              <th className="p-4 text-sm tracking-wide">
                 Time
               </th>
-              <th className="p-4 text-sm font-medium uppercase tracking-wide">
+              <th className="p-4 text-sm tracking-wide">
                 Transaction ID
               </th>
-              <th className="p-4 text-sm text-center font-medium uppercase tracking-wide">
+              <th className="p-4 pr-16 text-sm text-center tracking-wide">
                 Actions
               </th>
-              <th className="p-4 text-sm text-center font-medium uppercase tracking-wide">
+              <th className="p-4 text-sm tracking-wide">
                 Clinic
               </th>
             </tr>
@@ -83,12 +83,12 @@ const TodaysAppointments = () => {
                   {appointment.transactionId}
                 </td>
                 <td className="p-4">
-                  <button className="bg-blue-600 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
+                  <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700">
                     Download Appointment
                   </button>
                 </td>
                 <td className="p-4">
-                  <button className="bg-blue-600 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
+                  <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700">
                     View Clinic
                   </button>
                 </td>
