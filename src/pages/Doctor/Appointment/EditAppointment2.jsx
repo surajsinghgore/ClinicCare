@@ -65,7 +65,7 @@ const EditAppointment2 = () => {
       const res = await processAppointmentByAppointmentId(id, formData);
       dispatch(showAlert({ message: res.message, type: "success" }));
       setTimeout(() => {
-        navigate("/doctor/todays-appointment?page=1&limit=10&type=all");
+        navigate(`/doctor/view-appointment/${res.id}`);
       }, 2000);
     } catch (error) {
       dispatch(showAlert({ message: error?.response?.data?.message || "Failed to create appointment", type: "failed" }));
