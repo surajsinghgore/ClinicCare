@@ -1,4 +1,4 @@
-const AppointmentDetails = ({field, value, icon}) => {
+const AppointmentDetails = ({field="", value='', icon=''}) => {
   return (
     <div>
         <div className="flex flex-col mb-3">

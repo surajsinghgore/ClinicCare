@@ -83,3 +83,7 @@ export const searchDoctorAllAppointmentsApi = async (appointmentId = "", patient
   return res.data;
 };
 
+export const viewAppointmentApiByIdApiDoctor = async (id) => {
+  const res = await axiosInstance.get(`/v1/doctor/appointment/view-appointment-by-id-doctor/${id}`);
+  return res.data;
+};

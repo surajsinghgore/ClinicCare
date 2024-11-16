@@ -13,8 +13,42 @@ import { BiMessageRoundedError } from "react-icons/bi";
 import { FaNotesMedical, FaCalendarDay } from "react-icons/fa";
 import { GiHypodermicTest } from "react-icons/gi";
 import { FaFileMedical } from "react-icons/fa";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
+import { showAlert } from "../../../redux/Slices/AlertToggleState";
+import { useEffect, useState } from "react";
+import { viewAppointmentApiByIdApiDoctor } from "../../../Utils/services/apis/Doctor/AppointmentApi";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { calculateAge, extractFullDate } from "../../../Utils/DateFormatFunction";
+import { GenerateTreatmentPdf } from "../../../components/PDF/GenerateTreatmentPdf";
 
 const ViewAppointment = () => {
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const [data, setData] = useState({})
+  const dataFetch = async () => {
+    try {
+      dispatch(showLoader());
+      let res = await viewAppointmentApiByIdApiDoctor(id);
+      if (res?.status) {
+        setData(res)
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    dataFetch();
+  }, []);
+
+  const openGoogleMaps = (lat, lng) => {
+    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+    window.open(googleMapsUrl, '_blank');
+  };
   return (
     <div>
       <div>
@@ -28,17 +62,18 @@ const ViewAppointment = () => {
               <FaFileMedical size={35} className="text-[#034EB0]" />
             </h1>
           </div>
+          {console.log(data)}
           {/* Profile Image and Name Centered */}
           <div className="center flex items-center gap-6 mb-14">
             <div className="img-circle w-52 h-52 rounded-full overflow-hidden border-2 border-black">
               <img
-                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600"
+                src={data?.user?.profileUrl}
                 alt="profile image"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="flex flex-col">
-              <p className="mt-3 text-2xl font-medium">Suraj Singh</p>
+              <p className="mt-3 text-2xl font-medium">{data?.user?.name}</p>
               <p className="mt-1 ml-4 text-black-500 text-lg font-medium">
                 ( Patient )
               </p>
@@ -52,109 +87,136 @@ const ViewAppointment = () => {
             <AppointmentDetails
               field={"Appointment Number"}
               //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"AP123456"}
+              value={data?.appointment?.appointmentNumber}
               icon={<FaUser />}
             />
-            <AppointmentDetails
-              field={"Patient Name"}
-              //   value={DoctorAppointmentById?.patientName}
-              value={"John Doe"}
-              icon={<FaUser />}
-            />
+
             <AppointmentDetails
               field={"Email"}
               //   value={DoctorAppointmentById?.patientEmail}
-              value={"johndoe@example.com"}
+              value={data?.user?.email}
               icon={<FaEnvelope />}
             />
+
             <AppointmentDetails
               field={"Gender"}
               //   value={DoctorAppointmentById?.patientGender}
-              value={"Male"}
+              value={data?.user?.gender}
               icon={<FaTransgender />}
             />
             <AppointmentDetails
               field={"Age"}
               //   value={calculateAge(DoctorAppointmentById?.patientDob)}
-              value={30}
+              value={calculateAge(data?.user?.dob)}
               icon={<GoNumber />}
             />
             <AppointmentDetails
               field={"Phone No"}
               //   value={DoctorAppointmentById?.patientMobile}
-              value={"123-456-7890"}
+              value={data?.user?.mobile}
               icon={<FaPhoneFlip />}
             />
             <AppointmentDetails
               field={"Blood Group"}
               //   value={DoctorAppointmentById?.patientBloodGroup}
-              value={"O+"}
+              value={data?.user?.bloodGroup}
               icon={<FaTint />}
+            />
+            <AppointmentDetails
+              field={"Doctor Name"}
+              //   value={DoctorAppointmentById?.doctorSpecialization}
+              value={data?.doctor?.name}
+              icon={<FaUserDoctor />}
             />
             <AppointmentDetails
               field={"Doctor Specialty"}
               //   value={DoctorAppointmentById?.doctorSpecialization}
-              value={"Cardiology"}
+              value={data?.doctor?.specialization}
               icon={<FaUserDoctor />}
             />
             <AppointmentDetails
               field={"Appointment Date"}
               //   value={DoctorAppointmentById?.appointmentDate}
-              value={"2024-11-15"}
+              value={data?.appointment?.appointmentDate}
               icon={<MdDateRange />}
             />
             <AppointmentDetails
               field={"Appointment Time"}
               //   value={DoctorAppointmentById?.appointmentTime}
-              value={"14:00"}
+              value={data?.appointment?.appointmentTime}
               icon={<FaClock />}
             />
             <AppointmentDetails
               field={"Treatment Name"}
               //   value={DoctorAppointmentById?.treatmentName}
-              value={"Heart Checkup"}
+              value={data?.appointment?.service.treatmentName}
+              icon={<FaStethoscope />}
+            />
+            <AppointmentDetails
+              field={"specialty"}
+              //   value={DoctorAppointmentById?.treatmentName}
+              value={data?.appointment?.service.specialty}
               icon={<FaStethoscope />}
             />
             <AppointmentDetails
               field={"Transaction ID"}
               //   value={DoctorAppointmentById?.transactionId}
-              value={"TXN987654321"}
+              value={data?.transactionDetails?.txnId}
               icon={<GrTransaction />}
             />
             <AppointmentDetails
               field={"Fees"}
               //   value={DoctorAppointmentById?.appointmentFees}
-              value={"500"}
+              value={data?.transactionDetails?.totalAmount}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Platform Fee"}
               //   value={DoctorAppointmentById?.transactionPaymentFeeAmount}
-              value={"50"}
+              value={data?.transactionDetails?.platformFee}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Amount Received"}
-              //   value={
-              //     DoctorAppointmentById?.transactionAmount
-              //       .toString()
-              //       .endsWith("00")
-              //       ? Number(
-              //           DoctorAppointmentById?.transactionAmount
-              //             .toString()
-              //             .slice(0, -2)
-              //         )
-              //       : DoctorAppointmentById?.transactionAmount
-              //   }
-              value={"450"}
+
+              value={data?.transactionDetails?.amount}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Transaction Status"}
               //   value={DoctorAppointmentById?.transactionStatus}
-              value={"Completed"}
+              value={data?.transactionDetails?.methodRes?.data?.responseCode}
               icon={<BiMessageRoundedError />}
             />
+            <AppointmentDetails
+              field={"Appointment  Status"}
+              //   value={DoctorAppointmentById?.transactionStatus}
+              value={data?.appointment?.status}
+              icon={<BiMessageRoundedError />}
+            />
+
+
+
+            <AppointmentDetails
+              field={"Clinic Name"}
+              value={data?.clinic?.name}
+              icon={<BiMessageRoundedError />}
+            />
+            <AppointmentDetails
+              field={"Clinic Address"}
+              value={data?.clinic?.address}
+              icon={<BiMessageRoundedError />}
+            />
+            <AppointmentDetails
+              field={"Clinic Pincode"}
+              value={data?.clinic?.fullAddress?.postcode}
+              icon={<BiMessageRoundedError />}
+            />
+            <div className="flex justify-center items-center">
+
+              <button className="border border-primary mt-3 rounded-md px-4 py-2 w-full text-white bg-primary  truncate"
+                onClick={() => openGoogleMaps(data?.clinic?.lat, data?.clinic?.long)} >Open Clinic in Map</button>
+            </div>
           </div>
 
           <hr className="border-black-300 mb-14" />
@@ -165,106 +227,37 @@ const ViewAppointment = () => {
           </h1>
           <AppointmentDetails
             field={"Disease Name"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
-            value={"Fever and Cold"}
+
+            value={data?.treatmentDetails?.diseaseName}
           />
           <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
-            <AppointmentDetails
-              field={"Medicine Name"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"Fever and Cold"}
-              icon={<GiMedicines />}
-            />
-            <AppointmentDetails
-              field={"Medicine Dose"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"45mg"}
-              icon={<FaSyringe />}
-            />
-            <AppointmentDetails
-              field={"Routine"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"Twice a day"}
-              icon={<FaClock />}
-            />
-            <AppointmentDetails
-              field={"Duration (Days)"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"10"}
-              icon={<FaCalendarAlt />}
-            />
-            <AppointmentDetails
-              field={"Medicine Name"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"Fever and Cold"}
-              icon={<GiMedicines />}
-            />
-            <AppointmentDetails
-              field={"Medicine Dose"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"45mg"}
-              icon={<FaSyringe />}
-            />
-            <AppointmentDetails
-              field={"Routine"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"Twice a day"}
-              icon={<FaClock />}
-            />
-            <AppointmentDetails
-              field={"Duration (Days)"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"10"}
-              icon={<FaCalendarAlt />}
-            />
-            <AppointmentDetails
-              field={"Medicine Name"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"Fever and Cold"}
-              icon={<GiMedicines />}
-            />
-            <AppointmentDetails
-              field={"Medicine Dose"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"45mg"}
-              icon={<FaSyringe />}
-            />
-            <AppointmentDetails
-              field={"Routine"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"Twice a day"}
-              icon={<FaClock />}
-            />
-            <AppointmentDetails
-              field={"Duration (Days)"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"10"}
-              icon={<FaCalendarAlt />}
-            />
-            <AppointmentDetails
-              field={"Medicine Name"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"Fever and Cold"}
-              icon={<GiMedicines />}
-            />
-            <AppointmentDetails
-              field={"Medicine Dose"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"45mg"}
-              icon={<FaSyringe />}
-            />
-            <AppointmentDetails
-              field={"Routine"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"Twice a day"}
-              icon={<FaClock />}
-            />
-            <AppointmentDetails
-              field={"Duration (Days)"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"10"}
-              icon={<FaCalendarAlt />}
-            />
+            {data?.treatmentDetails?.medications.map((item, index) => (
+              <>
+                <AppointmentDetails
+                  field="Medicine Name"
+                  value={item.name} // Use actual data from the `item`
+                  icon={<GiMedicines />}
+                />
+                <AppointmentDetails
+                  field="Medicine Dose"
+                  value={item.dose} // Use actual data from the `item`
+                  icon={<FaSyringe />}
+                />
+                <AppointmentDetails
+                  field="Routine"
+                  value={item.routine} // Use actual data from the `item`
+                  icon={<FaClock />}
+                />
+                <AppointmentDetails
+                  field="Duration (Days)"
+                  value={item.duration} // Use actual data from the `item`
+                  icon={<FaCalendarAlt />}
+                />
+              </>
+            ))}
+
+
+
           </div>
 
           {/* symptoms details and follow-up date */}
@@ -274,16 +267,15 @@ const ViewAppointment = () => {
           <div className="mt-4 mb-10 grid grid-cols-2 gap-5">
             <AppointmentDetails
               field={"Symptoms"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
+
               value={
-                "Chills, feeling cold, shivering and shaking. Body aches and headaches"
+                data?.treatmentDetails?.symptoms
               }
               icon={<FaNotesMedical />}
             />
             <AppointmentDetails
               field={"Follow-up Date"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"28-11-24"}
+              value={extractFullDate(data?.treatmentDetails?.followUpDate)}
               icon={<FaCalendarDay />}
             />
           </div>
@@ -298,14 +290,14 @@ const ViewAppointment = () => {
                 htmlFor="patient-note"
                 className="flex items-center gap-3 text-md font-base text-black-700"
               >
-                <FaRegStickyNote/> Note for Patient
+                <FaRegStickyNote /> Note for Patient
               </label>
               <textarea
                 id="patient-note"
                 className="mt-1 block w-full px-3 py-2 border border-black-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
                 rows="4"
+                value={data?.treatmentDetails?.notes}
                 readOnly
-                value="This is a sample note for the patient."
               />
             </div>
           </div>
@@ -317,20 +309,19 @@ const ViewAppointment = () => {
           <div className="mt-4 mb-10 grid grid-cols-3 gap-5">
             <AppointmentDetails
               field={"Treatment Prescribe"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
-              value={"blood test, sugar, bp"}
+              value={data?.treatmentDetails?.testPrescribed?.join(', ') || "No tests prescribed"}
               icon={<FaCalendarDay />}
             />
           </div>
 
           {/* Submit Button */}
           <div className="btn flex justify-end gap-3">
-            <button
+            {(data?.documentOwner) && <button
               className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
-              type="submit"
+           onClick={()=>GenerateTreatmentPdf(data)}
             >
               Download Report
-            </button>
+            </button>}
           </div>
         </div>
       </div>
