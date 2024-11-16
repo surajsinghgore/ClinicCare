@@ -6,6 +6,7 @@ import getMyDetailsAdminSlice from "./Slices/getMyDetailsAdminSlice";
 import GetMyClinicByIdSlice from "./Slices/GetMyClinicByIdSlice";
 import GetMyActiveUserDetailSlice from "./Slices/GetMyActiveUserDetails";
 import DoctorAppointmentDataByIdSlice from "./Slices/FetchDoctorAppointmentById";
+import getMyPatientByIdSlice from "./Slices/GetPatientByIdSlice";
 const store = configureStore({
   reducer: {
     alert: alertReducer,
@@ -13,6 +14,7 @@ const store = configureStore({
     getMyDetailsDoctor: getMyDetailsDoctorSlice,
     getMyDetailsAdmin: getMyDetailsAdminSlice,
     getMyClinicById: GetMyClinicByIdSlice,
+    getMyPatientById: getMyPatientByIdSlice,
     getMyUserDetails: GetMyActiveUserDetailSlice,
     DoctorAppointmentById: DoctorAppointmentDataByIdSlice,
   },

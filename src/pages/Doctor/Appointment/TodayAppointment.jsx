@@ -396,7 +396,7 @@ const TodayAppointment = () => {
                       {/* Patient Name Field with Image */}
                       <td className="px-4 text-sm py-2 flex items-center">
                         <Link className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
-                          to={`/doctor/patient-details/${record.userId}`}>
+                          to={`/doctor/patient-details/${record.userId}?limit=5`}>
 
                           <img
                             src={record.userProfileUrl}
@@ -404,7 +404,7 @@ const TodayAppointment = () => {
                             className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
                           />
                         </Link>
-                        <Link to={`/doctor/patient-details/${record.userId}`}>
+                        <Link to={`/doctor/patient-details/${record.userId}?limit=5`}>
                           {record.userName.length > 20
                             ? record.userName.slice(0, 20) + "..."
                             : record.userName}
