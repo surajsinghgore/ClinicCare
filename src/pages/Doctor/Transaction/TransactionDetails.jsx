@@ -13,8 +13,36 @@ import { LuFileType } from "react-icons/lu";
 import { GrTransaction } from "react-icons/gr";
 import { FaCreditCard } from "react-icons/fa";
 import AppointmentDetails from "../../../components/Doctor/AppointmentDetails";
+import { showAlert } from "../../../redux/Slices/AlertToggleState";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
+import { getMyTransactionAppointmentsByIdApi } from "../../../Utils/services/apis/Doctor/TransactionApi";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 
 const TransactionDetails = () => {
+    // Fetch data when limit or page changes
+    const {id}=useParams()
+    const [data,setData]=useState([])
+    const dispatch=useDispatch()
+    const dataFetch = async () => {
+    try {
+      dispatch(showLoader());
+      let res = await getMyTransactionAppointmentsByIdApi(id);
+      if (res?.success) {
+        setData(res.data)
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    dataFetch();
+  }, []);
   return (
     <div>
       <BreadCrumbs currentPath="Transaction Details" />
@@ -34,44 +62,45 @@ const TransactionDetails = () => {
           </h2>
         </div>
         <div className="mt-6 mb-10 grid grid-cols-4 gap-5">
+        {console.log(data)}
           <AppointmentDetails
             field={"Payment Method"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+              value={data?.paymentMethod}
             icon={<CiCreditCard1 />}
           />
           <AppointmentDetails
             field={"TXN ID"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+              value={data?.txnId}
             icon={<FaOrcid />}
           />
           <AppointmentDetails
             field={"Platform Fee"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+              value={data?.platformFee}
             icon={<FaRupeeSign />}
           />
           <AppointmentDetails
             field={"Service Fee"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+              value={data?.totalAmount}
             icon={<FaRupeeSign />}
           />
           <AppointmentDetails
             field={"Transaction ID"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+              value={data?.transactionId}
             icon={<FaOrcid />}
           />
           <AppointmentDetails
             field={"Transaction Message"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+              value={data?.methodRes?.message}
             icon={<MdMessage />}
           />
           <AppointmentDetails
             field={"Merchant ID"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+              value={data?.methodRes?.data?.merchantId}
             icon={<FaOrcid />}
           />
           <AppointmentDetails
             field={"Merchant Transaction"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+            value={data?.methodRes?.data?.merchantTransactionId}
             icon={<AiOutlineTransaction />}
           />
         </div>
@@ -86,17 +115,17 @@ const TransactionDetails = () => {
         <div className="mt-6 mb-10 grid grid-cols-3 gap-5">
           <AppointmentDetails
             field={"Amount Received"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+            value={(data?.methodRes?.data?.amount / 100).toFixed(2)}
             icon={<MdCallReceived />}
           />
           <AppointmentDetails
             field={"State"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+              value={data?.methodRes?.data?.state}
             icon={<BiMessageDetail />}
           />
           <AppointmentDetails
             field={"Response Code"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+            value={data?.methodRes?.data?.responseCode}
             icon={<IoIosBarcode />}
           />
         </div>
@@ -111,22 +140,25 @@ const TransactionDetails = () => {
         <div className="mt-6 mb-10 grid grid-cols-2 gap-5">
           <AppointmentDetails
             field={"Type"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+            value={data?.methodRes?.data?.paymentInstrument?.type}
+
             icon={<LuFileType />}
           />
           <AppointmentDetails
             field={"Card Type"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+            value={data?.methodRes?.data?.paymentInstrument?.cardType}
             icon={<FaCreditCard />}
           />
           <AppointmentDetails
             field={"PG Transaction ID"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+            value={data?.methodRes?.data?.paymentInstrument?.pgTransactionId}
+
             icon={<FaOrcid />}
           />
           <AppointmentDetails
             field={"BRN"}
-            //   value={DoctorAppointmentById?.appointmentNumber}
+            value={data?.methodRes?.data?.paymentInstrument?.brn}
+
             icon={<FaCreditCard />}
           />
         </div>

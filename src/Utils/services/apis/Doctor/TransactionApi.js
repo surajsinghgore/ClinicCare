@@ -28,8 +28,8 @@ export const getMyTransactionAppointmentsApi = async (page = 1, limit = 10, type
   };
   
   
-export const fetchDoctorAppointmentById = async (id) => {
-    const res = await axiosInstance.get(`/v1/doctor/appointment/get-doctor-appointment-by-id/${id}`);
+export const getMyTransactionAppointmentsByIdApi = async (id) => {
+    const res = await axiosInstance.get(`/v1/doctor/transaction/get-my-all-transaction/${id}`);
     return res.data;
   };
   
