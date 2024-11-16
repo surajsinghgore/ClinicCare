@@ -107,6 +107,9 @@ const Transactions = () => {
                     Time
                   </th>
                   <th className="px-6 py-3 text-sm uppercase tracking-wider border-b">
+                    Amount
+                  </th>
+                  <th className="px-6 py-3 text-sm uppercase tracking-wider border-b">
                     TXN ID
                   </th>
                   <th className="px-6 py-3 text-sm uppercase tracking-wider border-b">

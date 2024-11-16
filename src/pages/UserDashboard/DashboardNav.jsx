@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLocalStorage } from "../../Utils/LocalStorage";
 
 const DashboardNav = () => {
-  const role = getLocalStorage('role')
+  const role = getLocalStorage("role");
   const { getMyUserDetails } = useSelector((state) => state.getMyUserDetails);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     try {
       dispatch(showLoader());
@@ -27,14 +28,20 @@ const DashboardNav = () => {
     }
   }, [dispatch]);
 
-
-
-
   const logout = () => {
     localStorage.clear();
-    dispatch(showAlert({ message: `${role} has logged out successfully`, type: "blue" }));
+    dispatch(
+      showAlert({
+        message: `${role} has logged out successfully`,
+        type: "blue",
+      })
+    );
     navigate("/auth/login");
-  }
+  };
+
+  // Truncate name for display
+  const truncatedName = truncateText(getMyUserDetails?.name, 15); // Example: Limit to 15 characters
+
   return (
     <div className="shadow-lg h-[100vh]">
       {/* Profile Section */}
@@ -54,14 +61,14 @@ const DashboardNav = () => {
             </Link>
           </div>
           <div>
-            <h1 className="text-xl font-semibold">{getMyUserDetails?.name}</h1>
+            <h1 className="text-xl font-semibold">{truncatedName}</h1>
             <p className="text-md">User</p>
           </div>
         </div>
       </section>
 
       {/* Navigation Section */}
-      <section className=" w-[16rem] shadow-md h-screen py-5 flex-grow bg-[#FFFFFF]">
+      <section className=" w-[16rem] h-screen py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between space-y-2">
           <UserNav
             link="/user/user-general-details"
@@ -79,7 +86,6 @@ const DashboardNav = () => {
             icons={<MdEventNote className="text-2xl text-black-800" />}
           />
           <div onClick={() => logout()}>
-
             <UserNav
               link="/auth/login"
               title="Logout"
