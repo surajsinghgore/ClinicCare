@@ -55,13 +55,13 @@ const DashboardNav = () => {
           </div>
           <div>
             <h1 className="text-xl font-semibold">{getMyUserDetails?.name}</h1>
-            <p className="text-sm">User</p>
+            <p className="text-md">User</p>
           </div>
         </div>
       </section>
 
       {/* Navigation Section */}
-      <section className=" w-[16rem] py-5 flex-grow bg-[#FFFFFF]">
+      <section className=" w-[16rem] shadow-md h-screen py-5 flex-grow bg-[#FFFFFF]">
         <nav className="flex flex-col justify-between space-y-2">
           <UserNav
             link="/user/user-general-details"
