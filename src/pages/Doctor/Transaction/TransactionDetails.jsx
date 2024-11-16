@@ -90,7 +90,7 @@ const TransactionDetails = () => {
             icon={<MdCallReceived />}
           />
           <AppointmentDetails
-            field={"Stat"}
+            field={"State"}
             //   value={DoctorAppointmentById?.appointmentNumber}
             icon={<BiMessageDetail />}
           />
