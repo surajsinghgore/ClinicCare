@@ -1,7 +1,6 @@
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { FaCircleCheck } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
-import { MdPreview } from "react-icons/md";
 import {
   getAllDetailedAppointmentsApi,
   processRejectAppointmentByAppointmentId,

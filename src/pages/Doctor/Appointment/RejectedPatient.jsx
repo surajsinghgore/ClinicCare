@@ -8,6 +8,7 @@ import { GrTransaction } from "react-icons/gr";
 import { GoNumber } from "react-icons/go";
 import { FaRupeeSign } from "react-icons/fa";
 import { FaOrcid } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { BiMessageRoundedError } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
 import { FaFileMedical } from "react-icons/fa";
@@ -76,9 +77,10 @@ const RejectedPatient = () => {
               </p>
             </div>
           </div>
+
           {/* Read-only input fields */}
-          <h1 className="text-2xl text-black-600 mb-10 font-medium flex gap-3">
-            General User Details:
+          <h1 className="text-2xl text-black-600 mb-10 font-medium items-center flex gap-3">
+            General User Details <FaUserCircle />
           </h1>
           <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
             <AppointmentDetails
@@ -176,7 +178,14 @@ const RejectedPatient = () => {
               value={data?.clinic?.fullAddress?.postcode}
               icon={<BiMessageRoundedError />}
             />
-             <AppointmentDetails
+          </div>
+
+          {/* transaction details */}
+          <h1 className="text-2xl text-black-600 mb-10 mt-10 font-medium flex items-center gap-3">
+            Transaction Details: <GrTransaction />
+          </h1>
+          <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
+          <AppointmentDetails
               field={"Transaction ID"}
               //   value={DoctorAppointmentById?.transactionId}
               value={data?.transactionDetails?.txnId}

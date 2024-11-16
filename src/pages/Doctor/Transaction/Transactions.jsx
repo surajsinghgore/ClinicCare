@@ -9,6 +9,7 @@ const Transactions = () => {
       img: "https://via.placeholder.com/50",
       date: "2024-11-15",
       time: "10:00 AM",
+      amount: "Rs. 1000",
       txnId: "TXN12345",
     },
     {
@@ -17,6 +18,7 @@ const Transactions = () => {
       img: "https://via.placeholder.com/50",
       date: "2024-11-16",
       time: "11:00 AM",
+      amount: "Rs. 1000",
       txnId: "TXN12346",
     },
   ];
@@ -110,6 +112,9 @@ const Transactions = () => {
                     TXN ID
                   </th>
                   <th className="px-6 py-3 text-sm uppercase tracking-wider border-b">
+                    Amount
+                  </th>
+                  <th className="px-6 py-3 text-sm uppercase tracking-wider border-b">
                     Action
                   </th>
                 </tr>
@@ -139,11 +144,12 @@ const Transactions = () => {
                     <td className="px-6 py-4 text-black-900 font-base">
                       {truncateText(appointment.txnId, 12)}
                     </td>
+                    <td className="px-6 py-4 text-black-900 font-base">
+                      {truncateText(appointment.amount, 12)}
+                    </td>
                     <td className="px-6 py-4">
                       <Link to={"/doctor/transaction-details"}>
-                        <button
-                          className="inline-block bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-md hover:bg-blue-700 transition duration-200 ease-in-out"
-                        >
+                        <button className="inline-block bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-md hover:bg-blue-700 transition duration-200 ease-in-out">
                           View
                         </button>
                       </Link>
@@ -152,6 +158,32 @@ const Transactions = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+
+        {/* pagination */}
+        <div className="last mt-6 flex items-center justify-between">
+          <p className="text-sm pl-2">
+            Showing Page 1 of 1{/* Showing Page {currentPage} of {totalPage} */}
+          </p>
+          <div className="flex items-center bg-black-100 border border-black-300 rounded-md">
+            <button
+              className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
+              // disabled={!prev}
+              // onClick={handlePrevPage}
+            >
+              Previous
+            </button>
+            <div className="px-4 py-2 bg-blue-500 text-white">
+              {/* {currentPage} */} 1
+            </div>
+            <button
+              className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
+              // disabled={!next}
+              // onClick={handleNextPage}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
