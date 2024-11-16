@@ -57,7 +57,7 @@ const AppointmentList = () => {
   const handleLimitChange = (e) => {
     const newLimit = e.target.value;
     setLimit(newLimit);
-    setCurrentPage(1); // Reset to page 1
+    setCurrentPage(1); 
     navigate(`/doctor/appointment-list?limit=${newLimit}&page=${currentPage}`);
   };
 

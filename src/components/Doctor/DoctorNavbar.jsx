@@ -73,7 +73,7 @@ const DoctorNavbar = () => {
             ]}
           />
           <UserNav
-            link="/doctor/transaction-records"
+            link="/doctor/transaction-records?page=1&limit=10"
             title="Transactions"
             icons={<FcMoneyTransfer className="text-2xl text-black-800" />}
           />

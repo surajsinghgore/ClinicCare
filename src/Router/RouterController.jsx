@@ -559,7 +559,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "transaction-details",
+        path: "transaction-details/:id",
         element: (
           <DoctorLayout>
             <TransactionDetails />

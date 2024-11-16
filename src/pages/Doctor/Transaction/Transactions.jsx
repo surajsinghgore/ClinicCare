@@ -1,27 +1,119 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
+import { getMyTransactionAppointmentsApi, searchTransactionAllAppointmentsApi } from "../../../Utils/services/apis/Doctor/TransactionApi";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Transactions = () => {
-  const appointments = [
-    {
-      id: 1,
-      patientName: "John Doe",
-      img: "https://via.placeholder.com/50",
-      date: "2024-11-15",
-      time: "10:00 AM",
-      amount: "Rs. 1000",
-      txnId: "TXN12345",
-    },
-    {
-      id: 2,
-      patientName: "Jane Smith",
-      img: "https://via.placeholder.com/50",
-      date: "2024-11-16",
-      time: "11:00 AM",
-      amount: "Rs. 1000",
-      txnId: "TXN12346",
-    },
-  ];
+
+
+  const [data, setData] = useState([]);
+  const [searchParams, setSearchParams] = useState({
+    appointmentNumber: "",
+    patientName: "",
+    appointmentDate: "",
+    txnId: "",
+  });
+  const queryParams = new URLSearchParams(location.search);
+  const [limit, setLimit] = useState(queryParams.get("limit") || 10);
+  const [currentPage, setCurrentPage] = useState(
+    Number(queryParams.get("page") || 1)
+  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [totalPage, setTotalPage] = useState(1);
+  const [prev, setPrev] = useState(false);
+  const [next, setNext] = useState(false);
+  const dataFetch = useCallback(async () => {
+    try {
+      dispatch(showLoader());
+      const res = await getMyTransactionAppointmentsApi(currentPage, limit);
+
+      if (res?.success) {
+        setData(res.data);
+        setTotalPage(res.pagination.totalPages);
+        setNext(res.pagination.hasNextPage);
+        setPrev(res.pagination.hasPrevPage);
+      }
+    } catch (error) {
+      console.error("Error fetching clinics:", error);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }, [dispatch, currentPage, limit]);
+
+  useEffect(() => {
+    dataFetch();
+  }, [limit, currentPage]);
+
+  const handleLimitChange = (e) => {
+    const newLimit = e.target.value;
+    setLimit(newLimit);
+    setCurrentPage(1);
+    navigate(`/doctor/transaction-records?limit=${newLimit}&page=${currentPage}`);
+  };
+
+  const handlePrevPage = () => {
+    if (prev && currentPage > 1) {
+      const newPage = currentPage - 1;
+      setCurrentPage(newPage);
+      navigate(`/doctor/transaction-records?limit=${limit}&page=${newPage}`);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (next && currentPage < totalPage) {
+      const newPage = currentPage + 1;
+      setCurrentPage(newPage);
+      navigate(`/doctor/transaction-records?limit=${limit}&page=${newPage}`);
+    }
+  };
+
+
+  const searchFetch = useCallback(async () => {
+    try {
+      dispatch(showLoader());
+
+      // Destructure searchParams correctly
+      const { appointmentNumber, patientName, appointmentDate, txnId } =
+        searchParams;
+
+      // Call the API function with the current search parameters
+      const res = await searchTransactionAllAppointmentsApi(
+        appointmentNumber,
+        patientName,
+        appointmentDate,
+        txnId
+      );
+
+      // Check the response and update the state accordingly
+      if (res?.success) {
+        setData(res.data);
+        setTotalPage(res.pagination.totalPages);
+        setNext(res.pagination.hasNextPage);
+        setPrev(res.pagination.hasPrevPage);
+      }
+    } catch (error) {
+      console.error("Error searching appointments:", error);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }, [dispatch, currentPage, limit, searchParams]);
+
+  const handleSearchChange = (e) => {
+    setSearchParams({
+      ...searchParams,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSearch = () => {
+    setCurrentPage(1); // Reset to page 1 on search
+    searchFetch(); // Trigger the search
+  };
+
 
   const truncateText = (text, maxLength) => {
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
@@ -41,27 +133,35 @@ const Transactions = () => {
             type="number"
             placeholder="Search Appointment Id ..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
-            name="searchAppointmentNumber"
+            name="appointmentNumber"
+            value={searchParams.appointmentNumber}
+            onChange={handleSearchChange}
           />
           <input
             type="text"
             placeholder="Search Patient Name..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
-            name="searchPatientName"
+            name="patientName"
+            value={searchParams.patientName}
+            onChange={handleSearchChange}
           />
           <input
             type="text"
             placeholder="Search TXN ID..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
-            name="searchTreatmentName"
+            name="txnId"
+            value={searchParams.txnId}
+            onChange={handleSearchChange}
           />
           <input
-            type="text"
-            placeholder="Search Merchant ID..."
-            className="border border-black-300 rounded-md px-3 py-2 w-full"
-            name="searchTreatmentName"
+            type="date"
+            placeholder="Select Appointment Date"
+            className="border border-black-300 rounded-md px-3 py-1 w-[23%]"
+            name="appointmentDate"
+            value={searchParams.appointmentDate}
+            onChange={handleSearchChange}
           />
-          <button className="bg-blue-600 px-4 py-2 text-white rounded-md">
+          <button className="bg-blue-600 px-4 py-2 text-white rounded-md" onClick={handleSearch}>
             Search
           </button>
         </div>
@@ -73,8 +173,8 @@ const Transactions = () => {
               <select
                 name="pages"
                 id="pages"
-                // value={limit}
-                // onChange={handleLimitChange}
+                value={limit}
+                onChange={handleLimitChange}
                 className="bg-white border border-black-400 text-sm rounded-sm"
               >
                 <option value="10">10</option>
@@ -120,67 +220,75 @@ const Transactions = () => {
                 </tr>
               </thead>
               <tbody>
-                {appointments.map((appointment) => (
-                  <tr key={appointment.id} className="hover:bg-black-100">
-                    <td className="px-6 py-4  text-black-900">
-                      {appointment.id}
-                    </td>
-                    <td className="px-6 py-4 flex items-center">
-                      <img
-                        src={appointment.img}
-                        alt={appointment.patientName}
-                        className="w-12 h-12 rounded-full mr-4 border border-black-300 shadow-sm"
-                      />
-                      <span className="text-black-900 font-base">
-                        {truncateText(appointment.patientName, 20)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-black-900 font-base">
-                      {appointment.date}
-                    </td>
-                    <td className="px-6 py-4 text-black-900 font-base">
-                      {appointment.time}
-                    </td>
-                    <td className="px-6 py-4 text-black-900 font-base">
-                      {truncateText(appointment.txnId, 12)}
-                    </td>
-                    <td className="px-6 py-4 text-black-900 font-base">
-                      {truncateText(appointment.amount, 12)}
-                    </td>
-                    <td className="px-6 py-4">
-                      <Link to={"/doctor/transaction-details"}>
-                        <button className="inline-block bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-md hover:bg-blue-700 transition duration-200 ease-in-out">
-                          View
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+
+                {data.length !== 0 ? (
+                  <>
+                    {data.map((transaction) => (
+                      <tr key={transaction.transactionId} className="hover:bg-black-100">
+                        <td className="px-6 py-4  text-black-900">
+                          {transaction.appointmentNumber}
+                        </td>
+                        <td className="px-6 py-4 flex items-center">
+                          <img
+                            src={transaction.userProfileUrl}
+                            alt={transaction.userProfileUrl}
+                            className="w-12 h-12 rounded-full mr-4 border border-black-300 shadow-sm"
+                          />
+                          <span className="text-black-900 font-base">
+                            {truncateText(transaction.userName, 20)}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-black-900 font-base">
+                          {transaction.appointmentDate}
+                        </td>
+                        <td className="px-6 py-4 text-black-900 font-base">
+                          {transaction.appointmentTime}
+                        </td>
+                        <td className="px-6 py-4 text-black-900 font-base">
+                          {truncateText(transaction.txnId)}
+                        </td>
+                        <td className="px-6 py-4 text-black-900 font-base">
+                          {truncateText(transaction.amount, 12)}
+                        </td>
+                        <td className="px-6 py-4">
+                          <Link to={`/doctor/transaction-details/${transaction.transactionId}`}>
+                            <button className="inline-block bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-md hover:bg-blue-700 transition duration-200 ease-in-out">
+                              View
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                ) : (
+                  <p className="min-w-full bg-white  p-4 w-full flex-1">
+                    No Transaction Found.
+                  </p>
+                )}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* pagination */}
         <div className="last mt-6 flex items-center justify-between">
           <p className="text-sm pl-2">
-            Showing Page 1 of 1{/* Showing Page {currentPage} of {totalPage} */}
+            Showing Page {currentPage} of {totalPage}
           </p>
           <div className="flex items-center bg-black-100 border border-black-300 rounded-md">
             <button
               className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
-              // disabled={!prev}
-              // onClick={handlePrevPage}
+              disabled={!prev}
+              onClick={handlePrevPage}
             >
               Previous
             </button>
             <div className="px-4 py-2 bg-blue-500 text-white">
-              {/* {currentPage} */} 1
+              {currentPage}
             </div>
             <button
               className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
-              // disabled={!next}
-              // onClick={handleNextPage}
+              disabled={!next}
+              onClick={handleNextPage}
             >
               Next
             </button>
