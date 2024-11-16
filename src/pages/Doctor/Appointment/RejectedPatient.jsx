@@ -7,7 +7,9 @@ import { MdDateRange } from "react-icons/md";
 import { GrTransaction } from "react-icons/gr";
 import { GoNumber } from "react-icons/go";
 import { FaRupeeSign } from "react-icons/fa";
+import { FaOrcid } from "react-icons/fa";
 import { BiMessageRoundedError } from "react-icons/bi";
+import { MdOutlinePayment } from "react-icons/md";
 import { FaFileMedical } from "react-icons/fa";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
@@ -153,7 +155,28 @@ const RejectedPatient = () => {
               value={data?.appointment?.service.specialty}
               icon={<FaStethoscope />}
             />
+             <AppointmentDetails
+              field={"Appointment Status"}
+              //   value={DoctorAppointmentById?.transactionStatus}
+              value={data?.appointment?.status}
+              icon={<BiMessageRoundedError />}
+            />
             <AppointmentDetails
+              field={"Clinic Name"}
+              value={data?.clinic?.name}
+              icon={<BiMessageRoundedError />}
+            />
+            <AppointmentDetails
+              field={"Clinic Address"}
+              value={data?.clinic?.address}
+              icon={<BiMessageRoundedError />}
+            />
+            <AppointmentDetails
+              field={"Clinic Pincode"}
+              value={data?.clinic?.fullAddress?.postcode}
+              icon={<BiMessageRoundedError />}
+            />
+             <AppointmentDetails
               field={"Transaction ID"}
               //   value={DoctorAppointmentById?.transactionId}
               value={data?.transactionDetails?.txnId}
@@ -183,25 +206,22 @@ const RejectedPatient = () => {
               icon={<BiMessageRoundedError />}
             />
             <AppointmentDetails
-              field={"Appointment  Status"}
+              field={"Payment Type"}
               //   value={DoctorAppointmentById?.transactionStatus}
-              value={data?.appointment?.status}
-              icon={<BiMessageRoundedError />}
+              value={data?.transactionDetails?.methodRes?.data?.responseCode}
+              icon={<MdOutlinePayment />}
             />
             <AppointmentDetails
-              field={"Clinic Name"}
-              value={data?.clinic?.name}
-              icon={<BiMessageRoundedError />}
+              field={"Payment Method"}
+              //   value={DoctorAppointmentById?.transactionStatus}
+              value={data?.transactionDetails?.methodRes?.data?.responseCode}
+              icon={<MdOutlinePayment />}
             />
             <AppointmentDetails
-              field={"Clinic Address"}
-              value={data?.clinic?.address}
-              icon={<BiMessageRoundedError />}
-            />
-            <AppointmentDetails
-              field={"Clinic Pincode"}
-              value={data?.clinic?.fullAddress?.postcode}
-              icon={<BiMessageRoundedError />}
+              field={"Merchant ID"}
+              //   value={DoctorAppointmentById?.transactionStatus}
+              value={data?.transactionDetails?.methodRes?.data?.responseCode}
+              icon={<FaOrcid />}
             />
           </div>
         </div>
