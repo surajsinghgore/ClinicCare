@@ -12,7 +12,7 @@ import { BiMessageRoundedError } from "react-icons/bi";
 import { FaNotesMedical, FaCalendarDay } from "react-icons/fa";
 import { GiHypodermicTest } from "react-icons/gi";
 import { useParams } from "react-router-dom";
-import { viewAppointmentApiByIdAllApiDoctor } from "../../../Utils/services/apis/Doctor/PatientApi";
+import { rejectedAppointmentByIdApi, viewAppointmentApiByIdAllApiDoctor } from "../../../Utils/services/apis/Doctor/PatientApi";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { useEffect, useState } from "react";
@@ -26,7 +26,7 @@ const PatientMedicalHistory = () => {
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
-      let res = await viewAppointmentApiByIdAllApiDoctor(id);
+      let res = await rejectedAppointmentByIdApi(id);
 
       if (res?.status) {
         setData(res)

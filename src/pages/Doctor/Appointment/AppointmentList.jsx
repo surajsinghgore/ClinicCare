@@ -282,12 +282,12 @@ const AppointmentList = () => {
 
                       {/* Patient Name Field with Image */}
                       <td className="px-4 text-sm py-2 flex items-center">
-                        <Link   className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
-                         to={`/doctor/patient-details/${record.userId}?limit=5`}> <img
-                          src={record.userProfileUrl}
-                          alt="Patient"
-                          className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
-                        /></Link>
+                        <Link className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
+                          to={`/doctor/patient-details/${record.userId}?limit=5`}> <img
+                            src={record.userProfileUrl}
+                            alt="Patient"
+                            className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
+                          /></Link>
                         <Link to={`/doctor/patient-details/${record.userId}?limit=5`}>  {record.userName.length > 20
                           ? record.userName.slice(0, 20) + "..."
                           : record.userName}
@@ -342,10 +342,10 @@ const AppointmentList = () => {
                         ) : (
                           <div
                             className={`px-2 py-1 rounded-md text-white ${record.status === "completed"
-                                ? "bg-success"
-                                : record.status === "rejected"
-                                  ? "bg-danger"
-                                  : ""
+                              ? "bg-success"
+                              : record.status === "rejected"
+                                ? "bg-danger"
+                                : ""
                               }`}
                           >
                             {record.status}
@@ -376,19 +376,36 @@ const AppointmentList = () => {
                           <div
                             className={`px-3 py-1 rounded-md text-xl flex justify-center items-center cursor-pointer text-primary`}
                           >
-                            <Link
+
+
+
+
+                            {(record.status === "completed") ? <Link
                               to={
                                 "/doctor/view-appointment/" +
                                 record?.patientTreatmentId
                               }
                             >
-                              <button
+                            <button
                                 className="px-2 text-sm py-1 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
                                 type="submit"
                               >
                                 view
                               </button>
-                            </Link>
+                            </Link> : <Link
+                              to={
+                                "/doctor/rejected-patient/" +
+                                record?.appointmentId
+                              }
+                            >
+                             <button
+                                className="px-2 text-sm py-1 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
+                                type="submit"
+                              >
+                                view
+                              </button>
+                            </Link>}
+
                           </div>
                         )}
                       </td>

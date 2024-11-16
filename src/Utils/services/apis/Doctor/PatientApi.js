@@ -8,3 +8,7 @@ export const viewAppointmentApiByIdAllApiDoctor = async (id) => {
   const res = await axiosInstance.get(`/v1/doctor/patient/view-appointment-by-id-doctor/${id}`);
   return res.data;
 };
+export const rejectedAppointmentByIdApi = async (id) => {
+  const res = await axiosInstance.get(`/v1/doctor/patient/view-rejected-appointment-by-id-doctor/${id}`);
+  return res.data;
+};

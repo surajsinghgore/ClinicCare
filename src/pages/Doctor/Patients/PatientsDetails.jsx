@@ -13,7 +13,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchPatientByIdDoctor } from "../../../redux/Slices/GetPatientByIdSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { calculateAge } from "../../../Utils/DateFormatFunction";
-import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 
 const PatientsDetails = () => {
   const { id } = useParams()
@@ -22,11 +21,11 @@ const PatientsDetails = () => {
   const limit = useState(queryParams.get("limit") || 10);
   const dispatch = useDispatch()
   const patientDetails = useSelector((state) => state.getMyPatientById.patientDetails?.patient);
-  const hasMore = useSelector((state) => state.getMyPatientById.patientDetails);
-  console.log(hasMore)
-  useEffect(() => {
 
-    dispatch(fetchPatientByIdDoctor(id, limit));
+
+  useEffect(() => {
+    let sendLimit = parseInt(limit)
+    dispatch(fetchPatientByIdDoctor(id, sendLimit));
 
   }, [dispatch]);
   const truncateText = (text, length) => {
@@ -185,12 +184,19 @@ const PatientsDetails = () => {
                     <td className="p-4 text-left border-b border-black-200">
                       {item.appointmentTime}
                     </td>
+                   
                     <td className="p-4 text-center border-b border-black-200">
-                      <Link to={`/doctor/patient-medical-history/${item.patientTreatmentId}`}>
+                      {(item.appointmentStatus === "completed") ? <Link to={`/doctor/patient-medical-history/${item.patientTreatmentId}`}>
                         <button className="text-white rounded px-3 py-1 bg-blue-600 font-medium">
                           View
                         </button>
-                      </Link>
+                      </Link> : <Link to={`/doctor/rejected-patient/${item.appointmentId}`}>
+                        <button className="text-white rounded px-3 py-1 bg-blue-600 font-medium">
+                          View
+                        </button>
+                      </Link>}
+
+
                     </td>
                   </tr>
                 ))

@@ -15,12 +15,12 @@ import { FaFileMedical } from "react-icons/fa";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { useEffect, useState } from "react";
-import { viewAppointmentApiByIdApiDoctor } from "../../../Utils/services/apis/Doctor/AppointmentApi";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   calculateAge,
 } from "../../../Utils/DateFormatFunction";
+import { rejectedAppointmentByIdApi } from "../../../Utils/services/apis/Doctor/PatientApi";
 
 const RejectedPatient = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const RejectedPatient = () => {
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
-      let res = await viewAppointmentApiByIdApiDoctor(id);
+      let res = await rejectedAppointmentByIdApi(id);
       if (res?.status) {
         setData(res);
       }
@@ -86,7 +86,7 @@ const RejectedPatient = () => {
             <AppointmentDetails
               field={"Appointment Number"}
               //   value={DoctorAppointmentById?.appointmentNumber}
-              value={data?.appointment?.appointmentNumber}
+              value={data?.appointment?.number}
               icon={<FaUser />}
             />
 
@@ -136,13 +136,13 @@ const RejectedPatient = () => {
             <AppointmentDetails
               field={"Appointment Date"}
               //   value={DoctorAppointmentById?.appointmentDate}
-              value={data?.appointment?.appointmentDate}
+              value={data?.appointment?.date}
               icon={<MdDateRange />}
             />
             <AppointmentDetails
               field={"Appointment Time"}
               //   value={DoctorAppointmentById?.appointmentTime}
-              value={data?.appointment?.appointmentTime}
+              value={data?.appointment?.time}
               icon={<FaClock />}
             />
             <AppointmentDetails
@@ -157,7 +157,7 @@ const RejectedPatient = () => {
               value={data?.appointment?.service.specialty}
               icon={<FaStethoscope />}
             />
-             <AppointmentDetails
+            <AppointmentDetails
               field={"Appointment Status"}
               //   value={DoctorAppointmentById?.transactionStatus}
               value={data?.appointment?.status}
@@ -175,7 +175,7 @@ const RejectedPatient = () => {
             />
             <AppointmentDetails
               field={"Clinic Pincode"}
-              value={data?.clinic?.fullAddress?.postcode}
+              value={data?.clinic?.postcode}
               icon={<BiMessageRoundedError />}
             />
           </div>
@@ -185,51 +185,49 @@ const RejectedPatient = () => {
             Transaction Details: <GrTransaction />
           </h1>
           <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
-          <AppointmentDetails
-              field={"Transaction ID"}
-              //   value={DoctorAppointmentById?.transactionId}
-              value={data?.transactionDetails?.txnId}
+            <AppointmentDetails
+              field={"TXN ID"}
+              value={data?.transaction
+                ?.txnId}
               icon={<GrTransaction />}
             />
             <AppointmentDetails
               field={"Fees"}
-              //   value={DoctorAppointmentById?.appointmentFees}
-              value={data?.transactionDetails?.totalAmount}
+              value={data?.transaction
+                ?.totalAmount}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Platform Fee"}
-              //   value={DoctorAppointmentById?.transactionPaymentFeeAmount}
-              value={data?.transactionDetails?.platformFee}
+              value={data?.transaction
+                ?.platformFee}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Amount Received"}
-              value={data?.transactionDetails?.amount}
+              value={(data?.transaction
+                ?.amount / 100).toFixed(2)}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Transaction Status"}
-              //   value={DoctorAppointmentById?.transactionStatus}
-              value={data?.transactionDetails?.methodRes?.data?.responseCode}
+              value={data?.transaction
+                ?.responseCode}
               icon={<BiMessageRoundedError />}
             />
             <AppointmentDetails
               field={"Payment Type"}
-              //   value={DoctorAppointmentById?.transactionStatus}
-              value={data?.transactionDetails?.methodRes?.data?.responseCode}
+              value={data?.transaction?.paymentInstrumentType}
               icon={<MdOutlinePayment />}
             />
             <AppointmentDetails
               field={"Payment Method"}
-              //   value={DoctorAppointmentById?.transactionStatus}
-              value={data?.transactionDetails?.methodRes?.data?.responseCode}
+              value={data?.transaction?.paymentMethod}
               icon={<MdOutlinePayment />}
             />
             <AppointmentDetails
               field={"Merchant ID"}
-              //   value={DoctorAppointmentById?.transactionStatus}
-              value={data?.transactionDetails?.methodRes?.data?.responseCode}
+              value={data?.transaction?.merchantId}
               icon={<FaOrcid />}
             />
           </div>
