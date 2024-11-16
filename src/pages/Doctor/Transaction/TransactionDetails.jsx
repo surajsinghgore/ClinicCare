@@ -80,7 +80,7 @@ const TransactionDetails = () => {
           />
           <AppointmentDetails
             field={"Service Fee"}
-              value={data?.totalAmount}
+              value={data?.totalAmount - data?.platformFee}
             icon={<FaRupeeSign />}
           />
           <AppointmentDetails

@@ -67,6 +67,8 @@ import ViewAppointment from "../pages/Doctor/Appointment/ViewAppointment";
 import Transactions from "../pages/Doctor/Transaction/Transactions";
 import TransactionDetails from "../pages/Doctor/Transaction/TransactionDetails";
 import RejectedPatient from "../pages/Doctor/Appointment/RejectedPatient";
+import UsersideAppointmentDetails from "../pages/UserDashboard/UsersideAppointmentDetails";
+import UserRejectDetails from "../pages/UserDashboard/UserRejectDetails";
 
 const router = createBrowserRouter([
   {
@@ -214,6 +216,22 @@ const router = createBrowserRouter([
         element: (
           <UserLayout>
             <PaymentSection />
+          </UserLayout>
+        ),
+      },
+      {
+        path: "user-appointment-details",
+        element: (
+          <UserLayout>
+            <UsersideAppointmentDetails />
+          </UserLayout>
+        ),
+      },
+      {
+        path: "user-reject-details",
+        element: (
+          <UserLayout>
+            <UserRejectDetails />
           </UserLayout>
         ),
       },

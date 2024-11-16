@@ -1,4 +1,5 @@
 import { BsCalendarDateFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const AllAppointments = () => {
   // Inline data
@@ -25,8 +26,7 @@ const AllAppointments = () => {
 
   return (
     <>
-
-    {/* search input */}
+      {/* search input */}
       <div className="mt-16 mb-7 flex space-x-4">
         <input
           type="number"
@@ -92,9 +92,9 @@ const AllAppointments = () => {
               <th className="p-4 text-sm tracking-wide">Time</th>
               <th className="p-4 text-sm tracking-wide">Transaction ID</th>
               <th className="p-4 pr-16 text-sm text-center tracking-wide">
-                Actions
+                Report
               </th>
-              <th className="p-4 text-sm tracking-wide">Clinic</th>
+              <th className="p-4 text-sm tracking-wide">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -124,13 +124,15 @@ const AllAppointments = () => {
                 </td>
                 <td className="p-4">
                   <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                    Download Appointment
+                    Download Report
                   </button>
                 </td>
                 <td className="p-4">
-                  <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                    View Clinic
-                  </button>
+                  <Link to={"/user/user-appointment-details"}>
+                    <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700">
+                      View
+                    </button>
+                  </Link>
                 </td>
               </tr>
             ))}

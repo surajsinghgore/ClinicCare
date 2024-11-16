@@ -1,5 +1,3 @@
-import BreadCrumbs from "../../../components/Common/BreadCrumbs";
-import AppointmentDetails from "../../../components/Doctor/AppointmentDetails";
 import { FaUser, FaEnvelope, FaTransgender, FaTint } from "react-icons/fa";
 import { GiMedicines } from "react-icons/gi";
 import { FaSyringe, FaClock, FaCalendarAlt } from "react-icons/fa";
@@ -13,7 +11,6 @@ import { BiMessageRoundedError } from "react-icons/bi";
 import { FaNotesMedical, FaCalendarDay } from "react-icons/fa";
 import { GiHypodermicTest } from "react-icons/gi";
 import { FaFileMedical } from "react-icons/fa";
-import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { useEffect, useState } from "react";
 import { viewAppointmentApiByIdApiDoctor } from "../../../Utils/services/apis/Doctor/AppointmentApi";
@@ -21,8 +18,10 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { calculateAge, extractFullDate } from "../../../Utils/DateFormatFunction";
 import { GenerateTreatmentPdf } from "../../../components/PDF/GenerateTreatmentPdf";
+import AppointmentDetails from "../../components/Doctor/AppointmentDetails";
+import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 
-const ViewAppointment = () => {
+const UsersideAppointmentDetails = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const [data, setData] = useState({})
@@ -52,7 +51,6 @@ const ViewAppointment = () => {
   return (
     <div>
       <div>
-        <BreadCrumbs currentPath={"Detailed Appointment Details"} />
         {/* Container for the whole content */}
         <div className="p-8 w-[95%] m-auto mt-10 border border-black-300 rounded-md">
           {/* Heading Section */}
@@ -329,4 +327,4 @@ const ViewAppointment = () => {
   );
 };
 
-export default ViewAppointment;
+export default UsersideAppointmentDetails;
