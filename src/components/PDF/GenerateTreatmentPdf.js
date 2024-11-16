@@ -132,10 +132,11 @@ export const GenerateTreatmentPdf = (data) => {
   // Add Tests Prescribed at the End
   const addTestsPrescribed = () => {
     addSectionTitle("Tests Prescribed");
-    if (data.treatmentDetails.testPrescribed.length > 0) {
-      data.treatmentDetails.testPrescribed.forEach((test) => {
-        addContent("Test", test);
-      });
+    const tests = data.treatmentDetails.testPrescribed;
+
+    if (tests.length > 0) {
+      const testsLine = tests.join(", ");
+      addContent("Tests", testsLine);
     } else {
       addContent("Tests", "No tests prescribed");
     }
