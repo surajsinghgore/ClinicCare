@@ -1,17 +1,13 @@
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import AppointmentDetails from "../../../components/Doctor/AppointmentDetails";
 import { FaUser, FaEnvelope, FaTransgender, FaTint } from "react-icons/fa";
-import { GiMedicines } from "react-icons/gi";
-import { FaSyringe, FaClock, FaCalendarAlt } from "react-icons/fa";
+import { FaClock } from "react-icons/fa";
 import { FaUserDoctor, FaStethoscope, FaPhoneFlip } from "react-icons/fa6";
-import { FaRegStickyNote } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { GrTransaction } from "react-icons/gr";
 import { GoNumber } from "react-icons/go";
 import { FaRupeeSign } from "react-icons/fa";
 import { BiMessageRoundedError } from "react-icons/bi";
-import { FaNotesMedical, FaCalendarDay } from "react-icons/fa";
-import { GiHypodermicTest } from "react-icons/gi";
 import { FaFileMedical } from "react-icons/fa";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
@@ -19,23 +15,26 @@ import { useEffect, useState } from "react";
 import { viewAppointmentApiByIdApiDoctor } from "../../../Utils/services/apis/Doctor/AppointmentApi";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { calculateAge, extractFullDate } from "../../../Utils/DateFormatFunction";
-import { GenerateTreatmentPdf } from "../../../components/PDF/GenerateTreatmentPdf";
+import {
+  calculateAge,
+} from "../../../Utils/DateFormatFunction";
 
-const ViewAppointment = () => {
-  const dispatch = useDispatch()
-  const { id } = useParams()
-  const [data, setData] = useState({})
+const RejectedPatient = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const [data, setData] = useState({});
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
       let res = await viewAppointmentApiByIdApiDoctor(id);
       if (res?.status) {
-        setData(res)
+        setData(res);
       }
     } catch (error) {
       console.log(error);
-      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+      dispatch(
+        showAlert({ message: error?.response?.data?.message, type: "failed" })
+      );
     } finally {
       dispatch(hideLoader());
     }
@@ -45,20 +44,16 @@ const ViewAppointment = () => {
     dataFetch();
   }, []);
 
-  const openGoogleMaps = (lat, lng) => {
-    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-    window.open(googleMapsUrl, '_blank');
-  };
   return (
     <div>
       <div>
-        <BreadCrumbs currentPath={"Detailed Appointment Details"} />
+        <BreadCrumbs currentPath={"Rejected Appointment Details"} />
         {/* Container for the whole content */}
         <div className="p-8 w-[95%] m-auto mt-10 border border-black-300 rounded-md">
           {/* Heading Section */}
           <div className="heading mb-10">
             <h1 className="flex gap-4 text-3xl font-medium underline">
-              Appointment Details
+              Patient Details
               <FaFileMedical size={35} className="text-[#034EB0]" />
             </h1>
           </div>
@@ -178,7 +173,6 @@ const ViewAppointment = () => {
             />
             <AppointmentDetails
               field={"Amount Received"}
-
               value={data?.transactionDetails?.amount}
               icon={<FaRupeeSign />}
             />
@@ -194,9 +188,6 @@ const ViewAppointment = () => {
               value={data?.appointment?.status}
               icon={<BiMessageRoundedError />}
             />
-
-
-
             <AppointmentDetails
               field={"Clinic Name"}
               value={data?.clinic?.name}
@@ -212,116 +203,6 @@ const ViewAppointment = () => {
               value={data?.clinic?.fullAddress?.postcode}
               icon={<BiMessageRoundedError />}
             />
-            <div className="flex justify-center items-center">
-
-              <button className="border border-primary mt-3 rounded-md px-4 py-2 w-full text-white bg-primary  truncate"
-                onClick={() => openGoogleMaps(data?.clinic?.lat, data?.clinic?.long)} >Open Clinic in Map</button>
-            </div>
-          </div>
-
-          <hr className="border-black-300 mb-14" />
-
-          {/* medical details of the patients */}
-          <h1 className="text-2xl text-black-600 mt-20 mb-7 font-medium flex gap-3">
-            Medical Details:
-          </h1>
-          <AppointmentDetails
-            field={"Disease Name"}
-
-            value={data?.treatmentDetails?.diseaseName}
-          />
-          <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
-            {data?.treatmentDetails?.medications.map((item, index) => (
-              <div key={index}>
-                <AppointmentDetails
-                  field="Medicine Name"
-                  value={item.name} // Use actual data from the `item`
-                  icon={<GiMedicines />}
-                />
-                <AppointmentDetails
-                  field="Medicine Dose"
-                  value={item.dose} // Use actual data from the `item`
-                  icon={<FaSyringe />}
-                />
-                <AppointmentDetails
-                  field="Routine"
-                  value={item.routine} // Use actual data from the `item`
-                  icon={<FaClock />}
-                />
-                <AppointmentDetails
-                  field="Duration (Days)"
-                  value={item.duration} // Use actual data from the `item`
-                  icon={<FaCalendarAlt />}
-                />
-              </div>
-            ))}
-
-
-
-          </div>
-
-          {/* symptoms details and follow-up date */}
-          <h1 className="text-2xl text-black-600 mt-20 mb-7 font-medium flex gap-3">
-            Symptoms Details and Follow-up Date:
-          </h1>
-          <div className="mt-4 mb-10 grid grid-cols-2 gap-5">
-            <AppointmentDetails
-              field={"Symptoms"}
-
-              value={
-                data?.treatmentDetails?.symptoms
-              }
-              icon={<FaNotesMedical />}
-            />
-            <AppointmentDetails
-              field={"Follow-up Date"}
-              value={extractFullDate(data?.treatmentDetails?.followUpDate)}
-              icon={<FaCalendarDay />}
-            />
-          </div>
-
-          {/* notes */}
-          <h1 className="text-2xl text-black-600 mt-20 mb-7 font-medium flex gap-3">
-            Note :
-          </h1>
-          <div className="mt-4 mb-10 grid grid-cols-2 gap-5">
-            <div>
-              <label
-                htmlFor="patient-note"
-                className="flex items-center gap-3 text-md font-base text-black-700"
-              >
-                <FaRegStickyNote /> Note for Patient
-              </label>
-              <textarea
-                id="patient-note"
-                className="mt-1 block w-full px-3 py-2 border border-black-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
-                rows="4"
-                value={data?.treatmentDetails?.notes}
-                readOnly
-              />
-            </div>
-          </div>
-
-          {/* symptoms details and follow-up date */}
-          <h1 className="text-2xl text-black-600 mt-20 mb-7 font-medium flex gap-3">
-            Patient Diagnostic Tests Images: <GiHypodermicTest />
-          </h1>
-          <div className="mt-4 mb-10 grid grid-cols-3 gap-5">
-            <AppointmentDetails
-              field={"Treatment Prescribe"}
-              value={data?.treatmentDetails?.testPrescribed?.join(', ') || "No tests prescribed"}
-              icon={<FaCalendarDay />}
-            />
-          </div>
-
-          {/* Submit Button */}
-          <div className="btn flex justify-end gap-3">
-            {(data?.documentOwner) && <button
-              className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
-           onClick={()=>GenerateTreatmentPdf(data)}
-            >
-              Download Report
-            </button>}
           </div>
         </div>
       </div>
@@ -329,4 +210,4 @@ const ViewAppointment = () => {
   );
 };
 
-export default ViewAppointment;
+export default RejectedPatient;

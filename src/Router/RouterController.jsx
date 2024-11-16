@@ -66,6 +66,7 @@ import PatientMedicalHistory from "../pages/Doctor/Patients/PatientMedicalHistor
 import ViewAppointment from "../pages/Doctor/Appointment/ViewAppointment";
 import Transactions from "../pages/Doctor/Transaction/Transactions";
 import TransactionDetails from "../pages/Doctor/Transaction/TransactionDetails";
+import RejectedPatient from "../pages/Doctor/Appointment/RejectedPatient";
 
 const router = createBrowserRouter([
   {
@@ -562,6 +563,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <TransactionDetails />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "rejected-patient",
+        element: (
+          <DoctorLayout>
+            <RejectedPatient />
           </DoctorLayout>
         ),
       },
