@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getPatientDetailsById } from "../../Utils/services/apis/Doctor/PatientApi";
+import { hideLoader, showLoader } from "./LoaderState";
 
 const initialState = {
   patientDetails: null,
@@ -20,13 +21,15 @@ const getMyClinicByIdSlice = createSlice({
 });
 
 // Thunk to fetch clinic details by ID
-export const fetchPatientByIdDoctor = (id,limit) => async (dispatch) => {
+export const fetchPatientByIdDoctor = (id, limit) => async (dispatch) => {
   try {
-    const data = await getPatientDetailsById(id,limit);
-    dispatch(setPatientDetails(data)); 
+    dispatch(showLoader());
+    const data = await getPatientDetailsById(id, limit);
+    dispatch(setPatientDetails(data));
   } catch (error) {
-    console.error("Error fetching clinic details:", error);
-    // Optionally handle error state here
+    console.error("Error fetching patient details:", error);
+  } finally {
+    dispatch(hideLoader());
   }
 };
 

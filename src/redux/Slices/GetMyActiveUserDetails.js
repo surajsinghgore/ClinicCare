@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getMeActiveDetailsUserApi } from "../../Utils/services/apis/User/UserPersonalApi";
+import { hideLoader, showLoader } from "./LoaderState";
 
 const initialState = {
   getMyUserDetails: null,
@@ -8,10 +9,14 @@ const initialState = {
 // Define actions for fetching user details
 export const fetchMyUserDetails = () => async (dispatch) => {
   try {
+    dispatch(showLoader());
+
     const data = await getMeActiveDetailsUserApi();
     dispatch(fetchMyUserDetailsSuccess(data));
   } catch (error) {
     console.error("Failed to fetch user details:", error);
+  } finally {
+    dispatch(hideLoader());
   }
 };
 

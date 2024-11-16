@@ -543,7 +543,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "patient-medical-history",
+        path: "patient-medical-history/:id",
         element: (
           <DoctorLayout>
             <PatientMedicalHistory />

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getMeActiveDetailsAdminApi } from "../../Utils/services/apis/Admin/AdminApi";
+import { hideLoader, showLoader } from "./LoaderState";
 const initialState = {
   getMyAdminDetails: null,
 };
@@ -7,8 +8,10 @@ const initialState = {
 // Async thunk to fetch Admin details
 export const fetchMyAdminDetails = createAsyncThunk(
   "Admin/fetchMyAdminDetails",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue,dispatch }) => {
     try {
+    dispatch(showLoader());
+
       const data = await getMeActiveDetailsAdminApi(); 
       return data; 
     } catch (error) {
@@ -17,7 +20,9 @@ export const fetchMyAdminDetails = createAsyncThunk(
           ? error.response.data.message
           : error.message
       );
-    }
+    } finally {
+    dispatch(hideLoader());
+  }
   }
 );
 

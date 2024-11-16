@@ -9,10 +9,11 @@ import { FaHistory } from "react-icons/fa";
 import { GoNumber } from "react-icons/go";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchPatientByIdDoctor } from "../../../redux/Slices/GetPatientByIdSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { calculateAge } from "../../../Utils/DateFormatFunction";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 
 const PatientsDetails = () => {
   const { id } = useParams()
@@ -21,8 +22,8 @@ const PatientsDetails = () => {
   const limit = useState(queryParams.get("limit") || 10);
   const dispatch = useDispatch()
   const patientDetails = useSelector((state) => state.getMyPatientById.patientDetails?.patient);
-  const hasMore = useSelector((state) => state.getMyPatientById.patientDetails?.hasMore) || false;
-
+  const hasMore = useSelector((state) => state.getMyPatientById.patientDetails);
+  console.log(hasMore)
   useEffect(() => {
 
     dispatch(fetchPatientByIdDoctor(id, limit));
@@ -34,10 +35,15 @@ const PatientsDetails = () => {
 
 
   const loadMoreData = () => {
+    const numericLimit = parseInt(limit, 10) || 0;
+    const newLimit = numericLimit + 5;
 
-    dispatch(fetchPatientByIdDoctor(id, limit + 5));
-    navigate(`/doctor/patient-details/${id}?limit=${limit + 5}`)
-  }
+    dispatch(fetchPatientByIdDoctor(id, newLimit));
+    navigate(`/doctor/patient-details/${id}?limit=${newLimit}`);
+
+
+  };
+
   return (
     <div>
       <BreadCrumbs currentPath={"Patient Medical Details"} />
@@ -180,9 +186,11 @@ const PatientsDetails = () => {
                       {item.appointmentTime}
                     </td>
                     <td className="p-4 text-center border-b border-black-200">
-                      <button className="text-white rounded px-3 py-1 bg-blue-600 font-medium">
-                        View
-                      </button>
+                      <Link to={`/doctor/patient-medical-history/${item.patientTreatmentId}`}>
+                        <button className="text-white rounded px-3 py-1 bg-blue-600 font-medium">
+                          View
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))
@@ -197,7 +205,7 @@ const PatientsDetails = () => {
 
 
           </table>
-          {(hasMore) && <div className="flex items-center justify-center mt-4">
+          {(patientDetails?.hasMore) && <div className="flex items-center justify-center mt-4">
             <button className="text-white px-5 py-1 bg-[#034EB0] rounded-lg" onClick={() => loadMoreData()}>Load More</button>
           </div>}
 

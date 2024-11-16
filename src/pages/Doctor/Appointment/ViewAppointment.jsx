@@ -62,7 +62,7 @@ const ViewAppointment = () => {
               <FaFileMedical size={35} className="text-[#034EB0]" />
             </h1>
           </div>
-        
+
           {/* Profile Image and Name Centered */}
           <div className="center flex items-center gap-6 mb-14">
             <div className="img-circle w-52 h-52 rounded-full overflow-hidden border-2 border-black">
@@ -304,7 +304,7 @@ const ViewAppointment = () => {
 
           {/* symptoms details and follow-up date */}
           <h1 className="text-2xl text-black-600 mt-20 mb-7 font-medium flex gap-3">
-            Patient Diagnostic Tests Images: <GiHypodermicTest />
+            Patient Diagnostic Tests : <GiHypodermicTest />
           </h1>
           <div className="mt-4 mb-10 grid grid-cols-3 gap-5">
             <AppointmentDetails
@@ -318,7 +318,7 @@ const ViewAppointment = () => {
           <div className="btn flex justify-end gap-3">
             {(data?.documentOwner) && <button
               className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
-           onClick={()=>GenerateTreatmentPdf(data)}
+              onClick={() => GenerateTreatmentPdf(data)}
             >
               Download Report
             </button>}

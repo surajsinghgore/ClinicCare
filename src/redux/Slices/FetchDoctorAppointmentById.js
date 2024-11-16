@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchDoctorAppointmentById } from "../../Utils/services/apis/Doctor/AppointmentApi";
+import { hideLoader, showLoader } from "./LoaderState";
 
 const initialState = {
   DoctorAppointmentById: null,
@@ -7,6 +8,8 @@ const initialState = {
 
 export const fetchDoctorAppointmentDetailsById = (id) => async (dispatch) => {
   try {
+    dispatch(showLoader());
+
     const data = await fetchDoctorAppointmentById(id);
     if (data.status) {
       dispatch(fetchDoctorAppointmentDetailsSuccess(data.response));
@@ -15,6 +18,8 @@ export const fetchDoctorAppointmentDetailsById = (id) => async (dispatch) => {
     }
   } catch (error) {
     console.error("Failed to fetch doctor appointment details:", error);
+  } finally {
+    dispatch(hideLoader());
   }
 };
 
