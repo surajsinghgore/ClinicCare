@@ -11,6 +11,7 @@ import { MdOutlineHomeRepairService } from "react-icons/md";
 import { RiCalendarScheduleLine } from "react-icons/ri";
 import { GrSchedule } from "react-icons/gr";
 import { FaUserInjured } from "react-icons/fa";
+import { FaUserPlus } from "react-icons/fa6";
 import { FcMoneyTransfer } from "react-icons/fc";
 import UserNav from "../../pages/UserDashboard/UserNav";
 
@@ -62,10 +63,14 @@ const DoctorNavbar = () => {
               { link: "/doctor/appointment-list?page=1&limit=10", title: "All Appointments", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
             ]}
           />
-          <UserNav
-            link=""
-            title="Patients"
-            icons={<FaUserInjured className="text-2xl text-black-800" />}
+          <LeftNavLink
+            link="/doctor"
+            title="Patient"
+            icons={<FaUserInjured className=" icon text-2xl text-black-800" />}
+            submenuItems={[
+              { link: "/doctor", title: "Create Patient", icon: <FaUserPlus className=" icon text-2xl text-black-800" /> },
+              { link: "/doctor/", title: "Patient List", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
+            ]}
           />
           <UserNav
             link="/doctor/transaction-records"

@@ -74,7 +74,7 @@ const ViewAppointment = () => {
             </div>
             <div className="flex flex-col">
               <p className="mt-3 text-2xl font-medium">{data?.user?.name}</p>
-              <p className="mt-1 text-black-500 text-lg font-medium">
+              <p className="mt-1 ml-4 text-black-500 text-lg font-medium">
                 ( Patient )
               </p>
             </div>
@@ -232,7 +232,7 @@ const ViewAppointment = () => {
           />
           <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
             {data?.treatmentDetails?.medications.map((item, index) => (
-              <div key={index}>
+              <>
                 <AppointmentDetails
                   field="Medicine Name"
                   value={item.name} // Use actual data from the `item`
@@ -253,7 +253,7 @@ const ViewAppointment = () => {
                   value={item.duration} // Use actual data from the `item`
                   icon={<FaCalendarAlt />}
                 />
-              </div>
+              </>
             ))}
 
 
