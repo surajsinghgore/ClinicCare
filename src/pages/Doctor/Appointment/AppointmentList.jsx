@@ -283,21 +283,23 @@ const AppointmentList = () => {
 
                       {/* Patient Name Field with Image */}
                       <td className="px-4 text-sm py-2 flex items-center">
-                        <img
+                        <Link   className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
+                         to={`/doctor/patient-details/${record.userId}`}> <img
                           src={record.userProfileUrl}
                           alt="Patient"
                           className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
-                        />
-                        {record.userName.length > 20
+                        /></Link>
+                        <Link to={`/doctor/patient-details/${record.userId}`}>  {record.userName.length > 20
                           ? record.userName.slice(0, 20) + "..."
                           : record.userName}
+                        </Link>
                       </td>
 
                       {/* Age Field */}
                       <td className="px-4 text-center text-sm py-2">
                         {record.userDob
                           ? new Date().getFullYear() -
-                            new Date(record.userDob).getFullYear()
+                          new Date(record.userDob).getFullYear()
                           : "N/A"}
                       </td>
 
@@ -340,13 +342,12 @@ const AppointmentList = () => {
                           </div>
                         ) : (
                           <div
-                            className={`px-2 py-1 rounded-md text-white ${
-                              record.status === "completed"
+                            className={`px-2 py-1 rounded-md text-white ${record.status === "completed"
                                 ? "bg-success"
                                 : record.status === "rejected"
-                                ? "bg-danger"
-                                : ""
-                            }`}
+                                  ? "bg-danger"
+                                  : ""
+                              }`}
                           >
                             {record.status}
                           </div>

@@ -535,7 +535,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "patient-details",
+        path: "patient-details/:id",
         element: (
           <DoctorLayout>
             <PatientsDetails />

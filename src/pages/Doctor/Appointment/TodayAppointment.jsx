@@ -393,17 +393,23 @@ const TodayAppointment = () => {
                       <td className="px-4 text-sm py-2">
                         {record.appointmentNumber}
                       </td>
-
                       {/* Patient Name Field with Image */}
                       <td className="px-4 text-sm py-2 flex items-center">
-                        <img
-                          src={record.userProfileUrl}
-                          alt="Patient"
-                          className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
-                        />
-                        {record.userName.length > 20
-                          ? record.userName.slice(0, 20) + "..."
-                          : record.userName}
+                        <Link className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
+                          to={`/doctor/patient-details/${record.userId}`}>
+
+                          <img
+                            src={record.userProfileUrl}
+                            alt="Patient"
+                            className="w-16 h-16 rounded-full aspect-square object-cover mr-2"
+                          />
+                        </Link>
+                        <Link to={`/doctor/patient-details/${record.userId}`}>
+                          {record.userName.length > 20
+                            ? record.userName.slice(0, 20) + "..."
+                            : record.userName}
+                        </Link>
+
                       </td>
 
                       {/* Age Field */}
