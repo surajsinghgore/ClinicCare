@@ -66,8 +66,9 @@ import ViewAppointment from "../pages/Doctor/Appointment/ViewAppointment";
 import Transactions from "../pages/Doctor/Transaction/Transactions";
 import TransactionDetails from "../pages/Doctor/Transaction/TransactionDetails";
 import RejectedPatient from "../pages/Doctor/Appointment/RejectedPatient";
-// import UserSideAppointmentDetails from "../pages/UserDashboard/UserSideAppointmentDetails";
+
 import UserRejectDetails from "../pages/UserDashboard/UserRejectDetails";
+import UserAppointmentDetails from "../pages/UserDashboard/UserAppointmentDetails";
 
 const router = createBrowserRouter([
   {
@@ -218,14 +219,14 @@ const router = createBrowserRouter([
           </UserLayout>
         ),
       },
-      // {
-      //   path: "user-appointment-details/:id",
-      //   element: (
-      //     <UserLayout>
-      //       <UserSideAppointmentDetails />
-      //     </UserLayout>
-      //   ),
-      // },
+      {
+        path: "user-appointment-details/:id",
+        element: (
+          <UserLayout>
+            <UserAppointmentDetails />
+          </UserLayout>
+        ),
+      },
       {
         path: "user-reject-details/:id",
         element: (

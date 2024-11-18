@@ -21,7 +21,7 @@ import { GenerateTreatmentPdf } from "../../components/PDF/GenerateTreatmentPdf"
 import { showAlert } from '../../redux/Slices/AlertToggleState';
 import { getMyAppointmentUserApiByIdApi } from "../../Utils/services/apis/User/AppointmentApi";
 
-const UserSideAppointmentDetails = () => {
+const UserAppointmentDetails = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const [data, setData] = useState({})
@@ -310,4 +310,4 @@ const UserSideAppointmentDetails = () => {
   );
 };
 
-export default UserSideAppointmentDetails;
+export default UserAppointmentDetails;
