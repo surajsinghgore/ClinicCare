@@ -241,7 +241,6 @@ const AllAppointments = () => {
               <button className="text-white px-5 py-1 bg-[#034EB0] rounded-lg" onClick={() => loadMoreData()}>Load More</button>
             </div>
           </>}
-
         </div>
 
       )}
