@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
@@ -7,6 +7,7 @@ import {
   downloadAppointmentPdfDataApi,
   downloadReportPdfDataApi,
   getAllAppointmentsActiveUserApi,
+  searchUserAllAppointmentsApi,
 } from "../../Utils/services/apis/User/AppointmentApi";
 import { useDispatch } from "react-redux";
 import { GenerateAppointmentPdf, GenerateTreatmentReportUserPdf } from "../../components/PDF/GenerateTreatmentPdf";
@@ -15,7 +16,12 @@ const AllAppointments = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [searchParams, setSearchParams] = useState({
+    appointmentNumber: "",
+    txnId: "",
+    appointmentDate: "",
+    status: "",
+  });
   const queryParams = new URLSearchParams(location.search);
   const [limit, setLimit] = useState(parseInt(queryParams.get("limit"), 10) || 10);
   const [appointments, setAppointments] = useState([]);
@@ -24,11 +30,11 @@ const AllAppointments = () => {
   const dataFetch = async (limitParam) => {
     try {
       dispatch(showLoader());
-      const currentLimit = limitParam || limit; // Use passed limit or state limit
-      console.log(`Fetching data with limit: ${currentLimit}`);
+      const currentLimit = limitParam || limit;
+
 
       const res = await getAllAppointmentsActiveUserApi(currentLimit);
-      if (res?.status) {
+      if (res.status) {
         setHashMore(res.hasMore);
         setAppointments(res.appointments);
       } else {
@@ -99,51 +105,102 @@ const AllAppointments = () => {
     }
   };
 
+
+  const searchFetch = useCallback(async () => {
+    try {
+      dispatch(showLoader());
+      // Destructure searchParams correctly
+      const { appointmentNumber, txnId, appointmentDate, status } =
+        searchParams;
+
+      // Call the API function with the current search parameters
+      const res = await searchUserAllAppointmentsApi(
+        appointmentNumber,
+        txnId,
+        appointmentDate,
+        status
+      );
+      console.log(res)
+      if (res?.status) {
+        setAppointments(res.data);
+      }
+    } catch (error) {
+      console.error("Error searching appointments:", error);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }, [dispatch, limit, searchParams]);
+  const handleSearchChange = (e) => {
+    setSearchParams({
+      ...searchParams,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSearch = () => {
+    searchFetch();
+  };
   return (
     <>
       {/* Search Input */}
       <div className="mt-16 mb-7 flex space-x-4">
         <input
-          type="number"
-          placeholder="Search Appointment Id ..."
-          className="border border-black-300 rounded-md px-3 py-2 w-full"
-          name="searchAppointmentNumber"
+          type="text"
+          placeholder="Appointment Number ..."
+          className="border border-black-300 rounded-md px-3 py-1 w-full"
+          name="appointmentNumber"
+          value={searchParams.appointmentNumber}
+          onChange={handleSearchChange}
         />
+
         <input
           type="text"
-          placeholder="Search Appointment Date..."
+          placeholder="Transaction Id..."
           className="border border-black-300 rounded-md px-3 py-2 w-full"
-          name="searchAppointmentDate"
+          name="txnId"
+          value={searchParams.txnId}
+          onChange={handleSearchChange}
         />
+
         <input
-          type="text"
-          placeholder="Search Appointment Time..."
+          type="date"
+          placeholder="Appointment Date..."
           className="border border-black-300 rounded-md px-3 py-2 w-full"
-          name="searchAppointmentTime"
+          name="appointmentDate"
+          value={searchParams.appointmentDate}
+          onChange={handleSearchChange}
         />
-        <input
-          type="text"
-          placeholder="Search Disease..."
+        <select
           className="border border-black-300 rounded-md px-3 py-2 w-full"
-          name="searchDisease"
-        />
-        <button className="bg-blue-600 px-4 py-2 text-white rounded-md">Search</button>
+          name="status"
+          value={searchParams.status}
+          onChange={handleSearchChange}>
+          <option value="">select status</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+          <option value="rejected">Rejected</option>
+        </select>
+
+        <div className="btn">
+          <button
+            className="rounded bg-[#116AEF] px-7 py-2 text-white"
+            onClick={handleSearch}
+          >
+            Search
+          </button>
+        </div>
       </div>
 
       {/* Heading */}
       <h1 className="text-2xl font-semibold mt-7 mb-6 flex items-center gap-3 text-black-800">
         All Appointments <BsCalendarDateFill />
       </h1>
+      {console.log(appointments)}
       {appointments.length === 0 ? (
         // No appointments scenario
         <div className="text-center mt-10">
-          <p className="text-lg text-black-600">No appointments booked yet.</p>
-          <button
-            onClick={() => navigate("/our-doctors")}
-            className="mt-6 bg-blue-600 text-white font-medium px-6 py-2 text-sm rounded-md hover:bg-blue-700"
-          >
-            Book Appointment Today
-          </button>
+          <p className="text-lg text-black-600">No appointments found.</p>
+
         </div>
       ) : (
         // Show appointments in a table
@@ -163,12 +220,12 @@ const AllAppointments = () => {
             <tbody>
               {appointments.map((appointment) => (
                 <tr key={appointment.appointmentId} className="border-b border-black-300">
-                  <td className="p-4 text-black-800 text-[0.95rem]">{appointment.appointmentNumber}</td>
+                  <td className="p-4 text-black-800 text-[0.95rem]">{appointment?.appointmentNumber}</td>
                   <td className="p-4 flex items-center gap-3">
                     <Link to={`/doctor-details/${appointment?.doctor?.doctorId}`}>
                       <img
                         src={appointment?.doctor?.profileUrl}
-                        alt={appointment.doctorName}
+                        alt={appointment?.doctorName}
                         className="w-12 h-12 rounded-md"
                       />
                     </Link>
@@ -178,21 +235,21 @@ const AllAppointments = () => {
                       </span>
                     </Link>
                   </td>
-                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment.appointmentDate}</td>
-                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment.appointmentTime}</td>
-                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment.txnId}</td>
+                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment?.appointmentDate}</td>
+                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment?.appointmentTime}</td>
+                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment?.txnId}</td>
                   <td className="p-4 text-black-600 text-[0.95rem]">
                     <div
-                      className={`px-3 py-1 rounded-md text-center text-white ${appointment.appointmentStatus === "completed"
+                      className={`px-3 py-1 rounded-md text-center text-white ${appointment?.appointmentStatus === "completed"
                         ? "bg-success"
-                        : appointment.appointmentStatus === "rejected"
+                        : appointment?.appointmentStatus === "rejected"
                           ? "bg-danger"
-                          : appointment.appointmentStatus === "pending"
+                          : appointment?.appointmentStatus === "pending"
                             ? "bg-warning"
                             : ""
                         }`}
                     >
-                      {appointment.appointmentStatus}
+                      {appointment?.appointmentStatus}
                     </div>
                   </td>
                   <td className="p-4">
@@ -200,13 +257,13 @@ const AllAppointments = () => {
                       {appointment?.appointmentStatus === "pending" ? (
                         <button
                           className="bg-blue-600 text-white font-medium px-3 py-2 text-sm rounded-md hover:bg-blue-700"
-                          onClick={() => downloadAppointmentDocPdf(appointment.appointmentId)}
+                          onClick={() => downloadAppointmentDocPdf(appointment?.appointmentId)}
                         >
                           Download Appointment
                         </button>
                       ) : (
                         <>
-                          {(appointment?.appointmentStatus !== "rejected") ? <Link to={`/user/user-appointment-details/${appointment.patientTreatmentId}`}>
+                          {(appointment?.appointmentStatus !== "rejected") ? <Link to={`/user/user-appointment-details/${appointment?.patientTreatmentId}`}>
 
                             <button
                               className="bg-blue-600 text-white font-medium px-3 py-2 text-sm rounded-md hover:bg-blue-700"
@@ -215,7 +272,7 @@ const AllAppointments = () => {
                               View
                             </button>
                           </Link>
-                            : <Link to={`/user/user-reject-details/${appointment.appointmentId}`}><button
+                            : <Link to={`/user/user-reject-details/${appointment?.appointmentId}`}><button
                               className="bg-blue-600 text-white font-medium px-3 py-2 text-sm rounded-md hover:bg-blue-700"
 
                             >
@@ -224,7 +281,7 @@ const AllAppointments = () => {
 
                           {(appointment?.appointmentStatus !== "rejected") && <button
                             className="bg-blue-600 text-white font-medium px-3 py-2 text-sm rounded-md hover:bg-blue-700"
-                            onClick={() => downloadReportDocPdf(appointment.appointmentId)}
+                            onClick={() => downloadReportDocPdf(appointment?.appointmentId)}
                           >
                             View Report
                           </button>}

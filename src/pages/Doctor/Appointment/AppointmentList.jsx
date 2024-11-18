@@ -149,8 +149,8 @@ const AppointmentList = () => {
   };
 
   const handleSearch = () => {
-    setCurrentPage(1); // Reset to page 1 on search
-    searchFetch(); // Trigger the search
+    setCurrentPage(1); 
+    searchFetch(); 
   };
   return (
     <>

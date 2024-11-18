@@ -39,3 +39,19 @@ export const getMyAppointmentUserApiByIdApi = async (id) => {
   const res = await axiosInstance.get(`/v1/user/get-my-completed-appointment/${id}`);
   return res.data;
 };
+
+
+export const searchUserAllAppointmentsApi = async (appointmentNumber = "", txnId = "", appointmentDate = "", status = "") => {
+  const queryObj = {};
+
+  if (appointmentNumber) queryObj.appointmentNumber = appointmentNumber;
+  if (txnId) queryObj.txnId = txnId;
+  if (appointmentDate) queryObj.appointmentDate = appointmentDate;
+  if (status) queryObj.status = status;
+
+  const query = new URLSearchParams(queryObj).toString();
+
+  const res = await axiosInstance.get(`/v1/user/search-my-all-appointment?${query}`);
+  
+  return res.data;
+};
