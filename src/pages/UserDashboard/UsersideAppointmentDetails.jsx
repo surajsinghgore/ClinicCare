@@ -11,16 +11,15 @@ import { BiMessageRoundedError } from "react-icons/bi";
 import { FaNotesMedical, FaCalendarDay } from "react-icons/fa";
 import { GiHypodermicTest } from "react-icons/gi";
 import { FaFileMedical } from "react-icons/fa";
-import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { useEffect, useState } from "react";
-import { viewAppointmentApiByIdApiDoctor } from "../../../Utils/services/apis/Doctor/AppointmentApi";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { calculateAge, extractFullDate } from "../../../Utils/DateFormatFunction";
-import { GenerateTreatmentPdf } from "../../../components/PDF/GenerateTreatmentPdf";
-import AppointmentDetails from "../../components/Doctor/AppointmentDetails";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
-
+import { viewAppointmentApiByIdAllApiDoctor } from "../../Utils/services/apis/Doctor/PatientApi";
+import AppointmentDetails from "../../components/Doctor/AppointmentDetails";
+import { calculateAge, extractFullDate } from "../../Utils/DateFormatFunction";
+import { GenerateTreatmentPdf } from "../../components/PDF/GenerateTreatmentPdf";
+import { showAlert } from '../../redux/Slices/AlertToggleState';
 const UsersideAppointmentDetails = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
@@ -28,7 +27,7 @@ const UsersideAppointmentDetails = () => {
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
-      let res = await viewAppointmentApiByIdApiDoctor(id);
+      let res = await viewAppointmentApiByIdAllApiDoctor(id);
       if (res?.status) {
         setData(res)
       }

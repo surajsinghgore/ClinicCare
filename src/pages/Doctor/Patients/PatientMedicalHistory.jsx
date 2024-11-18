@@ -11,7 +11,7 @@ import { PiCertificate } from "react-icons/pi";
 import { BiMessageRoundedError } from "react-icons/bi";
 import { FaNotesMedical, FaCalendarDay } from "react-icons/fa";
 import { GiHypodermicTest } from "react-icons/gi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { rejectedAppointmentByIdApi, viewAppointmentApiByIdAllApiDoctor } from "../../../Utils/services/apis/Doctor/PatientApi";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
@@ -26,7 +26,7 @@ const PatientMedicalHistory = () => {
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
-      let res = await rejectedAppointmentByIdApi(id);
+      let res = await viewAppointmentApiByIdAllApiDoctor(id);
 
       if (res?.status) {
         setData(res)
@@ -50,7 +50,7 @@ const PatientMedicalHistory = () => {
   return (
     <div>
       <div>
- 
+
         <BreadCrumbs currentPath={"Patient Medical History"} />
 
         {/* Container for the whole content */}
@@ -160,12 +160,22 @@ const PatientMedicalHistory = () => {
 
           {/* view clinic button */}
           <div className="btn flex justify-end gap-3 mb-10">
-            <button
-              className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
-              onClick={() => openGoogleMaps(data?.clinic?.lat, data?.clinic?.long)}
-            >
-              View Clinic in Map
-            </button>
+            <Link to={`/doctor-details/${data?.doctor?.id}`}>
+              <button
+                className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
+
+              >
+                View Doctor
+              </button>
+            </Link>
+            <Link to={`/about-clinic/${data?.clinic?.id}`}>
+              <button
+                className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
+
+              >
+                View Clinic
+              </button>
+            </Link>
           </div>
 
           <hr className="border-black-300 mb-14" />

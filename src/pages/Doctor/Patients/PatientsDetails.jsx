@@ -184,17 +184,13 @@ const PatientsDetails = () => {
                     <td className="p-4 text-left border-b border-black-200">
                       {item.appointmentTime}
                     </td>
-                   
+
                     <td className="p-4 text-center border-b border-black-200">
-                      {(item.appointmentStatus === "completed") ? <Link to={`/doctor/patient-medical-history/${item.patientTreatmentId}`}>
+                      <Link to={`/doctor/patient-medical-history/${item.patientTreatmentId}`}>
                         <button className="text-white rounded px-3 py-1 bg-blue-600 font-medium">
                           View
                         </button>
-                      </Link> : <Link to={`/doctor/rejected-patient/${item.appointmentId}`}>
-                        <button className="text-white rounded px-3 py-1 bg-blue-600 font-medium">
-                          View
-                        </button>
-                      </Link>}
+                      </Link>
 
 
                     </td>

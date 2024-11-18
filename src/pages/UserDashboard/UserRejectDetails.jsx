@@ -10,16 +10,15 @@ import { FaUserCircle } from "react-icons/fa";
 import { BiMessageRoundedError } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
 import { FaFileMedical } from "react-icons/fa";
-import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
-import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-  calculateAge,
-} from "../../../Utils/DateFormatFunction";
-import { rejectedAppointmentByIdApi } from "../../../Utils/services/apis/Doctor/PatientApi";
+import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import AppointmentDetails from "../../components/Doctor/AppointmentDetails";
+import { calculateAge } from "../../Utils/DateFormatFunction";
+import { rejectedAppointmentByIdApi } from "../../Utils/services/apis/Doctor/PatientApi";
+import { showAlert } from '../../redux/Slices/AlertToggleState';
+
 
 const UserRejectDetails = () => {
   const dispatch = useDispatch();
@@ -35,7 +34,7 @@ const UserRejectDetails = () => {
     } catch (error) {
       console.log(error);
       dispatch(
-        showAlert({ message: error?.response?.data?.message, type: "failed" })
+        // showAlert({ message: error?.response?.data?.message, type: "failed" })
       );
     } finally {
       dispatch(hideLoader());

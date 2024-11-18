@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import about from "../../assets/aboutDoctor2.png";
 import { FaMapMarkerAlt, FaGraduationCap, FaStar } from 'react-icons/fa';
 import ReviewCard from '../../components/ReviewCard';
@@ -224,7 +224,7 @@ const DoctorDetails = () => {
 
 
             <div className="px-32 my-20">
-                <h2 className="text-lg font-semibold mb-4">What users are saying about Jane Cooper</h2>
+                <h2 className="text-lg font-semibold mb-4">What users are saying about {doctor?.doctorInfo?.name}</h2>
                 <div className="flex space-x-4 overflow-x-auto">
                     <ReviewCard />
                     <ReviewCard />
