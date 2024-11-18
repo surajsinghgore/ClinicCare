@@ -26,7 +26,6 @@ import AddClinic2 from "../pages/Doctor/Clinic/AddClinic2";
 import AddClinic3 from "../pages/Doctor/Clinic/AddClinic3";
 import CreateAdmins from "../pages/Admin/CreateAdmins";
 import AdminLists from "../pages/Admin/AdminLists";
-
 import ClinicsList from "../pages/Doctor/Clinic/ClinicsList";
 import AddServices from "../pages/Doctor/Service/AddServices";
 import ServicesList from "../pages/Doctor/Service/ServicesList";
@@ -67,8 +66,9 @@ import ViewAppointment from "../pages/Doctor/Appointment/ViewAppointment";
 import Transactions from "../pages/Doctor/Transaction/Transactions";
 import TransactionDetails from "../pages/Doctor/Transaction/TransactionDetails";
 import RejectedPatient from "../pages/Doctor/Appointment/RejectedPatient";
-import UserSideAppointmentDetails from "../pages/UserDashboard/UserSideAppointmentDetails";
+
 import UserRejectDetails from "../pages/UserDashboard/UserRejectDetails";
+import UserAppointmentDetails from "../pages/UserDashboard/UserAppointmentDetails";
 
 const router = createBrowserRouter([
   {
@@ -223,7 +223,7 @@ const router = createBrowserRouter([
         path: "user-appointment-details/:id",
         element: (
           <UserLayout>
-            <UserSideAppointmentDetails />
+            <UserAppointmentDetails />
           </UserLayout>
         ),
       },
