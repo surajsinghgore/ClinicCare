@@ -35,7 +35,7 @@ const AllAppointments = () => {
 
       const res = await getAllAppointmentsActiveUserApi(currentLimit);
       if (res.status) {
-        setHashMore(res.hasMore);
+        setHashMore(res?.hasMore);
         setAppointments(res.appointments);
       } else {
         setAppointments([]);
@@ -120,8 +120,9 @@ const AllAppointments = () => {
         appointmentDate,
         status
       );
-      console.log(res)
+
       if (res?.status) {
+        setHashMore(res.hasMore);
         setAppointments(res.data);
       }
     } catch (error) {
@@ -195,7 +196,7 @@ const AllAppointments = () => {
       <h1 className="text-2xl font-semibold mt-7 mb-6 flex items-center gap-3 text-black-800">
         All Appointments <BsCalendarDateFill />
       </h1>
-      {console.log(appointments)}
+
       {appointments.length === 0 ? (
         // No appointments scenario
         <div className="text-center mt-10">
