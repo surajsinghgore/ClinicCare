@@ -285,7 +285,6 @@ const ViewAppointment = () => {
             </div>
           </div>
 
-          {/* symptoms details and follow-up date */}
           <h1 className="text-2xl text-black-600 mt-20 mb-7 font-medium flex gap-3">
             Patient Diagnostic Tests : <GiHypodermicTest />
           </h1>
@@ -297,7 +296,7 @@ const ViewAppointment = () => {
             />
           </div>
 
-          {/* Submit Button */}
+
           <div className="btn flex justify-end gap-3">
             {(data?.documentOwner) && <button
               className="px-5 font-medium py-2 bg-blue-600 text-white rounded hover:bg-blue-500 duration-150"
