@@ -19,3 +19,7 @@ export const downloadAppointmentPdfDataApi = async (appointmentId) => {
   const res = await axiosInstance.get(`/v1/user/get-my-appointment-pdf/${appointmentId}`);
   return res.data;
 };
+export const downloadReportPdfDataApi = async (appointmentId) => {
+  const res = await axiosInstance.get(`/v1/user/get-my-report-pdf/${appointmentId}`);
+  return res.data;
+};

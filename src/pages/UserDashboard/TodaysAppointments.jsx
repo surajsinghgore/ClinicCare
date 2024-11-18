@@ -1,11 +1,11 @@
 import { BsCalendarDateFill } from "react-icons/bs";
-import { downloadAppointmentPdfDataApi, getTodayAppointmentsActiveUserApi } from "../../Utils/services/apis/User/AppointmentApi";
+import { downloadAppointmentPdfDataApi, downloadReportPdfDataApi, getTodayAppointmentsActiveUserApi } from "../../Utils/services/apis/User/AppointmentApi";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { GenerateAppointmentPdf } from "../../components/PDF/GenerateTreatmentPdf";
+import { GenerateAppointmentPdf, GenerateTreatmentPdf, GenerateTreatmentReportUserPdf } from "../../components/PDF/GenerateTreatmentPdf";
 
 const TodaysAppointments = () => {
   const dispatch = useDispatch();
@@ -59,8 +59,28 @@ const TodaysAppointments = () => {
       dispatch(hideLoader());
     }
   }
-  const downloadReportDoc = async (appointmentId) => { }
 
+
+
+
+
+  const downloadReportDocPdf = async (appointmentId) => {
+    try {
+      dispatch(showLoader());
+      let res = await downloadReportPdfDataApi(appointmentId);
+      GenerateTreatmentReportUserPdf(res.data)
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        showAlert({
+          message: error?.response?.data?.message,
+          type: "failed",
+        })
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
   return (
     <div>
       {/* Heading */}
@@ -122,7 +142,7 @@ const TodaysAppointments = () => {
                   <td className="p-4">
                     {(appointment?.appointmentStatus === "pending") ? <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700" onClick={() => downloadAppointmentDocPdf(appointment.appointmentId)}>
                       Download Appointment
-                    </button> : <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700" onClick={() => downloadReportDoc(appointment.appointmentId)} >
+                    </button> : <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700" onClick={() => downloadReportDocPdf(appointment.appointmentId)} >
                       Download Report
                     </button>}
 
