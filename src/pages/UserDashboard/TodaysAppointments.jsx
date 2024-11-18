@@ -1,103 +1,139 @@
 import { BsCalendarDateFill } from "react-icons/bs";
+import { downloadAppointmentPdfDataApi, getTodayAppointmentsActiveUserApi } from "../../Utils/services/apis/User/AppointmentApi";
+import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
+import { showAlert } from "../../redux/Slices/AlertToggleState";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { GenerateAppointmentPdf } from "../../components/PDF/GenerateTreatmentPdf";
 
 const TodaysAppointments = () => {
-  // Inline data
-  const appointments = [
-    {
-      id: 1,
-      doctorName: "Dr. John Doe",
-      doctorImage: "https://via.placeholder.com/40",
-      date: "2024-11-15",
-      time: "10:30 AM",
-      clinicName: "Medicare Center",
-      transactionId: "TX123456789",
-    },
-    {
-      id: 2,
-      doctorName: "Dr. Jane Smith",
-      doctorImage: "https://via.placeholder.com/40",
-      date: "2024-11-15",
-      time: "2:00 PM",
-      clinicName: "Medicare Center",
-      transactionId: "TX987654321",
-    },
-  ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); // Used for navigation
+  const [appointments, setAppointments] = useState([]);
+
+  // Fetch today's appointments
+  const dataFetch = async () => {
+    try {
+      dispatch(showLoader());
+      let res = await getTodayAppointmentsActiveUserApi();
+      if (res?.status) {
+        setAppointments(res.appointments);
+      } else {
+        setAppointments([]); // Ensure appointments is empty on failure
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        showAlert({
+          message: error?.response?.data?.message || "Failed to fetch appointments",
+          type: "failed",
+        })
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    dataFetch();
+  }, []);
+
+
+
+
+  const downloadAppointmentDocPdf = async (appointmentId) => {
+    try {
+      dispatch(showLoader());
+      let res = await downloadAppointmentPdfDataApi(appointmentId);
+      GenerateAppointmentPdf(res.data)
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        showAlert({
+          message: error?.response?.data?.message,
+          type: "failed",
+        })
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+  const downloadReportDoc = async (appointmentId) => { }
 
   return (
-    <>
+    <div>
       {/* Heading */}
       <h1 className="text-2xl font-semibold mt-20 mb-6 flex items-center gap-3 text-black-800">
         Your Appointments Today <BsCalendarDateFill />
       </h1>
-      <div className="overflow-x-auto border border-black-300">
-        {/* Table */}
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="text-white bg-gradient-to-r from-blue-500 to-blue-700 border-b font-bold uppercase">
-              <th className="p-4 text-sm tracking-wide">
-                #ID
-              </th>
-              <th className="p-4 text-sm tracking-wide">
-                Doctor Name
-              </th>
-              <th className="p-4 text-sm tracking-wide">
-                Date
-              </th>
-              <th className="p-4 text-sm tracking-wide">
-                Time
-              </th>
-              <th className="p-4 text-sm tracking-wide">
-                Transaction ID
-              </th>
-              <th className="p-4 pr-16 text-sm text-center tracking-wide">
-                Actions
-              </th>
-              <th className="p-4 text-sm tracking-wide">
-                Clinic
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {appointments.map((appointment) => (
-              <tr key={appointment.id} className={`border-b border-black-300`}>
-                <td className="p-4 text-black-800 text-[0.95rem]">
-                  {appointment.id}
-                </td>
-                <td className="p-4 flex items-center gap-3">
-                  <img
-                    src={appointment.doctorImage}
-                    alt={appointment.doctorName}
-                    className="w-12 h-12 rounded-xl"
-                  />
-                  <span className="font-medium text-black-700 text-[0.95rem]">
-                    {appointment.doctorName}
-                  </span>
-                </td>
-                <td className="p-4 text-black-600 text-[0.95rem]">
-                  {appointment.date}
-                </td>
-                <td className="p-4 text-black-600 text-[0.95rem]">
-                  {appointment.time}
-                </td>
-                <td className="p-4 text-black-600 text-[0.95rem]">
-                  {appointment.transactionId}
-                </td>
-                <td className="p-4">
-                  <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                    Download Appointment
-                  </button>
-                </td>
-                <td className="p-4">
-                  <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                    View Clinic
-                  </button>
-                </td>
+
+      {appointments.length === 0 ? (
+        // No appointments scenario
+        <div className="text-center mt-10">
+          <p className="text-lg text-black-600">No appointments booked for today.</p>
+          <button
+            onClick={() => navigate("/book-appointment")} // Replace with your route
+            className="mt-6 bg-blue-600 text-white font-medium px-6 py-2 text-sm rounded-md hover:bg-blue-700"
+          >
+            Book Appointment Today
+          </button>
+        </div>
+      ) : (
+        // Show appointments in a table
+        <div className="overflow-x-auto border border-black-300">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="text-white bg-gradient-to-r from-blue-500 to-blue-700 border-b font-bold uppercase">
+                <th className="p-4 text-sm tracking-wide">#ID</th>
+                <th className="p-4 text-sm tracking-wide">Doctor Name</th>
+                <th className="p-4 text-sm tracking-wide">Date</th>
+                <th className="p-4 text-sm tracking-wide">Time</th>
+                <th className="p-4 text-sm tracking-wide">Transaction ID</th>
+                <th className="p-4 pr-16 text-sm text-center tracking-wide">Clinic</th>
+                <th className="p-4 pr-16 text-sm text-center tracking-wide">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+            </thead>
+            <tbody>
+              {appointments.map((appointment) => (
+                <tr key={appointment.appointmentId} className="border-b border-black-300">
+                  <td className="p-4 text-black-800 text-[0.95rem]">{appointment.appointmentNumber}</td>
+                  <td className="p-4 flex items-center gap-3">
+                    <img
+                      src={appointment?.doctor?.profileUrl}
+                      alt={appointment.doctorName}
+                      className="w-12 h-12 rounded-xl"
+                    />
+                    <span className="font-medium text-black-700 text-[0.95rem]">
+                      {appointment?.doctor?.name}
+                    </span>
+                  </td>
+                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment.appointmentDate}</td>
+                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment.appointmentTime}</td>
+                  <td className="p-4 text-black-600 text-[0.95rem]">{appointment.txnId}</td>
+                  <td className="p-4">
+                    <Link to={`/about-clinic/${appointment.clinicId}`}>
+
+                      <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700">
+                        View Clinic
+                      </button>
+                    </Link>
+                  </td>
+                  <td className="p-4">
+                    {(appointment?.appointmentStatus === "pending") ? <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700" onClick={() => downloadAppointmentDocPdf(appointment.appointmentId)}>
+                      Download Appointment
+                    </button> : <button className="bg-blue-600 text-white font-medium px-2 py-2 text-sm rounded-md hover:bg-blue-700" onClick={() => downloadReportDoc(appointment.appointmentId)} >
+                      Download Report
+                    </button>}
+
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
   );
 };
 

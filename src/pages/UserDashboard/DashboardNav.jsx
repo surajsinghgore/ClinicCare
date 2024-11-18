@@ -74,7 +74,7 @@ const DashboardNav = () => {
             icons={<MdPassword className="text-2xl text-black-800" />}
           />
           <UserNav
-            link="/user/user-appointment"
+            link="/user/user-appointment?tab=today"
             title="Appointment"
             icons={<MdEventNote className="text-2xl text-black-800" />}
           />

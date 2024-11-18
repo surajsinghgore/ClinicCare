@@ -6,6 +6,16 @@ export const getAvailableTimeSlotApi = async (serviceId, date) => {
 };
 
 export const bookAppointmentTempApi = async (payload) => {
-  const res = await axiosInstance.post(`/v1/appointment/book-appointment-temp`,payload);
+  const res = await axiosInstance.post(`/v1/appointment/book-appointment-temp`, payload);
+  return res.data;
+};
+
+export const getTodayAppointmentsActiveUserApi = async () => {
+  const res = await axiosInstance.get(`/v1/user/get-my-today-appointment`);
+  return res.data;
+};
+
+export const downloadAppointmentPdfDataApi = async (appointmentId) => {
+  const res = await axiosInstance.get(`/v1/user/get-my-appointment-pdf/${appointmentId}`);
   return res.data;
 };
