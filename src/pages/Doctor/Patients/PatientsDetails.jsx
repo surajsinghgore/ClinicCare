@@ -207,7 +207,8 @@ const PatientsDetails = () => {
 
 
           </table>
-          {(patientDetails?.hasMore) && <div className="flex items-center justify-center mt-4">
+          {(patientDetails?.hasMore) && 
+          <div className="flex items-center justify-center mt-4">
             <button className="text-white px-5 py-1 bg-[#034EB0] rounded-lg" onClick={() => loadMoreData()}>Load More</button>
           </div>}
 

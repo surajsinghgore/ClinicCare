@@ -5,7 +5,7 @@ import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { GenerateAppointmentPdf, GenerateTreatmentPdf, GenerateTreatmentReportUserPdf } from "../../components/PDF/GenerateTreatmentPdf";
+import { GenerateAppointmentPdf, GenerateTreatmentReportUserPdf } from "../../components/PDF/GenerateTreatmentPdf";
 
 const TodaysAppointments = () => {
   const dispatch = useDispatch();
@@ -93,7 +93,7 @@ const TodaysAppointments = () => {
         <div className="text-center mt-10">
           <p className="text-lg text-black-600">No appointments booked for today.</p>
           <button
-            onClick={() => navigate("/book-appointment")} // Replace with your route
+            onClick={() => navigate("/our-doctors")}
             className="mt-6 bg-blue-600 text-white font-medium px-6 py-2 text-sm rounded-md hover:bg-blue-700"
           >
             Book Appointment Today
@@ -119,14 +119,19 @@ const TodaysAppointments = () => {
                 <tr key={appointment.appointmentId} className="border-b border-black-300">
                   <td className="p-4 text-black-800 text-[0.95rem]">{appointment.appointmentNumber}</td>
                   <td className="p-4 flex items-center gap-3">
-                    <img
-                      src={appointment?.doctor?.profileUrl}
-                      alt={appointment.doctorName}
-                      className="w-12 h-12 rounded-xl"
-                    />
-                    <span className="font-medium text-black-700 text-[0.95rem]">
-                      {appointment?.doctor?.name}
-                    </span>
+                    <Link to={`/doctor-details/${appointment?.doctor?.doctorId}`} >
+
+                      <img
+                        src={appointment?.doctor?.profileUrl}
+                        alt={appointment.doctorName}
+                        className="w-12 h-12 rounded-xl"
+                      />
+                    </Link>
+                    <Link to={`/doctor-details/${appointment?.doctor?.doctorId}`} >
+                      <span className="font-medium text-black-700 text-[0.95rem]">
+                        {appointment?.doctor?.name}
+                      </span>
+                    </Link>
                   </td>
                   <td className="p-4 text-black-600 text-[0.95rem]">{appointment.appointmentDate}</td>
                   <td className="p-4 text-black-600 text-[0.95rem]">{appointment.appointmentTime}</td>

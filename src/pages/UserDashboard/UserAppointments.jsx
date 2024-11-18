@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom'; 
+import { useSearchParams } from 'react-router-dom';
 import TodaysAppointments from './TodaysAppointments';
 import AllAppointments from './AllAppointments';
 import { SlCalender } from "react-icons/sl";
 
 const UserAppointments = () => {
-  const [searchParams, setSearchParams] = useSearchParams(); 
+  const [searchParams, setSearchParams] = useSearchParams();
   const activeTabQuery = searchParams.get('tab') || 'today';
   const [activeTab, setActiveTab] = useState(activeTabQuery);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    setSearchParams({ tab });
+
+    // Add `limit=5` when the 'all' tab is active
+    if (tab === 'all') {
+      setSearchParams({ tab, limit: 5 });
+    } else {
+      setSearchParams({ tab });
+    }
   };
 
   useEffect(() => {

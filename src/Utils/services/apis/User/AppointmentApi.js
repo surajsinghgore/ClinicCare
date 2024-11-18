@@ -23,3 +23,19 @@ export const downloadReportPdfDataApi = async (appointmentId) => {
   const res = await axiosInstance.get(`/v1/user/get-my-report-pdf/${appointmentId}`);
   return res.data;
 };
+
+
+export const getAllAppointmentsActiveUserApi = async (limit) => {
+  const res = await axiosInstance.get(`/v1/user/get-my-all-appointment?limit=${limit}`);
+  return res.data;
+};
+
+
+export const rejectedAppointmentUserByIdApi = async (id) => {
+  const res = await axiosInstance.get(`/v1/user/get-my-rejected-appointment/${id}`);
+  return res.data;
+};
+export const getMyAppointmentUserApiByIdApi = async (id) => {
+  const res = await axiosInstance.get(`/v1/user/get-my-completed-appointment/${id}`);
+  return res.data;
+};

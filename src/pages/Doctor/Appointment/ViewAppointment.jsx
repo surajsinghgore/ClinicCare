@@ -86,111 +86,94 @@ const ViewAppointment = () => {
           <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
             <AppointmentDetails
               field={"Appointment Number"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
               value={data?.appointment?.appointmentNumber}
               icon={<FaUser />}
             />
 
             <AppointmentDetails
               field={"Email"}
-              //   value={DoctorAppointmentById?.patientEmail}
               value={data?.user?.email}
               icon={<FaEnvelope />}
             />
 
             <AppointmentDetails
               field={"Gender"}
-              //   value={DoctorAppointmentById?.patientGender}
               value={data?.user?.gender}
               icon={<FaTransgender />}
             />
             <AppointmentDetails
               field={"Age"}
-              //   value={calculateAge(DoctorAppointmentById?.patientDob)}
               value={calculateAge(data?.user?.dob)}
               icon={<GoNumber />}
             />
             <AppointmentDetails
               field={"Phone No"}
-              //   value={DoctorAppointmentById?.patientMobile}
               value={data?.user?.mobile}
               icon={<FaPhoneFlip />}
             />
             <AppointmentDetails
               field={"Blood Group"}
-              //   value={DoctorAppointmentById?.patientBloodGroup}
               value={data?.user?.bloodGroup}
               icon={<FaTint />}
             />
             <AppointmentDetails
               field={"Doctor Name"}
-              //   value={DoctorAppointmentById?.doctorSpecialization}
               value={data?.doctor?.name}
               icon={<FaUserDoctor />}
             />
             <AppointmentDetails
               field={"Doctor Specialty"}
-              //   value={DoctorAppointmentById?.doctorSpecialization}
               value={data?.doctor?.specialization}
               icon={<FaUserDoctor />}
             />
             <AppointmentDetails
               field={"Appointment Date"}
-              //   value={DoctorAppointmentById?.appointmentDate}
               value={data?.appointment?.appointmentDate}
               icon={<MdDateRange />}
             />
             <AppointmentDetails
               field={"Appointment Time"}
-              //   value={DoctorAppointmentById?.appointmentTime}
               value={data?.appointment?.appointmentTime}
               icon={<FaClock />}
             />
             <AppointmentDetails
               field={"Treatment Name"}
-              //   value={DoctorAppointmentById?.treatmentName}
               value={data?.appointment?.service.treatmentName}
               icon={<FaStethoscope />}
             />
             <AppointmentDetails
               field={"specialty"}
-              //   value={DoctorAppointmentById?.treatmentName}
               value={data?.appointment?.service.specialty}
               icon={<FaStethoscope />}
             />
             <AppointmentDetails
               field={"Transaction ID"}
-              //   value={DoctorAppointmentById?.transactionId}
               value={data?.transactionDetails?.txnId}
               icon={<GrTransaction />}
             />
             <AppointmentDetails
               field={"Fees"}
-              //   value={DoctorAppointmentById?.appointmentFees}
-              value={data?.transactionDetails?.totalAmount}
+              value={data?.transactionDetails?.totalAmount - data?.transactionDetails?.platformFee}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Platform Fee"}
-              //   value={DoctorAppointmentById?.transactionPaymentFeeAmount}
               value={data?.transactionDetails?.platformFee}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Amount Received"}
 
-              value={data?.transactionDetails?.amount}
+              value={(data.transactionDetails.amount / 100).toFixed(2)}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Transaction Status"}
-              //   value={DoctorAppointmentById?.transactionStatus}
               value={data?.transactionDetails?.methodRes?.data?.responseCode}
               icon={<BiMessageRoundedError />}
             />
             <AppointmentDetails
               field={"Appointment  Status"}
-              //   value={DoctorAppointmentById?.transactionStatus}
               value={data?.appointment?.status}
               icon={<BiMessageRoundedError />}
             />

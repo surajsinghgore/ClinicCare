@@ -15,19 +15,20 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
-import { viewAppointmentApiByIdAllApiDoctor } from "../../Utils/services/apis/Doctor/PatientApi";
 import AppointmentDetails from "../../components/Doctor/AppointmentDetails";
 import { calculateAge, extractFullDate } from "../../Utils/DateFormatFunction";
 import { GenerateTreatmentPdf } from "../../components/PDF/GenerateTreatmentPdf";
 import { showAlert } from '../../redux/Slices/AlertToggleState';
-const UsersideAppointmentDetails = () => {
+import { getMyAppointmentUserApiByIdApi } from "../../Utils/services/apis/User/AppointmentApi";
+
+const UserSideAppointmentDetails = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const [data, setData] = useState({})
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
-      let res = await viewAppointmentApiByIdAllApiDoctor(id);
+      let res = await getMyAppointmentUserApiByIdApi(id);
       if (res?.status) {
         setData(res)
       }
@@ -72,7 +73,7 @@ const UsersideAppointmentDetails = () => {
             <div className="flex flex-col">
               <p className="mt-3 text-2xl font-medium">{data?.user?.name}</p>
               <p className="mt-1 ml-4 text-black-500 text-lg font-medium">
-                ( Patient )
+                ( Doctor )
               </p>
             </div>
           </div>
@@ -83,93 +84,78 @@ const UsersideAppointmentDetails = () => {
           <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
             <AppointmentDetails
               field={"Appointment Number"}
-              //   value={DoctorAppointmentById?.appointmentNumber}
               value={data?.appointment?.appointmentNumber}
               icon={<FaUser />}
             />
 
             <AppointmentDetails
               field={"Email"}
-              //   value={DoctorAppointmentById?.patientEmail}
               value={data?.user?.email}
               icon={<FaEnvelope />}
             />
 
             <AppointmentDetails
               field={"Gender"}
-              //   value={DoctorAppointmentById?.patientGender}
               value={data?.user?.gender}
               icon={<FaTransgender />}
             />
             <AppointmentDetails
               field={"Age"}
-              //   value={calculateAge(DoctorAppointmentById?.patientDob)}
               value={calculateAge(data?.user?.dob)}
               icon={<GoNumber />}
             />
             <AppointmentDetails
               field={"Phone No"}
-              //   value={DoctorAppointmentById?.patientMobile}
               value={data?.user?.mobile}
               icon={<FaPhoneFlip />}
             />
             <AppointmentDetails
               field={"Blood Group"}
-              //   value={DoctorAppointmentById?.patientBloodGroup}
               value={data?.user?.bloodGroup}
               icon={<FaTint />}
             />
             <AppointmentDetails
               field={"Doctor Name"}
-              //   value={DoctorAppointmentById?.doctorSpecialization}
               value={data?.doctor?.name}
               icon={<FaUserDoctor />}
             />
             <AppointmentDetails
               field={"Doctor Specialty"}
-              //   value={DoctorAppointmentById?.doctorSpecialization}
               value={data?.doctor?.specialization}
               icon={<FaUserDoctor />}
             />
             <AppointmentDetails
               field={"Appointment Date"}
-              //   value={DoctorAppointmentById?.appointmentDate}
               value={data?.appointment?.appointmentDate}
               icon={<MdDateRange />}
             />
             <AppointmentDetails
               field={"Appointment Time"}
-              //   value={DoctorAppointmentById?.appointmentTime}
               value={data?.appointment?.appointmentTime}
               icon={<FaClock />}
             />
             <AppointmentDetails
               field={"Treatment Name"}
-              //   value={DoctorAppointmentById?.treatmentName}
               value={data?.appointment?.service.treatmentName}
               icon={<FaStethoscope />}
             />
             <AppointmentDetails
               field={"specialty"}
-              //   value={DoctorAppointmentById?.treatmentName}
               value={data?.appointment?.service.specialty}
               icon={<FaStethoscope />}
             />
             <AppointmentDetails
               field={"Transaction ID"}
-              //   value={DoctorAppointmentById?.transactionId}
               value={data?.transactionDetails?.txnId}
               icon={<GrTransaction />}
             />
             <AppointmentDetails
               field={"Fees"}
-              //   value={DoctorAppointmentById?.appointmentFees}
               value={data?.transactionDetails?.totalAmount}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
               field={"Platform Fee"}
-              //   value={DoctorAppointmentById?.transactionPaymentFeeAmount}
               value={data?.transactionDetails?.platformFee}
               icon={<FaRupeeSign />}
             />
@@ -181,13 +167,11 @@ const UsersideAppointmentDetails = () => {
             />
             <AppointmentDetails
               field={"Transaction Status"}
-              //   value={DoctorAppointmentById?.transactionStatus}
-              value={data?.transactionDetails?.methodRes?.data?.responseCode}
+              value={data?.transactionDetails?.responseCode}
               icon={<BiMessageRoundedError />}
             />
             <AppointmentDetails
               field={"Appointment  Status"}
-              //   value={DoctorAppointmentById?.transactionStatus}
               value={data?.appointment?.status}
               icon={<BiMessageRoundedError />}
             />
@@ -206,7 +190,7 @@ const UsersideAppointmentDetails = () => {
             />
             <AppointmentDetails
               field={"Clinic Pincode"}
-              value={data?.clinic?.fullAddress?.postcode}
+              value={data?.clinic?.postcode}
               icon={<BiMessageRoundedError />}
             />
             <div className="flex justify-center items-center">
@@ -232,22 +216,22 @@ const UsersideAppointmentDetails = () => {
               <>
                 <AppointmentDetails
                   field="Medicine Name"
-                  value={item.name} // Use actual data from the `item`
+                  value={item.name}
                   icon={<GiMedicines />}
                 />
                 <AppointmentDetails
                   field="Medicine Dose"
-                  value={item.dose} // Use actual data from the `item`
+                  value={item.dose} 
                   icon={<FaSyringe />}
                 />
                 <AppointmentDetails
                   field="Routine"
-                  value={item.routine} // Use actual data from the `item`
+                  value={item.routine} 
                   icon={<FaClock />}
                 />
                 <AppointmentDetails
                   field="Duration (Days)"
-                  value={item.duration} // Use actual data from the `item`
+                  value={item.duration} 
                   icon={<FaCalendarAlt />}
                 />
               </>
@@ -257,7 +241,7 @@ const UsersideAppointmentDetails = () => {
 
           </div>
 
-          {/* symptoms details and follow-up date */}
+
           <h1 className="text-2xl text-black-600 mt-20 mb-7 font-medium flex gap-3">
             Symptoms Details and Follow-up Date:
           </h1>
@@ -326,4 +310,4 @@ const UsersideAppointmentDetails = () => {
   );
 };
 
-export default UsersideAppointmentDetails;
+export default UserSideAppointmentDetails;

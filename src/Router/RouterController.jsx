@@ -67,7 +67,7 @@ import ViewAppointment from "../pages/Doctor/Appointment/ViewAppointment";
 import Transactions from "../pages/Doctor/Transaction/Transactions";
 import TransactionDetails from "../pages/Doctor/Transaction/TransactionDetails";
 import RejectedPatient from "../pages/Doctor/Appointment/RejectedPatient";
-import UsersideAppointmentDetails from "../pages/UserDashboard/UsersideAppointmentDetails";
+import UserSideAppointmentDetails from "../pages/UserDashboard/UserSideAppointmentDetails";
 import UserRejectDetails from "../pages/UserDashboard/UserRejectDetails";
 
 const router = createBrowserRouter([
@@ -220,15 +220,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "user-appointment-details",
+        path: "user-appointment-details/:id",
         element: (
           <UserLayout>
-            <UsersideAppointmentDetails />
+            <UserSideAppointmentDetails />
           </UserLayout>
         ),
       },
       {
-        path: "user-reject-details",
+        path: "user-reject-details/:id",
         element: (
           <UserLayout>
             <UserRejectDetails />

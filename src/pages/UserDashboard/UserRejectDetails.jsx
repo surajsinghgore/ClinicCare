@@ -16,8 +16,7 @@ import { useParams } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import AppointmentDetails from "../../components/Doctor/AppointmentDetails";
 import { calculateAge } from "../../Utils/DateFormatFunction";
-import { rejectedAppointmentByIdApi } from "../../Utils/services/apis/Doctor/PatientApi";
-import { showAlert } from '../../redux/Slices/AlertToggleState';
+import { rejectedAppointmentUserByIdApi } from "../../Utils/services/apis/User/AppointmentApi";
 
 
 const UserRejectDetails = () => {
@@ -27,7 +26,8 @@ const UserRejectDetails = () => {
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
-      let res = await rejectedAppointmentByIdApi(id);
+      let res = await rejectedAppointmentUserByIdApi(id);
+      console.log(res)
       if (res?.status) {
         setData(res);
       }
@@ -62,22 +62,22 @@ const UserRejectDetails = () => {
           <div className="center flex items-center gap-6 mb-14">
             <div className="img-circle w-52 h-52 rounded-full overflow-hidden border-2 border-black">
               <img
-                src={data?.user?.profileUrl}
+                src={data?.doctor?.profileUrl}
                 alt="profile image"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="flex flex-col">
-              <p className="mt-3 text-2xl font-medium">{data?.user?.name}</p>
+              <p className="mt-3 text-2xl font-medium">{data?.doctor?.name}</p>
               <p className="mt-1 text-black-500 text-lg font-medium">
-                ( Patient )
+                ( Doctor )
               </p>
             </div>
           </div>
 
           {/* Read-only input fields */}
           <h1 className="text-2xl text-black-600 mb-10 font-medium items-center flex gap-3">
-            General User Details <FaUserCircle />
+            Appointment Details <FaUserCircle />
           </h1>
           <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
             <AppointmentDetails
@@ -88,42 +88,34 @@ const UserRejectDetails = () => {
             />
 
             <AppointmentDetails
-              field={"Email"}
+              field={"Doctor Email"}
               //   value={DoctorAppointmentById?.patientEmail}
-              value={data?.user?.email}
+              value={data?.doctor?.email}
               icon={<FaEnvelope />}
             />
 
             <AppointmentDetails
-              field={"Gender"}
+              field={"Doctor Gender"}
               //   value={DoctorAppointmentById?.patientGender}
-              value={data?.user?.gender}
+              value={data?.doctor?.gender}
               icon={<FaTransgender />}
             />
             <AppointmentDetails
-              field={"Age"}
-              //   value={calculateAge(DoctorAppointmentById?.patientDob)}
-              value={calculateAge(data?.user?.dob)}
+              field={"Doctor Age"}
+              value={calculateAge(data?.doctor?.dob)}
               icon={<GoNumber />}
             />
             <AppointmentDetails
-              field={"Phone No"}
-              //   value={DoctorAppointmentById?.patientMobile}
-              value={data?.user?.mobile}
+              field={"Doctor Phone No"}
+              value={data?.doctor?.mobile}
               icon={<FaPhoneFlip />}
             />
             <AppointmentDetails
-              field={"Blood Group"}
-              //   value={DoctorAppointmentById?.patientBloodGroup}
-              value={data?.user?.bloodGroup}
+              field={"Doctor Experience"}
+              value={data?.doctor?.experience}
               icon={<FaTint />}
             />
-            <AppointmentDetails
-              field={"Doctor Name"}
-              //   value={DoctorAppointmentById?.doctorSpecialization}
-              value={data?.doctor?.name}
-              icon={<FaUserDoctor />}
-            />
+          
             <AppointmentDetails
               field={"Doctor Specialty"}
               //   value={DoctorAppointmentById?.doctorSpecialization}
@@ -191,7 +183,8 @@ const UserRejectDetails = () => {
             <AppointmentDetails
               field={"Fees"}
               value={data?.transaction
-                ?.totalAmount}
+                ?.totalAmount-data?.transaction
+                ?.platformFee}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails
