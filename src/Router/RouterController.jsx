@@ -69,6 +69,8 @@ import RejectedPatient from "../pages/Doctor/Appointment/RejectedPatient";
 
 import UserRejectDetails from "../pages/UserDashboard/UserRejectDetails";
 import UserAppointmentDetails from "../pages/UserDashboard/UserAppointmentDetails";
+import DoctorRating from "../pages/Rating/DoctorRating";
+import ShowRatings from "../pages/Rating/ShowRatings";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +78,22 @@ const router = createBrowserRouter([
     element: (
       <>
         <ClientDashboard />
+      </>
+    ),
+  },
+  {
+    path: "/rating",
+    element: (
+      <>
+        <DoctorRating />
+      </>
+    ),
+  },
+  {
+    path: "/show-ratings",
+    element: (
+      <>
+        <ShowRatings />
       </>
     ),
   },
