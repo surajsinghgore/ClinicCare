@@ -213,6 +213,7 @@ const BookAppointment = () => {
                   </Link>
 
 
+                  <Link to={`/show-ratings/${doctor.doctorId}?limit=10&sortBy=latest`} className="cursor-pointer">
                   <div className="text-black-600 flex items-center mb-3">
                     <ReactStars
                       count={1}
@@ -226,6 +227,7 @@ const BookAppointment = () => {
                     />
                     <span className="pl-1">{doctor?.avgRating}</span>
                   </div>
+                  </Link>
 
                   <p className="text-black-600 flex items-center mb-3">
                     <FaLocationDot className="mr-1" />
