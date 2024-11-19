@@ -9,10 +9,13 @@ import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import DoctorDetailsClinicCard from "../../components/Swiper/DoctorDetailsClinicCard";
 import ReactStars from "react-stars";
+import ReviewCardSwiper from "../../components/Swiper/ReviewCardSwiper";
+import { getAllRatingOfDoctor } from "../../Utils/services/apis/User/RatingApi";
 
 const DoctorDetails = () => {
   const dispatch = useDispatch();
   const [doctor, setDoctor] = useState([]);
+  const [review, setReview] = useState([]);
 
   const { id } = useParams();
   const dataFetch = async () => {
@@ -20,7 +23,6 @@ const DoctorDetails = () => {
       dispatch(showLoader());
       let res = await getDoctorServicesByIdApi(id);
       if (res?.success) {
-        console.log(res);
         setDoctor(res.data);
       }
     } catch (error) {
@@ -41,6 +43,30 @@ const DoctorDetails = () => {
     const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
     window.open(googleMapsUrl, "_blank");
   };
+
+
+
+
+  const doctorReviewFetch = async () => {
+    try {
+      dispatch(showLoader());
+      let res = await getAllRatingOfDoctor(id);
+      if (res?.status) {
+        setReview(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        showAlert({ message: error?.response?.data?.message, type: "failed" })
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    doctorReviewFetch();
+  }, []);
   return (
     <>
       {/* top img */}
@@ -274,18 +300,26 @@ const DoctorDetails = () => {
       </div>
 
       <div className="px-32 my-20">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-2">
           <h2 className="text-lg font-semibold mb-4">
             What users are saying about {doctor?.doctorInfo?.name}
           </h2>
-          <button className="px-3 py-1 bg-blue-600 text-white rounded">
-            Show More
-          </button>
+
+          <Link to={`/show-ratings/${id}?limit=10&sortBy=latest`}>
+
+            <button className="px-3 py-1 bg-blue-600 text-white rounded">
+              Show All
+            </button>
+          </Link>
         </div>
-        <div className="flex space-x-4 overflow-x-auto">
-          <ReviewCard />
-          <ReviewCard />
-        </div>
+
+        {/* #ffc106 */}
+        {(review.length !== 0 ? <div className="flex space-x-4 overflow-x-auto">
+          <ReviewCardSwiper item={review} />
+        </div> : <div className="flex space-x-4 overflow-x-auto">
+          <p>No Reviews posted yet.</p>
+        </div>)}
+
       </div>
     </>
   );

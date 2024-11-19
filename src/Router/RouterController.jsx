@@ -88,10 +88,11 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/show-ratings",
+    path: "/show-ratings/:doctorId",
     element: (
-      <>
+      <><UserLayout>
         <ShowRatings />
+      </UserLayout>
       </>
     ),
   },

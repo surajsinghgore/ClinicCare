@@ -129,3 +129,9 @@ h1 {
   height: 100%;
   object-fit: cover;
 }
+.reviewCardSwiper img {
+  display: block;
+  width:  50px !important;
+  height: 50px !important;
+  object-fit: cover;
+}
