@@ -6,10 +6,30 @@ import { useState } from "react";
 const CreatePatient = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([
-    { id: 1, name: "John Doe", img: "https://via.placeholder.com/50" },
-    { id: 2, name: "Jane Smith", img: "https://via.placeholder.com/50" },
-    { id: 3, name: "Suraj Singh", img: "https://via.placeholder.com/50" },
-    { id: 4, name: "Tushar Negi", img: "https://via.placeholder.com/50" },
+    {
+      id: 1,
+      name: "John Doe",
+      email: "exampleemail@gmail.com",
+      img: "https://via.placeholder.com/50",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      email: "exampleemail@gmail.com",
+      img: "https://via.placeholder.com/50",
+    },
+    {
+      id: 3,
+      name: "Suraj Singh",
+      email: "exampleemail@gmail.com",
+      img: "https://via.placeholder.com/50",
+    },
+    {
+      id: 4,
+      name: "Tushar Negi",
+      email: "exampleemail@gmail.com",
+      img: "https://via.placeholder.com/50",
+    },
   ]);
 
   const handleSearch = (e) => {
@@ -25,8 +45,9 @@ const CreatePatient = () => {
       <BreadCrumbs currentPath={"Create Patient"} />
 
       <div className="mt-6 p-10">
-
-      <h1 className="flex items-center gap-5 underline text-4xl font-medium mb-10">Add New Patient <IoPersonAdd className="text-3xl" /></h1>
+        <h1 className="flex items-center gap-5 underline text-4xl font-medium mb-10">
+          Add New Patient <IoPersonAdd className="text-3xl" />
+        </h1>
         {/* Search Bar */}
         <div className="relative mb-4">
           <input
@@ -34,7 +55,7 @@ const CreatePatient = () => {
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search for a patient..."
-            className="w-full p-3 pl-10 border border-black-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-blue-700"
+            className="w-full p-3 pl-10 border border-black-300 rounded shadow-md"
           />
           <FaSearch className="absolute top-4 left-3 text-black-400 text-lg" />
         </div>
@@ -56,13 +77,18 @@ const CreatePatient = () => {
                     alt={result.name}
                     className="w-16 h-16 rounded-full mr-4"
                   />
-                  <span className="font-medium text-black-800">
-                    {result.name}
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="font-medium text-lg text-black-800">
+                      {result.name}
+                    </span>
+                    <span className="text-sm text-black-800">
+                      {result.email}
+                    </span>
+                  </div>
                 </div>
                 <button
                   onClick={() => handleAddPatient(result.name)}
-                  className="flex items-center justify-center w-10 h-10 bg-blue-700 text-white rounded-full shadow-md hover:from-indigo-400 hover:to-purple-400 transition transform hover:scale-105"
+                  className="flex items-center justify-center w-10 h-10 bg-blue-700 text-white rounded-full shadow-md"
                 >
                   <FaPlus />
                 </button>
