@@ -20,7 +20,6 @@ const DoctorDetails = () => {
             dispatch(showLoader());
             let res = await getDoctorServicesByIdApi(id);
             if (res?.success) {
-                console.log(res)
                 setDoctor(res.data)
 
             }
