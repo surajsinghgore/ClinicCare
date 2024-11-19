@@ -8,6 +8,7 @@ import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import DoctorDetailsClinicCard from "../../components/Swiper/DoctorDetailsClinicCard";
+import ReactStars from "react-stars";
 
 const DoctorDetails = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,21 @@ const DoctorDetails = () => {
               alt="Dr. Profile"
               className="w-full h-full object-cover"
             />
+          </div>
+
+          {/* rating */}
+          <div className="text-black-600 flex items-center mb-3">
+            <ReactStars
+              count={1}
+              value={5}
+              size={25}
+              color1={"#d1d1d1"}
+              color2={"rgb(247 133 35)"}
+              className="sizesofStar"
+              isHalf={true}
+              edit={false}
+            />
+            <span className="pl-1">{doctor?.averageRating}</span>
           </div>
 
           {/* Profile Information */}
@@ -262,7 +278,9 @@ const DoctorDetails = () => {
           <h2 className="text-lg font-semibold mb-4">
             What users are saying about {doctor?.doctorInfo?.name}
           </h2>
-          <button className="px-3 py-1 bg-blue-600 text-white rounded">Show More</button>
+          <button className="px-3 py-1 bg-blue-600 text-white rounded">
+            Show More
+          </button>
         </div>
         <div className="flex space-x-4 overflow-x-auto">
           <ReviewCard />

@@ -74,6 +74,7 @@ import ShowRatings from "../pages/Rating/ShowRatings";
 import CreatePatient from "../pages/Doctor/Patients/CreatePatient";
 import CreatePatient2 from "../pages/Doctor/Patients/CreatePatient2";
 import CreatePatient3 from "../pages/Doctor/Patients/CreatePatient3";
+import UserQuickNavigate from "../components/UserQuickNavigate";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <ClientDashboard />
+        <UserQuickNavigate />
       </>
     ),
   },
@@ -105,8 +107,8 @@ const router = createBrowserRouter([
     element: (
       <>
         <UserLayout>
-
           <BookAppointment />
+          <UserQuickNavigate />
         </UserLayout>
       </>
     ),
@@ -117,8 +119,8 @@ const router = createBrowserRouter([
     element: (
       <>
         <UserLayout>
-
           <DoctorDetails />
+          <UserQuickNavigate />
         </UserLayout>
       </>
     ),
@@ -126,10 +128,11 @@ const router = createBrowserRouter([
   {
     path: "/our-doctors",
     element: (
-      <><UserLayout>
-
-        <OurDoctors />
-      </UserLayout>
+      <>
+        <UserLayout>
+          <OurDoctors />
+          <UserQuickNavigate />
+        </UserLayout>
       </>
     ),
   },
@@ -139,6 +142,7 @@ const router = createBrowserRouter([
       <>
         <UserLayout>
           <DoctorServicePlans />
+          <UserQuickNavigate />
         </UserLayout>
       </>
     ),
@@ -149,18 +153,13 @@ const router = createBrowserRouter([
       <>
         <UserLayout>
           <AboutClinic />
+          <UserQuickNavigate />
         </UserLayout>
       </>
     ),
   },
 
   // user dashboard
-
-
-
-
-
-
 
   {
     path: "/user",
@@ -256,9 +255,7 @@ const router = createBrowserRouter([
           </UserLayout>
         ),
       },
-
-
-    ]
+    ],
   },
 
   {
