@@ -17,7 +17,7 @@ import { createPatientAppointmentTempValidation } from "../../../Utils/services/
 import { useForm } from "react-hook-form";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { processAppointmentByAppointmentId } from "../../../Utils/services/apis/Doctor/AppointmentApi";
 import { getLocalStorage } from "../../../Utils/LocalStorage";
@@ -319,6 +319,22 @@ const CreatePatient3 = () => {
           </div>
         </form>
       </div>
+
+
+      {/* payment conformation page */}
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-4xl font-bold text-gray-800 mb-4">
+        Payment Confirmation Email Sent
+      </h1>
+      <p className="text-lg text-gray-600 mb-6">
+        &ldquo;An email for payment has been sent to patient&apos;s registered email. Please wait for the confirmation.&ldquo;
+      </p>
+      <div className="flex items-center space-x-4">
+        <button className="bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700">
+          Refresh
+        </button>
+      </div>
+    </div>
     </>
   );
 };
