@@ -64,20 +64,7 @@ const DoctorDetails = () => {
             />
           </div>
 
-          {/* rating */}
-          <div className="text-black-600 flex items-center mb-3">
-            <ReactStars
-              count={1}
-              value={5}
-              size={25}
-              color1={"#d1d1d1"}
-              color2={"rgb(247 133 35)"}
-              className="sizesofStar"
-              isHalf={true}
-              edit={false}
-            />
-            <span className="pl-1">{doctor?.averageRating}</span>
-          </div>
+
 
           {/* Profile Information */}
           <div className="ml-80 flex flex-col w-full">
@@ -88,7 +75,20 @@ const DoctorDetails = () => {
                 ? doctor?.doctorInfo?.name
                 : "Jenny Doe"}
             </h2>
-
+            {/* rating */}
+            <div className="text-black-600 flex items-center mb-3">
+              <ReactStars
+                count={1}
+                value={5}
+                size={25}
+                color1={"#d1d1d1"}
+                color2={"rgb(247 133 35)"}
+                className="sizesofStar"
+                isHalf={true}
+                edit={false}
+              />
+              <span className="pl-1">{doctor?.averageRating}</span>
+            </div>
             {/* Location and Qualification */}
             <div className="flex items-center space-x-6 text-black-700 mb-4">
               <div className="flex items-center">
