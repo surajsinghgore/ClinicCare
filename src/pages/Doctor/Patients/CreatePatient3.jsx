@@ -12,9 +12,27 @@ import { GiHypodermicTest } from "react-icons/gi";
 import { RiMedicineBottleLine } from "react-icons/ri";
 import { TagsInput } from "react-tag-input-component";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { processAppointmentValidation } from "../../../Utils/services/FormValidation/AppointmentValidation";
+import { useForm } from "react-hook-form";
 
 const CreatePatient3 = () => {
+  const [medicines, setMedicines] = useState([{ name: "", dose: "", routine: "", duration: "" }]);
   const [tests, setTests] = useState([]);
+
+  const { handleSubmit, register, setValue, formState: { errors } } = useForm({
+    resolver: yupResolver(processAppointmentValidation),
+  });
+
+  const addMedicine = () => {
+    setMedicines([...medicines, { name: "", dose: "", routine: "", duration: "" }]);
+  };
+
+  const removeMedicine = () => {
+    if (medicines.length > 1) {
+      setMedicines(medicines.slice(0, -1));
+    }
+  };
 
   return (
     <>
@@ -48,113 +66,117 @@ const CreatePatient3 = () => {
             <h1 className="text-3xl font-medium mb-10 flex gap-3">
               Medicine <RiMedicineBottleLine />
             </h1>
-            <div className="mt-4 mb-10 grid grid-cols-4 gap-5">
-              <div>
-                <label className="text-[1.03rem] mb-1 text-black-600 flex items-center gap-3">
-                  <FaPills /> Medicine Name{" "}
-                  <span className="text-danger text-lg">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter medicine name..."
-                  // value={medicine.name}
-                  // {...register(`medicines[${index}].name`, { required: "Medicine name is required" })}
-                  required
-                  // onChange={(e) =>
-                  //   setMedicines(
-                  //     medicines.map((med, i) =>
-                  //       i === index ? { ...med, name: e.target.value } : med
-                  //     )
-                  //   )
-                  // }
-                  className="border border-black-300 p-2 rounded w-full"
-                />
-              </div>
+            {medicines.map((medicine, index) => (
+              <div key={index} className="mt-4 mb-10 grid grid-cols-4 gap-5">
+                <div>
+                  <label className="text-[1.03rem] mb-1 text-black-600 flex items-center gap-3">
+                    <FaPills /> Medicine Name{" "}
+                    <span className="text-danger text-lg">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter medicine name..."
+                    value={medicine.name}
+                    {...register(`medicines[${index}].name`, { required: "Medicine name is required" })}
+                    required
+                    onChange={(e) =>
+                      setMedicines(
+                        medicines.map((med, i) =>
+                          i === index ? { ...med, name: e.target.value } : med
+                        )
+                      )
+                    }
+                    className="border border-black-300 p-2 rounded w-full"
+                  />
+                </div>
 
-              {/* Dose Field */}
-              <div>
-                <label className="text-[1.03rem] mb-1 text-black-600 flex items-center gap-3">
-                  <FaSyringe /> Medicine Dose{" "}
-                  <span className="text-danger text-lg">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter dose..."
-                  // value={medicine.dose}
-                  // {...register(`medicines[${index}].dose`, { required: "Medicine dose is required" })}
-                  required
-                  // onChange={(e) =>
-                  //   setMedicines(
-                  //     medicines.map((med, i) =>
-                  //       i === index ? { ...med, dose: e.target.value } : med
-                  //     )
-                  //   )
-                  // }
-                  className="border border-black-300 p-2 rounded w-full"
-                />
-              </div>
+                {/* Dose Field */}
+                <div>
+                  <label className="text-[1.03rem] mb-1 text-black-600 flex items-center gap-3">
+                    <FaSyringe /> Medicine Dose{" "}
+                    <span className="text-danger text-lg">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter dose..."
+                    value={medicine.dose}
+                    {...register(`medicines[${index}].dose`, { required: "Medicine dose is required" })}
+                    required
+                    onChange={(e) =>
+                      setMedicines(
+                        medicines.map((med, i) =>
+                          i === index ? { ...med, dose: e.target.value } : med
+                        )
+                      )
+                    }
+                    className="border border-black-300 p-2 rounded w-full"
+                  />
+                </div>
 
-              {/* Routine Field */}
-              <div>
-                <label className="text-[1.03rem] mb-1 text-black-600 flex items-center gap-3">
-                  <FaClock /> Routine{" "}
-                  <span className="text-danger text-lg">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter routine..."
-                  // value={medicine.routine}
-                  // {...register(`medicines[${index}].routine`, { required: "Routine is required" })}
-                  required
-                  // onChange={(e) =>
-                  //   setMedicines(
-                  //     medicines.map((med, i) =>
-                  //       i === index ? { ...med, routine: e.target.value } : med
-                  //     )
-                  //   )
-                  // }
-                  className="border border-black-300 p-2 rounded w-full"
-                />
-              </div>
+                {/* Routine Field */}
+                <div>
+                  <label className="text-[1.03rem] mb-1 text-black-600 flex items-center gap-3">
+                    <FaClock /> Routine{" "}
+                    <span className="text-danger text-lg">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter routine..."
+                    value={medicine.routine}
+                    {...register(`medicines[${index}].routine`, { required: "Routine is required" })}
+                    required
+                    onChange={(e) =>
+                      setMedicines(
+                        medicines.map((med, i) =>
+                          i === index ? { ...med, routine: e.target.value } : med
+                        )
+                      )
+                    }
+                    className="border border-black-300 p-2 rounded w-full"
+                  />
+                </div>
 
-              {/* Duration Field */}
-              <div>
-                <label className="text-[1.03rem] mb-1 text-black-600 flex items-center gap-3">
-                  <FaCalendarAlt /> Duration (days){" "}
-                  <span className="text-danger text-lg">*</span>
-                </label>
-                <input
-                  type="number"
-                  placeholder="Enter duration..."
-                  // value={medicine.duration}
-                  // {...register(`medicines[${index}].duration`, { required: "Duration is required" })}
-                  required
-                  // onChange={(e) =>
-                  //   setMedicines(
-                  //     medicines.map((med, i) =>
-                  //       i === index ? { ...med, duration: e.target.value } : med
-                  //     )
-                  //   )
-                  // }
-                  className="border border-black-300 p-2 rounded w-full"
-                />
+                {/* Duration Field */}
+                <div>
+                  <label className="text-[1.03rem] mb-1 text-black-600 flex items-center gap-3">
+                    <FaCalendarAlt /> Duration (days){" "}
+                    <span className="text-danger text-lg">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="Enter duration..."
+                    value={medicine.duration}
+                    {...register(`medicines[${index}].duration`, { required: "Duration is required" })}
+                    required
+                    onChange={(e) =>
+                      setMedicines(
+                        medicines.map((med, i) =>
+                          i === index ? { ...med, duration: e.target.value } : med
+                        )
+                      )
+                    }
+                    className="border border-black-300 p-2 rounded w-full"
+                  />
+                </div>
               </div>
-            </div>
+            ))}
 
             <div className="flex justify-end gap-3">
-              <button
+              {(medicines.length > 1) && <button
                 type="button"
-                // onClick={removeMedicine}
+                onClick={removeMedicine}
                 className="bg-[#FF4D4D] hover:bg-red-500 duration-150 text-white px-5 font-medium py-2 rounded"
               >
-                Remove Medicine
-              </button>
+                Remove  Medicine
+              </button>}
               <button
-                // onClick={addMedicine}
+                onClick={addMedicine}
                 className="bg-[#034EB0] hover:bg-blue-500 duration-150 text-white px-5 font-medium py-2 rounded"
               >
                 Add Medicine
               </button>
+
+
             </div>
           </div>
 
@@ -187,14 +209,14 @@ const CreatePatient3 = () => {
                 // })}
                 className="border border-black-300 p-2 rounded w-full"
                 min={new Date().toISOString().split("T")[0]}
-                // onChange={(e) => {
-                //   const inputDate = e.target.value;
-                //   const today = new Date().toISOString().split("T")[0];
+                onChange={(e) => {
+                  const inputDate = e.target.value;
+                  const today = new Date().toISOString().split("T")[0];
 
-                //   if (inputDate < today) {
-                //     e.target.value = today;
-                //   }
-                // }}
+                  if (inputDate < today) {
+                    e.target.value = today;
+                  }
+                }}
                 required
               />
             </div>
