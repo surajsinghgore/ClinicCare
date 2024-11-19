@@ -212,6 +212,7 @@ const BookAppointment = () => {
                     </h3>
                   </Link>
 
+
                   <div className="text-black-600 flex items-center mb-3">
                     <ReactStars
                       count={1}
@@ -223,7 +224,7 @@ const BookAppointment = () => {
                       isHalf={true}
                       edit={false}
                     />
-                    <span className="pl-1">{data?.avgRating}</span>
+                    <span className="pl-1">{doctor?.avgRating}</span>
                   </div>
 
                   <p className="text-black-600 flex items-center mb-3">
