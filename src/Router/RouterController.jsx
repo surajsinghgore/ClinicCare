@@ -625,7 +625,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "create-patient-form2",
+        path: "create-patient-form2/:userId",
         element: (
           <DoctorLayout>
             <CreatePatient2 />

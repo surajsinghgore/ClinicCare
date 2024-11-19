@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaCalendarAlt,
   FaCalendarDay,
@@ -13,15 +13,23 @@ import { RiMedicineBottleLine } from "react-icons/ri";
 import { TagsInput } from "react-tag-input-component";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { processAppointmentValidation } from "../../../Utils/services/FormValidation/AppointmentValidation";
+import { createPatientAppointmentTempValidation } from "../../../Utils/services/FormValidation/AppointmentValidation";
 import { useForm } from "react-hook-form";
+import { showAlert } from "../../../redux/Slices/AlertToggleState";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
+import { processAppointmentByAppointmentId } from "../../../Utils/services/apis/Doctor/AppointmentApi";
+import { getLocalStorage } from "../../../Utils/LocalStorage";
 
 const CreatePatient3 = () => {
   const [medicines, setMedicines] = useState([{ name: "", dose: "", routine: "", duration: "" }]);
   const [tests, setTests] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { handleSubmit, register, setValue, formState: { errors } } = useForm({
-    resolver: yupResolver(processAppointmentValidation),
+    resolver: yupResolver(createPatientAppointmentTempValidation),
   });
 
   const addMedicine = () => {
@@ -31,14 +39,61 @@ const CreatePatient3 = () => {
   const removeMedicine = () => {
     if (medicines.length > 1) {
       setMedicines(medicines.slice(0, -1));
+
+    }
+  };
+  const handleTestChange = (newTests) => {
+    setTests(newTests);
+  };
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      const firstError = Object.values(errors)[0].message;
+      dispatch(showAlert({ message: firstError, type: "warning" }));
+    }
+  }, [errors]);
+
+
+
+  const onSubmit = async (formData) => {
+
+    formData.testPrescribed = tests;
+    formData.medications = medicines;
+    delete formData.medicines
+
+    return
+    dispatch(showLoader());
+    try {
+      const res = await processAppointmentByAppointmentId(id, formData);
+      dispatch(showAlert({ message: res.message, type: "success" }));
+      setTimeout(() => {
+        navigate(`/doctor/view-appointment/${res.id}`);
+      }, 2000);
+    } catch (error) {
+      dispatch(showAlert({ message: error?.response?.data?.message || "Failed to create appointment", type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
     }
   };
 
+
+
+  useEffect(() => {
+    if (getLocalStorage('tempAppointmentData')) {
+      let appointmentData = JSON.parse(getLocalStorage('tempAppointmentData'))
+      setValue('clinicId', appointmentData.clinicId)
+      setValue('serviceId', appointmentData.serviceId)
+      setValue('userId', appointmentData.userId)
+      setValue('appointmentData', appointmentData.date)
+      setValue('appointmentTime', appointmentData.time)
+    }
+  }, [])
   return (
     <>
       <BreadCrumbs currentPath={"Add Patient Medicine"} />
       <div className="p-8 w-[95%] m-auto mt-10 border border-black-300 rounded-md">
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
+
           <h1 className="font-medium text-3xl">Add Patient Medicine</h1>
           <div className="input-field mt-10">
             <div>
@@ -52,7 +107,7 @@ const CreatePatient3 = () => {
                 type="text"
                 id="diseaseName"
                 name="diseaseName"
-                // {...register("diseaseName")}
+                {...register("diseaseName")}
                 required
                 autoFocus
                 className="border border-black-300 rounded-md px-4 py-2 w-full text-black-600"
@@ -189,7 +244,7 @@ const CreatePatient3 = () => {
               </label>
               <input
                 type="text"
-                // {...register("symptoms")}
+                {...register("symptoms")}
                 placeholder="Enter symptoms..."
                 className="border border-black-300 p-2 rounded w-full"
                 required
@@ -204,9 +259,9 @@ const CreatePatient3 = () => {
               </label>
               <input
                 type="date"
-                // {...register("followUpDate", {
-                //   required: "Follow-up date is required",
-                // })}
+                {...register("followUpDate", {
+                  required: "Follow-up date is required",
+                })}
                 className="border border-black-300 p-2 rounded w-full"
                 min={new Date().toISOString().split("T")[0]}
                 onChange={(e) => {
@@ -227,7 +282,7 @@ const CreatePatient3 = () => {
                 <FaRegStickyNote /> Notes{" "}
               </label>
               <textarea
-                // {...register("notes")}
+                {...register("notes")}
                 placeholder="Add notes here"
                 className="border border-black-300 p-2 rounded w-full resize-none"
                 rows="4"
@@ -247,7 +302,7 @@ const CreatePatient3 = () => {
               required
               name="test"
               value={tests}
-              //   onChange={handleTestChange}
+              onChange={handleTestChange}
               placeHolder="Enter your patient diagnostic tests..."
               className="border border-gray-300 p-3 rounded-md w-[50vw] focus:ring-2 focus:ring-blue-500"
             />
