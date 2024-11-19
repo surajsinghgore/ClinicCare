@@ -7,13 +7,12 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-
 /* admin dashboard side navbar */
-.leftnav:hover .icon{
-  color: #116AEF;
+.leftnav:hover .icon {
+  color: #116aef;
 }
 
-.mainDiv{
+.mainDiv {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
@@ -23,19 +22,17 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.docDiv{
+.docDiv {
   box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
 }
-
 
 .rti--container {
   width: 600px !important;
 }
 
-
-
-
-
+span.style-module_emptyIcons__Bg-FZ.empty-icons {
+  display: flex !important;
+}
 
 /* pending status */
 
@@ -51,9 +48,6 @@ input::-webkit-inner-spin-button {
     transform: rotate(360deg);
   }
 }
-
-
-
 
 /* client dashboard */
 .patient-safety-container {
@@ -78,7 +72,7 @@ h1 {
 .safety-column {
   display: flex;
   flex-direction: column;
-  gap: 15px; 
+  gap: 15px;
 }
 
 .full-column {
@@ -110,13 +104,9 @@ h1 {
   line-height: 1.4; /* Slightly tighter line height */
 }
 
-
-.doctor-card{
+.doctor-card {
   box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 4px 0px;
 }
-
-
-
 
 /* clinic img slider */
 .swiper {
@@ -141,8 +131,5 @@ h1 {
   height: 100%;
   object-fit: cover;
 }
-
-
-
 
 /* rating */

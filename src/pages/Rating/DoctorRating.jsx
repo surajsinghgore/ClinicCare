@@ -90,14 +90,14 @@ export default function DoctorRating() {
               Service Rating
             </label>
             <div className="">
-              <div className=" flex flex-col">
+              <div className="flex flex-col">
                 <Rating
                   initialValue={serviceRate}
                   allowFraction
                   showTooltip
                   onClick={handleServiceRate}
                   tooltipClassName="tool"
-                  className="sizesofStar"
+                  className="sizesofStar flex"
                   transition
                 />
               </div>
