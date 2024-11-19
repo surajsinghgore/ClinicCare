@@ -71,6 +71,9 @@ import UserRejectDetails from "../pages/UserDashboard/UserRejectDetails";
 import UserAppointmentDetails from "../pages/UserDashboard/UserAppointmentDetails";
 import DoctorRating from "../pages/Rating/DoctorRating";
 import ShowRatings from "../pages/Rating/ShowRatings";
+import CreatePatient from "../pages/Doctor/Patients/CreatePatient";
+import CreatePatient2 from "../pages/Doctor/Patients/CreatePatient2";
+import CreatePatient3 from "../pages/Doctor/Patients/CreatePatient3";
 
 const router = createBrowserRouter([
   {
@@ -607,6 +610,30 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <RejectedPatient />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "create-patient",
+        element: (
+          <DoctorLayout>
+            <CreatePatient />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "create-patient-form2",
+        element: (
+          <DoctorLayout>
+            <CreatePatient2 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "create-patient-form3",
+        element: (
+          <DoctorLayout>
+            <CreatePatient3 />
           </DoctorLayout>
         ),
       },

@@ -48,16 +48,16 @@ export default function DoctorRating() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8">
+    <div className="min-h-screen bg-black-50 flex items-center justify-center py-8">
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
+        <h1 className="text-2xl font-bold text-black-800 text-center mb-6">
           Leave Your Feedback
         </h1>
         <form>
           <div className="mb-4">
             <label
               htmlFor="userName"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-black-600"
             >
               Client Name
             </label>
@@ -66,13 +66,13 @@ export default function DoctorRating() {
               type="text"
               value={userName}
               readOnly
-              className="mt-1 w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-gray-800 bg-gray-100 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 w-full border border-black-300 rounded-md shadow-sm py-2 px-3 text-black-800 bg-black-100 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div className="mb-4">
             <label
               htmlFor="message"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-black-600"
             >
               Your Review
             </label>
@@ -81,12 +81,12 @@ export default function DoctorRating() {
               value={userMessage}
               onChange={(e) => setUserMessage(e.target.value)}
               placeholder="Write your review here..."
-              className="mt-1 w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-gray-800 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 w-full border border-black-300 rounded-md shadow-sm py-2 px-3 text-black-800 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               rows="4"
             ></textarea>
           </div>
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-600 mb-2">
+            <label className="block text-sm font-medium text-black-600 mb-2">
               Service Rating
             </label>
             <div className="">
@@ -97,7 +97,7 @@ export default function DoctorRating() {
                   showTooltip
                   onClick={handleServiceRate}
                   tooltipClassName="tool"
-                  className="sizesofStar flex"
+                  className="text-warning"
                   transition
                 />
               </div>
