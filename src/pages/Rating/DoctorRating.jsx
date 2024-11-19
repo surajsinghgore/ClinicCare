@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Rating } from "react-simple-star-rating";
-
+import ReactStars from 'react-stars'
 export default function DoctorRating() {
   // State for service rating
   const [serviceRate, setServiceRate] = useState(0);
@@ -89,19 +88,22 @@ export default function DoctorRating() {
             <label className="block text-sm font-medium text-gray-600 mb-2">
               Service Rating
             </label>
-            <div className="">
-              <div className="flex flex-col">
-                <Rating
-                  initialValue={serviceRate}
-                  allowFraction
-                  showTooltip
-                  onClick={handleServiceRate}
-                  tooltipClassName="tool"
-                  className="sizesofStar flex"
-                  transition
+            <div className="rateSection">
+              <div className="rateClient">
+                <ReactStars
+                  count={5}
+                  value={serviceRate}
+                  onChange={handleServiceRate}
+                  size={60} 
+                  color1={"#d1d1d1"} 
+                  color2={"rgb(247 133 35)"} 
+                  className="sizesofStar"
+                  isHalf={true}
                 />
               </div>
             </div>
+
+
           </div>
           <button
             onClick={submitRating}
