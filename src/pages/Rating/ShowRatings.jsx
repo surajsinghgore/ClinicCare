@@ -1,4 +1,4 @@
-import { Rating } from "react-simple-star-rating";
+import ReactStars from "react-stars";
 
 export default function ShowRatings() {
   const reviews = [
@@ -6,21 +6,21 @@ export default function ShowRatings() {
       name: "Alex Suprun",
       date: "December 2023",
       profileImg: "https://via.placeholder.com/50", // Replace with actual profile images
-      rating: 100,
+      rating: 5,
       review: "Everything is perfect",
     },
     {
       name: "Jurica Koletić",
       date: "December 2023",
       profileImg: "https://via.placeholder.com/50",
-      rating: 100,
+      rating: 4.5,
       review: "Everything is perfect",
     },
     {
       name: "Courtney Cook",
       date: "December 2023",
       profileImg: "https://via.placeholder.com/50",
-      rating: 100,
+      rating: 4,
       review: "Everything is perfect",
     },
   ];
@@ -79,14 +79,17 @@ export default function ShowRatings() {
                 <span className="text-xs text-gray-500">{review.date}</span>
               </div>
               {/* Stars */}
-              <div className="my-2">
-                <div className="my-2">
-                  <Rating
-                    initialValue={review.rating}
-                    allowFraction
-                    readonly
+              <div >
+                <div >
+                  <ReactStars
+                    count={5}
+                    value={review.rating}
                     size={20}
-                    style={{ display: "inline-flex", gap: "4px" }}
+                    color1={"#d1d1d1"}
+                    color2={"rgb(247 133 35)"}
+                    className="sizesofStar"
+                    isHalf={true}
+                    edit={false}
                   />
                 </div>
               </div>
