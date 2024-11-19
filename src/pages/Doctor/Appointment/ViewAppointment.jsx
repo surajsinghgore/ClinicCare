@@ -164,7 +164,7 @@ const ViewAppointment = () => {
             <AppointmentDetails
               field={"Amount Received"}
 
-              value={(data.transactionDetails.amount / 100).toFixed(2)}
+              value={(data.transactionDetails?.amount / 100).toFixed(2)}
               icon={<FaRupeeSign />}
             />
             <AppointmentDetails

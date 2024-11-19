@@ -197,6 +197,15 @@ const UserAppointmentDetails = () => {
 
               <button className="border border-primary mt-3 rounded-md px-4 py-2 w-full text-white bg-primary  truncate"
                 onClick={() => openGoogleMaps(data?.clinic?.lat, data?.clinic?.long)} >Open Clinic in Map</button>
+
+
+            </div>
+            <div className="flex justify-start items-center">
+
+              <button className="border border-info mt-3 rounded-md px-4 py-2 text-white bg-info  truncate"
+                onClick={() => openGoogleMaps(data?.clinic?.lat, data?.clinic?.long)} >Rate Doctor</button>
+
+
             </div>
           </div>
 
@@ -221,17 +230,17 @@ const UserAppointmentDetails = () => {
                 />
                 <AppointmentDetails
                   field="Medicine Dose"
-                  value={item.dose} 
+                  value={item.dose}
                   icon={<FaSyringe />}
                 />
                 <AppointmentDetails
                   field="Routine"
-                  value={item.routine} 
+                  value={item.routine}
                   icon={<FaClock />}
                 />
                 <AppointmentDetails
                   field="Duration (Days)"
-                  value={item.duration} 
+                  value={item.duration}
                   icon={<FaCalendarAlt />}
                 />
               </>
