@@ -42,6 +42,7 @@ const CreatePatient = () => {
         <h1 className="flex items-center gap-5 underline text-4xl font-medium mb-10">
           Add New Patient <IoPersonAdd className="text-3xl" />
         </h1>
+        <p className="text-center font-medium p-3 text-messageWarning">Note: Search for the patient on the platform. If the patient is not registered, inform them to register on the platform.</p>
         {/* Search Bar */}
         <div className="relative mb-4">
           <input
