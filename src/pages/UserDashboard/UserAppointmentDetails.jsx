@@ -13,7 +13,7 @@ import { GiHypodermicTest } from "react-icons/gi";
 import { FaFileMedical } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { hideLoader, showLoader } from "../../redux/Slices/LoaderState";
 import AppointmentDetails from "../../components/Doctor/AppointmentDetails";
 import { calculateAge, extractFullDate } from "../../Utils/DateFormatFunction";
@@ -201,9 +201,10 @@ const UserAppointmentDetails = () => {
 
             </div>
             <div className="flex justify-start items-center">
-
-              <button className="border border-info mt-3 rounded-md px-4 py-2 text-white bg-info  truncate"
-                onClick={() => openGoogleMaps(data?.clinic?.lat, data?.clinic?.long)} >Rate Doctor</button>
+              <Link to={`/user/doctor-rating/${data?.doctor?.doctorId}`}>
+                <button className="border border-info mt-3 rounded-md px-4 py-2 text-white bg-info  truncate"
+                >Rate Doctor</button>
+              </Link>
 
 
             </div>

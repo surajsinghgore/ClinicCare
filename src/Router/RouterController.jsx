@@ -86,14 +86,7 @@ const router = createBrowserRouter([
       </>
     ),
   },
-  {
-    path: "/rating",
-    element: (
-      <>
-        <DoctorRating />
-      </>
-    ),
-  },
+
   {
     path: "/show-ratings",
     element: (
@@ -166,6 +159,17 @@ const router = createBrowserRouter([
     element: <UserProtected />,
     children: [
       {
+        path: "doctor-rating/:doctorId",
+        element: (
+          <>
+            <UserLayout>
+
+              <DoctorRating />
+            </UserLayout>
+          </>
+        ),
+      },
+      {
         path: "book-appointment-form/:id",
         element: (
           <UserLayout>
@@ -215,6 +219,7 @@ const router = createBrowserRouter([
           </>
         ),
       },
+
       {
         path: "payment-status-success/:id",
         element: (
