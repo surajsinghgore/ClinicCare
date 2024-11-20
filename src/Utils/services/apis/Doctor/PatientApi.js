@@ -32,3 +32,13 @@ export const checkBookAppointmentPaymentStatusApi = async (appointmentId) => {
   const res = await axiosInstance.get(`/v1/doctor/patient/book-patient-appointment-payment-status/${appointmentId}`);
   return res.data;
 };
+export const activeDoctorPatientListApi = async (page = 1, limit = 10) => {
+  const res = await axiosInstance.get(`/v1/doctor/patient/doctor-patient-list-all?page=${page}&limit=${limit}`);
+  return res.data;
+};
+
+
+export const viewPatientDetailsByMeDoctorIdApi = async (id, limit = 5) => {
+  const res = await axiosInstance.get(`/v1/doctor/patient/view-patient-by-id-doctor-my/${id}?limit=${limit}`);
+  return res.data;
+};

@@ -1,38 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaClipboardList } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
+import { useDispatch } from "react-redux";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
+import { showAlert } from "../../../redux/Slices/AlertToggleState";
+import { activeDoctorPatientListApi } from "../../../Utils/services/apis/Doctor/PatientApi";
+import { calculateAge, extractFullDate } from "../../../Utils/DateFormatFunction";
 
 const PatientList = () => {
+  const dispatch = useDispatch()
+  const queryParams = new URLSearchParams(location.search);
+  const [limit, setLimit] = useState(queryParams.get("limit") || 10);
+  const [currentPage, setCurrentPage] = useState(
+    Number(queryParams.get("page") || 1)
+  );
+  const navigate = useNavigate();
+
+  const [totalPage, setTotalPage] = useState(1);
+  const [prev, setPrev] = useState(false);
+  const [next, setNext] = useState(false);
   const [patients, setPatients] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      profileUrl: "https://via.placeholder.com/150",
-      email: "john.doe@example.com",
-      mobile: "123-456-7890",
-      age: 35,
-      lastAppointmentDate: "2024-11-15",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      profileUrl: "https://via.placeholder.com/150",
-      email: "jane.smith@example.com",
-      mobile: "987-654-3210",
-      age: 28,
-      lastAppointmentDate: "2024-11-12",
-    },
-    {
-      id: 3,
-      name: "Alice Johnson",
-      profileUrl: "https://via.placeholder.com/150",
-      email: "alice.johnson@example.com",
-      mobile: "456-789-1234",
-      age: 42,
-      lastAppointmentDate: "2024-11-10",
-    },
+
   ]);
+
+
+
+
+  const dataFetch = async () => {
+    try {
+      dispatch(showLoader());
+      let res = await activeDoctorPatientListApi(currentPage, limit);
+      if (res?.status) {
+        setPatients(res.data)
+        setTotalPage(res.pagination.totalPages);
+        setNext(res.pagination.hasNextPage);
+        setPrev(res.pagination.hasPrevPage);
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    dataFetch();
+  }, [limit, currentPage]);
+
+
+  const handleLimitChange = (e) => {
+    const newLimit = e.target.value;
+    setLimit(newLimit);
+    setCurrentPage(1);
+    navigate(`/doctor/patient-list?limit=${newLimit}&page=${currentPage}`);
+  };
+
+  const handlePrevPage = () => {
+    if (prev && currentPage > 1) {
+      const newPage = currentPage - 1;
+      setCurrentPage(newPage);
+      navigate(`/doctor/patient-list?limit=${limit}&page=${newPage}`);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (next && currentPage < totalPage) {
+      const newPage = currentPage + 1;
+      setCurrentPage(newPage);
+      navigate(`/doctor/patient-list?limit=${limit}&page=${newPage}`);
+    }
+  };
 
   return (
     <>
@@ -51,8 +90,8 @@ const PatientList = () => {
             className="border border-black-300 rounded-md px-3 py-1 w-full"
             name="patientName"
             autoComplete="off"
-            //   value={searchParams.appointmentNumber}
-            //   onChange={handleSearchChange}
+          //   value={searchParams.appointmentNumber}
+          //   onChange={handleSearchChange}
           />
 
           <input
@@ -61,8 +100,8 @@ const PatientList = () => {
             className="border border-black-300 rounded-md px-3 py-2 w-full"
             name="email"
             autoComplete="off"
-            //   value={searchParams.txnId}
-            //   onChange={handleSearchChange}
+          //   value={searchParams.txnId}
+          //   onChange={handleSearchChange}
           />
 
           <input
@@ -71,8 +110,8 @@ const PatientList = () => {
             className="border border-black-300 rounded-md px-3 py-2 w-full"
             name="tel"
             autoComplete="off"
-            //   value={searchParams.appointmentDate}
-            //   onChange={handleSearchChange}
+          //   value={searchParams.appointmentDate}
+          //   onChange={handleSearchChange}
           />
 
           <input
@@ -81,14 +120,14 @@ const PatientList = () => {
             className="border border-black-300 rounded-md px-3 py-2 w-full"
             name="appointmentDate"
             autoComplete="off"
-            //   value={searchParams.appointmentDate}
-            //   onChange={handleSearchChange}
+          //   value={searchParams.appointmentDate}
+          //   onChange={handleSearchChange}
           />
 
           <div className="btn">
             <button
               className="rounded bg-[#116AEF] px-7 py-2 text-white"
-              // onClick={handleSearch}
+            // onClick={handleSearch}
             >
               Search
             </button>
@@ -102,8 +141,8 @@ const PatientList = () => {
               <select
                 name="pages"
                 id="pages"
-                // value={limit}
-                // onChange={handleLimitChange}
+                value={limit}
+                onChange={handleLimitChange}
                 className="bg-white border border-black-400 text-sm rounded-sm"
               >
                 <option value="10">10</option>
@@ -142,20 +181,23 @@ const PatientList = () => {
                 </tr>
               </thead>
               <tbody>
-                {patients.map((patient) => (
+                {patients.map((patient, index) => (
                   <tr key={patient.id} className="border-b border-black-300">
                     <td className="p-4 text-black-800 text-[0.95rem]">
-                      {patient.id}
+                      {++index}
                     </td>
                     <td className="p-4 flex items-center gap-3">
-                      <img
-                        src={patient.profileUrl}
-                        alt={patient.name}
-                        className="w-12 h-12 rounded-full"
-                      />
-                      <span className="font-medium text-black-700 text-[0.95rem]">
-                        {patient.name}
-                      </span>
+                      <Link to={`/doctor/patient-details/${patient.userId}?limit=5`}>
+
+                        <img
+                          src={patient.userProfileUrl}
+                          alt={patient.userName}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      </Link>
+                      <Link to={`/doctor/patient-details/${patient.userId}?limit=5`}> <span className="font-medium text-black-700 text-[0.95rem]">
+                        {patient.userName}
+                      </span></Link>
                     </td>
                     <td className="p-4 text-black-600 text-[0.95rem]">
                       {patient.email}
@@ -164,13 +206,13 @@ const PatientList = () => {
                       {patient.mobile}
                     </td>
                     <td className="p-4 text-black-600 text-[0.95rem]">
-                      {patient.age}
+                      {calculateAge(patient.dob)}
                     </td>
                     <td className="p-4 text-black-600 text-center text-[0.95rem]">
-                      {patient.lastAppointmentDate}
+                      {extractFullDate(patient.lastAppointmentDate)}
                     </td>
                     <td className="p-4 text-center">
-                      <Link to={`/patient-details/${patient.id}`}>
+                      <Link to={`/doctor/view-my-patient-details/${patient.userId}?limit=5`}>
                         <button className="bg-blue-600 text-white font-medium px-3 py-2 text-sm rounded-md hover:bg-blue-700">
                           View
                         </button>
@@ -188,18 +230,18 @@ const PatientList = () => {
           <div className="flex items-center bg-black-100 border border-black-300 rounded-md">
             <button
               className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
-              //   disabled={!prev}
-              //   onClick={handlePrevPage}
+              disabled={!prev}
+              onClick={handlePrevPage}
             >
               Previous
             </button>
             <div className="px-4 py-2 bg-blue-500 text-white">
-              {/* {currentPage} */} 1
+              {currentPage}
             </div>
             <button
               className="px-4 py-2 text-black-700 hover:text-black-900 focus:outline-none"
-              //   disabled={!next}
-              //   onClick={handleNextPage}
+              disabled={!next}
+              onClick={handleNextPage}
             >
               Next
             </button>

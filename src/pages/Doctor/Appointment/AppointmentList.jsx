@@ -32,6 +32,7 @@ const AppointmentList = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [prev, setPrev] = useState(false);
   const [next, setNext] = useState(false);
+  
   const dataFetch = useCallback(async () => {
     try {
       dispatch(showLoader());

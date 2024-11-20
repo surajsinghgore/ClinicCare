@@ -8,39 +8,56 @@ import {
 import { FaHistory } from "react-icons/fa";
 import { GoNumber } from "react-icons/go";
 import { FaPhoneFlip } from "react-icons/fa6";
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { fetchPatientByIdDoctor } from "../../../redux/Slices/GetPatientByIdSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { calculateAge } from "../../../Utils/DateFormatFunction";
+import { viewPatientDetailsByMeDoctorIdApi } from "../../../Utils/services/apis/Doctor/PatientApi";
+import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 
 const ViewPatientsDetails = () => {
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  
+  // Get query parameters from the URL using useLocation
   const queryParams = new URLSearchParams(location.search);
-  const limit = useState(queryParams.get("limit") || 10);
-  const dispatch = useDispatch()
-  const patientDetails = useSelector((state) => state.getMyPatientById.patientDetails?.patient);
+  const initialLimit = parseInt(queryParams.get("limit")) || 10; // Default to 10 if no limit in query
 
+  const [limit, setLimit] = useState(initialLimit);
+  const [patientDetails, setPatientsDetails] = useState([]);
+
+  const dataFetch = useCallback(async () => {
+    try {
+      dispatch(showLoader());
+      const res = await viewPatientDetailsByMeDoctorIdApi(id, limit);
+
+      if (res?.status) {
+        setPatientsDetails(res.patient);
+      }
+    } catch (error) {
+      console.error("Error fetching clinics:", error);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }, [id, limit]);
 
   useEffect(() => {
-    let sendLimit = parseInt(limit)
-    dispatch(fetchPatientByIdDoctor(id, sendLimit));
+    dataFetch();
+  }, [dataFetch]);
 
-  }, [dispatch]);
   const truncateText = (text, length) => {
     return text.length > length ? text.substring(0, length) + "..." : text;
   };
 
-
   const loadMoreData = () => {
-    const numericLimit = parseInt(limit, 10) || 0;
-    const newLimit = numericLimit + 5;
-
-    dispatch(fetchPatientByIdDoctor(id, newLimit));
-    navigate(`/doctor/patient-details/${id}?limit=${newLimit}`);
-
-
+    const newLimit = limit + 5; // Increase limit by 5
+    setLimit(newLimit); // Update the limit state
+    
+    // Navigate to the same path with updated query parameter
+    navigate(`/doctor/view-my-patient-details/${id}?limit=${newLimit}`);
   };
 
   return (
@@ -191,8 +208,6 @@ const ViewPatientsDetails = () => {
                           View
                         </button>
                       </Link>
-
-
                     </td>
                   </tr>
                 ))
@@ -204,14 +219,14 @@ const ViewPatientsDetails = () => {
                 </tr>
               )}
             </tbody>
-
-
           </table>
-          {(patientDetails?.hasMore) && 
-          <div className="flex items-center justify-center mt-4">
-            <button className="text-white px-5 py-1 bg-[#034EB0] rounded-lg" onClick={() => loadMoreData()}>Load More</button>
-          </div>}
-
+          {patientDetails?.hasMore && (
+            <div className="flex items-center justify-center mt-4">
+              <button className="text-white px-5 py-1 bg-[#034EB0] rounded-lg" onClick={loadMoreData}>
+                Load More
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
