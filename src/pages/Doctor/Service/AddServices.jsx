@@ -60,7 +60,7 @@ const AddServices = () => {
           navigate("/doctor/services-list?page=1&limit=10");
         }, 2000);
       }
-      console.log(res);
+    
     } catch (error) {
       dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
     } finally {

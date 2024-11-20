@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaClipboardList } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import BreadCrumbs from "../../../components/Common/BreadCrumbs";
 import { useDispatch } from "react-redux";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { showAlert } from "../../../redux/Slices/AlertToggleState";
-import { activeDoctorPatientListApi } from "../../../Utils/services/apis/Doctor/PatientApi";
+import { activeDoctorPatientListApi, searchPatientListsApi } from "../../../Utils/services/apis/Doctor/PatientApi";
 import { calculateAge, extractFullDate } from "../../../Utils/DateFormatFunction";
 
 const PatientList = () => {
@@ -16,6 +16,12 @@ const PatientList = () => {
     Number(queryParams.get("page") || 1)
   );
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useState({
+    patientEmail: "",
+    patientName: "",
+    patientMobile: "",
+    AppointmentDate: "",
+  });
 
   const [totalPage, setTotalPage] = useState(1);
   const [prev, setPrev] = useState(false);
@@ -73,6 +79,53 @@ const PatientList = () => {
     }
   };
 
+
+
+
+  const searchFetch = useCallback(async () => {
+    try {
+      dispatch(showLoader());
+
+      // Destructure searchParams correctly
+      const { patientEmail,
+        patientName,
+        patientMobile,
+        AppointmentDate } =
+        searchParams;
+
+      // Call the API function with the current search parameters
+      const res = await searchPatientListsApi(
+        patientEmail,
+        patientName,
+        patientMobile,
+        AppointmentDate
+      );
+
+      // Check the response and update the state accordingly
+      if (res?.status) {
+        setPatients(res.data);
+        setTotalPage(res.pagination.totalPages);
+        setNext(res.pagination.hasNextPage);
+        setPrev(res.pagination.hasPrevPage);
+      }
+    } catch (error) {
+      console.error("Error searching appointments:", error);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }, [dispatch, currentPage, limit, searchParams]);
+
+  const handleSearchChange = (e) => {
+    setSearchParams({
+      ...searchParams,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSearch = () => {
+    setCurrentPage(1); // Reset to page 1 on search
+    searchFetch(); // Trigger the search
+  };
   return (
     <>
       <BreadCrumbs currentPath={"Patient List"} />
@@ -90,44 +143,44 @@ const PatientList = () => {
             className="border border-black-300 rounded-md px-3 py-1 w-full"
             name="patientName"
             autoComplete="off"
-          //   value={searchParams.appointmentNumber}
-          //   onChange={handleSearchChange}
+            value={searchParams.patientName}
+            onChange={handleSearchChange}
           />
 
           <input
             type="email"
             placeholder="Email..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
-            name="email"
+            name="patientEmail"
             autoComplete="off"
-          //   value={searchParams.txnId}
-          //   onChange={handleSearchChange}
+            value={searchParams.patientEmail}
+            onChange={handleSearchChange}
           />
 
           <input
             type="number"
             placeholder="Patient Phone No..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
-            name="tel"
+            name="patientMobile"
             autoComplete="off"
-          //   value={searchParams.appointmentDate}
-          //   onChange={handleSearchChange}
+            value={searchParams.patientMobile}
+            onChange={handleSearchChange}
           />
 
           <input
             type="date"
             placeholder="Appointment Date..."
             className="border border-black-300 rounded-md px-3 py-2 w-full"
-            name="appointmentDate"
+            name="AppointmentDate"
             autoComplete="off"
-          //   value={searchParams.appointmentDate}
-          //   onChange={handleSearchChange}
+            value={searchParams.AppointmentDate}
+            onChange={handleSearchChange}
           />
 
           <div className="btn">
             <button
               className="rounded bg-[#116AEF] px-7 py-2 text-white"
-            // onClick={handleSearch}
+              onClick={handleSearch}
             >
               Search
             </button>
@@ -182,7 +235,7 @@ const PatientList = () => {
               </thead>
               <tbody>
                 {patients.map((patient, index) => (
-                  <tr key={patient.id} className="border-b border-black-300">
+                  <tr key={patient.userId} className="border-b border-black-300">
                     <td className="p-4 text-black-800 text-[0.95rem]">
                       {++index}
                     </td>

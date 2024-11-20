@@ -37,8 +37,22 @@ export const activeDoctorPatientListApi = async (page = 1, limit = 10) => {
   return res.data;
 };
 
-
 export const viewPatientDetailsByMeDoctorIdApi = async (id, limit = 5) => {
   const res = await axiosInstance.get(`/v1/doctor/patient/view-patient-by-id-doctor-my/${id}?limit=${limit}`);
+  return res.data;
+};
+
+export const searchPatientListsApi = async (patientEmail = "", patientName = "", patientMobile = "", AppointmentDate = "") => {
+  const queryObj = {};
+  // Add other query parameters
+  if (patientEmail) queryObj.patientEmail = patientEmail;
+  if (patientName) queryObj.patientName = patientName;
+  if (patientMobile) queryObj.patientMobile = patientMobile;
+  if (AppointmentDate) queryObj.AppointmentDate = AppointmentDate;
+
+  const query = new URLSearchParams(queryObj).toString();
+
+  const res = await axiosInstance.get(`/v1/doctor/patient/search-patient-list-by-doctor?${query}`);
+
   return res.data;
 };

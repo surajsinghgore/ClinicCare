@@ -10,8 +10,7 @@ import { GoNumber } from "react-icons/go";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
-import { fetchPatientByIdDoctor } from "../../../redux/Slices/GetPatientByIdSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { calculateAge } from "../../../Utils/DateFormatFunction";
 import { viewPatientDetailsByMeDoctorIdApi } from "../../../Utils/services/apis/Doctor/PatientApi";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
@@ -21,7 +20,8 @@ const ViewPatientsDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  
+
+
   // Get query parameters from the URL using useLocation
   const queryParams = new URLSearchParams(location.search);
   const initialLimit = parseInt(queryParams.get("limit")) || 10; // Default to 10 if no limit in query
@@ -55,10 +55,17 @@ const ViewPatientsDetails = () => {
   const loadMoreData = () => {
     const newLimit = limit + 5; // Increase limit by 5
     setLimit(newLimit); // Update the limit state
-    
+
     // Navigate to the same path with updated query parameter
     navigate(`/doctor/view-my-patient-details/${id}?limit=${newLimit}`);
   };
+
+
+
+
+
+
+
 
   return (
     <div>

@@ -60,7 +60,7 @@ const RejectedPatient = () => {
               <FaFileMedical size={35} className="text-[#034EB0]" />
             </h1>
           </div>
-          {console.log(data)}
+     
           {/* Profile Image and Name Centered */}
           <div className="center flex items-center gap-6 mb-14">
             <div className="img-circle w-52 h-52 rounded-full overflow-hidden border-2 border-black">

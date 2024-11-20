@@ -62,7 +62,7 @@ const TransactionDetails = () => {
           </h2>
         </div>
         <div className="mt-6 mb-10 grid grid-cols-4 gap-5">
-        {console.log(data)}
+  
           <AppointmentDetails
             field={"Payment Method"}
               value={data?.paymentMethod}

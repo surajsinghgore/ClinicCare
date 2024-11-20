@@ -37,7 +37,7 @@ function convertTo12HourFormat(time24) {
 export const searchTodayAppointmentsByTime = async (time) => {
   // Convert the time from 24-hour format to 12-hour format with AM/PM
   const time12hr = convertTo12HourFormat(time);
-  console.log(time12hr);
+
   // Call the API with the converted time
   const res = await axiosInstance.get(`/v1/doctor/appointment/get-today-appointment-by-time/${time12hr}`);
 

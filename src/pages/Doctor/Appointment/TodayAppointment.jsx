@@ -32,7 +32,7 @@ const TodayAppointment = () => {
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
-    console.log(name);
+
     if (name === "searchAppointmentNumber") {
       setSearchAppointmentNumber(value);
 
@@ -52,7 +52,7 @@ const TodayAppointment = () => {
         }
       }
     } else if (name === "searchPatientName") {
-      console.log("sasas");
+
       setSearchPatientName(value);
 
       if (value == "") {

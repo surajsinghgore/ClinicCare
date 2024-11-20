@@ -1,7 +1,7 @@
 export const getLocalStorage = (key) => {
     try {
         const value = localStorage.getItem(key);
-        return value || null; 
+        return value || null;
     } catch (error) {
         console.error('local storage get error', error);
         return null;
@@ -10,7 +10,7 @@ export const getLocalStorage = (key) => {
 export const getLocalStorageJSON = (key) => {
     try {
         const value = localStorage.getItem(key);
-        return JSON.parse(value) || null; 
+        return JSON.parse(value) || null;
     } catch (error) {
         console.error('local storage get error', error);
         return null;
@@ -31,6 +31,6 @@ export const removeLocalStorage = (key) => {
     try {
         const value = localStorage.removeItem(key)
     } catch (error) {
-        console.log('local storage removeItem error', error)
+        console.log(error)
     }
 };

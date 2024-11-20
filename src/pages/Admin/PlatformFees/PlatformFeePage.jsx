@@ -32,7 +32,7 @@ const PlatformFeePage = () => {
       dispatch(showLoader());
       let res = await getPlatformFeeApi();
       if (res?.status) {
-        console.log(res.data);
+
         setData(res.data);  // Set fetched data to the state
         setValue("fees", res.data.fees); // Set the fees value in the form
       }

@@ -24,7 +24,7 @@ const DoctorVerify = () => {
       dispatch(showLoader());
 
       const resData = await fetchSingleDoctorSubmittedDataApi(id);
-      console.log(resData.data);
+ 
       setDoctorData(resData.data);
       setDob(resData?.data?.dob ? new Date(resData?.data?.dob).toISOString().split("T")[0] : "");
     } catch (error) {
