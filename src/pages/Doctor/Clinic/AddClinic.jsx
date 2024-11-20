@@ -306,6 +306,7 @@ const AddClinic = () => {
                       id="city"
                       {...register("city")}
                       required
+                      readOnly={true}
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter city"
@@ -326,6 +327,7 @@ const AddClinic = () => {
                       id="state"
                       {...register("state")}
                       required
+                      readOnly={true}
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter state"
@@ -347,6 +349,7 @@ const AddClinic = () => {
                       id="country"
                       {...register("country")}
                       required
+                      readOnly={true}
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter country"
@@ -365,8 +368,9 @@ const AddClinic = () => {
                       type="text"
                       name="lat"
                       id="Pincode"
+                      readOnly={true}
                       // value={coords?.latitude || ''}
-                      readOnly={!isLocationFetched}
+
                       {...register("pincode")}
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter Pincode"
