@@ -98,19 +98,22 @@ const OurDoctors = () => {
                           </h3>{" "}
                         </Link>
 
-                        <div className="text-black-600 flex items-center mb-3">
-                          <ReactStars
-                            count={1}
-                            value={5}
-                            size={25}
-                            color1={"#d1d1d1"}
-                            color2={"rgb(247 133 35)"}
-                            className="sizesofStar"
-                            isHalf={true}
-                            edit={false}
-                          />
-                          <span className="pl-1">{data?.avgRating}</span>
-                        </div>
+                        <Link to={`/show-ratings/${data?._id}?limit=10&sortBy=latest`} className="cursor-pointer">
+                          <div className="text-black-600 flex items-center mb-3">
+                            <ReactStars
+                              count={1}
+                              value={5}
+                              size={25}
+                              color1={"#d1d1d1"}
+                              color2={"rgb(247 133 35)"}
+                              className="sizesofStar"
+                              isHalf={true}
+                              edit={false}
+                            />
+                            <span className="pl-1">{data?.avgRating}</span>
+                        
+                          </div>
+                        </Link>
 
                         <p className="text-black-600 flex items-center mb-3">
                           <FaLocationDot className="mr-1" />

@@ -75,6 +75,8 @@ import CreatePatient from "../pages/Doctor/Patients/CreatePatient";
 import CreatePatient2 from "../pages/Doctor/Patients/CreatePatient2";
 import CreatePatient3 from "../pages/Doctor/Patients/CreatePatient3";
 import UserQuickNavigate from "../components/UserQuickNavigate";
+import PatientList from "../pages/Doctor/Patients/PatientList";
+import ViewPatientsDetails from "../pages/Doctor/Patients/ViewPatientDetails";
 
 const router = createBrowserRouter([
   {
@@ -637,6 +639,22 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <CreatePatient3 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "patient-list",
+        element: (
+          <DoctorLayout>
+            <PatientList />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "view-patient-details",
+        element: (
+          <DoctorLayout>
+            <ViewPatientsDetails />
           </DoctorLayout>
         ),
       },

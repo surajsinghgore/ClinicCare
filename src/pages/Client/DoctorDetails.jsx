@@ -102,7 +102,8 @@ const DoctorDetails = () => {
                 : "Jenny Doe"}
             </h2>
             {/* rating */}
-            <div className="text-black-600 flex items-center mb-3">
+           <Link to={`/show-ratings/${id}?limit=10&sortBy=latest`}>
+           <div className="text-black-600 flex items-center mb-3">
               <ReactStars
                 count={1}
                 value={5}
@@ -115,6 +116,7 @@ const DoctorDetails = () => {
               />
               <span className="pl-1">{doctor?.averageRating}</span>
             </div>
+           </Link>
             {/* Location and Qualification */}
             <div className="flex items-center space-x-6 text-black-700 mb-4">
               <div className="flex items-center">

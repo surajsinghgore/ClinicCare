@@ -69,7 +69,7 @@ const DoctorNavbar = () => {
             icons={<FaUserInjured className=" icon text-2xl text-black-800" />}
             submenuItems={[
               { link: "/doctor/create-patient", title: "Create Patient", icon: <FaUserPlus className=" icon text-2xl text-black-800" /> },
-              { link: "/doctor/", title: "Patient List", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
+              { link: "/doctor/patient-list", title: "Patient List", icon: <FaClipboardList className=" icon text-2xl text-black-800" /> },
             ]}
           />
           <UserNav
