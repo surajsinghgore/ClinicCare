@@ -11,7 +11,7 @@ const locationIcon = new L.Icon({
 });
 
 const MapComponent = ({ selectedCord, setCord }) => {
-  console.log(selectedCord)
+
   const mapRef = useRef(null); // Reference for the map container
   const [coords, setCoords] = useState({
     latitude: selectedCord?.latitude || selectedCord?.lat || 0,
@@ -56,7 +56,7 @@ const MapComponent = ({ selectedCord, setCord }) => {
     if (marker) {
       marker.setLatLng([lat, lng]);
     } else {
-      marker = L.marker([lat, lng], { icon: locationIcon }).addTo(map); 
+      marker = L.marker([lat, lng], { icon: locationIcon }).addTo(map);
     }
     return marker;
   };
@@ -67,7 +67,7 @@ const MapComponent = ({ selectedCord, setCord }) => {
       <div
         ref={mapRef}
         id="map"
-        style={{ height: '400px', width: '100%' }} 
+        style={{ height: '400px', width: '100%' }}
       ></div>
     </div>
   );
