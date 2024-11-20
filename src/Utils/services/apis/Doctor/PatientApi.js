@@ -18,9 +18,12 @@ export const searchUserInDoctorApi = async (search) => {
   return res.data;
 };
 
-
 export const getPatientDetailsApi = async (userId) => {
   const res = await axiosInstance.get(`/v1/doctor/patient/get-patient-details/${userId}`);
   return res.data;
 };
 
+export const bookPatientAppointmentTempApi = async (payload) => {
+  const res = await axiosInstance.post(`/v1/doctor/patient/book-patient-appointment-temp`, payload);
+  return res.data;
+};

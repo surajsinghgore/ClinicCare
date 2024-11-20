@@ -48,3 +48,11 @@ export const extractFullDate = (isoString) => {
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
+
+
+export const formatTimeTo12Hour = (time) => {
+    const [hour, minute] = time.split(":").map(Number); 
+    const period = hour >= 12 ? "pm" : "am"; 
+    const formattedHour = hour % 12 || 12; 
+    return `${formattedHour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")} ${period}`;
+  };

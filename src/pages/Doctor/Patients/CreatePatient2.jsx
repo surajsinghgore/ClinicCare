@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { setLocalStorage, getLocalStorage } from "../../../Utils/LocalStorage";
+import { formatTimeTo12Hour } from "../../../Utils/DateFormatFunction";
 
 const CreatePatient2 = () => {
   const { userId } = useParams();
@@ -14,86 +15,107 @@ const CreatePatient2 = () => {
   const navigate = useNavigate();
 
   const [patientData, setPatientData] = useState(null);
-
   const [selectedClinic, setSelectedClinic] = useState("");
   const [selectedService, setSelectedService] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [fees, setFees] = useState(0);
 
+  // Helper to get today's date in "YYYY-MM-DD" format
+  const getTodayDate = () => {
+    const today = new Date();
+    return today.toISOString().split("T")[0];
+  };
+
+  // Helper to get current time in "HH:mm" format
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  };
+
+  // Function to fetch patient data from the API
   const dataFetch = async () => {
     try {
       dispatch(showLoader());
-      let res = await getPatientDetailsApi(userId);
+      const res = await getPatientDetailsApi(userId);
 
       if (res?.status) {
-        setPatientData(res?.data);  // Store the fetched data in state
+        setPatientData(res?.data); // Save fetched data to state
       }
     } catch (error) {
-      console.log(error);
-      dispatch(showAlert({ message: error?.response?.data?.message, type: "failed" }));
+      console.error(error);
+      dispatch(
+        showAlert({
+          message: error?.response?.data?.message || "Failed to fetch patient details.",
+          type: "failed",
+        })
+      );
     } finally {
       dispatch(hideLoader());
     }
   };
 
-  // Effect to fetch patient data when the component mounts and check localStorage
+  // Effect to fetch data on mount and load local storage data if available
   useEffect(() => {
-    // Fetch patient data only if not already fetched
     if (!patientData) {
       dataFetch();
     }
 
-    // Check if there is existing appointment data in local storage and load it
     const storedData = getLocalStorage("tempAppointmentData");
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-
       setSelectedClinic(parsedData.clinicId || "");
       setSelectedService(parsedData.serviceId || "");
       setSelectedDate(parsedData.date || "");
       setSelectedTime(parsedData.time || "");
 
-      // If patientData is loaded, set the selected service fees
+      // If patient data exists, set fees for the stored service
       if (patientData) {
-        const selected = patientData?.serviceData?.find(service => service._id === parsedData.serviceId);
-        if (selected) {
-          setFees(selected.fees);
-        }
+        const selected = patientData?.serviceData?.find(
+          (service) => service._id === parsedData.serviceId
+        );
+        if (selected) setFees(selected.fees);
       }
     }
-  }, [patientData]); // This effect runs only when `patientData` is updated
+  }, [patientData]);
 
+  // Handle clinic selection and filter services
+  const handleClinicChange = (e) => {
+    const clinicId = e.target.value;
+    setSelectedClinic(clinicId);
+    setSelectedService(""); 
+    setFees(0)
+  };
+
+  // Handle service selection and update fees
   const handleServiceChange = (e) => {
     const serviceId = e.target.value;
     setSelectedService(serviceId);
 
-    // Find the selected service from the available services and set the fee
-    const selected = patientData?.serviceData?.find(service => service._id === serviceId);
-    if (selected) {
-      setFees(selected.fees); // Set the fees for the selected service
-    } else {
-      setFees(0); // Reset to 0 if no service is selected
-    }
+    const selected = patientData?.serviceData?.find((service) => service._id === serviceId);
+    setFees(selected ? selected.fees : 0);
   };
 
-  const handleNextButtonClick = () => {
-    let errorMessage = '';
+  const filteredServices = patientData?.serviceData?.filter(
+    (service) => service.clinicId === selectedClinic
+  );
 
-    if (!selectedClinic) {
-      errorMessage = 'Please select a clinic.';
-    } else if (!selectedService) {
-      errorMessage = 'Please select a service.';
-    } else if (!selectedDate) {
-      errorMessage = 'Please select an appointment date.';
-    } else if (!selectedTime) {
-      errorMessage = 'Please select an appointment time.';
-    }
+  // Handle form submission
+  const handleNextButtonClick = () => {
+    let errorMessage = "";
+
+    if (!selectedClinic) errorMessage = "Please select a clinic.";
+    else if (!selectedService) errorMessage = "Please select a service.";
+    else if (!selectedDate) errorMessage = "Please select an appointment date.";
+    else if (!selectedTime) errorMessage = "Please select an appointment time.";
 
     if (errorMessage) {
       dispatch(showAlert({ message: errorMessage, type: "failed" }));
       return;
     }
+    let appointmentTime = formatTimeTo12Hour(selectedTime);
 
     const appointmentData = {
       userId,
@@ -101,6 +123,7 @@ const CreatePatient2 = () => {
       serviceId: selectedService,
       date: selectedDate,
       time: selectedTime,
+      appointmentTime,
       fees,
     };
 
@@ -171,7 +194,7 @@ const CreatePatient2 = () => {
                 <select
                   className="w-full p-3 border border-black-300 rounded-md bg-white focus:outline-none"
                   value={selectedClinic}
-                  onChange={(e) => setSelectedClinic(e.target.value)}
+                  onChange={handleClinicChange} // Handle clinic selection
                 >
                   <option value="">Select a clinic</option> {/* Default select option */}
                   {patientData.clinicData.map((clinic) => (
@@ -188,9 +211,10 @@ const CreatePatient2 = () => {
                   className="w-full p-3 border border-black-300 rounded-md bg-white focus:outline-none"
                   value={selectedService}
                   onChange={handleServiceChange} // Handle service selection
+                  disabled={!selectedClinic} // Disable if no clinic is selected
                 >
                   <option value="">Select a service</option> {/* Default select option */}
-                  {patientData.serviceData.map((service) => (
+                  {filteredServices.map((service) => (
                     <option key={service._id} value={service._id}>
                       {service.treatmentName}
                     </option>
@@ -205,7 +229,7 @@ const CreatePatient2 = () => {
                   className="w-full p-3 border border-black-300 rounded-md bg-white focus:outline-none"
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
-                  min={new Date().toISOString().split('T')[0]} // Set min date to today
+                  min={getTodayDate()}
                 />
               </div>
 
@@ -216,13 +240,14 @@ const CreatePatient2 = () => {
                   className="w-full p-3 border border-black-300 rounded-md bg-white focus:outline-none"
                   value={selectedTime}
                   onChange={(e) => setSelectedTime(e.target.value)}
-                  min={new Date().toTimeString().slice(0, 5)} // Set min time to current time
+                  min={getCurrentTime()}
                 />
               </div>
             </div>
           </div>
         )}
 
+    
         {/* Section 3: Doctor / Platform Fees */}
         {patientData && (
           <div className="mt-8">

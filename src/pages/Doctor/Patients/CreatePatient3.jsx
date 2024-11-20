@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { hideLoader, showLoader } from "../../../redux/Slices/LoaderState";
 import { processAppointmentByAppointmentId } from "../../../Utils/services/apis/Doctor/AppointmentApi";
 import { getLocalStorage } from "../../../Utils/LocalStorage";
+import { bookPatientAppointmentTempApi } from "../../../Utils/services/apis/Doctor/PatientApi";
 
 const CreatePatient3 = () => {
   const [medicines, setMedicines] = useState([{ name: "", dose: "", routine: "", duration: "" }]);
@@ -61,14 +62,14 @@ const CreatePatient3 = () => {
     formData.medications = medicines;
     delete formData.medicines
 
-    return
+
     dispatch(showLoader());
     try {
-      const res = await processAppointmentByAppointmentId(id, formData);
+      const res = await bookPatientAppointmentTempApi(formData);
       dispatch(showAlert({ message: res.message, type: "success" }));
-      setTimeout(() => {
-        navigate(`/doctor/view-appointment/${res.id}`);
-      }, 2000);
+      // setTimeout(() => {
+      //   navigate(`/doctor/view-appointment/${res.id}`);
+      // }, 2000);
     } catch (error) {
       dispatch(showAlert({ message: error?.response?.data?.message || "Failed to create appointment", type: "failed" }));
     } finally {
@@ -85,7 +86,7 @@ const CreatePatient3 = () => {
       setValue('serviceId', appointmentData.serviceId)
       setValue('userId', appointmentData.userId)
       setValue('appointmentData', appointmentData.date)
-      setValue('appointmentTime', appointmentData.time)
+      setValue('appointmentTime', appointmentData.appointmentTime)
     }
   }, [])
   return (
