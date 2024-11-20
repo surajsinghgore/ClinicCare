@@ -77,6 +77,7 @@ import CreatePatient3 from "../pages/Doctor/Patients/CreatePatient3";
 import UserQuickNavigate from "../components/UserQuickNavigate";
 import PatientList from "../pages/Doctor/Patients/PatientList";
 import ViewPatientsDetails from "../pages/Doctor/Patients/ViewPatientDetails";
+import PaymentVerificationPage from "../pages/Doctor/Patients/PaymentVerificationPage";
 
 const router = createBrowserRouter([
   {
@@ -639,6 +640,14 @@ const router = createBrowserRouter([
         element: (
           <DoctorLayout>
             <CreatePatient3 />
+          </DoctorLayout>
+        ),
+      },
+      {
+        path: "payment-verification-page/:transactionId",
+        element: (
+          <DoctorLayout>
+            <PaymentVerificationPage />
           </DoctorLayout>
         ),
       },

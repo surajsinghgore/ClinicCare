@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 import { BsCheckCircle } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { getLocalStorage, removeLocalStorage } from '../../Utils/LocalStorage';
+import {  removeLocalStorage } from '../../Utils/LocalStorage';
 
 const PaymentStatusSuccess = () => {
 
     const navigate = useNavigate();
     useEffect(() => {
-        if (!getLocalStorage('selectedDate')) {
-            navigate("/book-appointment")
-        }
+
 
         setTimeout(() => {
             removeLocalStorage('selectedDate')

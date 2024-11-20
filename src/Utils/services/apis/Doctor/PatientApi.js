@@ -27,3 +27,8 @@ export const bookPatientAppointmentTempApi = async (payload) => {
   const res = await axiosInstance.post(`/v1/doctor/patient/book-patient-appointment-temp`, payload);
   return res.data;
 };
+
+export const checkBookAppointmentPaymentStatusApi = async (appointmentId) => {
+  const res = await axiosInstance.get(`/v1/doctor/patient/book-patient-appointment-payment-status/${appointmentId}`);
+  return res.data;
+};
