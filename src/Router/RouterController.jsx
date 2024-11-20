@@ -78,6 +78,8 @@ import UserQuickNavigate from "../components/UserQuickNavigate";
 import PatientList from "../pages/Doctor/Patients/PatientList";
 import ViewPatientsDetails from "../pages/Doctor/Patients/ViewPatientDetails";
 import PaymentVerificationPage from "../pages/Doctor/Patients/PaymentVerificationPage";
+import Demo from "../pages/Demo";
+import AdminCreates from "../pages/Admin/CreateAdmins";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +91,15 @@ const router = createBrowserRouter([
       </>
     ),
   },
+  // {
+  //   path: "/create-admin",
+  //   element: (
+  //     <>
+  //       <AdminCreates />
+
+  //     </>
+  //   ),
+  // },
 
   {
     path: "/show-ratings/:doctorId",

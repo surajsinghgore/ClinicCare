@@ -60,7 +60,7 @@ const AddClinic = () => {
         setCord({ latitude: clinicDetails.data.lat, longitude: clinicDetails.data.long });
       }
     } else {
-    
+
       dispatch(resetClinicDetails());
     }
   }, [clinicDetails, dispatch]);
@@ -309,7 +309,7 @@ const AddClinic = () => {
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter city"
-                      // value={locationData.city || ''} // Populate with location data
+                    // value={locationData.city || ''} // Populate with location data
                     />
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
@@ -329,7 +329,7 @@ const AddClinic = () => {
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter state"
-                      // value={locationData.city_district || ''} // Populate with location data
+                    // value={locationData.city_district || ''} // Populate with location data
                     />
 
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
@@ -350,7 +350,7 @@ const AddClinic = () => {
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter country"
-                      // value={locationData.country || ''} // Populate with location data
+                    // value={locationData.country || ''} // Populate with location data
                     />
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
@@ -413,7 +413,10 @@ const AddClinic = () => {
                   </div>
                 </div>
                 <p className="text-danger">Please drag the location to match your clinic &lsquo;s location </p>
-                <MapComponent cord={cord} setCord={setCord} selectedCord={coords} />
+                <div className="relative w-full z-0">
+
+                  <MapComponent cord={cord} setCord={setCord} selectedCord={coords} />
+                </div>
               </>
             )}
           </div>

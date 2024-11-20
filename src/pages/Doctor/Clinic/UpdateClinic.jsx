@@ -199,14 +199,14 @@ const UpdateClinic = () => {
               <FaHospitalUser className="text-blue-500 text-2xl" />
               <span className="text-blue-500 font-medium">Clinic Details</span>
             </div>
-           <Link to={`/doctor/update-clinic2/${id}`}>
+            <Link to={`/doctor/update-clinic2/${id}`}>
 
-            <div className="flex items-center gap-2">
-              <CiCalendarDate className="text-black-500 text-2xl" />
-              <span className="text-black-500 font-medium">Availability</span>
-            </div>
-           </Link>
-           <Link to={`/doctor/update-clinic3/${id}`}> <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
+                <CiCalendarDate className="text-black-500 text-2xl" />
+                <span className="text-black-500 font-medium">Availability</span>
+              </div>
+            </Link>
+            <Link to={`/doctor/update-clinic3/${id}`}> <div className="flex items-center gap-2">
               <FaImages className="text-black-500 text-2xl" />
               <span className="text-black-500 font-medium">Upload File</span>
             </div></Link>
@@ -312,7 +312,7 @@ const UpdateClinic = () => {
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter city"
-                      // value={locationData.city || ''} // Populate with location data
+                    // value={locationData.city || ''} // Populate with location data
                     />
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
@@ -332,7 +332,7 @@ const UpdateClinic = () => {
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter state"
-                      // value={locationData.city_district || ''} // Populate with location data
+                    // value={locationData.city_district || ''} // Populate with location data
                     />
 
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
@@ -353,7 +353,7 @@ const UpdateClinic = () => {
                       autoComplete="off"
                       className="border border-black-300 p-2 rounded-md w-80 pl-10"
                       placeholder="Enter country"
-                      // value={locationData.country || ''} // Populate with location data
+                    // value={locationData.country || ''} // Populate with location data
                     />
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
@@ -415,7 +415,10 @@ const UpdateClinic = () => {
                     <IoMdLocate className="absolute left-3 top-3 text-black-400" />
                   </div>
                 </div>
-                <MapComponent cord={cord} setCord={setCord} selectedCord={coords} />
+                <div className="relative w-full z-0">
+                  <MapComponent cord={cord} setCord={setCord} selectedCord={coords} />
+                </div>
+
               </>
             )}
           </div>

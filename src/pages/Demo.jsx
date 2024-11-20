@@ -45,7 +45,7 @@ const Demo = () => {
     return (
         <div>
             <h2>Map Demo</h2>
-            <div id="map" style={{ height: '400px', width: '100%' }}></div>
+            <div id="map" style={{ height: '400px', width: '50%' }}></div>
         </div>
     );
 };
