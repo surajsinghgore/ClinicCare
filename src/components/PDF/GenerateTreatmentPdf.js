@@ -53,15 +53,24 @@ export const GenerateTreatmentPdf = (data) => {
     currentY += 20;
   };
 
-  // Add Section Content
+  // Add Content with Word Wrapping
   const addContent = (label, value) => {
     checkPageSpace(10);
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.text(`${label}:`, 10, currentY);
+
     doc.setTextColor(59, 152, 235);
-    doc.text(value || "N/A", 50, currentY);
-    currentY += 10;
+
+    // Use auto-wrapping for long text
+    if (value) {
+      const wrappedText = doc.splitTextToSize(value, pageWidth - 20); // Adjust width for margin
+      doc.text(wrappedText, 50, currentY);
+      currentY += wrappedText.length * 5 + 10; // Adjust currentY for text height
+    } else {
+      doc.text("N/A", 50, currentY);
+      currentY += 10;
+    }
   };
 
   // Check Page Space and Add New Page If Needed
@@ -99,8 +108,8 @@ export const GenerateTreatmentPdf = (data) => {
     addSectionTitle("Transaction Details");
     addContent("Transaction ID", data.transactionDetails.txnId);
     addContent("Amount", `${(data.transactionDetails.amount / 100).toFixed(2)}`);
-    addContent("Platform Fee", ` ${data.transactionDetails.platformFee}`);
-    addContent("Total Amount", ` ${data.transactionDetails.totalAmount}`);
+    addContent("Platform Fee", `${data.transactionDetails.platformFee}`);
+    addContent("Total Amount", `${data.transactionDetails.totalAmount}`);
     addContent("Payment Status", data.transactionDetails.methodRes.data.responseCode);
   };
 
@@ -110,7 +119,18 @@ export const GenerateTreatmentPdf = (data) => {
     addContent("Disease", data.treatmentDetails.diseaseName);
     addContent("Symptoms", data.treatmentDetails.symptoms);
     addContent("Follow-up Date", data.treatmentDetails.followUpDate.split("T")[0]);
-    addContent("Notes", data.treatmentDetails.notes || "None");
+    
+    // Handling Notes with wrapping
+    const notes = data.treatmentDetails.notes || "None";
+    checkPageSpace(20);
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Notes:", 10, currentY);
+    
+    doc.setTextColor(59, 152, 235);
+    const wrappedNotes = doc.splitTextToSize(notes, pageWidth - 20);  // Wrap text based on page width
+    doc.text(wrappedNotes, 50, currentY);
+    currentY += wrappedNotes.length * 5 + 10; // Adjust the Y position after Notes section
 
     addSectionTitle("Medications");
     const medications = data.treatmentDetails.medications.map((med) => [med.name, med.dose, med.routine, `${med.duration} days`]);
@@ -132,11 +152,22 @@ export const GenerateTreatmentPdf = (data) => {
   // Add Tests Prescribed at the End
   const addTestsPrescribed = () => {
     addSectionTitle("Tests Prescribed");
+
     const tests = data.treatmentDetails.testPrescribed;
 
     if (tests.length > 0) {
       const testsLine = tests.join(", ");
-      addContent("Tests", testsLine);
+      
+      checkPageSpace(20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      doc.text("Tests:", 10, currentY);
+
+      // Wrapping tests list if it overflows
+      doc.setTextColor(59, 152, 235);
+      const wrappedTests = doc.splitTextToSize(testsLine, pageWidth - 20);  // Adjust for page width
+      doc.text(wrappedTests, 50, currentY);
+      currentY += wrappedTests.length * 5 + 10; // Adjust currentY to account for wrapped lines
     } else {
       addContent("Tests", "No tests prescribed");
     }
@@ -424,7 +455,18 @@ export const GenerateTreatmentReportUserPdf = (data) => {
     addContent("Disease", data.treatmentDetails.diseaseName);
     addContent("Symptoms", data.treatmentDetails.symptoms);
     addContent("Follow-up Date", data.treatmentDetails.followUpDate.split("T")[0]);
-    addContent("Notes", data.treatmentDetails.notes || "None");
+
+    // Handling Notes with wrapping
+    const notes = data.treatmentDetails.notes || "None";
+    checkPageSpace(20);
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Notes:", 10, currentY);
+
+    doc.setTextColor(59, 152, 235);
+    const wrappedNotes = doc.splitTextToSize(notes, pageWidth - 20);  // Wrap text based on page width
+    doc.text(wrappedNotes, 50, currentY);
+    currentY += wrappedNotes.length * 5 + 10; // Adjust the Y position after Notes section
 
     addSectionTitle("Medications");
     const medications = data.treatmentDetails.medications.map((med) => [med.name, med.dose, med.routine, `${med.duration} days`]);
@@ -446,11 +488,22 @@ export const GenerateTreatmentReportUserPdf = (data) => {
   // Add Tests Prescribed at the End
   const addTestsPrescribed = () => {
     addSectionTitle("Tests Prescribed");
+
     const tests = data.treatmentDetails.testPrescribed;
 
     if (tests.length > 0) {
       const testsLine = tests.join(", ");
-      addContent("Tests", testsLine);
+      
+      checkPageSpace(20);
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      doc.text("Tests:", 10, currentY);
+
+      // Wrapping tests list if it overflows
+      doc.setTextColor(59, 152, 235);
+      const wrappedTests = doc.splitTextToSize(testsLine, pageWidth - 20);  // Adjust for page width
+      doc.text(wrappedTests, 50, currentY);
+      currentY += wrappedTests.length * 5 + 10; // Adjust currentY to account for wrapped lines
     } else {
       addContent("Tests", "No tests prescribed");
     }
