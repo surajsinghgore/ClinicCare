@@ -95,10 +95,10 @@ const router = createBrowserRouter([
   {
     path: "/create-admin",
     element: (
-      <>
+      <UserLayout>
         <AdminCreates />
 
-      </>
+      </UserLayout>
     ),
   },
 

@@ -28,3 +28,7 @@ export const updateAdminAccountApi = async (id,payload) => {
   const res = await axiosInstance.post(`/v1/admin/update-admin-account/${id}`, payload);
   return res.data;
 };
+export const createAdminAccountApi = async (payload) => {
+  const res = await axiosInstance.post("/v1/admin/create-account", payload);
+  return res.data;
+};

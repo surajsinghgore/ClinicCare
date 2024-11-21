@@ -9,7 +9,7 @@ import { showAlert } from "../../redux/Slices/AlertToggleState";
 import { showLoader, hideLoader } from "../../redux/Slices/LoaderState";
 import { setSessionStorage } from "../../Utils/SessionStorage";
 import BreadCrumbs from "../../components/Common/BreadCrumbs";
-import { createAdminAccountPermissionApi } from "../../Utils/services/apis/Admin/AdminApi";
+import { createAdminAccountApi } from "../../Utils/services/apis/Admin/AdminApi";
 
 const AdminCreates = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const AdminCreates = () => {
     dispatch(showLoader());
 
     try {
-      let res = await createAdminAccountPermissionApi(body);
+      let res = await createAdminAccountApi(body);
       dispatch(showAlert({ message: res.message, type: "success" }));
       setSessionStorage("email", res.email);
       setTimeout(() => {
