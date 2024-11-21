@@ -166,17 +166,17 @@ const AddClinic2 = () => {
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg mt-12">
-          <h2 className="text-3xl font-bold mb-10 text-gray-800 text-left">Doctor Availability</h2>
-          <div className="grid grid-cols-4 gap-6 mb-4 border-b-2 border-gray-300 pb-4 text-gray-600">
+        <div className="max-w-7xl mx-auto p-8 rounded-xl mt-12">
+          <h2 className="text-3xl font-bold mb-10 text-black-800 text-left">Doctor Availability</h2>
+          <div className="grid grid-cols-4 gap-6 mb-4 border-b-2 border-black-300 pb-4 text-black-600">
             <div className="font-semibold text-left">Day</div>
             <div className="font-semibold text-center">Opening Time</div>
             <div className="font-semibold text-center">Closing Time</div>
             <div className="font-semibold text-right">Status</div>
           </div>
           {availability.map((slot, index) => (
-            <div key={index} className="grid grid-cols-4 gap-6 items-center mb-4 border-b border-gray-200 pb-3 transition-all hover:bg-blue-50">
-              <div className="text-left text-gray-700 font-medium">{slot.day}</div>
+            <div key={index} className="grid grid-cols-4 gap-6 items-center mb-4 border-b border-black-200 pb-3">
+              <div className="text-left text-black-700 font-medium">{slot.day}</div>
               <input
                 type="time"
                 className="p-2 w-full border rounded-md shadow-sm text-center bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all duration-300 hover:shadow-md"
@@ -192,7 +192,7 @@ const AddClinic2 = () => {
                 disabled={slot.status === "closed"}
               />
               <select
-                className="p-2 ml-12 w-44 border rounded-md shadow-sm bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all duration-300 hover:shadow-md text-gray-700"
+                className="p-2 ml-12 w-44 border rounded-md shadow-sm bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all duration-300 hover:shadow-md text-black-700"
                 value={slot.status}
                 onChange={(e) => handleInputChange(index, "status", e.target.value)}
               >
@@ -207,7 +207,7 @@ const AddClinic2 = () => {
         <div className="w-full flex justify-end gap-2 my-4 items-center">
           <div>
             <Link to={"/doctor/add-clinic-page1"}>
-              <button className="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400">Back</button>
+              <button className="bg-black-300 px-4 py-2 rounded-md hover:bg-black-400">Back</button>
             </Link>
           </div>
           <div>
