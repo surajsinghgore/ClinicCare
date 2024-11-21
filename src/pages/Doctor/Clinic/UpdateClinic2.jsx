@@ -177,7 +177,7 @@ const UpdateClinic2 = () => {
             <div className="font-semibold text-right">Status</div>
           </div>
           {availability.map((slot, index) => (
-            <div key={index} className="grid grid-cols-4 gap-6 items-center mb-4 border-b border-black-200 pb-3 transition-all hover:bg-blue-50">
+            <div key={index} className="grid grid-cols-4 gap-6 items-center mb-4 border-b border-black-200 pb-3">
               <div className="text-left text-black-700 font-medium">{slot.day}</div>
               <input
                 type="time"
