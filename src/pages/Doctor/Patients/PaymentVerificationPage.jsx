@@ -4,6 +4,7 @@ import { showAlert } from "../../../redux/Slices/AlertToggleState";
 import { checkBookAppointmentPaymentStatusApi } from "../../../Utils/services/apis/Doctor/PatientApi";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { removeLocalStorage } from "../../../Utils/LocalStorage";
 
 const PaymentVerificationPage = () => {
     const [status, setStatus] = useState(false);
@@ -18,6 +19,7 @@ const PaymentVerificationPage = () => {
             if (res?.status) {
                 setStatus(res.data);
                 if (res.data) {
+                    removeLocalStorage('tempAppointmentData')
                     setData(res.transactionDetails);
                 }
             }
@@ -32,17 +34,18 @@ const PaymentVerificationPage = () => {
     useEffect(() => {
         paymentStatusCheck();
 
-        // Polling mechanism with interval
+
         const interval = setInterval(() => {
             if (!status) {
                 paymentStatusCheck();
             } else {
-                clearInterval(interval); // Stop polling once payment is received
+
+                clearInterval(interval);
             }
         }, 15000);
 
-        return () => clearInterval(interval); // Cleanup interval on component unmount
-    }, [status]); // Re-run effect only when `status` changes
+        return () => clearInterval(interval);
+    }, [status]);
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
