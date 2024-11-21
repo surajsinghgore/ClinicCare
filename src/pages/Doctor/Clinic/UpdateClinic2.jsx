@@ -168,7 +168,7 @@ const UpdateClinic2 = () => {
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto p-8 rounded-xl mt-12">
+        <div className="max-w-7xl mx-auto p-8 rounded-xl mt-12">
           <h2 className="text-3xl font-bold mb-10 text-black-800 text-left">Doctor Availability</h2>
           <div className="grid grid-cols-4 gap-6 mb-4 border-b-2 border-black-300 pb-4 text-black-600">
             <div className="font-semibold text-left">Day</div>
