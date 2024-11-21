@@ -1,5 +1,5 @@
-import { IoDocumentAttachSharp } from "react-icons/io5";
-import { BsCalendar2DateFill } from "react-icons/bs";
+import { FaFilePdf } from "react-icons/fa6";
+import { SlCalender } from "react-icons/sl";
 import { Link } from "react-router-dom";
 
 const UserQuickNavigate = () => {
@@ -8,14 +8,14 @@ const UserQuickNavigate = () => {
       {/* File Icon */}
       <Link to={"/user/user-appointment?tab=all&limit=10"}>
         <div className="p-2 bg-black-100 rounded-tl-md hover:bg-black-200 cursor-pointer">
-          <IoDocumentAttachSharp className="h-8 w-8 text-black-700 " />
+          <FaFilePdf className="h-8 w-8 text-black-700 " />
         </div>
       </Link>
 
       {/* Appointment Icon */}
       <Link to={"/book-appointment"}>
       <div className="p-2 bg-black-100 rounded-bl-md hover:bg-black-200 cursor-pointer">
-        <BsCalendar2DateFill className="h-8 w-8 text-black-700" />
+        <SlCalender className="h-8 w-8 text-black-700" />
       </div>
       </Link>
     </div>
