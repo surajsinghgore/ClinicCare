@@ -56,11 +56,11 @@ const ClinicMapComponent = ({ clinicData, status }) => {
 
     return (
         <div>
-            <h2 className="mb-2">{(status) ? "Near By Clinics In 10 Km Range" : "All Clinic Location"}</h2>
+            <h2 className="mb-2 font-medium text-2xl">{(status) ? "Near By Clinics In 10 Km Range" : "All Clinic Location"}</h2>
             <div
                 ref={mapRef}
                 id="map"
-                style={{ height: "450px", width: "100%" }}
+                style={{ height: "550px", width: "100%", borderRadius: "10px"}}
             ></div>
         </div>
     );

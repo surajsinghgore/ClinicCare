@@ -48,10 +48,10 @@ const PaymentVerificationPage = () => {
     }, [status]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-black-100">
             {status ? (
                 <>
-                    <h1 className="text-4xl font-bold text-gray-800 mb-4">Payment Received</h1>
+                    <h1 className="text-4xl font-bold text-black-800 my-5">Payment Received</h1>
                     {data.length !== 0 && (
                         <>
                             <div className="my-2">
@@ -62,63 +62,63 @@ const PaymentVerificationPage = () => {
                                 />
                             </div>
                             <div className="w-full max-w-3xl bg-white shadow-md overflow-hidden">
-                                <table className="table-auto w-full text-left border-collapse border border-gray-300">
+                                <table className="table-auto w-full text-left border-collapse border border-black-300">
                                     <thead>
-                                        <tr className="bg-gray-200">
-                                            <th className="border border-gray-300 px-4 py-2">Field</th>
-                                            <th className="border border-gray-300 px-4 py-2">Details</th>
+                                        <tr className="bg-black-200">
+                                            <th className="border border-black-300 px-4 py-2">Field</th>
+                                            <th className="border border-black-300 px-4 py-2">Details</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Patient Name</td>
-                                            <td className="border border-gray-300 px-4 py-2">{data.user?.name}</td>
+                                            <td className="border border-black-300 px-4 py-2">Patient Name</td>
+                                            <td className="border border-black-300 px-4 py-2">{data.user?.name}</td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Treatment Name</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Treatment Name</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 {data.appointmentId?.service?.treatmentName}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Appointment Date</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Appointment Date</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 {data.appointmentId?.appointmentDate}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Appointment Time</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Appointment Time</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 {data.appointmentId?.appointmentTime}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Fees</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Fees</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 ₹ {data.appointmentId?.service?.fees}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Platform Fee</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Platform Fee</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 ₹ {data.appointmentId?.service?.platformFee}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Specialty</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Specialty</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 {data.appointmentId?.service?.specialty}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Txn Id</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Txn Id</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 {data.TransactionData?.txnId}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Amount Received</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Amount Received</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 {(data.TransactionData?.amountReceived
                                                     / 100).toFixed(2)}
 
@@ -126,14 +126,14 @@ const PaymentVerificationPage = () => {
                                         </tr>
 
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">Payment Status</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">Payment Status</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 {data.TransactionData?.status}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="border border-gray-300 px-4 py-2">paymentType</td>
-                                            <td className="border border-gray-300 px-4 py-2">
+                                            <td className="border border-black-300 px-4 py-2">paymentType</td>
+                                            <td className="border border-black-300 px-4 py-2">
                                                 {data.TransactionData?.paymentType}
                                             </td>
                                         </tr>
@@ -152,8 +152,8 @@ const PaymentVerificationPage = () => {
                 </>
             ) : (
                 <>
-                    <h1 className="text-4xl font-bold text-gray-800 mb-4">Payment Confirmation Email Sent</h1>
-                    <p className="text-lg text-gray-600 mb-6">
+                    <h1 className="text-4xl font-bold text-black-800 mb-4">Payment Confirmation Email Sent</h1>
+                    <p className="text-lg text-black-600 mb-6">
                         &ldquo;An email for payment has been sent to patient&apos;s registered email. Please wait for
                         the confirmation.&ldquo;
                     </p>

@@ -8,7 +8,7 @@ import { Pagination } from 'swiper/modules';
 
 const NearByClinicImagesCard = ({ Images }) => {
     return (
-        <div className='bg-primary h-[300px] w-full m-auto'>
+        <div className='h-[400px] w-full m-auto'>
             <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
                 {Images && Images.length > 0 && (
                     Images.map((image, index) => (
@@ -16,7 +16,7 @@ const NearByClinicImagesCard = ({ Images }) => {
                             <img
                                 src={image}
                                 alt={`Clinic Image ${index + 1}`}
-                                className="w-full h-28 object-cover rounded-md"
+                                className="w-full h-28 object-cover rounded"
                             />
                         </SwiperSlide>
                     ))
