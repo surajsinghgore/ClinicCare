@@ -90,14 +90,14 @@ const router = createBrowserRouter([
       </>
     ),
   },
-  {
-    path: "/create-admin",
-    element: (
-      <UserLayout>
-        <AdminCreate />
-      </UserLayout>
-    ),
-  },
+  // {
+  //   path: "/create-admin",
+  //   element: (
+  //     <UserLayout>
+  //       <AdminCreate />
+  //     </UserLayout>
+  //   ),
+  // },
 
   {
     path: "/show-ratings/:doctorId",
