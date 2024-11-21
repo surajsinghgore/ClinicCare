@@ -92,15 +92,15 @@ const router = createBrowserRouter([
       </>
     ),
   },
-  // {
-  //   path: "/create-admin",
-  //   element: (
-  //     <>
-  //       <AdminCreates />
+  {
+    path: "/create-admin",
+    element: (
+      <>
+        <AdminCreates />
 
-  //     </>
-  //   ),
-  // },
+      </>
+    ),
+  },
 
   {
     path: "/show-ratings/:doctorId",
