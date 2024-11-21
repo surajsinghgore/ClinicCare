@@ -24,7 +24,7 @@ import DoctorList from "../pages/Admin/DoctorList";
 import AddClinic from "../pages/Doctor/Clinic/AddClinic";
 import AddClinic2 from "../pages/Doctor/Clinic/AddClinic2";
 import AddClinic3 from "../pages/Doctor/Clinic/AddClinic3";
-import CreateAdmins from "../pages/Admin/CreateAdmins";
+import CreateAdmins from "../pages/Admin/CreateAdminsByAdmin";
 import AdminLists from "../pages/Admin/AdminLists";
 import ClinicsList from "../pages/Doctor/Clinic/ClinicsList";
 import AddServices from "../pages/Doctor/Service/AddServices";
@@ -78,7 +78,6 @@ import UserQuickNavigate from "../components/UserQuickNavigate";
 import PatientList from "../pages/Doctor/Patients/PatientList";
 import ViewPatientsDetails from "../pages/Doctor/Patients/ViewPatientDetails";
 import PaymentVerificationPage from "../pages/Doctor/Patients/PaymentVerificationPage";
-import AdminCreates from "../pages/Admin/CreateAdmins";
 import NearByClinic from "../pages/Client/NearByClinic";
 
 const router = createBrowserRouter([
@@ -95,8 +94,7 @@ const router = createBrowserRouter([
     path: "/create-admin",
     element: (
       <UserLayout>
-        <AdminCreates />
-
+        <AdminCreate />
       </UserLayout>
     ),
   },
