@@ -379,7 +379,7 @@ export const GenerateTreatmentReportUserPdf = (data) => {
     doc.setFontSize(10);
     doc.setTextColor(255, 255, 255);
     doc.text(`Prepared by ${data.clinic.name}, ${data.clinic.address}`, 10, footerY + 10);
-    doc.text(`Clinic Postcode: ${data.clinic.postcode}`, 10, footerY + 20);
+    doc.text(`Clinic Postcode: ${data.clinic.pincode}`, 10, footerY + 20);
 
     if (data.doctor.signatureUrl) {
       doc.addImage(data.doctor.signatureUrl, "PNG", pageWidth - 40, footerY + 5, 30, 15);

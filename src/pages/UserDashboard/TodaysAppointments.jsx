@@ -46,6 +46,7 @@ const TodaysAppointments = () => {
     try {
       dispatch(showLoader());
       let res = await downloadAppointmentPdfDataApi(appointmentId);
+      console.log(res)
       GenerateAppointmentPdf(res.data)
     } catch (error) {
       console.error(error);

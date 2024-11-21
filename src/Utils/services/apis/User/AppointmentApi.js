@@ -24,12 +24,10 @@ export const downloadReportPdfDataApi = async (appointmentId) => {
   return res.data;
 };
 
-
 export const getAllAppointmentsActiveUserApi = async (limit) => {
   const res = await axiosInstance.get(`/v1/user/get-my-all-appointment?limit=${limit}`);
   return res.data;
 };
-
 
 export const rejectedAppointmentUserByIdApi = async (id) => {
   const res = await axiosInstance.get(`/v1/user/get-my-rejected-appointment/${id}`);
@@ -39,7 +37,6 @@ export const getMyAppointmentUserApiByIdApi = async (id) => {
   const res = await axiosInstance.get(`/v1/user/get-my-completed-appointment/${id}`);
   return res.data;
 };
-
 
 export const searchUserAllAppointmentsApi = async (appointmentNumber = "", txnId = "", appointmentDate = "", status = "") => {
   const queryObj = {};
@@ -52,6 +49,6 @@ export const searchUserAllAppointmentsApi = async (appointmentNumber = "", txnId
   const query = new URLSearchParams(queryObj).toString();
 
   const res = await axiosInstance.get(`/v1/user/search-my-all-appointment?${query}`);
-  
+
   return res.data;
 };
