@@ -119,16 +119,16 @@ export const GenerateTreatmentPdf = (data) => {
     addContent("Disease", data.treatmentDetails.diseaseName);
     addContent("Symptoms", data.treatmentDetails.symptoms);
     addContent("Follow-up Date", data.treatmentDetails.followUpDate.split("T")[0]);
-    
+
     // Handling Notes with wrapping
     const notes = data.treatmentDetails.notes || "None";
     checkPageSpace(20);
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.text("Notes:", 10, currentY);
-    
+
     doc.setTextColor(59, 152, 235);
-    const wrappedNotes = doc.splitTextToSize(notes, pageWidth - 20);  // Wrap text based on page width
+    const wrappedNotes = doc.splitTextToSize(notes, pageWidth - 60); // Wrap text based on page width
     doc.text(wrappedNotes, 50, currentY);
     currentY += wrappedNotes.length * 5 + 10; // Adjust the Y position after Notes section
 
@@ -157,7 +157,7 @@ export const GenerateTreatmentPdf = (data) => {
 
     if (tests.length > 0) {
       const testsLine = tests.join(", ");
-      
+
       checkPageSpace(20);
       doc.setFontSize(10);
       doc.setTextColor(0, 0, 0);
@@ -165,7 +165,7 @@ export const GenerateTreatmentPdf = (data) => {
 
       // Wrapping tests list if it overflows
       doc.setTextColor(59, 152, 235);
-      const wrappedTests = doc.splitTextToSize(testsLine, pageWidth - 20);  // Adjust for page width
+      const wrappedTests = doc.splitTextToSize(testsLine, pageWidth - 60); // Adjust for page width
       doc.text(wrappedTests, 50, currentY);
       currentY += wrappedTests.length * 5 + 10; // Adjust currentY to account for wrapped lines
     } else {
@@ -207,7 +207,7 @@ export const GenerateAppointmentPdf = (data) => {
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(14); // Reduced font size
-    doc.text("Personal Medical Record", pageWidth / 2, 15, { align: "center" });
+    doc.text("Appointment Booked Record", pageWidth / 2, 15, { align: "center" });
 
     doc.setFontSize(10); // Smaller font size for details
     doc.text(`${data.patientDetails.name}`, 10, 22); // Patient name on the left
@@ -307,7 +307,7 @@ export const GenerateAppointmentPdf = (data) => {
 
     doc.setTextColor(255, 255, 255); // White color for the text
     const textX = 10 + padding + (buttonWidth - padding * 2 - doc.getTextWidth(buttonText)) / 2;
-    const textY = buttonY-2 + buttonHeight / 2 + 3; // Adjusted textY to center vertically
+    const textY = buttonY - 2 + buttonHeight / 2 + 3; // Adjusted textY to center vertically
 
     // Add the button text centered
     doc.text(buttonText, textX, textY);
@@ -456,7 +456,7 @@ export const GenerateTreatmentReportUserPdf = (data) => {
     addContent("Symptoms", data.treatmentDetails.symptoms);
     addContent("Follow-up Date", data.treatmentDetails.followUpDate.split("T")[0]);
 
-    // Handling Notes with wrapping
+    // Handling Notes with wrapping and dynamic page breaks
     const notes = data.treatmentDetails.notes || "None";
     checkPageSpace(20);
     doc.setFontSize(10);
@@ -464,9 +464,14 @@ export const GenerateTreatmentReportUserPdf = (data) => {
     doc.text("Notes:", 10, currentY);
 
     doc.setTextColor(59, 152, 235);
-    const wrappedNotes = doc.splitTextToSize(notes, pageWidth - 20);  // Wrap text based on page width
+    const wrappedNotes = doc.splitTextToSize(notes, pageWidth - 60); // Wrap notes within the page width
+
+    // Calculate total space needed for notes and handle page breaks
+    const requiredSpaceForNotes = wrappedNotes.length * 5 + 10;
+    checkPageSpace(requiredSpaceForNotes);
+
     doc.text(wrappedNotes, 50, currentY);
-    currentY += wrappedNotes.length * 5 + 10; // Adjust the Y position after Notes section
+    currentY += requiredSpaceForNotes; // Update currentY based on rendered notes
 
     addSectionTitle("Medications");
     const medications = data.treatmentDetails.medications.map((med) => [med.name, med.dose, med.routine, `${med.duration} days`]);
@@ -485,7 +490,7 @@ export const GenerateTreatmentReportUserPdf = (data) => {
     currentY = doc.lastAutoTable.finalY + 10;
   };
 
-  // Add Tests Prescribed at the End
+  // Add Tests Prescribed
   const addTestsPrescribed = () => {
     addSectionTitle("Tests Prescribed");
 
@@ -493,7 +498,7 @@ export const GenerateTreatmentReportUserPdf = (data) => {
 
     if (tests.length > 0) {
       const testsLine = tests.join(", ");
-      
+
       checkPageSpace(20);
       doc.setFontSize(10);
       doc.setTextColor(0, 0, 0);
@@ -501,7 +506,7 @@ export const GenerateTreatmentReportUserPdf = (data) => {
 
       // Wrapping tests list if it overflows
       doc.setTextColor(59, 152, 235);
-      const wrappedTests = doc.splitTextToSize(testsLine, pageWidth - 20);  // Adjust for page width
+      const wrappedTests = doc.splitTextToSize(testsLine, pageWidth - 60); // Reduced width for right-side spacing
       doc.text(wrappedTests, 50, currentY);
       currentY += wrappedTests.length * 5 + 10; // Adjust currentY to account for wrapped lines
     } else {
@@ -517,7 +522,7 @@ export const GenerateTreatmentReportUserPdf = (data) => {
     addAppointmentDetails();
     addTransactionDetails();
     addMedicalDetails();
-    addTestsPrescribed(); // Tests section added at the end
+    addTestsPrescribed();
   };
 
   generatePage();
