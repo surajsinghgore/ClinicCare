@@ -74,7 +74,7 @@ const ClientDashboard = () => {
     try {
       dispatch(showLoader());
       let res = await getTotalPlatformStatsApi();
-      // console.log(res);
+
 
 
       if (res?.status) {

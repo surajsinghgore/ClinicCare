@@ -58,3 +58,13 @@ export const getTotalPlatformStatsApi = async () => {
   return res.data;
 };
 
+// clinic near by
+export const findAllClinicInMapApi = async () => {
+  const res = await axiosInstance.get(`/v1/all-clinic-in-map`);
+  return res.data;
+};
+
+export const findNearbyClinicsApi = async (lat = "", long = "") => {
+  const res = await axiosInstance.get(`/v1/near-by-clinic?lat=${lat}&long=${long}`);
+  return res.data;
+};

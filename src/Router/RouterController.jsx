@@ -80,6 +80,7 @@ import ViewPatientsDetails from "../pages/Doctor/Patients/ViewPatientDetails";
 import PaymentVerificationPage from "../pages/Doctor/Patients/PaymentVerificationPage";
 import Demo from "../pages/Demo";
 import AdminCreates from "../pages/Admin/CreateAdmins";
+import NearByClinic from "../pages/Client/NearByClinic";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,15 @@ const router = createBrowserRouter([
     element: (
       <><UserLayout>
         <ShowRatings />
+      </UserLayout>
+      </>
+    ),
+  },
+  {
+    path: "/near-by-clinic",
+    element: (
+      <><UserLayout>
+        <NearByClinic />
       </UserLayout>
       </>
     ),

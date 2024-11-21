@@ -28,7 +28,6 @@ const Demo = () => {
         map.on('click', (e) => {
             const lat = e.latlng.lat;
             const lng = e.latlng.lng;
-            console.log(`Latitude: ${lat}, Longitude: ${lng}`);
 
             // Move the marker to the clicked location
             if (marker) marker.setLatLng([lat, lng]);
