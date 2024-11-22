@@ -4,19 +4,14 @@ ClinicCare is a healthcare platform built using the MERN stack to simplify patie
 
 ## DEMO LINK
 
-LIVE =>
-https://cliniccare.surajsingh.online
+LIVE => https://clinic-care-three.vercel.app/
 
-SOURCE CODE => https://github.com/surajsinghgore/ClinicCare
+SOURCE CODE => https://github.com/tusharn3115/ClinicCare
 
 ## Screenshots
 
 ![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1732265273/socket.io/clinicCare/d1nd83oapmt6b7apubto.png)
 ![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1732265276/socket.io/clinicCare/v697eb0cjokkav5bcmos.png)
-
-![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1732265292/socket.io/clinicCare/xnvl79namkmfpdsnjzzt.png)
-![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1732265290/socket.io/clinicCare/iquvfmhhsexmrvgiw9il.png)
-![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1732265284/socket.io/clinicCare/qp5owkybi8yv8ih19q1a.png)
 ![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1732265274/socket.io/clinicCare/gihsaoxk6rb6jtttnoic.png)
 ![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1732265274/socket.io/clinicCare/tdpvpsufkower1ssmk7o.png)
 ![App Screenshot](https://res.cloudinary.com/dnxv21hr0/image/upload/v1732265272/socket.io/clinicCare/ku6dzfayatummlw7cjkx.png)
