@@ -205,7 +205,7 @@ const BookAppointment = () => {
                     onClick={() => navigate("/doctor-details")}
                   />
                 </Link>
-                <div className="ml-4 flex-grow">
+                <div className="ml-4 w-[65%]">
                   <Link to={`/doctor-details/${doctor.doctorId}`}>
                     <h3 className="text-xl font-semibold text-[#0148B1]">
                       {doctor.doctorName || "Dr. Unknown"}
@@ -214,19 +214,19 @@ const BookAppointment = () => {
 
 
                   <Link to={`/show-ratings/${doctor.doctorId}?limit=10&sortBy=latest`} className="cursor-pointer">
-                  <div className="text-black-600 flex items-center mb-3">
-                    <ReactStars
-                      count={1}
-                      value={5}
-                      size={25}
-                      color1={"#d1d1d1"}
-                      color2={"rgb(247 133 35)"}
-                      className="sizesofStar"
-                      isHalf={true}
-                      edit={false}
-                    />
-                    <span className="pl-1">{doctor?.avgRating}</span>
-                  </div>
+                    <div className="text-black-600 flex items-center mb-3">
+                      <ReactStars
+                        count={1}
+                        value={5}
+                        size={25}
+                        color1={"#d1d1d1"}
+                        color2={"rgb(247 133 35)"}
+                        className="sizesofStar"
+                        isHalf={true}
+                        edit={false}
+                      />
+                      <span className="pl-1">{doctor?.avgRating}</span>
+                    </div>
                   </Link>
 
                   <p className="text-black-600 flex items-center mb-3">
