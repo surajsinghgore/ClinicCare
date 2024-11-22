@@ -4,7 +4,8 @@ import { getLocalStorage } from "./LocalStorage";
 const axiosInstance = axios.create({
   // baseURL: `http://localhost:8000/api`,
   // baseURL: `https://cliniccarebackend.onrender.com/api`,
-  baseURL: `https://cliniccare.surajsingh.online/api`,
+  // baseURL: `https://cliniccare.surajsingh.online/api`,
+  baseURL: `https://cliniccarebackend.surajsingh.online/api`,
 });
 
 axiosInstance.interceptors.request.use(

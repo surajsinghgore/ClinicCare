@@ -57,7 +57,7 @@ const Login = () => {
           }
         }
         if (res.role == "user") {
-           navigate(-1);
+          navigate("/user/user-general-details");
           setLocalStorage("token", res.token);
         }
       }, 2000);
